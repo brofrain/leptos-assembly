@@ -94,14 +94,22 @@ Additionally, the project aspires to implement a strict, predictable and scalabl
 
 ### Prerequisites
 
-[just](https://github.com/casey/just) is required for running CLI tasks.\
-Installation:
+- [just](https://github.com/casey/just) is required for running CLI tasks.\
+  Installation:
 
-```bash
-cargo install just
-```
+  ```bash
+  cargo install just
+  ```
 
-Once you have it installed, you can simply run:
+- [Node](https://nodejs.org/en) - the exact version is specified in `.nvmrc` file.\
+  Installation using [nvm](https://github.com/nvm-sh/nvm):
+
+  ```bash
+  nvm install
+  nvm use
+  ```
+
+Once you have everything, you can simply run:
 
 ```bash
 just setup
