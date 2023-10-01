@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "pnpm@8.8.0",
   "engines": {
-    "node": "^18.17.1",
+    "node": "^18.18.0",
     "pnpm": "^8.8.0"
   },
   "engineStrict": true,
