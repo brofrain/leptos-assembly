@@ -1,0 +1,33 @@
+name: Setup
+
+runs:
+  using: composite
+  steps:
+    - uses: actions/checkout@v3
+
+    - name: Cargo cache setup
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.cargo/
+          ~/.rustup/toolchains/
+          target/
+        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: ${{ runner.os }}-cargo-
+
+    - name: pnpm setup
+      uses: pnpm/action-setup@v2
+
+    - name: Node setup
+      uses: actions/setup-node@v3
+      with:
+        node-version-file: ".nvmrc"
+        cache: pnpm
+
+    - name: Just setup
+      shell: bash
+      run: cargo install just@1.14.0
+
+    - name: Project setup
+      shell: bash
+      run: just setup

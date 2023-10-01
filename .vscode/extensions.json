@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "antfu.iconify",
+    "antfu.unocss",
+    "lokalise.i18n-ally",
+    "rust-lang.rust-analyzer",
+    "tamasfe.even-better-toml"
+  ]
+}

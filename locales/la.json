@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "title": "Leptos Conventus"
+  },
+  "common": {
+    "button": {
+      "back": "Retro",
+      "home": "Domus"
+    },
+    "confirm": {
+      "body": "Es certus?",
+      "accept": "Confirmo",
+      "cancel": "Cancel"
+    }
+  },
+  "panic_confirm": {
+    "body": "Inopinatum error inciderunt!",
+    "accept": "Reload paginae"
+  },
+  "locale": {
+    "changed": "Locus mutatus est ad \"{{new_locale}}\""
+  },
+  "cookie_bar": {
+    "hi": "Salve",
+    "accept": "Accipere",
+    "cookies": "nulla crustula"
+  },
+  "nav": {
+    "link_home": "Domus",
+    "link_about": "De",
+    "toggle_dark": "Toggle tenebris modus",
+    "toggle_locale": "Mutatio locale"
+  },
+  "home": {
+    "title": "Leptos Conventus",
+    "description": "Plena acervus, plene oneratus",
+    "input_placeholder": "Quid est tibi nomen?",
+    "input_placeholder_with_name": "Quid est tibi nomen? Adhuc \"{{name}}\"?",
+    "button": "VADO!",
+    "leptos_tag": "Tardus Leptos emissio tag est {{tag}} fundatur in GitHub API",
+    "leptos_tag_loading": "Loading tardus Leptos emissio tag...",
+    "leptos_tag_error": "Loading tardus Leptos emissio tag ex GitHub API defecit!"
+  },
+  "about": {
+    "title": "De",
+    "features": {
+      "updated": "Album updated",
+      "add_random": "Addere temere",
+      "remove_random": "Removere temere",
+      "shuffle": "Versas",
+      "nothing_to_remove": "Nihil ad removendum",
+      "shuffle_changed_nothing": "Nihil mutatum"
+    }
+  },
+  "name": {
+    "hi": "Salve, {{name}}!",
+    "description": "Demo de dynamic pagina",
+    "aka": "Qui et"
+  },
+  "page_not_found": "Pagina non inveni:"
+}

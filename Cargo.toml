@@ -1,0 +1,174 @@
+[package]
+name = "leptos-assembly"
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.70"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[workspace]
+resolver = "2"
+members = ["src/macros/proc"]
+
+[dependencies]
+# full-stack
+proc-macros.path = "src/macros/proc"
+anyhow = "1.0.75"
+cfg-if = "1.0.0"
+derive-getters = "0.3.0"
+derive_more = "0.99.17"
+derive_setters = "0.1.6"
+educe = "0.4.23"
+fern = "0.6.2"
+futures = "0.3.28"
+leptos = { version = "0.5.0", features = ["nightly"] }
+leptos_i18n = { version = "0.2.0", features = ["nightly", "serde"] }
+leptos_meta = { version = "0.5.0", features = ["nightly"] }
+leptos_router = { version = "0.5.0", features = ["nightly"] }
+leptos-use = { version = "0.7.0", features = ["storage"] }
+log = "0.4.20"
+paste = "1.0.14"
+pct-str = { version = "2.0.0" }
+rand = "0.8.5"
+serde = { version = "1.0.188", features = ["derive"] }
+serde_json = "1.0.107"
+thiserror = "1.0.48"
+time = { version = "0.3.28", features = ["macros", "formatting", "parsing"] }
+unocss-classes = { version = "1.1.1" }
+wasm-bindgen = { version = "0.2.87" }
+web-sys = { version = "0.3.64", features = [
+  "CssStyleDeclaration",
+  "DomRect",
+  "DomTokenList",
+  "Element",
+  "Event",
+  "EventTarget",
+  "HtmlElement",
+  "MediaQueryList",
+  "Performance",
+] }
+# client-only
+console_log = { version = "1.0.0", features = ["color"], optional = true }
+getrandom = { version = "0.2.10", features = ["js"], optional = true }
+# server-only
+axum = { version = "0.6.20", optional = true }
+leptos_axum = { version = "0.5.0", optional = true }
+owo-colors = { version = "3.5.0", optional = true }
+reqwest = { version = "0.11.20", features = ["json"], optional = true }
+tokio = { version = "1.32.0", features = ["full"], optional = true }
+tower = { version = "0.4.13", optional = true }
+tower-http = { version = "0.4.4", features = ["fs"], optional = true }
+
+[dev-dependencies]
+insta = "1.31.0"
+pretty_assertions = "1.4.0"
+wasm-bindgen-test = "0.3.37"
+
+[features]
+client = [
+  "dep:console_log",
+  "dep:getrandom",
+  "time/wasm-bindgen",
+  "leptos/csr",
+  "leptos_meta/csr",
+  "leptos_router/csr",
+]
+server = [
+  "dep:axum",
+  "dep:leptos_axum",
+  "dep:owo-colors",
+  "dep:reqwest",
+  "dep:tokio",
+  "dep:tower",
+  "dep:tower-http",
+  "leptos/ssr",
+  "leptos_meta/ssr",
+  "leptos_router/ssr",
+  "leptos_i18n/axum",
+]
+
+[package.metadata.cargo-all-features]
+skip_feature_sets = [["client", "server"]]
+
+[package.metadata.leptos-i18n]
+default = "en"
+locales = ["en", "la"]
+locales-dir = "locales"
+
+[package.metadata.leptos]
+site-root = "target/site"
+site-pkg-dir = "pkg"
+assets-dir = "target/prebuild/assets"
+site-addr = "127.0.0.1:3333"
+reload-port = 3334
+watch = false
+bin-features = ["server"]
+bin-default-features = false
+lib-features = ["client"]
+lib-default-features = false
+lib-profile-release = "wasm-release"
+
+[profile.wasm-release]
+inherits = "release"
+opt-level = 'z'
+lto = true
+codegen-units = 1
+panic = "abort"
+
+[lints.rust]
+unsafe_code = "deny"
+
+[lints.clippy]
+# warn
+clone_on_ref_ptr = "warn"
+disallowed_macros = "warn"
+disallowed_methods = "warn"
+disallowed_types = "warn"
+dbg_macro = "warn"
+deref_by_slicing = "warn"
+empty_structs_with_brackets = "warn"
+exit = "warn"
+float_cmp_const = "warn"
+fn_to_numeric_cast_any = "warn"
+get_unwrap = "warn"
+integer_division = "warn"
+implied_bounds_in_impls = "warn"
+lossy_float_literal = "warn"
+map_err_ignore = "warn"
+mem_forget = "warn"
+multiple_inherent_impl = "warn"
+mutex_atomic = "warn"
+needless_lifetimes = "warn"
+panic_in_result_fn = "warn"
+partial_pub_fields = "warn"
+pedantic = "warn"
+print_stderr = "warn"
+print_stdout = "warn"
+pub_without_shorthand = "warn"
+rc_mutex = "warn"
+ref_patterns = "warn"
+redundant_clone = "warn"
+redundant_type_annotations = "warn"
+rest_pat_in_fully_bound_structs = "warn"
+self_named_module_files = "warn"
+semicolon_inside_block = "warn"
+str_to_string = "warn"
+string_to_string = "warn"
+suspicious_xor_used_as_pow = "warn"
+todo = "warn"
+try_err = "warn"
+undocumented_unsafe_blocks = "warn"
+unimplemented = "warn"
+unnecessary_safety_comment = "warn"
+unnecessary_safety_doc = "warn"
+unnecessary_self_imports = "warn"
+unneeded_field_pattern = "warn"
+unreachable = "warn"
+unseparated_literal_suffix = "warn"
+use_debug = "warn"
+verbose_file_reads = "warn"
+# allow
+cast_precision_loss = "allow"
+missing_panics_doc = "allow"
