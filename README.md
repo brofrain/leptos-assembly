@@ -6,7 +6,7 @@
   Leptos Assembly
 </h2>
 
-<h6>
+<p>
   <i>
     <div align="center">
       Leptos / Axum / PWA / I18n
@@ -15,7 +15,7 @@
       UnoCSS / Iconify / cargo-leptos & Vite / Playwright
     </div>
   </i>
-</h6>
+</p>
 
 <p align="center">
   Full stack, fully packed
