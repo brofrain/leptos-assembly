@@ -11,7 +11,7 @@
 #[macro_export]
 macro_rules! cfg_client {
     ($($t:tt)*) => {
-        cfg_if::cfg_if! { if #[cfg(feature = "client")] {
+        cfg_if::cfg_if! { if #[cfg(any(feature = "client", feature = "_dev"))] {
             $($t)*
         }}
     };
@@ -30,7 +30,7 @@ macro_rules! cfg_client {
 #[macro_export]
 macro_rules! cfg_server {
     ($($t:tt)*) => {
-        cfg_if::cfg_if! { if #[cfg(feature = "server")] {
+        cfg_if::cfg_if! { if #[cfg(any(feature = "server", feature = "_dev"))] {
             $($t)*
         }}
     };

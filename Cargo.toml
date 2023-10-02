@@ -24,7 +24,7 @@ educe = "0.4.23"
 fern = "0.6.2"
 futures = "0.3.28"
 leptos = { version = "0.5.0", features = ["nightly"] }
-leptos_i18n = { version = "0.2.0", features = ["nightly", "serde"] }
+leptos_i18n = { version = "0.2.0", features = ["nightly", "serde", "cookie"] }
 leptos_meta = { version = "0.5.0", features = ["nightly"] }
 leptos_router = { version = "0.5.0", features = ["nightly"] }
 leptos-use = { version = "0.7.0", features = ["storage"] }
@@ -67,15 +67,8 @@ pretty_assertions = "1.4.0"
 wasm-bindgen-test = "0.3.37"
 
 [features]
-client = [
-  "dep:console_log",
-  "dep:getrandom",
-  "time/wasm-bindgen",
-  "leptos/csr",
-  "leptos_meta/csr",
-  "leptos_router/csr",
-]
-server = [
+_client-deps = ["dep:console_log", "dep:getrandom"]
+_server-deps = [
   "dep:axum",
   "dep:leptos_axum",
   "dep:owo-colors",
@@ -83,13 +76,26 @@ server = [
   "dep:tokio",
   "dep:tower",
   "dep:tower-http",
+]
+client = [
+  "_client-deps",
+  "time/wasm-bindgen",
+  "leptos/csr",
+  "leptos_i18n/csr",
+  "leptos_meta/csr",
+  "leptos_router/csr",
+]
+server = [
+  "_server-deps",
   "leptos/ssr",
   "leptos_meta/ssr",
   "leptos_router/ssr",
   "leptos_i18n/axum",
 ]
+_dev = ["_client-deps", "_server-deps", "_server-deps"]
 
 [package.metadata.cargo-all-features]
+denylist = ["_client-deps", "_dev"]
 skip_feature_sets = [["client", "server"]]
 
 [package.metadata.leptos-i18n]

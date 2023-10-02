@@ -1,4 +1,3 @@
-use leptos_assembly::{logger, App};
 use axum::{
     body::{boxed, Body, BoxBody},
     extract::State,
@@ -8,6 +7,7 @@ use axum::{
     Router,
 };
 use leptos::{get_configuration, view, LeptosOptions, View};
+use leptos_assembly::{logger, App};
 use leptos_axum::{generate_route_list, LeptosRoutes};
 use tower::ServiceExt;
 use tower_http::services::ServeDir;

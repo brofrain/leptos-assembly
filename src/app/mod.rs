@@ -26,7 +26,11 @@ use leptos_router::Router;
 use leptos_use::use_color_mode;
 
 use crate::app::{
-    composables::{i18n, panic_handler, provide_global_context},
+    composables::{
+        i18n::provide_i18n_context,
+        panic_handler,
+        provide_global_context,
+    },
     prelude::*,
 };
 
@@ -34,9 +38,8 @@ use crate::app::{
 pub fn App() -> impl IntoView {
     provide_meta_context();
     provide_global_context();
-    i18n::init();
 
-    let i18n = use_i18n();
+    let i18n = provide_i18n_context();
 
     let head = view! {
         <Title text=t!(i18n, meta.title)/>
