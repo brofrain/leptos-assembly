@@ -7,7 +7,7 @@ mod prelude;
 mod app;
 mod utils;
 
-cfg_client! {
+cfg_csr! {
     use wasm_bindgen::prelude::*;
 
     #[wasm_bindgen]
@@ -23,6 +23,6 @@ cfg_client! {
     }
 }
 
-cfg_server! {
+cfg_ssr! {
     pub use crate::{app::App, utils::logger};
 }

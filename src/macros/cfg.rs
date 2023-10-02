@@ -1,65 +1,65 @@
 /// Contents will be compiled only for client-side of the application -
-/// shorthand for `cfg_if::cfg_if! { if #[cfg(feature = "client")] { ... } }`.
+/// shorthand for `cfg_if::cfg_if! { if #[cfg(feature = "csr")] { ... } }`.
 ///
 /// # Example
 ///
 /// ```
-/// leptos_assembly::cfg_client! {
+/// leptos_assembly::cfg_csr! {
 ///     leptos::logging::log!("Hello from browser!");
 /// }
 /// ```
 #[macro_export]
-macro_rules! cfg_client {
+macro_rules! cfg_csr {
     ($($t:tt)*) => {
-        cfg_if::cfg_if! { if #[cfg(any(feature = "client", feature = "_dev"))] {
+        cfg_if::cfg_if! { if #[cfg(feature = "csr")] {
             $($t)*
         }}
     };
 }
 
 /// Contents will be compiled only for client-side of the application -
-/// shorthand for `cfg_if::cfg_if! { if #[cfg(feature = "server")] { ... } }`.
+/// shorthand for `cfg_if::cfg_if! { if #[cfg(feature = "ssr")] { ... } }`.
 ///
 /// # Example
 ///
 /// ```
-/// leptos_assembly::cfg_server! {
+/// leptos_assembly::cfg_ssr! {
 ///     leptos::logging::log!("Hello from server!");
 /// }
 /// ```
 #[macro_export]
-macro_rules! cfg_server {
+macro_rules! cfg_ssr {
     ($($t:tt)*) => {
-        cfg_if::cfg_if! { if #[cfg(any(feature = "server", feature = "_dev"))] {
+        cfg_if::cfg_if! { if #[cfg(feature = "ssr")] {
             $($t)*
         }}
     };
 }
 
-/// Shorthand for `cfg!(feature = "client")`.
+/// Shorthand for `cfg!(feature = "csr")`.
 ///
 /// # Example
 ///
 /// ```
-/// assert_eq!(leptos_assembly::is_client!(), cfg!(feature = "client"));
+/// assert_eq!(leptos_assembly::is_csr!(), cfg!(feature = "csr"));
 /// ```
 #[macro_export]
-macro_rules! is_client {
+macro_rules! is_csr {
     () => {
-        cfg!(feature = "client")
+        cfg!(feature = "csr")
     };
 }
 
-/// Shorthand for `cfg!(feature = "server")`.
+/// Shorthand for `cfg!(feature = "ssr")`.
 ///
 /// # Example
 ///
 /// ```
-/// assert_eq!(leptos_assembly::is_server!(), cfg!(feature = "server"));
+/// assert_eq!(leptos_assembly::is_ssr!(), cfg!(feature = "ssr"));
 /// ```
 #[macro_export]
-macro_rules! is_server {
+macro_rules! is_ssr {
     () => {
-        cfg!(feature = "server")
+        cfg!(feature = "ssr")
     };
 }

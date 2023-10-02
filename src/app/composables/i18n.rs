@@ -8,7 +8,7 @@ pub fn use_toggle_locale_and_push_toast() -> impl Fn() {
     let i18n = use_i18n();
 
     move || {
-        let current_locale = i18n.get_locale();
+        let current_locale = i18n.get_locale_untracked();
 
         let new_locale = match current_locale {
             Locale::en => Locale::la,

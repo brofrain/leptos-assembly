@@ -67,6 +67,8 @@ pretty_assertions = "1.4.0"
 wasm-bindgen-test = "0.3.37"
 
 [features]
+csr = []
+ssr = []
 _client-deps = ["dep:console_log", "dep:getrandom"]
 _server-deps = [
   "dep:axum",
@@ -78,6 +80,7 @@ _server-deps = [
   "dep:tower-http",
 ]
 client = [
+  "csr",
   "_client-deps",
   "time/wasm-bindgen",
   "leptos/csr",
@@ -86,17 +89,29 @@ client = [
   "leptos_router/csr",
 ]
 server = [
+  "ssr",
   "_server-deps",
   "leptos/ssr",
   "leptos_meta/ssr",
   "leptos_router/ssr",
   "leptos_i18n/axum",
 ]
-_dev = ["_client-deps", "_server-deps", "_server-deps"]
 
 [package.metadata.cargo-all-features]
-denylist = ["_client-deps", "_dev"]
-skip_feature_sets = [["client", "server"]]
+skip_feature_sets = [
+  [
+    "csr",
+    "ssr",
+  ],
+  [
+    "_client-deps",
+    "_server-deps",
+  ],
+  [
+    "client",
+    "server",
+  ],
+]
 
 [package.metadata.leptos-i18n]
 default = "en"

@@ -61,7 +61,7 @@ pub fn App() -> impl IntoView {
         <Html class="dark"/>
     };
 
-    if is_server!() {
+    if is_ssr!() {
         return head;
     }
 

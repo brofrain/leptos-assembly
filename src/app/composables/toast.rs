@@ -15,6 +15,7 @@ pub enum Severity {
 #[derive(Getters, Clone)]
 pub struct Toast {
     id: id::Usize,
+    // TODO: try using a signal instead?
     body: View,
     severity: Severity,
 }

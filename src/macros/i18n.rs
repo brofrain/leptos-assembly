@@ -1,26 +1,8 @@
 #[macro_export]
 macro_rules! __t_get {
-    ($method:ident; $i18n:ident, $($keys:ident).+) => {
+    ($method:ident; $i18n:ident, $($t:tt)*) => {
         paste::item! {
-            $i18n.[< $method >]().$($keys).+
-        }
-    };
-
-    ($method:ident; $i18n:ident, $($keys:ident).+, $($var_name:ident = $var_val:expr),+) => {
-        paste::item! {
-            $crate::__t_get!($method; $i18n, $($keys).+)
-            .$(
-                [< var_ $var_name >]($var_val)
-            ).+
-        }
-    };
-
-    ($method:ident; $i18n:ident, $($keys:ident).+, $($var:ident),+) => {
-        paste::item! {
-            $crate::__t_get!($method; $i18n, $($keys).+)
-            .$(
-                [< var_ $var >]($var)
-            ).+
+            $crate::app::composables::i18n::td!($i18n.[< $method >](), $($t)*)
         }
     };
 }
@@ -29,7 +11,7 @@ macro_rules! __t_get {
 #[macro_export]
 macro_rules! t_get {
     ($i18n:ident, $($t:tt)*) => {
-        $crate::__t_get!(get_keys; $i18n, $($t)*)
+        $crate::__t_get!(get_locale; $i18n, $($t)*)
     }
 }
 
@@ -37,7 +19,7 @@ macro_rules! t_get {
 #[macro_export]
 macro_rules! t_get_untracked {
     ($i18n:ident, $($t:tt)*) => {
-        $crate::__t_get!(get_keys_untracked; $i18n, $($t)*)
+        $crate::__t_get!(get_locale_untracked; $i18n, $($t)*)
     }
 }
 

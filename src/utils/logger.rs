@@ -2,7 +2,7 @@ use fern::Dispatch;
 
 use crate::prelude::*;
 
-#[cfg(feature = "server")]
+#[cfg(feature = "ssr")]
 fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
     use owo_colors::OwoColorize;
     use time::{macros::format_description, OffsetDateTime};
@@ -71,7 +71,7 @@ pub fn init() {
         }
     }
 
-    cfg_client! {
+    cfg_csr! {
         dispatch = dispatch.chain(fern::Output::call(console_log::log)).format(
             |out, message, _| {
                 out.finish(*message);
@@ -79,7 +79,7 @@ pub fn init() {
         );
     }
 
-    cfg_server! {
+    cfg_ssr! {
         dispatch = build_server_dispatch(dispatch);
     }
 
