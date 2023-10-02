@@ -1,9 +1,3 @@
-use leptos_use::storage::{
-    use_storage_with_options,
-    StorageType,
-    UseStorageOptions,
-};
-
 use super::toast;
 use crate::{app::prelude::*, utils::future::next_tick};
 
