@@ -1,8 +1,10 @@
 #[macro_export]
 macro_rules! __t_get {
-    ($method:ident; $i18n:ident, $($t:tt)*) => {
+    ($macro:ident; $i18n_method:ident; $i18n:ident, $($t:tt)*) => {
         paste::item! {
-            $crate::app::composables::i18n::td!($i18n.[< $method >](), $($t)*)
+            $crate::app::composables::i18n::$macro!(
+                $i18n.[< $i18n_method >](), $($t)*
+            )
         }
     };
 }
@@ -11,7 +13,7 @@ macro_rules! __t_get {
 #[macro_export]
 macro_rules! t_get {
     ($i18n:ident, $($t:tt)*) => {
-        $crate::__t_get!(get_locale; $i18n, $($t)*)
+        $crate::__t_get!(td; get_locale; $i18n, $($t)*)
     }
 }
 
@@ -19,7 +21,7 @@ macro_rules! t_get {
 #[macro_export]
 macro_rules! t_get_untracked {
     ($i18n:ident, $($t:tt)*) => {
-        $crate::__t_get!(get_locale_untracked; $i18n, $($t)*)
+        $crate::__t_get!(td; get_locale_untracked; $i18n, $($t)*)
     }
 }
 
@@ -41,13 +43,28 @@ macro_rules! t_view_untracked {
     };
 }
 
-/// Returns translation tranformed into [`String`]. The conversion is relatively
-/// expensive and all HTML tags inside the translation will be stripped.
+/// Returns translation tranformed into [`String`]. Shorthand
+/// for `td_string!(i18n::get_locale(), ...)`.
 #[macro_export]
 macro_rules! t_string {
-    ($($t:tt)*) => {
-        leptos::view! { <span>{
-            $crate::t_get!($($t)*)
-        }</span> }.text_content().unwrap()
+    ($i18n:ident, $($t:tt)*) => {
+        {
+            #[allow(clippy::str_to_string)]
+            $crate::__t_get!(td_string; get_locale; $i18n, $($t)*).to_string()
+        }
+    };
+}
+
+/// Returns translation tranformed into [`String`]. Shorthand
+/// for `td_string!(i18n::get_locale_untracked(), ...)`.
+#[macro_export]
+macro_rules! t_string_untracked {
+    ($i18n:ident, $($t:tt)*) => {
+        {
+            #[allow(clippy::str_to_string)]
+            $crate::__t_get!(
+                td_string; get_locale_untracked; $i18n, $($t)*
+            ).to_string()
+        }
     };
 }

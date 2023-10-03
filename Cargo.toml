@@ -24,7 +24,12 @@ educe = "0.4.23"
 fern = "0.6.2"
 futures = "0.3.28"
 leptos = { version = "0.5.0", features = ["nightly"] }
-leptos_i18n = { version = "0.2.0", features = ["nightly", "serde", "cookie"] }
+leptos_i18n = { git = "https://github.com/Baptistemontan/leptos_i18n", rev = "388738030475d697f76c25ea2e38291957435da6", features = [
+  "nightly",
+  "serde",
+  "cookie",
+  "interpolate_display",
+] }
 leptos_meta = { version = "0.5.0", features = ["nightly"] }
 leptos_router = { version = "0.5.0", features = ["nightly"] }
 leptos-use = { version = "0.7.0", features = ["storage"] }

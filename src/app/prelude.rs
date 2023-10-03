@@ -32,6 +32,6 @@ pub use leptos::{
 pub use unocss_classes::uno;
 
 pub use crate::{
-    app::composables::i18n::{t, td, use_i18n},
+    app::composables::i18n::{t, use_i18n},
     prelude::*,
 };

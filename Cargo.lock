@@ -1297,8 +1297,7 @@ dependencies = [
 [[package]]
 name = "leptos_i18n"
 version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "5b1f5938c4bd20bb46de24440313112c199e6fec01938d80e7c214d21f1d0d4d"
+source = "git+https://github.com/Baptistemontan/leptos_i18n?rev=388738030475d697f76c25ea2e38291957435da6#388738030475d697f76c25ea2e38291957435da6"
 dependencies = [
  "axum",
  "leptos",
@@ -1312,8 +1311,7 @@ dependencies = [
 [[package]]
 name = "leptos_i18n_macro"
 version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "eb8a9510418389133f50411219df4e72e0ff25e5e743acb2f35e2e98a2b67aad"
+source = "git+https://github.com/Baptistemontan/leptos_i18n?rev=388738030475d697f76c25ea2e38291957435da6#388738030475d697f76c25ea2e38291957435da6"
 dependencies = [
  "proc-macro2",
  "quote",
