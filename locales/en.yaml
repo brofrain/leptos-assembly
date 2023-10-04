@@ -1,0 +1,47 @@
+meta:
+  title: Leptos Assembly
+common:
+  button:
+    back: Back
+    home: Home
+  confirm:
+    body: Are you sure?
+    accept: Confirm
+    cancel: Cancel
+panic_confirm:
+  body: An unexpected error has occurred!
+  accept: Reload the page
+locale:
+  changed: The locale has been changed to "{{new_locale}}"
+cookie_bar:
+  hi: Hi
+  accept: Accept
+  cookies: the nonexistent cookies
+nav:
+  link_home: Home
+  link_about: About
+  toggle_dark: Toggle dark mode
+  toggle_locale: Change locale
+home:
+  title: Leptos Assembly
+  description: Full stack, fully packed
+  input_placeholder: What's your name?
+  input_placeholder_with_name: What's your name? Still "{{name}}"?
+  button: GO!
+  leptos_tag: The latest Leptos release tag is {{tag}} based on GitHub API
+  leptos_tag_loading: Fetching the latest Leptos release tag...
+  leptos_tag_error: Fetching the latest Leptos release tag from GitHub API has failed!
+about:
+  title: About
+  features:
+    updated: List updated
+    add_random: Add random
+    remove_random: Remove random
+    shuffle: Shuffle
+    nothing_to_remove: Nothing to remove
+    shuffle_changed_nothing: Nothing has changed
+name:
+  hi: Hi, {{name}}!
+  description: Demo of dynamic route
+  aka: Also known as
+page_not_found: "Page not found:"
