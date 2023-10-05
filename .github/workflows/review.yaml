@@ -32,6 +32,8 @@ jobs:
         run: just fmt-check
       - name: Lint
         run: just lint
+      - name: Build
+        run: just lint
       - name: Tests
         run: just test
       - name: E2E
