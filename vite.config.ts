@@ -51,7 +51,7 @@ const pwa = () => {
 
   return VitePWA({
     registerType: "autoUpdate",
-    includeAssets: ["favicon.svg", "safari-pinned-tab.svg"],
+    includeAssets: ["favicon.ico", "safari-pinned-tab.svg"],
     workbox: {
       globPatterns: ["**/*.{js,css,svg,woff2}"],
       additionalManifestEntries: [
