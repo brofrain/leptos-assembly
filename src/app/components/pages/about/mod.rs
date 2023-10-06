@@ -120,7 +120,7 @@ pub fn About() -> impl IntoView {
             next_tick().await;
             toast::push(Payload {
                 severity: Severity::Success,
-                body: t_view_untracked!(i18n, about.features.updated),
+                body: t!(i18n, about.features.updated),
             });
         });
     };
@@ -149,7 +149,7 @@ pub fn About() -> impl IntoView {
         if with!(|feature_breaks| feature_breaks.is_empty()) {
             toast::push(Payload {
                 severity: Severity::Error,
-                body: t_view_untracked!(i18n, about.features.nothing_to_remove),
+                body: t!(i18n, about.features.nothing_to_remove),
             });
             return;
         }
@@ -186,10 +186,7 @@ pub fn About() -> impl IntoView {
 
                 toast::push(Payload {
                     severity: Severity::Warning,
-                    body: t_view_untracked!(
-                        i18n,
-                        about.features.shuffle_changed_nothing
-                    ),
+                    body: t!(i18n, about.features.shuffle_changed_nothing),
                 });
             });
         }

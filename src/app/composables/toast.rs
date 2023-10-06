@@ -1,4 +1,4 @@
-use std::collections::VecDeque;
+use std::{collections::VecDeque, rc::Rc};
 
 use super::{id, use_global_context};
 use crate::{app::prelude::*, utils::future::sleep};
@@ -15,8 +15,7 @@ pub enum Severity {
 #[derive(Getters, Clone)]
 pub struct Toast {
     id: id::Usize,
-    // TODO: try using a signal instead?
-    body: View,
+    body: Rc<dyn Fn() -> View>,
     severity: Severity,
 }
 
@@ -29,22 +28,34 @@ impl Default for Queue {
     }
 }
 
-pub struct Payload {
-    pub body: View,
+pub struct Payload<V, F>
+where
+    V: IntoView,
+    F: Fn() -> V,
+{
+    pub body: F,
     pub severity: Severity,
 }
 
-impl From<Payload> for Toast {
-    fn from(payload: Payload) -> Self {
+impl<V, F> From<Payload<V, F>> for Toast
+where
+    V: IntoView,
+    F: (Fn() -> V) + 'static,
+{
+    fn from(payload: Payload<V, F>) -> Self {
         Self {
             id: id::usize(),
-            body: payload.body,
+            body: Rc::new(move || (payload.body)().into_view()),
             severity: payload.severity,
         }
     }
 }
 
-pub fn push(payload: Payload) {
+pub fn push<V, F>(payload: Payload<V, F>)
+where
+    V: IntoView,
+    F: (Fn() -> V) + 'static,
+{
     let queue = use_global_context::<Queue>().0;
 
     update!(|queue| {

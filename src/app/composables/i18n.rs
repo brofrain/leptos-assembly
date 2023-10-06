@@ -26,7 +26,7 @@ pub fn use_toggle_locale_and_push_toast() -> impl Fn() {
             };
 
             toast::push(toast::Payload {
-                body: t_view_untracked!(i18n, locale.changed, new_locale),
+                body: t!(i18n, locale.changed, new_locale),
                 severity: toast::Severity::Info,
             });
         });
