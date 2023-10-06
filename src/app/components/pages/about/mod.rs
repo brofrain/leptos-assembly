@@ -1,5 +1,3 @@
-use std::rc::Rc;
-
 use rand::{seq::SliceRandom, thread_rng, Rng};
 
 use crate::{
@@ -101,7 +99,7 @@ pub fn About() -> impl IntoView {
         bricks
     });
 
-    let gen_random_feature_brick_index = Rc::new(move || {
+    let gen_random_feature_brick_index = Callback::new(move |()| {
         if with!(|feature_breaks| feature_breaks.is_empty()) {
             return 0;
         }
@@ -122,24 +120,20 @@ pub fn About() -> impl IntoView {
         });
     };
 
-    let add_random_feature_brick = {
-        let gen_random_feature_brick_index =
-            Rc::clone(&gen_random_feature_brick_index);
-        move |_| {
-            let mut new_brick = None;
+    let add_random_feature_brick = move |_| {
+        let mut new_brick = None;
 
-            rng.update_value(|rng| {
-                new_brick = Some(FeatureBrick::new(
-                    &FEATURES[rng.gen_range(0..FEATURES.len())],
-                ));
-            });
+        rng.update_value(|rng| {
+            new_brick = Some(FeatureBrick::new(
+                &FEATURES[rng.gen_range(0..FEATURES.len())],
+            ));
+        });
 
-            let index = gen_random_feature_brick_index();
-            update!(|feature_breaks| {
-                feature_breaks.insert(index, new_brick.unwrap());
-            });
-            push_bricks_updated_toast_on_next_tick();
-        }
+        let index = gen_random_feature_brick_index(());
+        update!(|feature_breaks| {
+            feature_breaks.insert(index, new_brick.unwrap());
+        });
+        push_bricks_updated_toast_on_next_tick();
     };
 
     let remove_random_feature_break = move |_| {
@@ -151,7 +145,7 @@ pub fn About() -> impl IntoView {
             return;
         }
 
-        let index = gen_random_feature_brick_index();
+        let index = gen_random_feature_brick_index(());
         update!(|feature_breaks| {
             feature_breaks.remove(index);
         });
