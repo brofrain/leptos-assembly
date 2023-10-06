@@ -8,7 +8,7 @@ use crate::{
         composables::{
             future::spawn_local_owned,
             id,
-            toast::{self, Payload, Severity},
+            toast::{self, Severity},
         },
         prelude::*,
     },
@@ -118,10 +118,7 @@ pub fn About() -> impl IntoView {
     let push_bricks_updated_toast_on_next_tick = move || {
         spawn_local_owned(async move {
             next_tick().await;
-            toast::push(Payload {
-                severity: Severity::Success,
-                body: t!(i18n, about.features.updated),
-            });
+            toast::push(Severity::Success, t!(i18n, about.features.updated));
         });
     };
 
@@ -147,10 +144,10 @@ pub fn About() -> impl IntoView {
 
     let remove_random_feature_break = move |_| {
         if with!(|feature_breaks| feature_breaks.is_empty()) {
-            toast::push(Payload {
-                severity: Severity::Error,
-                body: t!(i18n, about.features.nothing_to_remove),
-            });
+            toast::push(
+                Severity::Error,
+                t!(i18n, about.features.nothing_to_remove),
+            );
             return;
         }
 
@@ -184,10 +181,10 @@ pub fn About() -> impl IntoView {
                     }
                 }
 
-                toast::push(Payload {
-                    severity: Severity::Warning,
-                    body: t!(i18n, about.features.shuffle_changed_nothing),
-                });
+                toast::push(
+                    Severity::Warning,
+                    t!(i18n, about.features.shuffle_changed_nothing),
+                );
             });
         }
     };

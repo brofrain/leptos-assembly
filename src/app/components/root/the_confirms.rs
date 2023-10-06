@@ -30,14 +30,11 @@ pub fn TheConfirms() -> impl IntoView {
                     .with_value(|v| {
                         v.cancel()
                             .clone()
-                            .map({
-                                let cancel = cancel.clone();
-                                move |cancel_msg| {
-                                    view! {
-                                        <Button on:click=cancel attr:test="confirm-cancel-btn">
-                                            {cancel_msg}
-                                        </Button>
-                                    }
+                            .map(move |cancel_msg| {
+                                view! {
+                                    <Button on:click=cancel attr:test="confirm-cancel-btn">
+                                        {cancel_msg}
+                                    </Button>
                                 }
                             })
                     });

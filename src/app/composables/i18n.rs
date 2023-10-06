@@ -25,10 +25,10 @@ pub fn use_toggle_locale_and_push_toast() -> impl Fn() {
                 Locale::la => "en",
             };
 
-            toast::push(toast::Payload {
-                body: t!(i18n, locale.changed, new_locale),
-                severity: toast::Severity::Info,
-            });
+            toast::push(
+                toast::Severity::Info,
+                t!(i18n, locale.changed, new_locale),
+            );
         });
     }
 }

@@ -1,4 +1,4 @@
-use std::{collections::VecDeque, rc::Rc};
+use std::collections::VecDeque;
 
 use super::{id, use_global_context};
 use crate::{app::prelude::*, utils::future::sleep};
@@ -15,7 +15,7 @@ pub enum Severity {
 #[derive(Getters, Clone)]
 pub struct Toast {
     id: id::Usize,
-    body: Rc<dyn Fn() -> View>,
+    body: Callback<(), View>,
     severity: Severity,
 }
 
@@ -28,30 +28,7 @@ impl Default for Queue {
     }
 }
 
-pub struct Payload<V, F>
-where
-    V: IntoView,
-    F: Fn() -> V,
-{
-    pub body: F,
-    pub severity: Severity,
-}
-
-impl<V, F> From<Payload<V, F>> for Toast
-where
-    V: IntoView,
-    F: (Fn() -> V) + 'static,
-{
-    fn from(payload: Payload<V, F>) -> Self {
-        Self {
-            id: id::usize(),
-            body: Rc::new(move || (payload.body)().into_view()),
-            severity: payload.severity,
-        }
-    }
-}
-
-pub fn push<V, F>(payload: Payload<V, F>)
+pub fn push<V, F>(severity: Severity, body: F)
 where
     V: IntoView,
     F: (Fn() -> V) + 'static,
@@ -59,11 +36,15 @@ where
     let queue = use_global_context::<Queue>().0;
 
     update!(|queue| {
-        queue.push_back(payload.into());
+        queue.push_back(Toast {
+            id: id::usize(),
+            body: Callback::new(move |()| (body)().into_view()),
+            severity,
+        });
     });
 
     spawn_local(async move {
-        sleep(5000.milliseconds()).await;
+        sleep(5.seconds()).await;
         update!(|queue| {
             queue.pop_front();
         });
