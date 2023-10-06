@@ -105,18 +105,9 @@ server = [
 
 [package.metadata.cargo-all-features]
 skip_feature_sets = [
-  [
-    "csr",
-    "ssr",
-  ],
-  [
-    "_client-deps",
-    "_server-deps",
-  ],
-  [
-    "client",
-    "server",
-  ],
+  ["csr", "ssr"],
+  ["_client-deps", "_server-deps"],
+  ["client", "server"],
 ]
 
 [package.metadata.leptos-i18n]

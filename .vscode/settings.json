@@ -1,12 +1,4 @@
 {
-  "files.readonlyInclude": {
-    ".vscode/settings.json": true,
-    "node_modules/**": true,
-    "target/**": true
-  },
-  "evenBetterToml.formatter.allowedBlankLines": 1,
-  "evenBetterToml.formatter.columnWidth": 80,
-  "evenBetterToml.formatter.indentString": "  ",
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": ["locales"],
   "rust-analyzer.cargo.features": [
@@ -19,5 +11,8 @@
   "rust-analyzer.procMacro.ignored": {
     "proc-macros": ["component", "server"]
   },
-  "rust-analyzer.rustfmt.overrideCommand": ["just", "_vscode-fmt"]
+  "rust-analyzer.rustfmt.overrideCommand": ["just", "_vscode-fmt"],
+  "[toml]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
 }
