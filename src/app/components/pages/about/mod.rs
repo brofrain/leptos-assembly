@@ -105,7 +105,7 @@ pub fn About() -> impl IntoView {
         }
 
         let mut i = None;
-        rng.update_value(|rng| {
+        update!(|rng| {
             i = Some(
                 rng.gen_range(0..with!(|feature_breaks| feature_breaks.len())),
             );
@@ -121,18 +121,14 @@ pub fn About() -> impl IntoView {
     };
 
     let add_random_feature_brick = move |_| {
-        let mut new_brick = None;
-
-        rng.update_value(|rng| {
-            new_brick = Some(FeatureBrick::new(
-                &FEATURES[rng.gen_range(0..FEATURES.len())],
-            ));
-        });
-
         let index = gen_random_feature_brick_index(());
-        update!(|feature_breaks| {
-            feature_breaks.insert(index, new_brick.unwrap());
+        update!(|rng, feature_breaks| {
+            let new_brick =
+                FeatureBrick::new(&FEATURES[rng.gen_range(0..FEATURES.len())]);
+
+            feature_breaks.insert(index, new_brick);
         });
+
         push_bricks_updated_toast_on_next_tick();
     };
 

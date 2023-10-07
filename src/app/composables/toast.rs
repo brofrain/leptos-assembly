@@ -54,7 +54,3 @@ where
 pub fn use_queue() -> ReadSignal<VecDeque<Toast>> {
     use_global_context::<Queue>().0.read_only()
 }
-
-// TODO some kind of `push_toast` macro maybe?
-// it could accept i18n syntax and severity like:
-// `push_toast!(Severity::Info, i18n, name.changed, new_name = name)`
