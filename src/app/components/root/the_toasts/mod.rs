@@ -12,7 +12,7 @@ pub fn TheToasts() -> impl IntoView {
                 each=toast_queue
                 key=|toast| *toast.id()
                 children=|toast| {
-                    view! { <Toast severity=*toast.severity()>{move || toast.body()(())}</Toast> }
+                    view! { <Toast severity=*toast.severity()>{*toast.body()}</Toast> }
                 }
             />
 

@@ -8,4 +8,4 @@ pub mod panic_handler;
 pub mod throttle;
 pub mod toast;
 
-flatten_pub_mod!(global_context);
+flatten_pub_mod!(callback, global_context);

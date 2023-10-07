@@ -1,6 +1,6 @@
 use std::collections::VecDeque;
 
-use super::{id, use_global_context};
+use super::{id, use_global_context, ViewCallback};
 use crate::{app::prelude::*, utils::future::sleep};
 
 #[derive(Default, Clone, Copy)]
@@ -15,7 +15,7 @@ pub enum Severity {
 #[derive(Getters, Clone)]
 pub struct Toast {
     id: id::Usize,
-    body: Callback<(), View>,
+    body: ViewCallback,
     severity: Severity,
 }
 
@@ -28,7 +28,7 @@ impl Default for Queue {
     }
 }
 
-pub fn push<V>(severity: Severity, body: impl (Fn() -> V) + 'static)
+pub fn push<V>(severity: Severity, body: impl Fn() -> V + 'static)
 where
     V: IntoView,
 {
@@ -37,7 +37,7 @@ where
     update!(|queue| {
         queue.push_back(Toast {
             id: id::usize(),
-            body: Callback::new(move |()| (body)().into_view()),
+            body: ViewCallback::new(body),
             severity,
         });
     });

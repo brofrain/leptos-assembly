@@ -1,16 +1,16 @@
 use futures::channel::oneshot;
 
-use super::{id, use_global_context};
+use super::{id, use_global_context, ViewCallback};
 use crate::app::prelude::*;
 
 #[derive(Getters)]
 pub struct Confirm {
     id: id::Usize,
-    body: Callback<(), View>,
-    accept: Callback<(), View>,
+    body: ViewCallback,
+    accept: ViewCallback,
 
     /// `None` means that the confirm is not cancelable
-    cancel: Option<Callback<(), View>>,
+    cancel: Option<ViewCallback>,
 }
 
 #[derive(Debug)]
@@ -69,9 +69,9 @@ impl Queue {
 
 #[derive(Default)]
 pub struct Options {
-    custom_body: Option<Callback<(), View>>,
-    custom_accept: Option<Callback<(), View>>,
-    custom_cancel: Option<Callback<(), View>>,
+    custom_body: Option<ViewCallback>,
+    custom_accept: Option<ViewCallback>,
+    custom_cancel: Option<ViewCallback>,
     disable_cancel: bool,
 }
 
@@ -85,9 +85,7 @@ macro_rules! options_setters {
                 where
                     V: IntoView,
                 {
-                    self.[< custom_ $property >] = Some(
-                        Callback::new(move |()| f().into_view())
-                    );
+                    self.[< custom_ $property >] = Some(ViewCallback::new(f));
                     self
                 }
             )*
@@ -110,18 +108,16 @@ impl From<Options> for Confirm {
         Self {
             id: id::usize(),
             body: options.custom_body.unwrap_or_else(|| {
-                Callback::new(move |()| t_view!(i18n, common.confirm.body))
+                ViewCallback::new(t!(i18n, common.confirm.body))
             }),
             accept: options.custom_accept.unwrap_or_else(|| {
-                Callback::new(move |()| t_view!(i18n, common.confirm.accept))
+                ViewCallback::new(t!(i18n, common.confirm.accept))
             }),
             cancel: if options.disable_cancel {
                 None
             } else {
                 Some(options.custom_cancel.unwrap_or_else(|| {
-                    Callback::new(move |()| {
-                        t_view!(i18n, common.confirm.cancel)
-                    })
+                    ViewCallback::new(t!(i18n, common.confirm.cancel))
                 }))
             },
         }

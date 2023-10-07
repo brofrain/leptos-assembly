@@ -32,7 +32,7 @@ pub fn TheConfirms() -> impl IntoView {
                             .map(move |cancel_msg| {
                                 view! {
                                     <Button on:click=cancel attr:test="confirm-cancel-btn">
-                                        {move || cancel_msg(())}
+                                        {cancel_msg}
                                     </Button>
                                 }
                             })
@@ -40,7 +40,7 @@ pub fn TheConfirms() -> impl IntoView {
                 view! {
                     <Modal on_overlay_click=cancel>
                         <div class=uno!["text-center"] test="confirm-body">
-                            {move || confirm.with_value(|v| v.body()(()))}
+                            {confirm.with_value(|v| *v.body())}
                         </div>
 
                         <div class=uno![
@@ -48,7 +48,7 @@ pub fn TheConfirms() -> impl IntoView {
                         ]>
                             {cancel_btn_view}
                             <Button on:click=accept attr:test="confirm-accept-btn">
-                                {move || confirm.with_value(|v| v.accept()(()))}
+                                {confirm.with_value(|v| *v.accept())}
                             </Button>
                         </div>
                     </Modal>
