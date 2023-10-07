@@ -28,10 +28,9 @@ impl Default for Queue {
     }
 }
 
-pub fn push<V, F>(severity: Severity, body: F)
+pub fn push<V>(severity: Severity, body: impl (Fn() -> V) + 'static)
 where
     V: IntoView,
-    F: (Fn() -> V) + 'static,
 {
     let queue = use_global_context::<Queue>().0;
 

@@ -17,23 +17,22 @@ pub fn TheConfirms() -> impl IntoView {
             each=reversed_queue
             key=|confirm| confirm.with_value(|v| *v.id())
             children=move |confirm| {
-                let id = confirm.with_value(|v| *v.id());
+                let id = with!(| confirm | * confirm.id());
                 let accept = move |_| {
                     queue.resolve_by_id(id, confirm::ResolutionStatus::Accepted);
                 };
                 let cancel = Callback::new(move |_| {
-                    if confirm.with_value(|v| v.cancel().is_some()) {
+                    if with!(| confirm | confirm.cancel().is_some()) {
                         queue.resolve_by_id(id, confirm::ResolutionStatus::Cancelled);
                     }
                 });
                 let cancel_btn_view = confirm
                     .with_value(|v| {
                         v.cancel()
-                            .clone()
                             .map(move |cancel_msg| {
                                 view! {
                                     <Button on:click=cancel attr:test="confirm-cancel-btn">
-                                        {cancel_msg}
+                                        {move || cancel_msg(())}
                                     </Button>
                                 }
                             })
@@ -41,7 +40,7 @@ pub fn TheConfirms() -> impl IntoView {
                 view! {
                     <Modal on_overlay_click=cancel>
                         <div class=uno!["text-center"] test="confirm-body">
-                            {move || confirm.with_value(|v| v.body().clone())}
+                            {move || confirm.with_value(|v| v.body()(()))}
                         </div>
 
                         <div class=uno![
@@ -49,7 +48,7 @@ pub fn TheConfirms() -> impl IntoView {
                         ]>
                             {cancel_btn_view}
                             <Button on:click=accept attr:test="confirm-accept-btn">
-                                {move || confirm.with_value(|v| v.accept().clone())}
+                                {move || confirm.with_value(|v| v.accept()(()))}
                             </Button>
                         </div>
                     </Modal>

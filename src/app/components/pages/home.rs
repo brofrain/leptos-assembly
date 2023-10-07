@@ -37,9 +37,12 @@ pub fn Home() -> impl IntoView {
 
         let navigate = use_navigate();
         spawn_local(async move {
-            if confirm::show(confirm::payload::Cancelable::default())
-                .await
-                .is_accepted()
+            if confirm::show(
+                confirm::Options::default()
+                    .set_cancel(t!(i18n, home.confirm.cancel)),
+            )
+            .await
+            .is_accepted()
             {
                 navigate(
                     &Route::Hi(HiParams { name }),

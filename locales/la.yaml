@@ -28,6 +28,8 @@ home:
   input_placeholder: Quid est tibi nomen?
   input_placeholder_with_name: Quid est tibi nomen? Adhuc "{{name}}"?
   button: VADO!
+  confirm:
+    cancel: Non realiter
   leptos_tag: Tardus Leptos emissio tag est {{tag}} fundatur in GitHub API
   leptos_tag_loading: Loading tardus Leptos emissio tag...
   leptos_tag_error: Loading tardus Leptos emissio tag ex GitHub API defecit!

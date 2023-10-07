@@ -15,10 +15,9 @@ pub async fn sleep(time: Duration) {
     rx.await.unwrap();
 }
 
-pub fn spawn_local_with_handle<F>(future: F) -> impl FnOnce() -> Result<(), ()>
-where
-    F: Future<Output = ()> + 'static,
-{
+pub fn spawn_local_with_handle(
+    future: impl Future<Output = ()> + 'static,
+) -> impl FnOnce() -> Result<(), ()> {
     let mut future_fuse = Box::pin(future).fuse();
     let (tx, rx) = channel::oneshot::channel();
 

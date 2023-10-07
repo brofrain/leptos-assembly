@@ -13,11 +13,13 @@ pub fn init() {
         log::error!("{msg}");
 
         spawn_local(async move {
-            let body = t_view_untracked!(i18n, panic_confirm.body);
-            let accept = t_view_untracked!(i18n, panic_confirm.accept);
-
-            confirm::show(confirm::payload::Noncancelable { body, accept })
-                .await;
+            confirm::show(
+                confirm::Options::default()
+                    .set_body(t!(i18n, panic_confirm.body))
+                    .set_accept(t!(i18n, panic_confirm.accept))
+                    .disable_cancel(),
+            )
+            .await;
 
             window().location().reload().unwrap();
         });

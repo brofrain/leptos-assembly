@@ -28,6 +28,8 @@ home:
   input_placeholder: What's your name?
   input_placeholder_with_name: What's your name? Still "{{name}}"?
   button: GO!
+  confirm:
+    cancel: Not really
   leptos_tag: The latest Leptos release tag is {{tag}} based on GitHub API
   leptos_tag_loading: Fetching the latest Leptos release tag...
   leptos_tag_error: Fetching the latest Leptos release tag from GitHub API has failed!

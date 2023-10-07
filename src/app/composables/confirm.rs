@@ -3,14 +3,14 @@ use futures::channel::oneshot;
 use super::{id, use_global_context};
 use crate::app::prelude::*;
 
-#[derive(Getters, Clone, PartialEq)]
+#[derive(Getters)]
 pub struct Confirm {
     id: id::Usize,
-    body: View,
-    accept: View,
+    body: Callback<(), View>,
+    accept: Callback<(), View>,
 
     /// `None` means that the confirm is not cancelable
-    cancel: Option<View>,
+    cancel: Option<Callback<(), View>>,
 }
 
 #[derive(Debug)]
@@ -67,70 +67,69 @@ impl Queue {
     }
 }
 
-pub mod payload {
-    use super::Confirm;
-    use crate::app::{composables::id, prelude::*};
+#[derive(Default)]
+pub struct Options {
+    custom_body: Option<Callback<(), View>>,
+    custom_accept: Option<Callback<(), View>>,
+    custom_cancel: Option<Callback<(), View>>,
+    disable_cancel: bool,
+}
 
-    pub struct Cancelable {
-        pub body: View,
-        pub accept: View,
-        pub cancel: View,
-    }
-
-    impl Default for Cancelable {
-        fn default() -> Self {
-            let i18n = use_i18n();
-            Self {
-                body: t_view_untracked!(i18n, common.confirm.body),
-                accept: t_view_untracked!(i18n, common.confirm.accept),
-                cancel: t_view_untracked!(i18n, common.confirm.cancel),
-            }
+macro_rules! options_setters {
+    ($($property:ident),*) => {
+        paste::item! {
+            $(
+                pub fn [< set_ $property >] <V>(
+                    mut self, f: impl Fn() -> V + 'static
+                ) -> Self
+                where
+                    V: IntoView,
+                {
+                    self.[< custom_ $property >] = Some(
+                        Callback::new(move |()| f().into_view())
+                    );
+                    self
+                }
+            )*
         }
-    }
+    };
+}
 
-    impl From<Cancelable> for Confirm {
-        fn from(confirm: Cancelable) -> Self {
-            Self {
-                id: id::usize(),
-                body: confirm.body,
-                accept: confirm.accept,
-                cancel: Some(confirm.cancel),
-            }
-        }
-    }
+impl Options {
+    options_setters!(body, accept, cancel);
 
-    pub struct Noncancelable {
-        pub body: View,
-        pub accept: View,
+    pub fn disable_cancel(mut self) -> Self {
+        self.disable_cancel = true;
+        self
     }
+}
 
-    impl Default for Noncancelable {
-        fn default() -> Self {
-            let i18n = use_i18n();
-            Self {
-                body: t_view_untracked!(i18n, common.confirm.body),
-                accept: t_view_untracked!(i18n, common.confirm.accept),
-            }
-        }
-    }
-
-    impl From<Noncancelable> for Confirm {
-        fn from(confirm: Noncancelable) -> Self {
-            Self {
-                id: id::usize(),
-                body: confirm.body,
-                accept: confirm.accept,
-                cancel: None,
-            }
+impl From<Options> for Confirm {
+    fn from(options: Options) -> Self {
+        let i18n = use_i18n();
+        Self {
+            id: id::usize(),
+            body: options.custom_body.unwrap_or_else(|| {
+                Callback::new(move |()| t_view!(i18n, common.confirm.body))
+            }),
+            accept: options.custom_accept.unwrap_or_else(|| {
+                Callback::new(move |()| t_view!(i18n, common.confirm.accept))
+            }),
+            cancel: if options.disable_cancel {
+                None
+            } else {
+                Some(options.custom_cancel.unwrap_or_else(|| {
+                    Callback::new(move |()| {
+                        t_view!(i18n, common.confirm.cancel)
+                    })
+                }))
+            },
         }
     }
 }
 
-pub async fn show<T>(payload: T) -> ResolutionStatus
-where
-    T: Into<Confirm>,
-{
-    let rx = use_global_context::<Queue>().push(payload.into());
+pub async fn show(options: Options) -> ResolutionStatus {
+    let rx = use_global_context::<Queue>().push(options.into());
     rx.await.unwrap()
 }
 
