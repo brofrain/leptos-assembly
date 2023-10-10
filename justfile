@@ -6,26 +6,35 @@ _default: help
     just --list
 
 CARGO_EXECUTABLES := replace_regex('''
-just@1.14.0
-cargo-leptos@0.1.11
-leptosfmt@0.1.14
-cargo-expand@1.0.70
+just@1.15.0
+cargo-leptos@0.2.0
+leptosfmt@0.1.17
+cargo-expand@1.0.72
 cargo-outdated@0.13.1
-cargo-audit@0.18.1
+cargo-audit@0.18.2
 cargo-edit@0.12.2
 ''', '\s+', ' ')
 
 # Performs full project setup
 setup:
-    rustup toolchain install nightly --profile minimal -c rustfmt clippy
-    rustup target add wasm32-unknown-unknown
-    for dep in {{ CARGO_EXECUTABLES }}; do \
-        cargo install $dep; \
-    done
-    npm i -g pnpm
-    pnpm i --frozen-lockfile
-    npx playwright install
-    npx playwright install-deps
+    #!/usr/bin/env sh
+    (
+        rustup toolchain install nightly --profile minimal -c rustfmt clippy
+        rustup target add wasm32-unknown-unknown
+
+        for dep in {{ CARGO_EXECUTABLES }}; do
+            cargo install $dep &
+        done
+
+        (
+            npm i -g pnpm && \
+            pnpm i --frozen-lockfile && \
+            npx playwright install && \
+            npx playwright install-deps
+        ) &
+        
+        wait
+    )
 
 # --- Build & serve ---
 
@@ -257,4 +266,5 @@ update-node-latest:
 update-latest: update-cargo-latest update-node-latest
 
 _vscode-fmt:
+    # Using `leptosfmt --stdin --rustfmt` seems to add redundant newlines
     leptosfmt --stdin | rustfmt
