@@ -13,6 +13,7 @@ fn main() {
         _ => "production",
     };
 
+    // BUG: prebuilding breaks watch mode (`just dev`)
     assert!(
         Command::new("just")
             .arg("_prebuild")
