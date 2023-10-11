@@ -2,7 +2,7 @@ use rand::{seq::SliceRandom, thread_rng, Rng};
 
 use crate::{
     app::{
-        components::base::Button,
+        components::{base::Button, utility::AnimatedFor},
         composables::{
             future::spawn_local_owned,
             id,
@@ -194,7 +194,7 @@ pub fn About() -> impl IntoView {
             </div>
 
             <div class="mt2 grid grid-cols-[repeat(3,auto)] justify-center gap2">
-                <For
+                <AnimatedFor
                     each=feature_breaks
                     key=|brick| brick.id
                     children=move |brick| {
