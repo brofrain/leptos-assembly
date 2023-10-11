@@ -4,9 +4,9 @@ max-trait-bounds = 1
 too-many-arguments-threshold = 5
 upper-case-acronyms-aggressive = true
 disallowed-macros = [
-  { path = "leptos::log", reason = "The macro is intended as a debugging tool. Remove the invocation before committing it to a version control system." },
-  { path = "leptos::debug_warn", reason = "The macro is intended as a debugging tool. Remove the invocation before committing it to a version control system." },
-  { path = "leptos::error", reason = "For logging purposes use `log::error!` instead." },
+  { path = "leptos_dom::logging::log", reason = "The macro is intended as a debugging tool. Remove the invocation before committing it to a version control system." },
+  { path = "leptos_dom::logging::debug_warn", reason = "The macro is intended as a debugging tool. Remove the invocation before committing it to a version control system." },
+  { path = "leptos_dom::logging::error", reason = "For logging purposes use `log::error!` instead." },
   { path = "leptos_macro::component", reason = "Use `#[component]` from the project's `proc-macros` subcrate instead." },
   { path = "leptos_macro::server", reason = "Use `#[server]` from the project's `proc-macros` subcrate instead." },
 ]
