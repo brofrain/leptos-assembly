@@ -32,7 +32,7 @@ setup:
             npx playwright install && \
             npx playwright install-deps
         ) &
-        
+
         wait
     )
 
