@@ -20,9 +20,7 @@ cfg_csr! {
 
         logger::init();
 
-        leptos::mount_to_body(
-            || leptos::view! { <App/> },
-        );
+        leptos::mount_to_body(App);
     }
 }
 
