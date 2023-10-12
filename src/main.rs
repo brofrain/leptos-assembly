@@ -6,15 +6,11 @@ use axum::{
     routing::post,
     Router,
 };
-use leptos::{get_configuration, view, LeptosOptions, View};
+use leptos::{get_configuration, LeptosOptions};
 use leptos_assembly::{logger, App};
 use leptos_axum::{generate_route_list, LeptosRoutes};
 use tower::ServiceExt;
 use tower_http::services::ServeDir;
-
-fn client_app() -> View {
-    view! { <App/> }
-}
 
 async fn get_static_file(root: &str, uri: &Uri) -> Response<BoxBody> {
     let request = Request::builder()
@@ -40,8 +36,7 @@ async fn file_and_error_handler(
     if response.status().is_success() {
         response.into_response()
     } else {
-        let handler =
-            leptos_axum::render_app_to_stream(options.clone(), client_app);
+        let handler = leptos_axum::render_app_to_stream(options.clone(), App);
         handler(req).await.into_response()
     }
 }
@@ -53,11 +48,11 @@ async fn main() {
     let conf = get_configuration(None).await.unwrap();
     let leptos_options = conf.leptos_options;
     let addr = leptos_options.site_addr;
-    let routes = generate_route_list(client_app);
+    let routes = generate_route_list(App);
 
     let app = Router::new()
         .route("/api/*fn_name", post(leptos_axum::handle_server_fns))
-        .leptos_routes(&leptos_options, routes, client_app)
+        .leptos_routes(&leptos_options, routes, App)
         .fallback(file_and_error_handler)
         .with_state(leptos_options);
 
