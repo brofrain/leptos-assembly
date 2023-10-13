@@ -1,3 +1,4 @@
+use leptos::html::Div;
 use rand::{seq::SliceRandom, thread_rng, Rng};
 
 use crate::{
@@ -198,13 +199,18 @@ pub fn About() -> impl IntoView {
                     each=feature_breaks
                     key=|brick| brick.id
                     children=move |brick| {
-                        view! {
-                            <FeatureBrick
-                                title=brick.feature.title
-                                icon_class=brick.feature.icon_class
-                                active=brick.active
-                            />
-                        }
+                        let node_ref = create_node_ref::<Div>();
+                        (
+                            node_ref,
+                            view! {
+                                <FeatureBrick
+                                    node_ref=node_ref
+                                    title=brick.feature.title
+                                    icon_class=brick.feature.icon_class
+                                    active=brick.active
+                                />
+                            },
+                        )
                     }
                 />
 

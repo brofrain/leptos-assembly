@@ -1,3 +1,5 @@
+use leptos::html::Div;
+
 use crate::app::prelude::*;
 
 #[component]
@@ -5,9 +7,14 @@ pub fn FeatureBrick(
     title: &'static str,
     icon_class: &'static str,
     active: RwSignal<bool>,
+
+    // FIXME
+    // the param is detected as unused, but it's actually used in the `view!`
+    #[allow(unused_variables)] node_ref: NodeRef<Div>,
 ) -> impl IntoView {
     view! {
         <div
+            node_ref=node_ref
             class=move || {
                 uno![
                     "flex flex-col items-center gap2 rounded w27 py2",
