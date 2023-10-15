@@ -2,7 +2,6 @@ use leptos::window;
 use wasm_bindgen::{prelude::Closure, JsCast};
 use web_sys::HtmlElement;
 
-// @kw naming
 pub type Classes = Vec<String>;
 
 pub trait AnimatedEl {
@@ -59,6 +58,7 @@ where
 {
     let original_el = el.clone();
 
+    // @kw use leptos API?
     let closure = Closure::<dyn FnMut(&web_sys::TransitionEvent)>::wrap(
         Box::new(move |event| {
             let el = event.target().unwrap().dyn_into::<HtmlElement>().unwrap();
