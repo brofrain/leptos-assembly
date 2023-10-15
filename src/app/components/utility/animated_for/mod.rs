@@ -5,6 +5,7 @@ use std::{collections::HashMap, fmt, hash::Hash, rc::Rc};
 use leptos::{
     leptos_dom::{tracing, Each},
     logging::log,
+    spawn_local,
     update,
     with,
     Callback,
@@ -18,7 +19,15 @@ use leptos::{
 use wasm_bindgen::JsCast;
 use web_sys::DomRect;
 
-use crate::utils::animation::{clear_cb_on_transition_end, AnimatedEl};
+use crate::utils::{
+    animation::{
+        clear_cb_on_transition_end,
+        set_cb_once_on_transition_end,
+        AnimatedEl,
+        Classes,
+    },
+    future::next_tick,
+};
 
 trait AnimatedForEl {
     fn clear_transform(&self);
@@ -71,9 +80,63 @@ fn check_if_moved_and_lock_previous_position(
     false
 }
 
+fn build_clear_transition(
+    active_transition_classes: &Classes,
+) -> impl Fn(&web_sys::HtmlElement) {
+    let classes_to_remove = active_transition_classes.clone();
+    move |el| {
+        el.remove_classes(&classes_to_remove);
+        clear_cb_on_transition_end(el);
+    }
+}
+
+fn build_clear_transition_on_transition_end(
+    active_transition_classes: &Classes,
+) -> impl Fn(&web_sys::HtmlElement) {
+    let clear_transition =
+        Rc::new(build_clear_transition(active_transition_classes));
+    move |el| {
+        let clear_transition = Rc::clone(&clear_transition);
+        set_cb_once_on_transition_end(el, move |el| {
+            clear_transition(el);
+        });
+    }
+}
+
+fn build_release_transition(
+    active_transition_classes: &Classes,
+) -> impl Fn(&web_sys::HtmlElement) {
+    let clear_transition_on_transition_end =
+        build_clear_transition_on_transition_end(active_transition_classes);
+
+    move |el: &web_sys::HtmlElement| {
+        el.clear_transform();
+        el.disable_instant_transition();
+        clear_transition_on_transition_end(el);
+    }
+}
+
+fn build_start_enter(
+    enter_from_class: Memo<Classes>,
+    enter_class: Memo<Classes>,
+) -> impl Fn(&web_sys::HtmlElement) {
+    let enter_from_class = enter_from_class();
+    let enter_class = enter_class();
+    let release_transition = build_release_transition(&enter_class);
+
+    move |el: &web_sys::HtmlElement| {
+        el.remove_classes(&enter_from_class);
+        el.add_classes(&enter_class);
+        release_transition(el);
+    }
+}
+
 fn use_keyed_elements<Item, ChildFn, Child, KeyFn, Key>(
     key_fn: KeyFn,
     children_fn: ChildFn,
+    appear: bool,
+    enter_class: Memo<Classes>,
+    enter_from_class: Memo<Classes>,
 ) -> (
     StoredValue<HashMap<Key, web_sys::HtmlElement>>,
     impl Fn(&Item) -> Key + 'static,
@@ -90,6 +153,12 @@ where
         StoredValue::new(HashMap::<Key, web_sys::HtmlElement>::new());
 
     let key_fn = Rc::new(key_fn);
+
+    let mounted = StoredValue::new(false);
+    spawn_local(async move {
+        next_tick().await;
+        mounted.set_value(true);
+    });
 
     (
         el_per_key,
@@ -142,12 +211,22 @@ where
     )
 }
 
+fn use_class_memo(class: MaybeProp<String>) -> Memo<Classes> {
+    Memo::new(move |_| {
+        class()
+            .map(|class| {
+                class.split_whitespace().map(ToOwned::to_owned).collect()
+            })
+            .unwrap_or_default()
+    })
+}
+
 #[leptos::component]
 pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(
     each: Items,
     key: KeyFn,
     children: ChildFn,
-    #[prop(optional, into)] appear: MaybeProp<bool>,
+    #[prop(optional, into)] appear: Option<bool>,
     #[prop(optional, into)] move_class: MaybeProp<String>,
     #[prop(optional, into)] enter_class: MaybeProp<String>,
     #[prop(optional, into)] enter_from_class: MaybeProp<String>,
@@ -162,22 +241,20 @@ where
     KeyFn: Fn(&Item) -> Key + 'static,
     Item: 'static,
 {
-    let appear = Memo::new(move |_| appear().unwrap_or_default());
+    let appear = appear.unwrap_or_default();
 
-    let build_clear_transition = Callback::new({
-        move |()| {
-            // todo @kw build classes to remove
+    let move_class = use_class_memo(move_class);
+    let enter_class = use_class_memo(enter_class);
+    let enter_from_class = use_class_memo(enter_from_class);
+    let leave_class = use_class_memo(leave_class);
 
-            move |el: &web_sys::HtmlElement| {
-                // el.remove_classes(&move_class);
-                // el.remove_classes(&enter_class);
-                // el.remove_classes(&enter_from_class);
-                clear_cb_on_transition_end(el);
-            }
-        }
-    });
-
-    let (el_per_key, key_fn, children_fn) = use_keyed_elements(key, children);
+    let (el_per_key, key_fn, children_fn) = use_keyed_elements(
+        key,
+        children,
+        appear,
+        enter_class,
+        enter_from_class,
+    );
 
     let each_fn = move || {
         // @kw
