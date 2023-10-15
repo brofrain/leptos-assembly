@@ -3,7 +3,6 @@
 use std::{collections::HashMap, fmt, hash::Hash, rc::Rc};
 
 use leptos::{
-    html::ElementDescriptor,
     leptos_dom::{tracing, Each},
     logging::log,
     update,
@@ -72,7 +71,7 @@ fn check_if_moved_and_lock_previous_position(
     false
 }
 
-fn use_keyed_elements<Item, ChildFn, ChildEl, Child, KeyFn, Key>(
+fn use_keyed_elements<Item, ChildFn, Child, KeyFn, Key>(
     key_fn: KeyFn,
     children_fn: ChildFn,
 ) -> (
@@ -81,8 +80,7 @@ fn use_keyed_elements<Item, ChildFn, ChildEl, Child, KeyFn, Key>(
     impl Fn(Item) -> View + 'static,
 )
 where
-    ChildFn: Fn(Item) -> (NodeRef<ChildEl>, Child) + 'static,
-    ChildEl: ElementDescriptor + Clone + 'static,
+    ChildFn: Fn(Item) -> Child + 'static,
     Child: IntoView + 'static,
     KeyFn: Fn(&Item) -> Key + 'static,
     Key: Eq + Hash + 'static,
@@ -101,30 +99,51 @@ where
         },
         move |item| {
             let key = key_fn(&item);
-            let (node_ref, child) = children_fn(item);
+            let child = children_fn(item);
 
             // @kw add .expect(...)
-            node_ref.on_load(move |_| {
-                let el = node_ref
-                    .get()
-                    .unwrap()
-                    .into_any()
-                    .dyn_ref::<web_sys::HtmlElement>()
-                    .unwrap()
-                    .clone();
 
-                update!(|el_per_key| {
-                    el_per_key.insert(key, el);
-                });
-            });
+            let child_view = child.into_view();
 
-            child.into_view()
+            match child_view {
+                View::Component(component) => {
+                    let node_view = component.children[0].clone();
+
+                    let el = node_view
+                        .into_html_element()
+                        .unwrap()
+                        .dyn_ref::<web_sys::HtmlElement>()
+                        .unwrap()
+                        .clone();
+
+                    update!(|el_per_key| {
+                        el_per_key.insert(key, el);
+                    });
+
+                    component.into_view()
+                }
+                view => {
+                    let el = view
+                        .clone()
+                        .into_html_element()
+                        .unwrap()
+                        .dyn_ref::<web_sys::HtmlElement>()
+                        .unwrap()
+                        .clone();
+
+                    update!(|el_per_key| {
+                        el_per_key.insert(key, el);
+                    });
+
+                    view
+                }
+            }
         },
     )
 }
 
 #[leptos::component]
-pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildEl, ChildFn, Key, KeyFn>(
+pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(
     each: Items,
     key: KeyFn,
     children: ChildFn,
@@ -138,8 +157,7 @@ where
     Items: Fn() -> ItemIter + 'static,
     ItemIter: IntoIterator<Item = Item> + 'static,
     Child: IntoView + 'static,
-    ChildEl: ElementDescriptor + Clone + 'static,
-    ChildFn: Fn(Item) -> (NodeRef<ChildEl>, Child) + 'static,
+    ChildFn: Fn(Item) -> Child + 'static,
     Key: Eq + Hash + fmt::Debug + 'static, // @kw
     KeyFn: Fn(&Item) -> Key + 'static,
     Item: 'static,
