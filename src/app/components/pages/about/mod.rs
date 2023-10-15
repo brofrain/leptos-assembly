@@ -207,6 +207,8 @@ pub fn About() -> impl IntoView {
                             />
                         }
                     }
+
+                    appear=true
                 />
 
             </div>
