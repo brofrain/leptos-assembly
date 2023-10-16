@@ -209,6 +209,10 @@ pub fn About() -> impl IntoView {
                     }
 
                     appear=true
+                    move_class="transition-2000"
+                    enter_class="transition-opacity-2000"
+                    enter_from_class="op0"
+                    leave_class="transition-opacity op0"
                 />
 
             </div>
