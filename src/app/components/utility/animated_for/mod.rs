@@ -8,14 +8,17 @@ use leptos::{
     spawn_local,
     update,
     with,
-    Callback,
     IntoView,
     MaybeProp,
     Memo,
-    NodeRef,
+    RwSignal,
+    SignalGetUntracked,
+    SignalUpdateUntracked,
+    SignalWithUntracked,
     StoredValue,
     View,
 };
+use leptos_use::{watch_debounced_with_options, WatchDebouncedOptions};
 use wasm_bindgen::JsCast;
 use web_sys::DomRect;
 
@@ -117,11 +120,9 @@ fn build_release_transition(
 }
 
 fn build_start_enter(
-    enter_from_class: Memo<Classes>,
-    enter_class: Memo<Classes>,
+    enter_from_class: Classes,
+    enter_class: Classes,
 ) -> impl Fn(&web_sys::HtmlElement) {
-    let enter_from_class = enter_from_class();
-    let enter_class = enter_class();
     let release_transition = build_release_transition(&enter_class);
 
     move |el: &web_sys::HtmlElement| {
@@ -131,12 +132,38 @@ fn build_start_enter(
     }
 }
 
+fn extract_el_from_view(view: &View) -> Option<web_sys::HtmlElement> {
+    match view {
+        View::Component(component) => {
+            let node_view = component.children[0].clone();
+
+            let el = node_view
+                .into_html_element()
+                .ok()?
+                .dyn_ref::<web_sys::HtmlElement>()?
+                .clone();
+
+            Some(el)
+        }
+        view => {
+            let el = view
+                .clone()
+                .into_html_element()
+                .ok()?
+                .dyn_ref::<web_sys::HtmlElement>()?
+                .clone();
+
+            Some(el)
+        }
+    }
+}
+
 fn use_keyed_elements<Item, ChildFn, Child, KeyFn, Key>(
     key_fn: KeyFn,
     children_fn: ChildFn,
     appear: bool,
-    enter_class: Memo<Classes>,
     enter_from_class: Memo<Classes>,
+    enter_class: Memo<Classes>,
 ) -> (
     StoredValue<HashMap<Key, web_sys::HtmlElement>>,
     impl Fn(&Item) -> Key + 'static,
@@ -146,7 +173,7 @@ where
     ChildFn: Fn(Item) -> Child + 'static,
     Child: IntoView + 'static,
     KeyFn: Fn(&Item) -> Key + 'static,
-    Key: Eq + Hash + 'static,
+    Key: Eq + Hash + Clone + 'static + std::fmt::Debug, // @kw
     Item: 'static,
 {
     let el_per_key =
@@ -154,10 +181,44 @@ where
 
     let key_fn = Rc::new(key_fn);
 
-    let mounted = StoredValue::new(false);
+    let entering_children_keys = RwSignal::new(Vec::<Key>::new());
+
+    // don't run multiple times when a few children are added at once
+    _ = watch_debounced_with_options(
+        entering_children_keys,
+        move |_, _, _| {
+            spawn_local(async move {
+                next_tick().await;
+
+                let start_enter = build_start_enter(
+                    enter_from_class.get_untracked(),
+                    enter_class.get_untracked(),
+                );
+
+                with!(|el_per_key| {
+                    entering_children_keys.with_untracked(|keys| {
+                        for key in keys {
+                            let el = el_per_key.get(key).unwrap();
+                            start_enter(el);
+                        }
+                    });
+                });
+
+                entering_children_keys.update_untracked(
+                    |entering_children_keys| {
+                        entering_children_keys.clear();
+                    },
+                );
+            });
+        },
+        1.0,
+        WatchDebouncedOptions::default().max_wait(Some(1.0)),
+    );
+
+    let initial_children_mounted = StoredValue::new(false);
     spawn_local(async move {
         next_tick().await;
-        mounted.set_value(true);
+        initial_children_mounted.set_value(true);
     });
 
     (
@@ -170,43 +231,26 @@ where
             let key = key_fn(&item);
             let child = children_fn(item);
 
-            // @kw add .expect(...)
+            let view = child.into_view();
 
-            let child_view = child.into_view();
+            let el = extract_el_from_view(&view);
 
-            match child_view {
-                View::Component(component) => {
-                    let node_view = component.children[0].clone();
+            if let Some(el) = el {
+                update!(|el_per_key| {
+                    el_per_key.insert(key.clone(), el.clone());
+                });
 
-                    let el = node_view
-                        .into_html_element()
-                        .unwrap()
-                        .dyn_ref::<web_sys::HtmlElement>()
-                        .unwrap()
-                        .clone();
+                if initial_children_mounted() || appear {
+                    el.add_classes(&enter_from_class());
+                    el.enable_instant_transition();
 
-                    update!(|el_per_key| {
-                        el_per_key.insert(key, el);
+                    update!(|entering_children_keys| {
+                        entering_children_keys.push(key);
                     });
-
-                    component.into_view()
-                }
-                view => {
-                    let el = view
-                        .clone()
-                        .into_html_element()
-                        .unwrap()
-                        .dyn_ref::<web_sys::HtmlElement>()
-                        .unwrap()
-                        .clone();
-
-                    update!(|el_per_key| {
-                        el_per_key.insert(key, el);
-                    });
-
-                    view
                 }
             }
+
+            view
         },
     )
 }
@@ -237,7 +281,7 @@ where
     ItemIter: IntoIterator<Item = Item> + 'static,
     Child: IntoView + 'static,
     ChildFn: Fn(Item) -> Child + 'static,
-    Key: Eq + Hash + fmt::Debug + 'static, // @kw
+    Key: Eq + Hash + Clone + fmt::Debug + 'static, // @kw
     KeyFn: Fn(&Item) -> Key + 'static,
     Item: 'static,
 {
@@ -252,8 +296,8 @@ where
         key,
         children,
         appear,
-        enter_class,
         enter_from_class,
+        enter_class,
     );
 
     let each_fn = move || {
