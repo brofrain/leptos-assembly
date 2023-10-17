@@ -1,8 +1,14 @@
 #![allow(clippy::disallowed_macros)]
 
-use std::{collections::HashMap, fmt, hash::Hash, rc::Rc};
+use std::{
+    collections::{HashMap, HashSet},
+    fmt,
+    hash::Hash,
+    rc::Rc,
+};
 
 use leptos::{
+    document,
     leptos_dom::{tracing, Each},
     logging::log,
     spawn_local,
@@ -25,12 +31,17 @@ use web_sys::DomRect;
 use crate::utils::{
     animation::{
         clear_cb_on_transition_end,
+        force_reflow,
         set_cb_once_on_transition_end,
         AnimatedEl,
         Classes,
     },
     future::next_tick,
 };
+
+const MOVE_ATTRIBUTE: &str = "animated-for-move";
+const ENTER_ATTRIBUTE: &str = "animated-for-enter";
+const LEAVE_ATTRIBUTE: &str = "animated-for-leave";
 
 trait AnimatedForEl {
     fn clear_transform(&self);
@@ -89,6 +100,8 @@ fn build_clear_transition(
     let classes_to_remove = active_transition_classes.clone();
     move |el| {
         el.remove_classes(&classes_to_remove);
+        el.remove_attribute(MOVE_ATTRIBUTE).unwrap();
+        el.remove_attribute(ENTER_ATTRIBUTE).unwrap();
         clear_cb_on_transition_end(el);
     }
 }
@@ -128,6 +141,7 @@ fn build_start_enter(
     move |el: &web_sys::HtmlElement| {
         el.remove_classes(&enter_from_class);
         el.add_classes(&enter_class);
+        el.set_empty_attribute(ENTER_ATTRIBUTE);
         release_transition(el);
     }
 }
@@ -135,7 +149,7 @@ fn build_start_enter(
 fn extract_el_from_view(view: &View) -> Option<web_sys::HtmlElement> {
     match view {
         View::Component(component) => {
-            let node_view = component.children[0].clone();
+            let node_view = component.children.get(0)?.clone();
 
             let el = node_view
                 .into_html_element()
@@ -159,14 +173,13 @@ fn extract_el_from_view(view: &View) -> Option<web_sys::HtmlElement> {
 }
 
 fn use_keyed_elements<Item, ChildFn, Child, KeyFn, Key>(
-    key_fn: KeyFn,
+    key_fn: StoredValue<KeyFn>,
     children_fn: ChildFn,
     appear: bool,
     enter_from_class: Memo<Classes>,
     enter_class: Memo<Classes>,
 ) -> (
     StoredValue<HashMap<Key, web_sys::HtmlElement>>,
-    impl Fn(&Item) -> Key + 'static,
     impl Fn(Item) -> View + 'static,
 )
 where
@@ -179,10 +192,9 @@ where
     let el_per_key =
         StoredValue::new(HashMap::<Key, web_sys::HtmlElement>::new());
 
-    let key_fn = Rc::new(key_fn);
-
     let entering_children_keys = RwSignal::new(Vec::<Key>::new());
 
+    // @kw use normal timeout instead?
     // don't run multiple times when a few children are added at once
     _ = watch_debounced_with_options(
         entering_children_keys,
@@ -221,38 +233,31 @@ where
         initial_children_mounted.set_value(true);
     });
 
-    (
-        el_per_key,
-        {
-            let key_fn = Rc::clone(&key_fn);
-            move |item| key_fn(item)
-        },
-        move |item| {
-            let key = key_fn(&item);
-            let child = children_fn(item);
+    (el_per_key, move |item| {
+        let key = with!(|key_fn| key_fn(&item));
+        let child = children_fn(item);
 
-            let view = child.into_view();
+        let view = child.into_view();
 
-            let el = extract_el_from_view(&view);
+        let el = extract_el_from_view(&view);
 
-            if let Some(el) = el {
-                update!(|el_per_key| {
-                    el_per_key.insert(key.clone(), el.clone());
+        if let Some(el) = el {
+            update!(|el_per_key| {
+                el_per_key.insert(key.clone(), el.clone());
+            });
+
+            if initial_children_mounted() || appear {
+                el.add_classes(&enter_from_class());
+                el.enable_instant_transition();
+
+                update!(|entering_children_keys| {
+                    entering_children_keys.push(key);
                 });
-
-                if initial_children_mounted() || appear {
-                    el.add_classes(&enter_from_class());
-                    el.enable_instant_transition();
-
-                    update!(|entering_children_keys| {
-                        entering_children_keys.push(key);
-                    });
-                }
             }
+        }
 
-            view
-        },
-    )
+        view
+    })
 }
 
 fn use_class_memo(class: MaybeProp<String>) -> Memo<Classes> {
@@ -265,7 +270,7 @@ fn use_class_memo(class: MaybeProp<String>) -> Memo<Classes> {
     })
 }
 
-#[leptos::component]
+#[leptos::component(transparent)]
 pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(
     each: Items,
     key: KeyFn,
@@ -292,8 +297,10 @@ where
     let enter_from_class = use_class_memo(enter_from_class);
     let leave_class = use_class_memo(leave_class);
 
-    let (el_per_key, key_fn, children_fn) = use_keyed_elements(
-        key,
+    let key_fn = StoredValue::new(key);
+
+    let (el_per_key, children_fn) = use_keyed_elements(
+        key_fn,
         children,
         appear,
         enter_from_class,
@@ -301,18 +308,85 @@ where
     );
 
     let each_fn = move || {
-        // @kw
-        with!(|el_per_key| {
-            for (key, el) in el_per_key {
-                let rect = el.get_bounding_client_rect();
-                let x = rect.x();
-                let y = rect.y();
-                log!("{key:?}: {x}, {y}");
+        let item_iter = each().into_iter();
+
+        let mut keys = HashSet::<Key>::new();
+
+        let mut items = Vec::new();
+
+        with!(|key_fn| {
+            for item in item_iter {
+                let key = key_fn(&item);
+                keys.insert(key);
+                items.push(item);
             }
         });
 
-        each()
+        let mut leaving_els_parent = None;
+        let mut leaving_els_with_rects = Vec::new();
+
+        update!(|el_per_key| {
+            let mut keys_to_remove = Vec::new();
+
+            for key in el_per_key.keys() {
+                if !keys.contains(key) {
+                    keys_to_remove.push(key.clone());
+                }
+            }
+
+            for key in keys_to_remove {
+                let el = el_per_key.remove(&key).unwrap();
+
+                if leaving_els_parent.is_none() {
+                    leaving_els_parent = Some(el.parent_element().unwrap());
+                }
+
+                let rect = el.get_bounding_client_rect();
+                leaving_els_with_rects.push((el, rect));
+            }
+        });
+
+        if leaving_els_parent.is_none() {
+            return items;
+        }
+
+        spawn_local(async move {
+            next_tick().await;
+
+            let leave_class = leave_class.get_untracked();
+
+            let document_pos = document()
+                .document_element()
+                .expect("document to be Element")
+                .get_bounding_client_rect();
+
+            let parent = leaving_els_parent.unwrap();
+
+            for (el, rect) in &leaving_els_with_rects {
+                el.set_empty_attribute(LEAVE_ATTRIBUTE);
+                lock_fixed_position(el, rect, &document_pos);
+                parent.append_child(el).unwrap();
+            }
+
+            force_reflow();
+
+            for (el, ..) in leaving_els_with_rects {
+                el.add_classes(&leave_class);
+                el.disable_instant_transition();
+
+                set_cb_once_on_transition_end(&el, |el| {
+                    el.remove();
+                });
+            }
+        });
+
+        items
     };
 
-    Each::new(each_fn, key_fn, children_fn).into_view()
+    Each::new(
+        each_fn,
+        move |item| with!(|key_fn| key_fn(item)),
+        children_fn,
+    )
+    .into_view()
 }
