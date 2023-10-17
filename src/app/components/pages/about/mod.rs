@@ -1,4 +1,3 @@
-use leptos::html::Div;
 use rand::{seq::SliceRandom, thread_rng, Rng};
 
 use crate::{
@@ -212,7 +211,7 @@ pub fn About() -> impl IntoView {
                     move_class="transition-2000"
                     enter_class="transition-opacity-2000"
                     enter_from_class="op0"
-                    leave_class="transition-opacity op0"
+                    leave_class="transition-2000 op0 scale-300 pointer-events-none"
                 />
 
             </div>
