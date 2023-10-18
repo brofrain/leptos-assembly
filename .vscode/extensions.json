@@ -3,6 +3,7 @@
     "antfu.iconify",
     "antfu.unocss",
     "lokalise.i18n-ally",
+    "ms-playwright.playwright",
     "rust-lang.rust-analyzer",
     "tamasfe.even-better-toml"
   ]

@@ -199,11 +199,14 @@ pub fn About() -> impl IntoView {
                     key=|brick| brick.id
                     children=move |brick| {
                         view! {
-                            <FeatureBrick
-                                title=brick.feature.title
-                                icon_class=brick.feature.icon_class
-                                active=brick.active
-                            />
+                            <div>
+                                {brick.id}
+                                <FeatureBrick
+                                    title=brick.feature.title
+                                    icon_class=brick.feature.icon_class
+                                    active=brick.active
+                                />
+                            </div>
                         }
                     }
 
