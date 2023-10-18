@@ -75,9 +75,10 @@ fn lock_fixed_position(
 
 fn check_if_moved_and_lock_previous_position(
     el: &web_sys::HtmlElement,
-    new_pos: &DomRect,
     old_pos: &DomRect,
 ) -> bool {
+    let new_pos = el.get_bounding_client_rect();
+
     let dx = old_pos.left() - new_pos.left();
     let dy = old_pos.top() - new_pos.top();
 
@@ -270,6 +271,7 @@ fn use_class_memo(class: MaybeProp<String>) -> Memo<Classes> {
     })
 }
 
+#[allow(clippy::too_many_lines)] // @kw
 #[leptos::component(transparent)]
 pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(
     each: Items,
@@ -325,11 +327,16 @@ where
         let mut leaving_els_parent = None;
         let mut leaving_els_with_rects = Vec::new();
 
+        let mut before_render_el_rect_per_key = HashMap::<Key, DomRect>::new();
+
         update!(|el_per_key| {
             let mut keys_to_remove = Vec::new();
 
-            for key in el_per_key.keys() {
-                if !keys.contains(key) {
+            for (key, el) in el_per_key.iter() {
+                if keys.contains(key) {
+                    let rect = el.get_bounding_client_rect();
+                    before_render_el_rect_per_key.insert(key.clone(), rect);
+                } else {
                     keys_to_remove.push(key.clone());
                 }
             }
@@ -346,38 +353,92 @@ where
             }
         });
 
-        if leaving_els_parent.is_none() {
-            return items;
-        }
-
         spawn_local(async move {
             next_tick().await;
 
-            let leave_class = leave_class.get_untracked();
+            if let Some(parent) = leaving_els_parent {
+                let document_pos = document()
+                    .document_element()
+                    .expect("document to be Element")
+                    .get_bounding_client_rect();
 
-            let document_pos = document()
-                .document_element()
-                .expect("document to be Element")
-                .get_bounding_client_rect();
-
-            let parent = leaving_els_parent.unwrap();
-
-            for (el, rect) in &leaving_els_with_rects {
-                el.set_empty_attribute(LEAVE_ATTRIBUTE);
-                lock_fixed_position(el, rect, &document_pos);
-                parent.append_child(el).unwrap();
+                for (el, rect) in &leaving_els_with_rects {
+                    el.set_empty_attribute(LEAVE_ATTRIBUTE);
+                    lock_fixed_position(el, rect, &document_pos);
+                    parent.append_child(el).unwrap();
+                }
             }
+
+            let mut moved_el_keys = Vec::new();
+
+            let clear_move_transition =
+                build_clear_transition(&move_class.get_untracked());
+
+            with!(|el_per_key| {
+                for (key, old_pos) in &before_render_el_rect_per_key {
+                    let el = el_per_key.get(key).unwrap();
+
+                    clear_move_transition(el);
+
+                    if check_if_moved_and_lock_previous_position(el, old_pos) {
+                        moved_el_keys.push(key.clone());
+                    }
+                }
+            });
 
             force_reflow();
 
-            for (el, ..) in leaving_els_with_rects {
-                el.add_classes(&leave_class);
-                el.disable_instant_transition();
+            if !leaving_els_with_rects.is_empty() {
+                with!(|leave_class| {
+                    for (el, ..) in leaving_els_with_rects {
+                        el.add_classes(leave_class);
+                        el.disable_instant_transition();
 
-                set_cb_once_on_transition_end(&el, |el| {
-                    el.remove();
+                        set_cb_once_on_transition_end(&el, |el| {
+                            el.remove();
+                        });
+                    }
                 });
             }
+
+            if moved_el_keys.is_empty() {
+                return;
+            }
+
+            move_class.with_untracked(|move_class| {
+                let release_move_transition =
+                    build_release_transition(move_class);
+
+                let mut release_move_and_enter_transition = None;
+
+                with!(|el_per_key| {
+                    for key in moved_el_keys {
+                        let el = el_per_key.get(&key).unwrap();
+
+                        el.add_classes(move_class);
+                        el.set_empty_attribute(MOVE_ATTRIBUTE);
+
+                        if el.has_attribute(ENTER_ATTRIBUTE) {
+                            if release_move_and_enter_transition.is_none() {
+                                release_move_and_enter_transition =
+                                    Some(build_release_transition(
+                                        &[
+                                            move_class.clone(),
+                                            enter_class.get_untracked(),
+                                        ]
+                                        .concat(),
+                                    ));
+                            }
+
+                            release_move_and_enter_transition.as_ref().unwrap()(
+                                el,
+                            );
+                        } else {
+                            release_move_transition(el);
+                        }
+                    }
+                });
+            });
         });
 
         items
