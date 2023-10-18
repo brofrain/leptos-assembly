@@ -371,13 +371,16 @@ where
 
             let mut moved_el_keys = Vec::new();
 
-            let clear_move_transition =
-                build_clear_transition(&move_class.get_untracked());
+            let clear_move_transition = build_clear_transition(
+                &[move_class.get_untracked(), enter_class.get_untracked()]
+                    .concat(),
+            );
 
             with!(|el_per_key| {
                 for (key, old_pos) in &before_render_el_rect_per_key {
                     let el = el_per_key.get(key).unwrap();
 
+                    // @kw breaks enter transition
                     clear_move_transition(el);
 
                     if check_if_moved_and_lock_previous_position(el, old_pos) {
@@ -389,16 +392,14 @@ where
             force_reflow();
 
             if !leaving_els_with_rects.is_empty() {
-                with!(|leave_class| {
-                    for (el, ..) in leaving_els_with_rects {
-                        el.add_classes(leave_class);
-                        el.disable_instant_transition();
+                for (el, ..) in leaving_els_with_rects {
+                    el.add_classes(&leave_class.get_untracked());
+                    el.disable_instant_transition();
 
-                        set_cb_once_on_transition_end(&el, |el| {
-                            el.remove();
-                        });
-                    }
-                });
+                    set_cb_once_on_transition_end(&el, |el| {
+                        el.remove();
+                    });
+                }
             }
 
             if moved_el_keys.is_empty() {
@@ -409,33 +410,13 @@ where
                 let release_move_transition =
                     build_release_transition(move_class);
 
-                let mut release_move_and_enter_transition = None;
-
                 with!(|el_per_key| {
                     for key in moved_el_keys {
                         let el = el_per_key.get(&key).unwrap();
 
                         el.add_classes(move_class);
                         el.set_empty_attribute(MOVE_ATTRIBUTE);
-
-                        if el.has_attribute(ENTER_ATTRIBUTE) {
-                            if release_move_and_enter_transition.is_none() {
-                                release_move_and_enter_transition =
-                                    Some(build_release_transition(
-                                        &[
-                                            move_class.clone(),
-                                            enter_class.get_untracked(),
-                                        ]
-                                        .concat(),
-                                    ));
-                            }
-
-                            release_move_and_enter_transition.as_ref().unwrap()(
-                                el,
-                            );
-                        } else {
-                            release_move_transition(el);
-                        }
+                        release_move_transition(el);
                     }
                 });
             });
