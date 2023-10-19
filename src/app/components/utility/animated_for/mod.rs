@@ -354,8 +354,6 @@ where
         });
 
         spawn_local(async move {
-            next_tick().await;
-
             if let Some(parent) = leaving_els_parent {
                 let document_pos = document()
                     .document_element()
@@ -371,7 +369,7 @@ where
 
             let mut moved_el_keys = Vec::new();
 
-            let clear_move_transition = build_clear_transition(
+            let clear_transitions = build_clear_transition(
                 &[move_class.get_untracked(), enter_class.get_untracked()]
                     .concat(),
             );
@@ -380,8 +378,7 @@ where
                 for (key, old_pos) in &before_render_el_rect_per_key {
                     let el = el_per_key.get(key).unwrap();
 
-                    // @kw breaks enter transition
-                    clear_move_transition(el);
+                    clear_transitions(el);
 
                     if check_if_moved_and_lock_previous_position(el, old_pos) {
                         moved_el_keys.push(key.clone());
