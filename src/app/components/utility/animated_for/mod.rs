@@ -201,8 +201,6 @@ where
         entering_children_keys,
         move |_, _, _| {
             spawn_local(async move {
-                next_tick().await;
-
                 let start_enter = build_start_enter(
                     enter_from_class.get_untracked(),
                     enter_class.get_untracked(),
@@ -230,7 +228,6 @@ where
 
     let initial_children_mounted = StoredValue::new(false);
     spawn_local(async move {
-        next_tick().await;
         initial_children_mounted.set_value(true);
     });
 
