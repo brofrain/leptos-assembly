@@ -199,22 +199,19 @@ pub fn About() -> impl IntoView {
                     key=|brick| brick.id
                     children=move |brick| {
                         view! {
-                            <div>
-                                {brick.id}
-                                <FeatureBrick
-                                    title=brick.feature.title
-                                    icon_class=brick.feature.icon_class
-                                    active=brick.active
-                                />
-                            </div>
+                            <FeatureBrick
+                                title=brick.feature.title
+                                icon_class=brick.feature.icon_class
+                                active=brick.active
+                            />
                         }
                     }
 
                     appear=true
-                    move_class="transition-2000"
-                    enter_class="transition-opacity-2000"
+                    move_class="transition-1000"
+                    enter_class="transition-opacity-1000"
                     enter_from_class="op0"
-                    leave_class="transition-2000 op0 scale-300 pointer-events-none"
+                    leave_class="transition-1000 op0 scale-300 pointer-events-none"
                 />
 
             </div>
