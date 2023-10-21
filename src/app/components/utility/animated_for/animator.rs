@@ -1,4 +1,4 @@
-use std::{cell::RefCell, collections::HashMap, hash::Hash, rc::Rc};
+use std::{collections::HashMap, hash::Hash, rc::Rc};
 
 use leptos::{MaybeProp, StoredValue};
 use wasm_bindgen::{prelude::Closure, JsCast};
@@ -7,7 +7,7 @@ use super::untracked_classes::UntrackedClasses;
 use crate::utils::animation::AnimatedEl;
 
 #[derive(Clone, Copy)]
-pub struct Puppeteer<Key>
+pub struct Animator<Key>
 where
     Key: 'static,
 {
@@ -16,7 +16,7 @@ where
     enter_from_class_per_key: StoredValue<HashMap<Key, Vec<String>>>,
 }
 
-impl<Key> Puppeteer<Key>
+impl<Key> Animator<Key>
 where
     Key: Clone + Hash + Eq + PartialEq,
 {
