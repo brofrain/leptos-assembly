@@ -40,7 +40,7 @@ use crate::utils::{
     future::next_tick,
 };
 
-mod puppeteer;
+mod animator;
 mod untracked_classes;
 
 trait AnimatedForEl {
