@@ -73,6 +73,21 @@ fn lock_fixed_position(
     el.enable_instant_transition();
 }
 
+fn prepare_leave(
+    leaving_els_parent: &web_sys::Element,
+    leaving_els_with_rects: &Vec<(web_sys::HtmlElement, DomRect)>,
+) {
+    let document_pos = document()
+        .document_element()
+        .expect("document to be Element")
+        .get_bounding_client_rect();
+
+    for (el, rect) in leaving_els_with_rects {
+        lock_fixed_position(el, rect, &document_pos);
+        leaving_els_parent.append_child(el).unwrap();
+    }
+}
+
 fn check_if_moved_and_lock_previous_position(
     el: &web_sys::HtmlElement,
     old_pos: &DomRect,
@@ -139,7 +154,7 @@ fn build_start_enter(
 
     move |el: &web_sys::HtmlElement| {
         el.remove_classes(&enter_from_class);
-        el.add_classes(&enter_class);
+        el.add_unique_classes(&enter_class);
         release_transition(el);
     }
 }
@@ -216,7 +231,7 @@ where
             });
 
             if initial_children_mounted() || appear {
-                el.add_classes(&enter_from_class());
+                el.add_unique_classes(&enter_from_class());
                 el.enable_instant_transition();
 
                 update!(|entering_children_keys| {
@@ -323,15 +338,7 @@ where
 
         spawn_local(async move {
             if let Some(parent) = leaving_els_parent {
-                let document_pos = document()
-                    .document_element()
-                    .expect("document to be Element")
-                    .get_bounding_client_rect();
-
-                for (el, rect) in &leaving_els_with_rects {
-                    lock_fixed_position(el, rect, &document_pos);
-                    parent.append_child(el).unwrap();
-                }
+                prepare_leave(&parent, &leaving_els_with_rects);
             }
 
             let mut moved_el_keys = Vec::new();
@@ -357,7 +364,7 @@ where
 
             if !leaving_els_with_rects.is_empty() {
                 for (el, ..) in leaving_els_with_rects {
-                    el.add_classes(&leave_class.get_untracked());
+                    el.add_unique_classes(&leave_class.get_untracked());
                     el.disable_instant_transition();
 
                     set_cb_once_on_transition_end(&el, |el| {
@@ -378,7 +385,7 @@ where
                     for key in moved_el_keys {
                         let el = el_per_key.get(&key).unwrap();
 
-                        el.add_classes(move_class);
+                        el.add_unique_classes(move_class);
                         release_move_transition(el);
                     }
                 });
