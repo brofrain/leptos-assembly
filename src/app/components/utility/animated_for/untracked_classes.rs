@@ -1,0 +1,77 @@
+use leptos::{
+    MaybeProp,
+    Memo,
+    SignalGetUntracked,
+    SignalWithUntracked,
+    StoredValue,
+};
+
+use crate::utils::animation::AnimatedEl;
+
+type Classes = Vec<String>;
+
+#[derive(Clone, Copy)]
+pub struct UntrackedClasses {
+    enter_from: Memo<Classes>,
+    enter: Memo<Classes>,
+    r#move: Memo<Classes>,
+    leave: Memo<Classes>,
+}
+
+fn use_class_memo(class: MaybeProp<String>) -> Memo<Classes> {
+    Memo::new(move |_| {
+        class()
+            .map(|class| {
+                class.split_whitespace().map(ToOwned::to_owned).collect()
+            })
+            .unwrap_or_default()
+    })
+}
+
+impl UntrackedClasses {
+    pub fn new(
+        raw_enter_from: MaybeProp<String>,
+        raw_enter: MaybeProp<String>,
+        raw_move: MaybeProp<String>,
+        raw_leave: MaybeProp<String>,
+    ) -> Self {
+        let enter_from = use_class_memo(raw_enter_from);
+        Self {
+            enter_from,
+            enter: use_class_memo(raw_enter),
+            r#move: use_class_memo(raw_move),
+            leave: use_class_memo(raw_leave),
+        }
+    }
+
+    // @kw
+    // pub fn with_enter<T>(&self, f: impl FnOnce(&Classes) -> T) {
+    //     self.enter.with_untracked(f);
+    // }
+
+    // pub fn with_move<T>(&self, f: impl FnOnce(&Classes) -> T) {
+    //     self.r#move.with_untracked(f);
+    // }
+
+    // pub fn with_leave<T>(&self, f: impl FnOnce(&Classes) -> T) {
+    //     self.leave.with_untracked(f);
+    // }
+
+    pub fn add_enter_from(&self, el: &web_sys::HtmlElement) -> Classes {
+        self.enter_from
+            .with_untracked(|classes| el.add_classes(classes))
+    }
+
+    pub fn add_enter(&self, el: &web_sys::HtmlElement) -> Classes {
+        self.enter.with_untracked(|classes| el.add_classes(classes))
+    }
+
+    pub fn add_move(&self, el: &web_sys::HtmlElement) -> Classes {
+        self.r#move
+            .with_untracked(|classes| el.add_classes(classes))
+    }
+
+    pub fn add_leave(&self, el: &web_sys::HtmlElement) -> Classes {
+        self.leave.with_untracked(|classes| el.add_classes(classes))
+    }
+}

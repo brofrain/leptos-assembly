@@ -31,6 +31,7 @@ use web_sys::DomRect;
 use crate::utils::{
     animation::{
         clear_cb_on_transition_end,
+        extract_el_from_view,
         force_reflow,
         set_cb_once_on_transition_end,
         AnimatedEl,
@@ -39,9 +40,8 @@ use crate::utils::{
     future::next_tick,
 };
 
-const MOVE_ATTRIBUTE: &str = "animated-for-move";
-const ENTER_ATTRIBUTE: &str = "animated-for-enter";
-const LEAVE_ATTRIBUTE: &str = "animated-for-leave";
+mod puppeteer;
+mod untracked_classes;
 
 trait AnimatedForEl {
     fn clear_transform(&self);
@@ -101,8 +101,6 @@ fn build_clear_transition(
     let classes_to_remove = active_transition_classes.clone();
     move |el| {
         el.remove_classes(&classes_to_remove);
-        el.remove_attribute(MOVE_ATTRIBUTE).unwrap();
-        el.remove_attribute(ENTER_ATTRIBUTE).unwrap();
         clear_cb_on_transition_end(el);
     }
 }
@@ -142,34 +140,7 @@ fn build_start_enter(
     move |el: &web_sys::HtmlElement| {
         el.remove_classes(&enter_from_class);
         el.add_classes(&enter_class);
-        el.set_empty_attribute(ENTER_ATTRIBUTE);
         release_transition(el);
-    }
-}
-
-fn extract_el_from_view(view: &View) -> Option<web_sys::HtmlElement> {
-    match view {
-        View::Component(component) => {
-            let node_view = component.children.get(0)?.clone();
-
-            let el = node_view
-                .into_html_element()
-                .ok()?
-                .dyn_ref::<web_sys::HtmlElement>()?
-                .clone();
-
-            Some(el)
-        }
-        view => {
-            let el = view
-                .clone()
-                .into_html_element()
-                .ok()?
-                .dyn_ref::<web_sys::HtmlElement>()?
-                .clone();
-
-            Some(el)
-        }
     }
 }
 
@@ -358,7 +329,6 @@ where
                     .get_bounding_client_rect();
 
                 for (el, rect) in &leaving_els_with_rects {
-                    el.set_empty_attribute(LEAVE_ATTRIBUTE);
                     lock_fixed_position(el, rect, &document_pos);
                     parent.append_child(el).unwrap();
                 }
@@ -409,7 +379,6 @@ where
                         let el = el_per_key.get(&key).unwrap();
 
                         el.add_classes(move_class);
-                        el.set_empty_attribute(MOVE_ATTRIBUTE);
                         release_move_transition(el);
                     }
                 });
@@ -424,5 +393,4 @@ where
         move |item| with!(|key_fn| key_fn(item)),
         children_fn,
     )
-    .into_view()
 }
