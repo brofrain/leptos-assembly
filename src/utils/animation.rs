@@ -1,11 +1,14 @@
-use leptos::window;
+use leptos::{window, View};
 use wasm_bindgen::{prelude::Closure, JsCast};
 use web_sys::HtmlElement;
 
+// @kw make private?
 pub type Classes = Vec<String>;
 
 pub trait AnimatedEl {
-    fn add_classes(&self, classes: &Classes);
+    /// Returns the classes that were not previously present, and were added by
+    /// the method.
+    fn add_classes(&self, classes: &Classes) -> Classes;
     fn remove_classes(&self, classes: &Classes);
     fn set_important_style_property(&self, property: &str, value: &str);
     fn enable_instant_transition(&self);
@@ -14,10 +17,21 @@ pub trait AnimatedEl {
 }
 
 impl AnimatedEl for HtmlElement {
-    fn add_classes(&self, classes: &Classes) {
+    fn add_classes(&self, classes: &Classes) -> Classes {
+        let mut added_classes = Vec::new();
+
         for class in classes {
-            self.class_list().add_1(class).unwrap();
+            let class_list = self.class_list();
+
+            if class_list.contains(class) {
+                continue;
+            }
+
+            class_list.add_1(class).unwrap();
+            added_classes.push(class.clone());
         }
+
+        added_classes
     }
 
     fn remove_classes(&self, classes: &Classes) {
@@ -79,5 +93,31 @@ where
 }
 
 pub fn force_reflow() {
-    let _ = window().document().unwrap().body().unwrap().offset_height();
+    _ = window().document().unwrap().body().unwrap().offset_height();
+}
+
+pub fn extract_el_from_view(view: &View) -> Option<web_sys::HtmlElement> {
+    match view {
+        View::Component(component) => {
+            let node_view = component.children.get(0)?.clone();
+
+            let el = node_view
+                .into_html_element()
+                .ok()?
+                .dyn_ref::<web_sys::HtmlElement>()?
+                .clone();
+
+            Some(el)
+        }
+        view => {
+            let el = view
+                .clone()
+                .into_html_element()
+                .ok()?
+                .dyn_ref::<web_sys::HtmlElement>()?
+                .clone();
+
+            Some(el)
+        }
+    }
 }
