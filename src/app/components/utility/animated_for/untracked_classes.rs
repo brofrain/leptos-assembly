@@ -44,34 +44,22 @@ impl UntrackedClasses {
         }
     }
 
-    // @kw
-    // pub fn with_enter<T>(&self, f: impl FnOnce(&Classes) -> T) {
-    //     self.enter.with_untracked(f);
-    // }
-
-    // pub fn with_move<T>(&self, f: impl FnOnce(&Classes) -> T) {
-    //     self.r#move.with_untracked(f);
-    // }
-
-    // pub fn with_leave<T>(&self, f: impl FnOnce(&Classes) -> T) {
-    //     self.leave.with_untracked(f);
-    // }
-
     pub fn add_enter_from(&self, el: &web_sys::HtmlElement) -> Classes {
         self.enter_from
-            .with_untracked(|classes| el.add_classes(classes))
+            .with_untracked(|classes| el.add_unique_classes(classes))
     }
 
     pub fn add_enter(&self, el: &web_sys::HtmlElement) -> Classes {
-        self.enter.with_untracked(|classes| el.add_classes(classes))
+        self.enter
+            .with_untracked(|classes| el.add_unique_classes(classes))
     }
 
     pub fn add_move(&self, el: &web_sys::HtmlElement) -> Classes {
         self.r#move
-            .with_untracked(|classes| el.add_classes(classes))
+            .with_untracked(|classes| el.add_unique_classes(classes))
     }
 
-    pub fn add_leave(&self, el: &web_sys::HtmlElement) -> Classes {
-        self.leave.with_untracked(|classes| el.add_classes(classes))
+    pub fn add_leave(&self, el: &web_sys::HtmlElement) {
+        self.leave.with_untracked(|classes| el.add_classes(classes));
     }
 }

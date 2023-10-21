@@ -6,9 +6,11 @@ use web_sys::HtmlElement;
 pub type Classes = Vec<String>;
 
 pub trait AnimatedEl {
+    fn add_classes(&self, classes: &Classes);
+
     /// Returns the classes that were not previously present, and were added by
     /// the method.
-    fn add_classes(&self, classes: &Classes) -> Classes;
+    fn add_unique_classes(&self, classes: &Classes) -> Classes;
     fn remove_classes(&self, classes: &Classes);
     fn set_important_style_property(&self, property: &str, value: &str);
     fn enable_instant_transition(&self);
@@ -17,7 +19,13 @@ pub trait AnimatedEl {
 }
 
 impl AnimatedEl for HtmlElement {
-    fn add_classes(&self, classes: &Classes) -> Classes {
+    fn add_classes(&self, classes: &Classes) {
+        for class in classes {
+            self.class_list().add_1(class).unwrap();
+        }
+    }
+
+    fn add_unique_classes(&self, classes: &Classes) -> Classes {
         let mut added_classes = Vec::new();
 
         for class in classes {
