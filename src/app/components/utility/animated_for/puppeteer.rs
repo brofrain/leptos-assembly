@@ -47,6 +47,7 @@ where
     }
 
     fn push_class_cleanup_on_transition_end(
+        &self,
         el: &web_sys::HtmlElement,
         classes_to_remove: Vec<String>,
     ) {
@@ -64,6 +65,7 @@ where
         // @kw use leptos API?
         let closure =
             Closure::<dyn FnMut(&web_sys::TransitionEvent)>::wrap(Box::new({
+                let clear_classes = Rc::clone(&clear_classes);
                 let el = Rc::clone(&el);
                 move |event| {
                     let event_el = event
@@ -84,6 +86,10 @@ where
         el.set_ontransitionend(Some(closure.as_ref().unchecked_ref()));
         el.set_onanimationend(Some(closure.as_ref().unchecked_ref()));
         closure.forget();
+
+        self.transition_end_cbs.update_value(|v| {
+            v.push(clear_classes);
+        });
     }
 
     pub fn start_enter(&self, key: &Key, el: &web_sys::HtmlElement) {
@@ -96,46 +102,8 @@ where
         });
 
         el.disable_instant_transition();
+
         let added_classes = self.classes.add_enter(el);
-
-        let el = Rc::new(el.clone());
-
-        let clear_transition = Rc::new({
-            let el = Rc::clone(&el);
-            move || {
-                el.remove_classes(&added_classes);
-                el.set_ontransitionend(None);
-                el.set_onanimationend(None);
-            }
-        });
-
-        // @kw use leptos API?
-        let closure =
-            Closure::<dyn FnMut(&web_sys::TransitionEvent)>::wrap(Box::new({
-                let clear_transition = Rc::clone(&clear_transition);
-                let el = Rc::clone(&el);
-                move |event| {
-                    let event_el = event
-                        .target()
-                        .unwrap()
-                        .dyn_into::<web_sys::HtmlElement>()
-                        .unwrap();
-
-                    // @kw still needed?
-                    if *el != event_el {
-                        return;
-                    }
-
-                    clear_transition();
-                }
-            }));
-
-        el.set_ontransitionend(Some(closure.as_ref().unchecked_ref()));
-        el.set_onanimationend(Some(closure.as_ref().unchecked_ref()));
-        closure.forget();
-
-        self.transition_end_cbs.update_value(|v| {
-            v.push(clear_transition);
-        });
+        self.push_class_cleanup_on_transition_end(el, added_classes);
     }
 }
