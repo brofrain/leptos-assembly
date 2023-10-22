@@ -19,19 +19,22 @@ cargo-edit@0.12.2
 setup:
     #!/usr/bin/env sh
     (
+        # Rust toolchain
         rustup toolchain install nightly --profile minimal -c rustfmt clippy
         rustup target add wasm32-unknown-unknown
 
+        # Node dependencies
+        # (should not run in parallel with other stuff,
+        # because `playwright install-deps` can ask for permissions)
+        npm i -g pnpm
+        pnpm i --frozen-lockfile
+        npx playwright install
+        npx playwright install-deps
+
+        # Cargo executables
         for dep in {{ CARGO_EXECUTABLES }}; do
             cargo install $dep &
         done
-
-        (
-            npm i -g pnpm && \
-            pnpm i --frozen-lockfile && \
-            npx playwright install && \
-            npx playwright install-deps
-        ) &
 
         wait
     )
