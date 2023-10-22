@@ -43,7 +43,7 @@ where
     });
 
     spawn_local(async move {
-        sleep(5.seconds()).await;
+        sleep(3.seconds()).await;
         update!(|queue| {
             queue.pop_front();
         });

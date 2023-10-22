@@ -1,5 +1,5 @@
 use leptos::{window, View};
-use wasm_bindgen::{prelude::Closure, JsCast};
+use wasm_bindgen::JsCast;
 use web_sys::HtmlElement;
 
 // @kw make private?
@@ -16,6 +16,7 @@ pub trait AnimatedEl {
     fn enable_instant_transition(&self);
     fn disable_instant_transition(&self);
     fn set_empty_attribute(&self, attr: &str);
+    fn clear_transform(&self);
 }
 
 impl AnimatedEl for HtmlElement {
@@ -67,37 +68,10 @@ impl AnimatedEl for HtmlElement {
     fn set_empty_attribute(&self, attr: &str) {
         self.set_attribute(attr, "").unwrap();
     }
-}
 
-pub fn clear_cb_on_transition_end(el: &HtmlElement) {
-    el.set_ontransitionend(None);
-    el.set_onanimationend(None);
-}
-
-pub fn set_cb_once_on_transition_end<F>(el: &HtmlElement, mut cb: F)
-where
-    F: FnMut(&HtmlElement) + 'static,
-{
-    let original_el = el.clone();
-
-    // @kw use leptos API?
-    let closure = Closure::<dyn FnMut(&web_sys::TransitionEvent)>::wrap(
-        Box::new(move |event| {
-            let el = event.target().unwrap().dyn_into::<HtmlElement>().unwrap();
-
-            if original_el != el {
-                return;
-            }
-
-            cb(&el);
-            el.set_ontransitionend(None);
-            el.set_onanimationend(None);
-        }),
-    );
-
-    el.set_ontransitionend(Some(closure.as_ref().unchecked_ref()));
-    el.set_onanimationend(Some(closure.as_ref().unchecked_ref()));
-    closure.forget();
+    fn clear_transform(&self) {
+        self.style().set_property("transform", "").unwrap();
+    }
 }
 
 pub fn force_reflow() {
