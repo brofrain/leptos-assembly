@@ -2,7 +2,7 @@ use leptos_router::{use_params, IntoParam, Params};
 use pct_str::PctStr;
 
 use crate::app::{
-    components::base::Link,
+    components::base::{AnimatedFor, Link},
     prelude::*,
     router::Route,
     stores::{use_store, Names},
@@ -50,9 +50,8 @@ pub fn Hi() -> impl IntoView {
                 <div class="text-sm mt4">
                     <span class="op75">{t!(i18n, name.aka)} ":"</span>
 
-                    // TODO: use FLIP animations
                     <div class="flex flex-col">
-                        <For
+                        <AnimatedFor
                             each=other_names_sorted
                             key=String::clone
                             children=move |name| {

@@ -1,5 +1,5 @@
 use crate::app::{
-    components::base::{Button, Modal},
+    components::base::{AnimatedFor, Button, Modal},
     composables::confirm,
     prelude::*,
 };
@@ -13,7 +13,7 @@ pub fn TheConfirms() -> impl IntoView {
     });
 
     view! {
-        <For
+        <AnimatedFor
             each=reversed_queue
             key=|confirm| confirm.with_value(|v| *v.id())
             children=move |confirm| {

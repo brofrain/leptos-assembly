@@ -1,4 +1,8 @@
-use crate::app::{composables::toast::use_queue, prelude::*};
+use crate::app::{
+    components::base::AnimatedFor,
+    composables::toast::use_queue,
+    prelude::*,
+};
 
 flatten_mod!(toast);
 
@@ -8,7 +12,7 @@ pub fn TheToasts() -> impl IntoView {
 
     view! {
         <div class="cover pointer-events-none flex flex-col-reverse items-center gap2 pb8">
-            <For
+            <AnimatedFor
                 each=toast_queue
                 key=|toast| *toast.id()
                 children=|toast| {
