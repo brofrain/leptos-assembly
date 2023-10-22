@@ -2,7 +2,7 @@ use rand::{seq::SliceRandom, thread_rng, Rng};
 
 use crate::{
     app::{
-        components::{base::Button, utility::AnimatedFor},
+        components::base::{AnimatedFor, Button},
         composables::{
             future::spawn_local_owned,
             id,
@@ -206,12 +206,6 @@ pub fn About() -> impl IntoView {
                             />
                         }
                     }
-
-                    appear=true
-                    move_class="transition-1000"
-                    enter_class="transition-opacity-1000"
-                    enter_from_class="op0"
-                    leave_class="transition-1000 op0 scale-300 pointer-events-none"
                 />
 
             </div>
