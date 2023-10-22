@@ -80,7 +80,7 @@ pub fn force_reflow() {
 pub fn extract_el_from_view(view: &View) -> Option<web_sys::HtmlElement> {
     match view {
         View::Component(component) => {
-            let node_view = component.children.get(0)?.clone();
+            let node_view = component.children.first()?.clone();
 
             let el = node_view
                 .into_html_element()

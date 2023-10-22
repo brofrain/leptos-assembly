@@ -12,7 +12,7 @@ use crate::app::prelude::*;
 #[derive(Clone, Copy)]
 pub struct Names {
     last_name: (Signal<Option<String>>, WriteSignal<Option<String>>),
-    names: (Signal<HashSet<String>>, WriteSignal<HashSet<String>>),
+    all: (Signal<HashSet<String>>, WriteSignal<HashSet<String>>),
     other_names_sorted: Memo<Vec<String>>,
 }
 
@@ -49,7 +49,7 @@ impl Store for Names {
 
         Self {
             last_name: (last_name, set_last_name),
-            names: (names, set_names),
+            all: (names, set_names),
             other_names_sorted,
         }
     }
@@ -66,7 +66,7 @@ impl Names {
 
     pub fn push_name(&self, name: &str) {
         self.last_name.1.set(Some(name.to_owned()));
-        self.names.1.update(|names| {
+        self.all.1.update(|names| {
             names.insert(name.to_owned());
         });
     }
