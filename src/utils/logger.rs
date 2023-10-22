@@ -1,6 +1,6 @@
 use fern::Dispatch;
 
-use crate::prelude::*;
+use crate::{env::CARGO_PKG_NAME, prelude::*};
 
 #[cfg(feature = "ssr")]
 fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
@@ -57,17 +57,19 @@ fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
 
             out.finish(format_args!("{level} {time} {module} {message}",));
         })
-        .level_for("hyper", log::LevelFilter::Info)
 }
 
 pub fn init() {
     let mut dispatch = Dispatch::new();
 
+    // debug / info logs from external crates don't interest us
+    dispatch = dispatch.level(log::LevelFilter::Warn);
+
     cfg_if! {
         if #[cfg(debug_assertions)] {
-            dispatch = dispatch.level(log::LevelFilter::Debug);
+            dispatch = dispatch.level_for(CARGO_PKG_NAME.as_str(), log::LevelFilter::Debug);
         } else {
-            dispatch = dispatch.level(log::LevelFilter::Info);
+            dispatch = dispatch.level_for(CARGO_PKG_NAME.as_str(), log::LevelFilter::Info);
         }
     }
 

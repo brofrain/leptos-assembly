@@ -1,5 +1,6 @@
 #![feature(fn_traits)]
 #![feature(unboxed_closures)]
+#![feature(lazy_cell)]
 
 #[macro_use]
 mod macros;
