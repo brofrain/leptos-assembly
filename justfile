@@ -9,7 +9,7 @@ CARGO_EXECUTABLES := replace_regex('''
 just@1.15.0
 cargo-leptos@0.2.0
 leptosfmt@0.1.17
-cargo-expand@1.0.72
+cargo-expand@1.0.74
 cargo-outdated@0.13.1
 cargo-audit@0.18.2
 cargo-edit@0.12.2
