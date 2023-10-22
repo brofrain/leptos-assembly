@@ -10,7 +10,6 @@ fn set_cb_on_transition_end(
     el: &web_sys::HtmlElement,
     cb: &Rc<impl Fn() + 'static>,
 ) {
-    // @kw use leptos API?
     let closure =
         Closure::<dyn FnMut(&web_sys::TransitionEvent)>::wrap(Box::new({
             let cb = Rc::clone(cb);
