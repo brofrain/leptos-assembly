@@ -2,56 +2,30 @@
 
 use std::{
     collections::{HashMap, HashSet},
-    fmt,
     hash::Hash,
-    rc::Rc,
 };
 
 use leptos::{
     document,
     leptos_dom::{tracing, Each},
-    logging::log,
     spawn_local,
     update,
     with,
     IntoView,
     MaybeProp,
-    Memo,
-    RwSignal,
-    SignalGetUntracked,
-    SignalUpdateUntracked,
-    SignalWithUntracked,
     StoredValue,
     View,
 };
-use leptos_use::{watch_debounced_with_options, WatchDebouncedOptions};
-use wasm_bindgen::JsCast;
 use web_sys::DomRect;
 
+use self::animator::Animator;
 use crate::utils::{
-    animation::{
-        clear_cb_on_transition_end,
-        extract_el_from_view,
-        force_reflow,
-        set_cb_once_on_transition_end,
-        AnimatedEl,
-        Classes,
-    },
+    animation::{extract_el_from_view, force_reflow, AnimatedEl},
     future::next_tick,
 };
 
 mod animator;
 mod untracked_classes;
-
-trait AnimatedForEl {
-    fn clear_transform(&self);
-}
-
-impl AnimatedForEl for web_sys::HtmlElement {
-    fn clear_transform(&self) {
-        self.style().set_property("transform", "").unwrap();
-    }
-}
 
 fn lock_fixed_position(
     el: &web_sys::HtmlElement,
@@ -110,114 +84,40 @@ fn check_if_moved_and_lock_previous_position(
     false
 }
 
-fn build_clear_transition(
-    active_transition_classes: &Classes,
-) -> impl Fn(&web_sys::HtmlElement) {
-    let classes_to_remove = active_transition_classes.clone();
-    move |el| {
-        el.remove_classes(&classes_to_remove);
-        clear_cb_on_transition_end(el);
-    }
-}
-
-fn build_clear_transition_on_transition_end(
-    active_transition_classes: &Classes,
-) -> impl Fn(&web_sys::HtmlElement) {
-    let clear_transition =
-        Rc::new(build_clear_transition(active_transition_classes));
-    move |el| {
-        let clear_transition = Rc::clone(&clear_transition);
-        set_cb_once_on_transition_end(el, move |el| {
-            clear_transition(el);
-        });
-    }
-}
-
-fn build_release_transition(
-    active_transition_classes: &Classes,
-) -> impl Fn(&web_sys::HtmlElement) {
-    let clear_transition_on_transition_end =
-        build_clear_transition_on_transition_end(active_transition_classes);
-
-    move |el: &web_sys::HtmlElement| {
-        el.clear_transform();
-        el.disable_instant_transition();
-        clear_transition_on_transition_end(el);
-    }
-}
-
-fn build_start_enter(
-    enter_from_class: Classes,
-    enter_class: Classes,
-) -> impl Fn(&web_sys::HtmlElement) {
-    let release_transition = build_release_transition(&enter_class);
-
-    move |el: &web_sys::HtmlElement| {
-        el.remove_classes(&enter_from_class);
-        el.add_unique_classes(&enter_class);
-        release_transition(el);
-    }
-}
-
-fn use_keyed_elements<Item, ChildFn, Child, KeyFn, Key>(
+#[allow(clippy::too_many_arguments)]
+fn use_entering_children<Item, ChildFn, Child, KeyFn, Key>(
     key_fn: StoredValue<KeyFn>,
     children_fn: ChildFn,
-    appear: bool,
-    enter_from_class: Memo<Classes>,
-    enter_class: Memo<Classes>,
+    appear: Option<bool>,
+    move_class: MaybeProp<String>,
+    enter_class: MaybeProp<String>,
+    enter_from_class: MaybeProp<String>,
+    leave_class: MaybeProp<String>,
 ) -> (
     StoredValue<HashMap<Key, web_sys::HtmlElement>>,
+    Animator<Key>,
     impl Fn(Item) -> View + 'static,
 )
 where
     ChildFn: Fn(Item) -> Child + 'static,
     Child: IntoView + 'static,
     KeyFn: Fn(&Item) -> Key + 'static,
-    Key: Eq + Hash + Clone + 'static + std::fmt::Debug, // @kw
+    Key: Eq + Hash + Clone + 'static,
     Item: 'static,
 {
-    let el_per_key =
-        StoredValue::new(HashMap::<Key, web_sys::HtmlElement>::new());
+    let appear = appear.unwrap_or_default();
 
-    let entering_children_keys = RwSignal::new(Vec::<Key>::new());
+    let el_per_key = StoredValue::new(HashMap::new());
 
-    // @kw use normal timeout instead?
-    // don't run multiple times when a few children are added at once
-    _ = watch_debounced_with_options(
-        entering_children_keys,
-        move |_, _, _| {
-            spawn_local(async move {
-                let start_enter = build_start_enter(
-                    enter_from_class.get_untracked(),
-                    enter_class.get_untracked(),
-                );
-
-                with!(|el_per_key| {
-                    entering_children_keys.with_untracked(|keys| {
-                        for key in keys {
-                            let el = el_per_key.get(key).unwrap();
-                            start_enter(el);
-                        }
-                    });
-                });
-
-                entering_children_keys.update_untracked(
-                    |entering_children_keys| {
-                        entering_children_keys.clear();
-                    },
-                );
-            });
-        },
-        1.0,
-        WatchDebouncedOptions::default().max_wait(Some(1.0)),
-    );
+    let animator =
+        Animator::new(enter_from_class, enter_class, move_class, leave_class);
 
     let initial_children_mounted = StoredValue::new(false);
     spawn_local(async move {
         initial_children_mounted.set_value(true);
     });
 
-    (el_per_key, move |item| {
+    (el_per_key, animator, move |item| {
         let key = with!(|key_fn| key_fn(&item));
         let child = children_fn(item);
 
@@ -231,11 +131,11 @@ where
             });
 
             if initial_children_mounted() || appear {
-                el.add_unique_classes(&enter_from_class());
-                el.enable_instant_transition();
+                animator.prepare_enter(&key, &el);
 
-                update!(|entering_children_keys| {
-                    entering_children_keys.push(key);
+                spawn_local(async move {
+                    next_tick().await;
+                    animator.start_enter(&key, &el);
                 });
             }
         }
@@ -244,17 +144,6 @@ where
     })
 }
 
-fn use_class_memo(class: MaybeProp<String>) -> Memo<Classes> {
-    Memo::new(move |_| {
-        class()
-            .map(|class| {
-                class.split_whitespace().map(ToOwned::to_owned).collect()
-            })
-            .unwrap_or_default()
-    })
-}
-
-#[allow(clippy::too_many_lines)] // @kw
 #[leptos::component(transparent)]
 pub fn AnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(
     each: Items,
@@ -271,41 +160,27 @@ where
     ItemIter: IntoIterator<Item = Item> + 'static,
     Child: IntoView + 'static,
     ChildFn: Fn(Item) -> Child + 'static,
-    Key: Eq + Hash + Clone + fmt::Debug + 'static, // @kw
+    Key: Eq + Hash + Clone + 'static,
     KeyFn: Fn(&Item) -> Key + 'static,
     Item: 'static,
 {
-    let appear = appear.unwrap_or_default();
-
-    let move_class = use_class_memo(move_class);
-    let enter_class = use_class_memo(enter_class);
-    let enter_from_class = use_class_memo(enter_from_class);
-    let leave_class = use_class_memo(leave_class);
-
     let key_fn = StoredValue::new(key);
 
-    let (el_per_key, children_fn) = use_keyed_elements(
+    let (el_per_key, animator, children_fn) = use_entering_children(
         key_fn,
         children,
         appear,
-        enter_from_class,
+        move_class,
         enter_class,
+        enter_from_class,
+        leave_class,
     );
 
-    let each_fn = move || {
-        let item_iter = each().into_iter();
+    let items_fn = move || {
+        let items = Vec::from_iter(each());
 
-        let mut keys = HashSet::<Key>::new();
-
-        let mut items = Vec::new();
-
-        with!(|key_fn| {
-            for item in item_iter {
-                let key = key_fn(&item);
-                keys.insert(key);
-                items.push(item);
-            }
-        });
+        let keys =
+            with!(|key_fn| items.iter().map(key_fn).collect::<HashSet<_>>());
 
         let mut leaving_els_parent = None;
         let mut leaving_els_with_rects = Vec::new();
@@ -328,7 +203,10 @@ where
                 let el = el_per_key.remove(&key).unwrap();
 
                 if leaving_els_parent.is_none() {
-                    leaving_els_parent = Some(el.parent_element().unwrap());
+                    leaving_els_parent = Some(
+                        el.parent_element()
+                            .expect("children to have parent element"),
+                    );
                 }
 
                 let rect = el.get_bounding_client_rect();
@@ -337,22 +215,17 @@ where
         });
 
         spawn_local(async move {
+            animator.clear_transitions();
+
             if let Some(parent) = leaving_els_parent {
                 prepare_leave(&parent, &leaving_els_with_rects);
             }
 
             let mut moved_el_keys = Vec::new();
 
-            let clear_transitions = build_clear_transition(
-                &[move_class.get_untracked(), enter_class.get_untracked()]
-                    .concat(),
-            );
-
             with!(|el_per_key| {
                 for (key, old_pos) in &before_render_el_rect_per_key {
                     let el = el_per_key.get(key).unwrap();
-
-                    clear_transitions(el);
 
                     if check_if_moved_and_lock_previous_position(el, old_pos) {
                         moved_el_keys.push(key.clone());
@@ -364,12 +237,7 @@ where
 
             if !leaving_els_with_rects.is_empty() {
                 for (el, ..) in leaving_els_with_rects {
-                    el.add_unique_classes(&leave_class.get_untracked());
-                    el.disable_instant_transition();
-
-                    set_cb_once_on_transition_end(&el, |el| {
-                        el.remove();
-                    });
+                    animator.start_leave(&el);
                 }
             }
 
@@ -377,18 +245,11 @@ where
                 return;
             }
 
-            move_class.with_untracked(|move_class| {
-                let release_move_transition =
-                    build_release_transition(move_class);
-
-                with!(|el_per_key| {
-                    for key in moved_el_keys {
-                        let el = el_per_key.get(&key).unwrap();
-
-                        el.add_unique_classes(move_class);
-                        release_move_transition(el);
-                    }
-                });
+            with!(|el_per_key| {
+                for key in moved_el_keys {
+                    let el = el_per_key.get(&key).unwrap();
+                    animator.start_move(el);
+                }
             });
         });
 
@@ -396,7 +257,7 @@ where
     };
 
     Each::new(
-        each_fn,
+        items_fn,
         move |item| with!(|key_fn| key_fn(item)),
         children_fn,
     )

@@ -1,5 +1,6 @@
 use crate::app::prelude::*;
 
+// FIXME: add click transition without breaking <AnimatedFor>
 #[component]
 pub fn FeatureBrick(
     title: &'static str,
@@ -11,7 +12,7 @@ pub fn FeatureBrick(
             class=move || {
                 uno![
                     "flex flex-col items-center gap2 rounded w27 py2",
-                    "select-none cursor-pointer ws-nowrap transition", if active() {
+                    "select-none cursor-pointer ws-nowrap", if active() {
                     "bg-accent text-accent-contrast" } else { "bg-secondary/4" }
                 ]
             }

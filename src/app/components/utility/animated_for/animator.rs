@@ -1,8 +1,7 @@
 use std::{collections::HashMap, hash::Hash, rc::Rc};
 
-use leptos::{document, MaybeProp, StoredValue};
+use leptos::{MaybeProp, StoredValue};
 use wasm_bindgen::{prelude::Closure, JsCast};
-use web_sys::DomRect;
 
 use super::untracked_classes::UntrackedClasses;
 use crate::utils::animation::AnimatedEl;
@@ -37,7 +36,7 @@ fn set_cb_on_transition_end(
     closure.forget();
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone)]
 pub struct Animator<Key>
 where
     Key: 'static,
@@ -46,6 +45,8 @@ where
     transition_end_cbs: StoredValue<Vec<Rc<dyn Fn()>>>,
     enter_from_class_per_key: StoredValue<HashMap<Key, Vec<String>>>,
 }
+
+impl<Key> Copy for Animator<Key> where Key: Clone {}
 
 impl<Key> Animator<Key>
 where
@@ -117,13 +118,15 @@ where
 
     pub fn start_move(&self, el: &web_sys::HtmlElement) {
         el.disable_instant_transition();
+        el.clear_transform();
 
-        let added_classes = self.classes.add_enter(el);
+        let added_classes = self.classes.add_move(el);
         self.push_class_cleanup_on_transition_end(el, added_classes);
     }
 
     pub fn start_leave(&self, el: &web_sys::HtmlElement) {
         self.classes.add_leave(el);
+        el.disable_instant_transition();
 
         let el = Rc::new(el.clone());
 
