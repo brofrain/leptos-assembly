@@ -2,8 +2,7 @@ use leptos::{window, View};
 use wasm_bindgen::JsCast;
 use web_sys::HtmlElement;
 
-// @kw make private?
-pub type Classes = Vec<String>;
+type Classes = Vec<String>;
 
 pub trait AnimatedEl {
     fn add_classes(&self, classes: &Classes);
