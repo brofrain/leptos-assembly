@@ -1,0 +1,16 @@
+languageIds:
+  - rust
+
+usageMatchRegex:
+  # Leptos i18n recommendations
+  # https://github.com/Baptistemontan/leptos_i18n/blob/master/docs/book/src/appendix_i18n_ally.md
+  - "[^\\w\\d]t!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
+  - "[^\\w\\d]td!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
+  - "[^\\w\\d]td_string!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
+  - "[^\\w\\d]td_display!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
+  # Custom macros
+  - "[^\\w\\d]t_get(?:_untracked)?!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
+  - "[^\\w\\d]t_view(?:_untracked)?!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
+  - "[^\\w\\d]t_string(?:_untracked)?!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
+
+monopoly: true

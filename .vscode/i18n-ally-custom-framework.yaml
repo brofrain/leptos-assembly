@@ -1,7 +1,0 @@
-languageIds:
-  - rust
-
-usageMatchRegex:
-  - "[^\\w\\d]t!\\([\\s\\n\\r]*[\\\\]{0,1}['\"]({key})[\\\\]{0,1}['\"]"
-
-monopoly: true
