@@ -7,28 +7,14 @@ use super::untracked_classes::UntrackedClasses;
 use crate::utils::animation::AnimatedEl;
 
 fn set_cb_on_transition_end(
-    el: &Rc<web_sys::HtmlElement>,
+    el: &web_sys::HtmlElement,
     cb: &Rc<impl Fn() + 'static>,
 ) {
     // @kw use leptos API?
     let closure =
         Closure::<dyn FnMut(&web_sys::TransitionEvent)>::wrap(Box::new({
             let cb = Rc::clone(cb);
-            let el = Rc::clone(el);
-            move |event| {
-                let event_el = event
-                    .target()
-                    .unwrap()
-                    .dyn_into::<web_sys::HtmlElement>()
-                    .unwrap();
-
-                // @kw still needed? `Rc` for `el` could be removed otherwise
-                if *el != event_el {
-                    return;
-                }
-
-                cb();
-            }
+            move |_| cb()
         }));
 
     el.set_ontransitionend(Some(closure.as_ref().unchecked_ref()));
@@ -83,10 +69,8 @@ where
         el: &web_sys::HtmlElement,
         classes_to_remove: Vec<String>,
     ) {
-        let el = Rc::new(el.clone());
-
         let clear_classes = Rc::new({
-            let el = Rc::clone(&el);
+            let el = el.clone();
             move || {
                 el.remove_classes(&classes_to_remove);
                 el.set_ontransitionend(None);
@@ -94,7 +78,7 @@ where
             }
         });
 
-        set_cb_on_transition_end(&el, &clear_classes);
+        set_cb_on_transition_end(el, &clear_classes);
 
         self.transition_end_cbs.update_value(|v| {
             v.push(clear_classes);
@@ -128,14 +112,12 @@ where
         self.classes.add_leave(el);
         el.disable_instant_transition();
 
-        let el = Rc::new(el.clone());
-
         let remove_el = Rc::new({
-            let el = Rc::clone(&el);
+            let el = el.clone();
             move || el.remove()
         });
 
-        set_cb_on_transition_end(&el, &remove_el);
+        set_cb_on_transition_end(el, &remove_el);
     }
 
     pub fn clear_transitions(&self) {
