@@ -52,7 +52,7 @@ Additionally, the project aspires to implement a strict, predictable and scalabl
 
 ### UI tools:
 
-- [UnoCSS](https://github.com/unocss/unocss) - why would you use TailwindCSS when UnoCSS exists?
+- [UnoCSS](https://github.com/unocss/unocss) - TailwindCSS, but better
 
 - [Iconify](https://icones.js.org/) - pretty much every application needs icons nowadays
 
@@ -93,6 +93,16 @@ Additionally, the project aspires to implement a strict, predictable and scalabl
 ## 🛠️ Project setup
 
 ### Prerequisites
+
+- [Rust](https://www.rust-lang.org/tools/install) obviously.
+
+- some CLI tools may require additional OS packages:
+
+  - Ubuntu:
+
+    ```bash
+    sudo apt install -y build-essential libssl-dev
+    ```
 
 - [just](https://github.com/casey/just) is required for running CLI tasks.\
   Installation:
