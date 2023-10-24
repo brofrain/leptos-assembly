@@ -2,7 +2,7 @@ import {
   defineConfig,
   presetIcons,
   presetTypography,
-  presetWind,
+  presetUno,
   transformerDirectives,
   transformerVariantGroup,
 } from "unocss";
@@ -14,6 +14,8 @@ export default defineConfig({
   shortcuts: [
     ["cover", "absolute inset-0 max-w-full max-h-full rounded-[inherit]"],
   ],
+
+  theme: { duration: { DEFAULT: "200ms" } },
 
   presets: [
     presetBetterNestedColors({
@@ -66,7 +68,7 @@ export default defineConfig({
       },
     }),
 
-    presetWind(),
+    presetUno(),
     presetTypography(),
     presetIcons({ prefix: "icon-", scale: 1.2, warn: true }),
   ],
