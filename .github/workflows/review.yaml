@@ -33,7 +33,7 @@ jobs:
       - name: Lint
         run: just lint
       - name: Build
-        run: just lint
+        run: just build
       - name: Tests
         run: just test
       - name: E2E
