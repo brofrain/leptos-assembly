@@ -26,7 +26,7 @@ runs:
 
     - name: Just setup
       shell: bash
-      run: cargo install just@1.14.0
+      run: cargo install just@1.15.0
 
     - name: Project setup
       shell: bash
