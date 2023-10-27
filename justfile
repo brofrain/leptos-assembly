@@ -5,40 +5,6 @@ _default: help
     echo "\nRun a task using \`just [RECIPE]\`."
     just --list
 
-CARGO_EXECUTABLES := replace_regex('''
-just@1.15.0
-cargo-leptos@0.2.0
-leptosfmt@0.1.17
-cargo-expand@1.0.74
-cargo-outdated@0.13.1
-cargo-audit@0.18.2
-cargo-edit@0.12.2
-''', '\s+', ' ')
-
-# Performs full project setup
-setup:
-    #!/usr/bin/env sh
-    (
-        # Rust toolchain
-        rustup toolchain install nightly --profile minimal -c rustfmt clippy
-        rustup target add wasm32-unknown-unknown
-
-        # Node dependencies
-        # (should not run in parallel with other stuff,
-        # because `playwright install-deps` can ask for permissions)
-        npm i -g pnpm
-        pnpm i --frozen-lockfile
-        npx playwright install
-        npx playwright install-deps
-
-        # Cargo executables
-        for dep in {{ CARGO_EXECUTABLES }}; do
-            cargo install $dep &
-        done
-
-        wait
-    )
-
 # --- Build & serve ---
 
 # Clears build artifacts
@@ -238,6 +204,41 @@ outdated-node:
 outdated: outdated-cargo outdated-node
 
 # --- Dependency management ---
+
+CARGO_EXECUTABLES := replace_regex('''
+just@1.15.0
+cargo-leptos@0.2.0
+leptosfmt@0.1.17
+cargo-expand@1.0.74
+cargo-outdated@0.13.1
+cargo-audit@0.18.2
+cargo-edit@0.12.2
+''', '\s+', ' ')
+
+# Performs full project setup
+setup:
+    #!/usr/bin/env sh
+    (
+        # Rust toolchain
+        rustup toolchain install nightly --profile minimal -c rustfmt clippy
+        rustup target add wasm32-unknown-unknown
+
+        # Node dependencies
+        # (should not run in parallel with other stuff,
+        # because `playwright install-deps` can ask for permissions)
+        npm i -g pnpm
+        pnpm i --frozen-lockfile
+        npx playwright install
+        npx playwright install-deps
+
+        # Cargo executables
+        for dep in {{ CARGO_EXECUTABLES }}; do
+            cargo install $dep &
+        done
+
+        wait
+    )
+    just clean
 
 _upgrade:
     cargo upgrade
