@@ -24,6 +24,7 @@ educe = "0.4.23"
 fern = "0.6.2"
 futures = "0.3.28"
 leptos = { version = "0.5.2", features = ["nightly"] }
+leptos_animated_for = "0.0.3"
 leptos_i18n = { version = "0.2.2", features = [
   "nightly",
   "serde",
@@ -98,6 +99,7 @@ server = [
   "ssr",
   "_server-deps",
   "leptos/ssr",
+  "leptos_animated_for/ssr",
   "leptos_meta/ssr",
   "leptos_router/ssr",
   "leptos_i18n/axum",

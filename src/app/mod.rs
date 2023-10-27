@@ -5,7 +5,6 @@ mod stores;
 mod components {
     mod base;
     mod shared;
-    mod utility;
 
     pub mod layouts;
     pub mod pages;
