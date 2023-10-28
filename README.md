@@ -166,6 +166,68 @@ just build
 
 ## 🌱 File architecture
 
+// @kw update
+
+```bash
+📁project
+├─ 📁apps
+│  └─ 📁main
+│     ├─ 📁public
+│     ├─ 🚩main.rs
+│     └─ ⚙️Cargo.toml
+├─ 📁e2e
+├─ 📁packages
+│  ├─ 📁core
+│  │  ├─ 📁components # only for multiple clients
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 📁composables # only for multiple clients
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 📁macros
+│  │  │  ├─ 📁proc
+│  │  │  │  ├─ 🚩lib.rs
+│  │  │  │  └─ ⚙️Cargo.toml
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 📁locales
+│  │  ├─ 📁utils
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 🚩lib.rs
+│  │  └─ ⚙️Cargo.toml
+│  ├─ 📁client
+│  │  ├─ 📁components
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 📁composables
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 📁macros
+│  │  │  ├─ 📁proc
+│  │  │  │  ├─ 🚩lib.rs
+│  │  │  │  └─ ⚙️Cargo.toml
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 📁pages
+│  │  │  ├─ 📁home # @kw nested routes?
+│  │  │     ├─ 📁components
+│  │  │     ├─ 📁composables
+│  │  │     ├─ 🚩lib.rs
+│  │  │     └─ ⚙️Cargo.toml
+│  │  ├─ 📁router
+│  │  ├─ 📁styles
+│  │  ├─ 📁utils
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 🚩lib.rs
+│  │  └─ ⚙️Cargo.toml
+│  ├─ 📁server
+│  │  ├─ 🚩lib.rs
+│  │  └─ ⚙️Cargo.toml
+
+```
+
 // TODO: need to play around with the current one a little bit more, to make sure it's good enough
 
 ## 🏁 Checklist
