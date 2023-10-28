@@ -24,7 +24,7 @@ educe = "0.4.23"
 fern = "0.6.2"
 futures = "0.3.29"
 leptos = { version = "0.5.2", features = ["nightly"] }
-leptos_animated_for = "0.0.3"
+leptos_animated_for = "0.0.4"
 leptos_i18n = { version = "0.2.2", features = [
   "nightly",
   "serde",
