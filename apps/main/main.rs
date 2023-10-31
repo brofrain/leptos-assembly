@@ -1,5 +1,3 @@
-// @kw remove `src`
-
 use axum::{
     body::{boxed, Body, BoxBody},
     extract::State,

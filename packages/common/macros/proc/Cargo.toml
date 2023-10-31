@@ -1,0 +1,14 @@
+[package]
+name = "common-proc-macros"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[dependencies]
+proc-macro2.workspace = true
+quote.workspace = true
+syn.workspace = true
+
+[lib]
+path = "lib.rs"
+proc-macro = true

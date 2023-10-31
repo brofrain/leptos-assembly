@@ -1,0 +1,12 @@
+[package]
+name = "common-utils"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+common-macros.workspace = true
+fern.workspace = true
