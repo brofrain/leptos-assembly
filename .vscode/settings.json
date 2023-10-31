@@ -1,12 +1,13 @@
 {
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": "locales",
-  "rust-analyzer.cargo.features": [
-    "csr",
-    "ssr",
-    "_client-deps",
-    "_server-deps"
-  ],
+  // @kw
+  // "rust-analyzer.cargo.features": [
+  //   "csr",
+  //   "ssr",
+  //   "_client-deps",
+  //   "_server-deps"
+  // ],
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.procMacro.ignored": {
     "leptos_macro": ["component", "server"],

@@ -1,0 +1,12 @@
+[package]
+name = "common-macros"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+common-proc-macros.workspace = true
+cfg-if.workspace = true
