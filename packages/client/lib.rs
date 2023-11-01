@@ -16,15 +16,11 @@ cfg_csr! {
 
     #[wasm_bindgen]
     pub fn hydrate() {
-        use app::App;
-        use utils::logger;
-
-        logger::init();
-
-        leptos::mount_to_body(App);
+        common_logger::init();
+        leptos::mount_to_body(app::App);
     }
 }
 
 cfg_ssr! {
-    pub use crate::{app::App, utils::logger};
+    pub use crate::app::App;
 }

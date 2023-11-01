@@ -353,6 +353,7 @@ dependencies = [
  "axum",
  "cfg-if",
  "client-macros",
+ "common-logger",
  "common-macros",
  "common-utils",
  "console_log",
@@ -360,7 +361,6 @@ dependencies = [
  "derive_more",
  "derive_setters",
  "educe",
- "fern",
  "futures",
  "getrandom",
  "leptos",
@@ -408,6 +408,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "186dce98367766de751c42c4f03970fc60fc012296e706ccbb9d5df9b6c1e271"
 
 [[package]]
+name = "common-logger"
+version = "0.0.0"
+dependencies = [
+ "cfg-if",
+ "common-macros",
+ "console_log",
+ "fern",
+ "log",
+]
+
+[[package]]
 name = "common-macros"
 version = "0.0.0"
 dependencies = [
@@ -427,10 +438,6 @@ dependencies = [
 [[package]]
 name = "common-utils"
 version = "0.0.0"
-dependencies = [
- "common-macros",
- "fern",
-]
 
 [[package]]
 name = "common_macros"
@@ -1518,13 +1525,12 @@ dependencies = [
  "axum",
  "cfg-if",
  "client",
- "common-utils",
+ "common-logger",
  "console_log",
  "derive-getters",
  "derive_more",
  "derive_setters",
  "educe",
- "fern",
  "futures",
  "getrandom",
  "leptos",
