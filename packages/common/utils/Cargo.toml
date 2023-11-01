@@ -8,5 +8,3 @@ publish = false
 path = "lib.rs"
 
 [dependencies]
-common-macros.workspace = true
-fern.workspace = true

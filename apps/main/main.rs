@@ -7,7 +7,6 @@ use axum::{
     Router,
 };
 use client::App;
-use common_utils::logger;
 use leptos::{get_configuration, LeptosOptions};
 use leptos_axum::{generate_route_list, LeptosRoutes};
 use tower::ServiceExt;
@@ -44,7 +43,7 @@ async fn file_and_error_handler(
 
 #[tokio::main]
 async fn main() {
-    logger::init();
+    common_logger::init();
 
     let conf = get_configuration(None).await.unwrap();
     let leptos_options = conf.leptos_options;

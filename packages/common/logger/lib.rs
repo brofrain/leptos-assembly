@@ -1,8 +1,13 @@
-// todo @kw delete
+#![feature(lazy_cell)]
 
+use std::sync::LazyLock;
+
+use cfg_if::cfg_if;
+use common_macros::{cfg_csr, cfg_ssr};
 use fern::Dispatch;
 
-use crate::{env::CARGO_PKG_NAME, prelude::*};
+// @kw restore
+// use crate::{env::CARGO_PKG_NAME, prelude::*};
 
 #[cfg(feature = "ssr")]
 fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
@@ -60,6 +65,9 @@ fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
             out.finish(format_args!("{level} {time} {module} {message}",));
         })
 }
+
+static CARGO_PKG_NAME: LazyLock<String> =
+    LazyLock::new(|| env!("CARGO_PKG_NAME").replace('-', "_"));
 
 pub fn init() {
     let mut dispatch = Dispatch::new();

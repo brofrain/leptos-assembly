@@ -1,0 +1,19 @@
+[package]
+name = "common-logger"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+common-macros.workspace = true
+cfg-if.workkspace = true
+console_log = { workkspace = true, optional = true }
+log.workkspace = true
+fern = "0.6.2"
+
+[features]
+csr = ["dep:console_log"]
+ssr = []

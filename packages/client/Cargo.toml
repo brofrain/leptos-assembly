@@ -11,6 +11,7 @@ path = "lib.rs"
 [dependencies]
 client-macros.workspace = true
 common-macros.workspace = true
+common-logger.workspace = true
 common-utils.workspace = true
 # full-stack
 anyhow.workspace = true
@@ -19,7 +20,6 @@ derive-getters.workspace = true
 derive_more.workspace = true
 derive_setters.workspace = true
 educe.workspace = true
-fern.workspace = true
 futures.workspace = true
 leptos.workspace = true
 leptos_animated_for.workspace = true

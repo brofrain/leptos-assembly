@@ -21,6 +21,7 @@ client-proc-macros = { path = "packages/client/macros/proc" }
 common-macros = { path = "packages/common/macros" }
 common-proc-macros = { path = "packages/common/macros/proc" }
 common-utils = { path = "packages/common/utils" }
+common-logger = { path = "packages/common/logger" }
 # full-stack
 anyhow = "1.0.75"
 cfg-if = "1.0.0"
@@ -28,7 +29,6 @@ derive-getters = "0.3.0"
 derive_more = "0.99.17"
 derive_setters = "0.1.6"
 educe = "0.4.23"
-fern = "0.6.2"
 futures = "0.3.29"
 leptos = { version = "0.5.2", features = ["nightly"] }
 leptos_animated_for = "0.0.4"
