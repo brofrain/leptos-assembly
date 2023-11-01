@@ -1,3 +1,5 @@
+// @kw
+
 use std::sync::LazyLock;
 
 pub static CARGO_PKG_NAME: LazyLock<String> =
