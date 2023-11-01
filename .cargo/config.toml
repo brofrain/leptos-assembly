@@ -1,2 +1,2 @@
 [env]
-APP_REPOSITORY_URL = "https://github.com/brofrain/leptos-assembly"
+PROJECT_REPOSITORY_URL = "https://github.com/brofrain/leptos-assembly"

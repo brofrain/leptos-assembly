@@ -7,7 +7,7 @@ use crate::{
         prelude::*,
         router::Route,
     },
-    env::APP_REPOSITORY_URL,
+    env::PROJECT_REPOSITORY_URL,
 };
 
 #[component]
@@ -54,7 +54,7 @@ pub fn TheFooter() -> impl IntoView {
                 <div class="icon-carbon-dicom-overlay"></div>
             </Link>
 
-            <Link title="GitHub" to=APP_REPOSITORY_URL>
+            <Link title="GitHub" to=PROJECT_REPOSITORY_URL>
                 <div class="icon-carbon-logo-github"></div>
             </Link>
         </nav>

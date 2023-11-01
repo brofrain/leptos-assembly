@@ -12,7 +12,7 @@ use crate::{
         router::{use_navigate, Route},
         stores::{use_store, Names},
     },
-    env::APP_REPOSITORY_URL,
+    env::PROJECT_REPOSITORY_URL,
 };
 
 #[component]
@@ -65,7 +65,7 @@ pub fn Home() -> impl IntoView {
             <TheLogo class="inline-block text-5xl mb1"/>
 
             <div>
-                <Link to=APP_REPOSITORY_URL>{t!(i18n, home.title)}</Link>
+                <Link to=PROJECT_REPOSITORY_URL>{t!(i18n, home.title)}</Link>
 
                 <p>
                     <em>{t!(i18n, home.description)}</em>

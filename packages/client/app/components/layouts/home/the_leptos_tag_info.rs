@@ -1,25 +1,26 @@
 use crate::app::{composables::nprogress, prelude::*};
 
-#[server]
-async fn get_leptos_tag() -> Result<String, ServerFnError> {
-    use reqwest::{header::USER_AGENT, Client};
+// @kw
+// #[server]
+// async fn get_leptos_tag() -> Result<String, ServerFnError> {
+//     use reqwest::{header::USER_AGENT, Client};
 
-    #[derive(Deserialize, Clone)]
-    struct Data {
-        tag_name: String,
-    }
+//     #[derive(Deserialize, Clone)]
+//     struct Data {
+//         tag_name: String,
+//     }
 
-    let tag = Client::new()
-        .get("https://api.github.com/repos/leptos-rs/leptos/releases/latest")
-        .header(USER_AGENT, "app")
-        .send()
-        .await?
-        .json::<Data>()
-        .await?
-        .tag_name;
+//     let tag = Client::new()
+//         .get("https://api.github.com/repos/leptos-rs/leptos/releases/latest")
+//         .header(USER_AGENT, "app")
+//         .send()
+//         .await?
+//         .json::<Data>()
+//         .await?
+//         .tag_name;
 
-    Ok(tag)
-}
+//     Ok(tag)
+// }
 
 #[component]
 pub fn TheLeptosTagInfo() -> impl IntoView {
@@ -29,7 +30,7 @@ pub fn TheLeptosTagInfo() -> impl IntoView {
         || (),
         |()| async {
             nprogress::enable();
-            let result = get_leptos_tag().await;
+            let result = "//@kw".to_string();
             nprogress::disable();
             result
         },
