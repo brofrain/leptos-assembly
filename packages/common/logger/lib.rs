@@ -1,13 +1,8 @@
 #![feature(lazy_cell)]
 
-use std::sync::LazyLock;
-
 use cfg_if::cfg_if;
 use common_macros::{cfg_csr, cfg_ssr};
 use fern::Dispatch;
-
-// @kw restore
-// use crate::{env::CARGO_PKG_NAME, prelude::*};
 
 #[cfg(feature = "ssr")]
 fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
@@ -66,10 +61,7 @@ fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
         })
 }
 
-static CARGO_PKG_NAME: LazyLock<String> =
-    LazyLock::new(|| env!("CARGO_PKG_NAME").replace('-', "_"));
-
-pub fn init() {
+pub fn init(app_crate_name: &'static str) {
     let mut dispatch = Dispatch::new();
 
     // debug / info logs from external crates don't interest us
@@ -77,9 +69,9 @@ pub fn init() {
 
     cfg_if! {
         if #[cfg(debug_assertions)] {
-            dispatch = dispatch.level_for(CARGO_PKG_NAME.as_str(), log::LevelFilter::Debug);
+            dispatch = dispatch.level_for(app_crate_name, log::LevelFilter::Debug);
         } else {
-            dispatch = dispatch.level_for(CARGO_PKG_NAME.as_str(), log::LevelFilter::Info);
+            dispatch = dispatch.level_for(app_crate_name, log::LevelFilter::Info);
         }
     }
 
