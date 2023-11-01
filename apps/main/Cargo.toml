@@ -12,7 +12,7 @@ path = "main.rs"
 # @kw clean up below
 [dependencies]
 client = { path = "../../packages/client", features = ["server"] }
-common-logger.workspace = true
+common-logger = { workspace = true, features = ["ssr"] }
 # full-stack
 anyhow.workspace = true
 cfg-if.workspace = true
@@ -45,7 +45,6 @@ getrandom.workspace = true
 # server-only
 axum.workspace = true
 leptos_axum.workspace = true
-owo-colors.workspace = true
 reqwest.workspace = true
 tokio.workspace = true
 tower.workspace = true

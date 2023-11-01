@@ -371,7 +371,6 @@ dependencies = [
  "leptos_meta",
  "leptos_router",
  "log",
- "owo-colors",
  "paste",
  "pct-str",
  "rand",
@@ -416,6 +415,8 @@ dependencies = [
  "console_log",
  "fern",
  "log",
+ "owo-colors",
+ "time",
 ]
 
 [[package]]
@@ -1541,7 +1542,6 @@ dependencies = [
  "leptos_meta",
  "leptos_router",
  "log",
- "owo-colors",
  "paste",
  "pct-str",
  "rand",

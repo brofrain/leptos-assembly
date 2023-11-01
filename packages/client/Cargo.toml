@@ -45,7 +45,6 @@ getrandom = { workspace = true, optional = true }
 # server-only
 axum = { workspace = true, optional = true }
 leptos_axum = { workspace = true, optional = true }
-owo-colors = { workspace = true, optional = true }
 reqwest = { workspace = true, optional = true }
 tokio = { workspace = true, optional = true }
 tower = { workspace = true, optional = true }
@@ -58,7 +57,6 @@ _client-deps = ["dep:console_log", "dep:getrandom"]
 _server-deps = [
   "dep:axum",
   "dep:leptos_axum",
-  "dep:owo-colors",
   "dep:reqwest",
   "dep:tokio",
   "dep:tower",

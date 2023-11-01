@@ -43,7 +43,7 @@ async fn file_and_error_handler(
 
 #[tokio::main]
 async fn main() {
-    common_logger::init();
+    common_logger::init(env!("CARGO_CRATE_NAME"));
 
     let conf = get_configuration(None).await.unwrap();
     let leptos_options = conf.leptos_options;
