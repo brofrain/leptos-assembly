@@ -5,6 +5,7 @@ edition.workspace = true
 publish = false
 
 [lib]
+crate-type = ["cdylib", "rlib"]
 path = "lib.rs"
 
 [dependencies]
@@ -71,6 +72,15 @@ client = [
   "leptos_i18n/csr",
   "leptos_meta/csr",
   "leptos_router/csr",
+]
+server = [
+  "ssr",
+  "_server-deps",
+  "leptos/ssr",
+  "leptos_animated_for/ssr",
+  "leptos_meta/ssr",
+  "leptos_router/ssr",
+  "leptos_i18n/axum",
 ]
 
 [package.metadata.cargo-all-features]

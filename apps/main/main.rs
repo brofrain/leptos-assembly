@@ -6,7 +6,8 @@ use axum::{
     routing::post,
     Router,
 };
-use client::{logger, App};
+use client::App;
+use common_utils::logger;
 use leptos::{get_configuration, LeptosOptions};
 use leptos_axum::{generate_route_list, LeptosRoutes};
 use tower::ServiceExt;

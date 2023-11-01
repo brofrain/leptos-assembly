@@ -8,7 +8,7 @@ members = [
   "packages/server",
   "packages/common/macros",
   "packages/common/macros/proc",
-  "packages/common/utils"
+  "packages/common/utils",
 ]
 
 [workspace.package]
@@ -16,10 +16,8 @@ version = "0.0.0"
 edition = "2021"
 
 [workspace.dependencies]
-client = { path = "packages/client" }
 client-macros = { path = "packages/client/macros" }
 client-proc-macros = { path = "packages/client/macros/proc" }
-server = { path = "packages/server" }
 common-macros = { path = "packages/common/macros" }
 common-proc-macros = { path = "packages/common/macros/proc" }
 common-utils = { path = "packages/common/utils" }
@@ -81,64 +79,6 @@ proc-macro2 = "1.0.69"
 quote = "1.0.33"
 syn = { version = "2.0.38", features = ["full"] }
 
-# @kw
-# [dev-dependencies]
-# insta = "1.34.0"
-# pretty_assertions = "1.4.0"
-# wasm-bindgen-test = "0.3.37"
-# [features]
-# csr = []
-# ssr = []
-# _client-deps = ["dep:console_log", "dep:getrandom"]
-# _server-deps = [
-#   "dep:axum",
-#   "dep:leptos_axum",
-#   "dep:owo-colors",
-#   "dep:reqwest",
-#   "dep:tokio",
-#   "dep:tower",
-#   "dep:tower-http",
-# ]
-# client = [
-#   "csr",
-#   "_client-deps",
-#   "time/wasm-bindgen",
-#   "leptos/csr",
-#   "leptos_i18n/csr",
-#   "leptos_meta/csr",
-#   "leptos_router/csr",
-# ]
-# server = [
-#   "ssr",
-#   "_server-deps",
-#   "leptos/ssr",
-#   "leptos_animated_for/ssr",
-#   "leptos_meta/ssr",
-#   "leptos_router/ssr",
-#   "leptos_i18n/axum",
-# ]
-# [package.metadata.cargo-all-features]
-# skip_feature_sets = [
-#   ["csr", "ssr"],
-#   ["_client-deps", "_server-deps"],
-#   ["client", "server"],
-# ]
-# [package.metadata.leptos-i18n]
-# default = "en"
-# locales = ["en", "la"]
-# locales-dir = "locales"
-# [package.metadata.leptos]
-# site-root = "target/site"
-# site-pkg-dir = "pkg"
-# assets-dir = "target/prebuild/assets"
-# site-addr = "127.0.0.1:3333"
-# reload-port = 3334
-# watch = false
-# bin-features = ["server"]
-# bin-default-features = false
-# lib-features = ["client"]
-# lib-default-features = false
-# lib-profile-release = "wasm-release"
 [profile.wasm-release]
 inherits = "release"
 opt-level = 'z'
@@ -156,7 +96,7 @@ site-pkg-dir = "pkg"
 site-addr = "127.0.0.1:3333"
 reload-port = 3334
 watch = false
-bin-features = ["server"]
+bin-features = []
 bin-default-features = false
 lib-features = ["client"]
 lib-default-features = false
