@@ -1184,6 +1184,7 @@ dependencies = [
  "tracing",
  "typed-builder",
  "typed-builder-macro",
+ "wasm-bindgen",
  "web-sys",
 ]
 
@@ -1394,6 +1395,7 @@ dependencies = [
  "cfg-if",
  "futures",
  "indexmap 2.0.2",
+ "js-sys",
  "paste",
  "pin-project",
  "rkyv",
@@ -1406,7 +1408,9 @@ dependencies = [
  "thiserror",
  "tokio",
  "tracing",
+ "wasm-bindgen",
  "wasm-bindgen-futures",
+ "web-sys",
 ]
 
 [[package]]
@@ -1511,9 +1515,7 @@ dependencies = [
  "anyhow",
  "axum",
  "cfg-if",
- "client-macros",
- "common-macros",
- "common-utils",
+ "client",
  "console_log",
  "derive-getters",
  "derive_more",
@@ -1537,6 +1539,7 @@ dependencies = [
  "reqwest",
  "serde",
  "serde_json",
+ "server",
  "thiserror",
  "time",
  "tokio",
@@ -2596,6 +2599,7 @@ checksum = "c4a34ab300f2dee6e562c10a046fc05e358b29f9bf92277f30c3c8d82275f6f5"
 dependencies = [
  "deranged",
  "itoa",
+ "js-sys",
  "powerfmt",
  "serde",
  "time-core",
