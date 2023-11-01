@@ -3,8 +3,21 @@ resolver = "2"
 members = [
   "apps/main",
   "packages/client",
+  "packages/client/app",
+  "packages/client/components",
+  "packages/client/composables",
+  "packages/client/env",
+  "packages/client/globals",
+  "packages/client/layouts",
   "packages/client/macros",
   "packages/client/macros/proc",
+  "packages/client/pages/about",
+  "packages/client/pages/hi",
+  "packages/client/pages/home",
+  "packages/client/pages/not_found",
+  "packages/client/router",
+  "packages/client/stores",
+  "packages/client/utils",
   "packages/server",
   "packages/common/macros",
   "packages/common/macros/proc",
@@ -16,8 +29,15 @@ version = "0.0.0"
 edition = "2021"
 
 [workspace.dependencies]
+client-components = { path = "packages/client/components" }
+client-composables = { path = "packages/client/composables" }
+client-env = { path = "packages/client/env" }
+client-globals = { path = "packages/client/globals" }
+client-layouts = { path = "packages/client/layouts" }
 client-macros = { path = "packages/client/macros" }
-client-proc-macros = { path = "packages/client/macros/proc" }
+client-router = { path = "packages/client/router" }
+client-stores = { path = "packages/client/stores" }
+client-utils = { path = "packages/client/utils" }
 common-macros = { path = "packages/common/macros" }
 common-proc-macros = { path = "packages/common/macros/proc" }
 common-utils = { path = "packages/common/utils" }

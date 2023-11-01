@@ -51,29 +51,15 @@ tower = { workspace = true, optional = true }
 tower-http = { workspace = true, optional = true }
 
 [features]
-csr = []
-ssr = []
-_client-deps = ["dep:console_log", "dep:getrandom"]
-_server-deps = [
-  "dep:axum",
-  "dep:leptos_axum",
-  "dep:reqwest",
-  "dep:tokio",
-  "dep:tower",
-  "dep:tower-http",
-]
-client = [
-  "csr",
-  "_client-deps",
+csr = [
+  "dep:getrandom",
   "time/wasm-bindgen",
   "leptos/csr",
   "leptos_i18n/csr",
   "leptos_meta/csr",
   "leptos_router/csr",
 ]
-server = [
-  "ssr",
-  "_server-deps",
+ssr = [
   "leptos/ssr",
   "leptos_animated_for/ssr",
   "leptos_meta/ssr",
@@ -87,8 +73,3 @@ skip_feature_sets = [
   ["_client-deps", "_server-deps"],
   ["client", "server"],
 ]
-
-[package.metadata.leptos-i18n]
-default = "en"
-locales = ["en", "la"]
-locales-dir = "locales"

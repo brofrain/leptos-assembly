@@ -1,0 +1,17 @@
+[package]
+name = "client-globals"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+common-macros.workspace = true
+leptos.workspace = true
+cfg-if.workspace = true
+derive-getters.workspace = true
+serde.workspace = true
+time.workspace = true
+unocss-classes.workspace = true

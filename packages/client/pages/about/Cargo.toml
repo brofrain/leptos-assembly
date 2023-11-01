@@ -1,11 +1,8 @@
 [package]
-name = "client-macros"
+name = "client-page-about"
 version.workspace = true
 edition.workspace = true
 publish = false
 
 [lib]
 path = "lib.rs"
-
-[dependencies]
-client-proc-macros.path = "proc"
