@@ -11,8 +11,8 @@ path = "main.rs"
 
 # @kw clean up below
 [dependencies]
-client.workspace = true
-server.workspace = true
+client = { path = "../../packages/client", features = ["server"] }
+common-utils.workspace = true
 # full-stack
 anyhow.workspace = true
 cfg-if.workspace = true

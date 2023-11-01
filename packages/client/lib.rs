@@ -11,4 +11,20 @@ mod prelude;
 mod app;
 mod utils;
 
-pub use crate::{app::App, utils::logger};
+cfg_csr! {
+    use wasm_bindgen::prelude::*;
+
+    #[wasm_bindgen]
+    pub fn hydrate() {
+        use app::App;
+        use utils::logger;
+
+        logger::init();
+
+        leptos::mount_to_body(App);
+    }
+}
+
+cfg_ssr! {
+    pub use crate::{app::App, utils::logger};
+}

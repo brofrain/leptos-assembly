@@ -1312,8 +1312,10 @@ version = "0.2.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1fac4ae9fea8d22309d3722460140baafc91e04ca96ba3b8c466333f844b16f2"
 dependencies = [
+ "axum",
  "cfg-if",
  "leptos",
+ "leptos_axum",
  "leptos_i18n_macro",
  "leptos_meta",
  "wasm-bindgen",
@@ -1516,6 +1518,7 @@ dependencies = [
  "axum",
  "cfg-if",
  "client",
+ "common-utils",
  "console_log",
  "derive-getters",
  "derive_more",
@@ -1539,7 +1542,6 @@ dependencies = [
  "reqwest",
  "serde",
  "serde_json",
- "server",
  "thiserror",
  "time",
  "tokio",
