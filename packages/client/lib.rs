@@ -5,6 +5,9 @@
 #[macro_use]
 extern crate common_macros;
 
+#[macro_use]
+extern crate client_macros;
+
 mod env;
 mod prelude;
 

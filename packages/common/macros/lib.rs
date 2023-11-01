@@ -5,12 +5,6 @@ pub use common_proc_macros::*;
 #[macro_use]
 pub mod cfg;
 
-#[macro_use]
-pub mod js;
-
-#[macro_use]
-pub mod i18n;
-
 /// Shorthand for `mod module; use module::*;` with hushed
 /// `clippy::module_name_repetitions` lint.
 #[macro_export]

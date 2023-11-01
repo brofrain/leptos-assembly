@@ -1,3 +1,5 @@
+// @kw fix binding path and remove the tmp bindings
+
 /// Extracts a JS function from the bindings file.
 ///
 /// # Example
@@ -13,7 +15,7 @@
 macro_rules! bind_js_fn {
     ($js_namespace:ident => $($function_definition:tt)*) => {
         #[wasm_bindgen::prelude::wasm_bindgen(
-            module = "/target/prebuild/bindings.mjs"
+            module = "bindings.mjs"
         )]
         extern "C" {
             #[allow(unsafe_code)]
@@ -24,7 +26,7 @@ macro_rules! bind_js_fn {
 
     ($($function_definition:tt)*) => {
         #[wasm_bindgen::prelude::wasm_bindgen(
-            module = "/target/prebuild/bindings.mjs"
+            module = "bindings.mjs"
         )]
         extern "C" {
             #[allow(unsafe_code)]
