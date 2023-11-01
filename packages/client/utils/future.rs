@@ -1,5 +1,5 @@
 use futures::{channel, select, Future, FutureExt};
-use leptos::{request_animation_frame, set_timeout, spawn_local};
+use leptos::{on_cleanup, request_animation_frame, set_timeout, spawn_local};
 use time::Duration;
 
 pub async fn sleep(time: Duration) {
@@ -41,4 +41,11 @@ pub async fn next_tick() {
     });
 
     rx.await.unwrap();
+}
+
+pub fn spawn_local_owned(future: impl Future<Output = ()> + 'static) {
+    let handle = spawn_local_with_handle(future);
+    on_cleanup(move || {
+        _ = handle();
+    });
 }

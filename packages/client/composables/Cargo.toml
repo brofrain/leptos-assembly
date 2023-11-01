@@ -1,0 +1,27 @@
+[package]
+name = "client-composables"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+client-globals.workspace = true
+client-macros.workspace = true
+client-utils.workspace = true
+futures.workspace = true
+leptos.workspace = true
+leptos_i18n.workspace = true
+leptos-use.workspace = true
+log.workspace = true
+paste.workspace = true
+serde.workspace = true
+time.workspace = true
+wasm-bindgen.workspace = true
+
+[package.metadata.leptos-i18n]
+default = "en"
+locales = ["en", "la"]
+locales-dir = "../locales"

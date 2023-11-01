@@ -11,7 +11,7 @@ path = "main.rs"
 
 # @kw clean up below
 [dependencies]
-client = { path = "../../packages/client", features = ["server"] }
+client = { path = "../../packages/client", features = ["ssr"] }
 common-logger = { workspace = true, features = ["ssr"] }
 # full-stack
 anyhow.workspace = true

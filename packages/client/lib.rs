@@ -1,18 +1,4 @@
-#![feature(fn_traits)]
-#![feature(unboxed_closures)]
-#![feature(lazy_cell)]
-
-#[macro_use]
-extern crate common_macros;
-
-#[macro_use]
-extern crate client_macros;
-
-mod env;
-mod prelude;
-
-mod app;
-mod utils;
+use common_macros::{cfg_csr, cfg_ssr};
 
 cfg_csr! {
     use wasm_bindgen::prelude::*;
@@ -25,5 +11,5 @@ cfg_csr! {
 }
 
 cfg_ssr! {
-    pub use crate::app::App;
+    pub use client_app::App;
 }

@@ -1,13 +1,9 @@
 #![allow(clippy::module_name_repetitions)]
 
-#[macro_use]
-pub mod cfg;
+pub use client_proc_macros::*;
 
-#[macro_use]
-pub mod js;
-
-#[macro_use]
 pub mod i18n;
+pub mod js;
 
 /// Shorthand for `mod module; use module::*;` with hushed
 /// `clippy::module_name_repetitions` lint.

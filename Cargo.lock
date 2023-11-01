@@ -388,7 +388,73 @@ dependencies = [
 ]
 
 [[package]]
+name = "client-app"
+version = "0.0.0"
+
+[[package]]
+name = "client-components"
+version = "0.0.0"
+
+[[package]]
+name = "client-composables"
+version = "0.0.0"
+dependencies = [
+ "client-globals",
+ "client-macros",
+ "client-utils",
+ "futures",
+ "leptos",
+ "leptos-use",
+ "leptos_i18n",
+ "log",
+ "paste",
+ "serde",
+ "time",
+ "wasm-bindgen",
+]
+
+[[package]]
+name = "client-env"
+version = "0.0.0"
+
+[[package]]
+name = "client-globals"
+version = "0.0.0"
+dependencies = [
+ "cfg-if",
+ "common-macros",
+ "derive-getters",
+ "leptos",
+ "serde",
+ "time",
+ "unocss-classes",
+]
+
+[[package]]
+name = "client-layouts"
+version = "0.0.0"
+
+[[package]]
 name = "client-macros"
+version = "0.0.0"
+dependencies = [
+ "client-proc-macros",
+]
+
+[[package]]
+name = "client-page-about"
+version = "0.0.0"
+
+[[package]]
+name = "client-page-hi"
+version = "0.0.0"
+
+[[package]]
+name = "client-page-home"
+version = "0.0.0"
+
+[[package]]
+name = "client-page-not-found"
 version = "0.0.0"
 
 [[package]]
@@ -398,6 +464,31 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.38",
+]
+
+[[package]]
+name = "client-router"
+version = "0.0.0"
+
+[[package]]
+name = "client-stores"
+version = "0.0.0"
+dependencies = [
+ "client-globals",
+ "client-utils",
+ "common-macros",
+ "leptos",
+ "leptos-use",
+]
+
+[[package]]
+name = "client-utils"
+version = "0.0.0"
+dependencies = [
+ "common-macros",
+ "futures",
+ "leptos",
+ "time",
 ]
 
 [[package]]
