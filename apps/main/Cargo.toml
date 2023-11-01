@@ -11,9 +11,8 @@ path = "main.rs"
 
 # @kw clean up below
 [dependencies]
-client-macros.workspace = true
-common-macros.workspace = true
-common-utils.workspace = true
+client.workspace = true
+server.workspace = true
 # full-stack
 anyhow.workspace = true
 cfg-if.workspace = true
