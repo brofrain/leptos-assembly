@@ -6,3 +6,14 @@ publish = false
 
 [lib]
 path = "lib.rs"
+
+[dependencies]
+client-composables.workspace = true
+client-globals.workspace = true
+client-router.workspace = true
+leptos.workspace = true
+leptos_animated_for.workspace = true
+paste.workspace = true
+unocss-classes.workspace = true
+wasm-bindgen.workspace = true
+web-sys.workspace = true

@@ -1,8 +1,7 @@
 use std::hash::Hash;
 
+use client_globals::prelude::*;
 use leptos_animated_for::AnimatedFor as RawAnimatedFor;
-
-use crate::app::prelude::*;
 
 #[component]
 pub fn BaseAnimatedFor<Items, ItemIter, Item, Child, ChildFn, Key, KeyFn>(

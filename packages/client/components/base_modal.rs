@@ -1,7 +1,7 @@
+use client_composables::overlay;
+use client_globals::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::MouseEvent;
-
-use crate::app::{composables::overlay, prelude::*};
 
 #[component]
 pub fn BaseModal(

@@ -1,6 +1,17 @@
 use std::fmt;
 
-use leptos_router::{NavigateOptions, Route as RouteView, Routes};
+use leptos::Params;
+use leptos_router::{IntoParam, NavigateOptions, Params};
+
+#[derive(Params, PartialEq)]
+pub struct HiParams {
+    pub name: String,
+}
+
+#[derive(Params, PartialEq)]
+pub struct NotFoundParams {
+    pub path: String,
+}
 
 pub enum Route {
     Home,

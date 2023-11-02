@@ -1,6 +1,7 @@
+use client_globals::prelude::*;
 use leptos_router::Outlet;
 
-use crate::app::{components::layouts::shared::TheFooter, prelude::*};
+use crate::shared::TheFooter;
 
 #[component]
 pub fn Default() -> impl IntoView {

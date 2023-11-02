@@ -1,14 +1,10 @@
+use client_components::BaseLink;
+use client_composables::i18n::{self, use_i18n};
+use client_env::PROJECT_REPOSITORY_URL;
+use client_globals::prelude::*;
+use client_macros::t_string;
+use client_router::Route;
 use leptos_use::{use_color_mode, ColorMode, UseColorModeReturn};
-
-use crate::{
-    app::{
-        components::base::Link,
-        composables::i18n,
-        prelude::*,
-        router::Route,
-    },
-    env::PROJECT_REPOSITORY_URL,
-};
 
 #[component]
 pub fn TheFooter() -> impl IntoView {
@@ -31,32 +27,32 @@ pub fn TheFooter() -> impl IntoView {
 
     view! {
         <nav class=uno!["flex", "justify-center", "gap-3", "text-xl", "my-4"]>
-            <Link title=(move || t_string!(i18n, nav.link_home)).into_signal() to=Route::Home>
+            <BaseLink title=(move || t_string!(i18n, nav.link_home)).into_signal() to=Route::Home>
 
                 <div class="icon-carbon-tree"></div>
-            </Link>
+            </BaseLink>
 
-            <Link
+            <BaseLink
                 title=(move || t_string!(i18n, nav.toggle_dark)).into_signal()
                 on:click=toggle_dark
             >
                 <div class="icon-carbon-sun dark:icon-carbon-moon"></div>
-            </Link>
+            </BaseLink>
 
-            <Link
+            <BaseLink
                 title=(move || t_string!(i18n, nav.toggle_locale)).into_signal()
                 on:click=toggle_locale
             >
                 <div class="icon-carbon-language"></div>
-            </Link>
+            </BaseLink>
 
-            <Link title=(move || t_string!(i18n, nav.link_about)).into_signal() to=Route::About>
+            <BaseLink title=(move || t_string!(i18n, nav.link_about)).into_signal() to=Route::About>
                 <div class="icon-carbon-dicom-overlay"></div>
-            </Link>
+            </BaseLink>
 
-            <Link title="GitHub" to=PROJECT_REPOSITORY_URL>
+            <BaseLink title="GitHub" to=PROJECT_REPOSITORY_URL>
                 <div class="icon-carbon-logo-github"></div>
-            </Link>
+            </BaseLink>
         </nav>
     }
 }

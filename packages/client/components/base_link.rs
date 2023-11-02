@@ -1,4 +1,5 @@
-use crate::app::{prelude::*, router::Route};
+use client_globals::prelude::*;
+use client_router::Route;
 
 pub enum BaseLinkTo {
     Internal(Route),
@@ -45,8 +46,8 @@ pub fn BaseLink(
             {..attrs}
             class=move || {
                 uno![
-                    "inline-block", "underline text-secondary-interactive",
-                    "transition-colors", "cursor-pointer", "select-none", class()
+                    "inline-block", "underline text-secondary-interactive", "transition-colors",
+                    "cursor-pointer", "select-none", class()
                 ]
             }
 
