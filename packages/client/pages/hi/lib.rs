@@ -8,11 +8,6 @@ use crate::app::{
     stores::{use_store, Names},
 };
 
-#[derive(Params, PartialEq)]
-pub struct HiParams {
-    pub name: String,
-}
-
 #[component]
 pub fn Hi() -> impl IntoView {
     let params = use_params::<HiParams>();

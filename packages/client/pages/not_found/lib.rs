@@ -6,11 +6,6 @@ use crate::app::{
     router::{use_navigate, Route},
 };
 
-#[derive(Params, PartialEq)]
-pub struct NotFoundParams {
-    pub path: String,
-}
-
 #[component]
 pub fn NotFound() -> impl IntoView {
     let params = use_params::<NotFoundParams>();

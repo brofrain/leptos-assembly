@@ -394,6 +394,17 @@ version = "0.0.0"
 [[package]]
 name = "client-components"
 version = "0.0.0"
+dependencies = [
+ "client-composables",
+ "client-globals",
+ "client-router",
+ "leptos",
+ "leptos_animated_for",
+ "paste",
+ "unocss-classes",
+ "wasm-bindgen",
+ "web-sys",
+]
 
 [[package]]
 name = "client-composables"
@@ -422,8 +433,12 @@ name = "client-globals"
 version = "0.0.0"
 dependencies = [
  "cfg-if",
+ "client-macros",
  "common-macros",
  "derive-getters",
+ "derive_more",
+ "derive_setters",
+ "educe",
  "leptos",
  "serde",
  "time",
@@ -433,6 +448,19 @@ dependencies = [
 [[package]]
 name = "client-layouts"
 version = "0.0.0"
+dependencies = [
+ "client-components",
+ "client-composables",
+ "client-env",
+ "client-globals",
+ "client-macros",
+ "client-router",
+ "leptos",
+ "leptos-use",
+ "leptos_i18n",
+ "leptos_router",
+ "unocss-classes",
+]
 
 [[package]]
 name = "client-macros"
@@ -469,6 +497,10 @@ dependencies = [
 [[package]]
 name = "client-router"
 version = "0.0.0"
+dependencies = [
+ "leptos",
+ "leptos_router",
+]
 
 [[package]]
 name = "client-stores"

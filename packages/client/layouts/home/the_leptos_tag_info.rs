@@ -1,4 +1,9 @@
-use crate::app::{composables::nprogress, prelude::*};
+use client_composables::{
+    i18n::{t, use_i18n},
+    nprogress,
+};
+use client_globals::prelude::*;
+use client_macros::t_view;
 
 // @kw
 // #[server]

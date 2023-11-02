@@ -1,6 +1,5 @@
+use client_globals::prelude::*;
 use leptos_router::Outlet;
-
-use crate::app::prelude::*;
 
 #[component]
 pub fn Blank() -> impl IntoView {
