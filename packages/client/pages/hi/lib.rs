@@ -1,12 +1,10 @@
-use leptos_router::{use_params, IntoParam, Params};
+use client_components::{BaseAnimatedFor, BaseLink};
+use client_composables::i18n::{t, use_i18n};
+use client_globals::prelude::*;
+use client_router::{HiParams, Route};
+use client_stores::{use_store, Names};
+use leptos_router::use_params;
 use pct_str::PctStr;
-
-use crate::app::{
-    components::base::{AnimatedFor, Link},
-    prelude::*,
-    router::Route,
-    stores::{use_store, Names},
-};
 
 #[component]
 pub fn Hi() -> impl IntoView {
@@ -46,17 +44,17 @@ pub fn Hi() -> impl IntoView {
                     <span class="op75">{t!(i18n, name.aka)} ":"</span>
 
                     <div class="flex flex-col">
-                        <AnimatedFor
+                        <BaseAnimatedFor
                             each=other_names_sorted
                             key=String::clone
                             children=move |name| {
                                 view! {
-                                    <Link
+                                    <BaseLink
                                         class="text-sm"
                                         to=Route::Hi(HiParams { name: name.clone() })
                                     >
                                         {name}
-                                    </Link>
+                                    </BaseLink>
                                 }
                             }
                         />

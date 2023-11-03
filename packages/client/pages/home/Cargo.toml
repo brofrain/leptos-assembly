@@ -6,3 +6,18 @@ publish = false
 
 [lib]
 path = "lib.rs"
+
+[dependencies]
+client-components.workspace = true
+client-composables.workspace = true
+client-env.workspace = true
+client-globals.workspace = true
+client-macros.workspace = true
+client-router.workspace = true
+client-stores.workspace = true
+leptos.workspace = true
+leptos_i18n.workspace = true
+leptos_router.workspace = true
+paste.workspace = true # @kw dont enforce importing paste
+unocss-classes.workspace = true
+web-sys.workspace = true

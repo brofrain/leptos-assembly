@@ -1,4 +1,4 @@
-use crate::app::prelude::*;
+use client_globals::prelude::*;
 
 // FIXME: add click transition without breaking <AnimatedFor>
 #[component]

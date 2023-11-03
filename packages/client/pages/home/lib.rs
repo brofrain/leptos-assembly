@@ -1,19 +1,14 @@
-use leptos_router::NavigateOptions;
-
-use crate::{
-    app::{
-        components::{
-            base::{Button, Input, Link},
-            pages::HiParams,
-            shared::TheLogo,
-        },
-        composables::confirm,
-        prelude::*,
-        router::{use_navigate, Route},
-        stores::{use_store, Names},
-    },
-    env::PROJECT_REPOSITORY_URL,
+use client_components::{BaseButton, BaseInput, BaseLink, TheLogo};
+use client_composables::{
+    confirm,
+    i18n::{t, use_i18n},
 };
+use client_env::PROJECT_REPOSITORY_URL;
+use client_globals::prelude::*;
+use client_macros::t_string;
+use client_router::{use_navigate, HiParams, Route};
+use client_stores::{use_store, Names};
+use leptos_router::NavigateOptions;
 
 #[component]
 pub fn Home() -> impl IntoView {
@@ -65,7 +60,7 @@ pub fn Home() -> impl IntoView {
             <TheLogo class="inline-block text-5xl mb1"/>
 
             <div>
-                <Link to=PROJECT_REPOSITORY_URL>{t!(i18n, home.title)}</Link>
+                <BaseLink to=PROJECT_REPOSITORY_URL>{t!(i18n, home.title)}</BaseLink>
 
                 <p>
                     <em>{t!(i18n, home.description)}</em>
@@ -75,7 +70,7 @@ pub fn Home() -> impl IntoView {
             <div class="py3"></div>
 
             <div>
-                <Input
+                <BaseInput
                     value=name
                     placeholder=input_name_placeholder
                     on:keydown=handle_input_keydown
@@ -83,9 +78,9 @@ pub fn Home() -> impl IntoView {
             </div>
 
             <div>
-                <Button class="m3" on:click=move |_| navigate_name_hi() disabled=name_is_empty>
+                <BaseButton class="m3" on:click=move |_| navigate_name_hi() disabled=name_is_empty>
                     {t!(i18n, home.button)}
-                </Button>
+                </BaseButton>
             </div>
         </div>
     }
