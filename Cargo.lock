@@ -459,6 +459,7 @@ dependencies = [
  "leptos-use",
  "leptos_i18n",
  "leptos_router",
+ "paste",
  "unocss-classes",
 ]
 
@@ -472,18 +473,64 @@ dependencies = [
 [[package]]
 name = "client-page-about"
 version = "0.0.0"
+dependencies = [
+ "client-components",
+ "client-composables",
+ "client-globals",
+ "client-utils",
+ "leptos",
+ "leptos_i18n",
+ "rand",
+ "unocss-classes",
+]
 
 [[package]]
 name = "client-page-hi"
 version = "0.0.0"
+dependencies = [
+ "client-components",
+ "client-composables",
+ "client-globals",
+ "client-router",
+ "client-stores",
+ "leptos",
+ "leptos_i18n",
+ "leptos_router",
+ "pct-str",
+]
 
 [[package]]
 name = "client-page-home"
 version = "0.0.0"
+dependencies = [
+ "client-components",
+ "client-composables",
+ "client-env",
+ "client-globals",
+ "client-macros",
+ "client-router",
+ "client-stores",
+ "leptos",
+ "leptos_i18n",
+ "leptos_router",
+ "paste",
+ "unocss-classes",
+ "web-sys",
+]
 
 [[package]]
 name = "client-page-not-found"
 version = "0.0.0"
+dependencies = [
+ "client-components",
+ "client-composables",
+ "client-globals",
+ "client-router",
+ "leptos",
+ "leptos_i18n",
+ "leptos_router",
+ "unocss-classes",
+]
 
 [[package]]
 name = "client-proc-macros"

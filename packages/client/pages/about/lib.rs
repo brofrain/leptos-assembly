@@ -1,17 +1,15 @@
-use rand::{seq::SliceRandom, thread_rng, Rng};
+#[macro_use]
+extern crate client_globals;
 
-use crate::{
-    app::{
-        components::base::{AnimatedFor, Button},
-        composables::{
-            future::spawn_local_owned,
-            id,
-            toast::{self, Severity},
-        },
-        prelude::*,
-    },
-    utils::future::next_tick,
+use client_components::{BaseAnimatedFor, BaseButton};
+use client_composables::{
+    i18n::{t, use_i18n},
+    id,
+    toast::{self, Severity},
 };
+use client_globals::prelude::*;
+use client_utils::future::{next_tick, spawn_local_owned};
+use rand::{seq::SliceRandom, thread_rng, Rng};
 
 flatten_mod!(feature_brick);
 
@@ -182,19 +180,21 @@ pub fn About() -> impl IntoView {
     view! {
         <div>
             <div class="flex flex-wrap gap2 justify-center">
-                <Button on:click=add_random_feature_brick>
+                <BaseButton on:click=add_random_feature_brick>
                     {t!(i18n, about.features.add_random)}
-                </Button>
+                </BaseButton>
 
-                <Button on:click=shuffle_feature_bricks>{t!(i18n, about.features.shuffle)}</Button>
+                <BaseButton on:click=shuffle_feature_bricks>
+                    {t!(i18n, about.features.shuffle)}
+                </BaseButton>
 
-                <Button on:click=remove_random_feature_break>
+                <BaseButton on:click=remove_random_feature_break>
                     {t!(i18n, about.features.remove_random)}
-                </Button>
+                </BaseButton>
             </div>
 
             <div class="mt2 grid grid-cols-[repeat(3,auto)] justify-center gap2">
-                <AnimatedFor
+                <BaseAnimatedFor
                     each=feature_breaks
                     key=|brick| brick.id
                     children=move |brick| {

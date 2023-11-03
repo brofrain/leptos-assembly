@@ -1,10 +1,8 @@
-use leptos_router::{use_params, IntoParam, NavigateOptions, Params};
-
-use crate::app::{
-    components::base::Button,
-    prelude::*,
-    router::{use_navigate, Route},
-};
+use client_components::BaseButton;
+use client_composables::i18n::{t, use_i18n};
+use client_globals::prelude::*;
+use client_router::{use_navigate, NotFoundParams, Route};
+use leptos_router::{use_params, NavigateOptions};
 
 #[component]
 pub fn NotFound() -> impl IntoView {
@@ -30,7 +28,7 @@ pub fn NotFound() -> impl IntoView {
             </div>
 
             <div class=uno!["mt5"]>
-                <Button on:click=go_home>{t!(i18n, common.button.home)}</Button>
+                <BaseButton on:click=go_home>{t!(i18n, common.button.home)}</BaseButton>
             </div>
         </div>
     }

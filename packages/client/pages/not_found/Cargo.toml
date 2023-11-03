@@ -6,3 +6,13 @@ publish = false
 
 [lib]
 path = "lib.rs"
+
+[dependencies]
+client-components.workspace = true
+client-composables.workspace = true
+client-globals.workspace = true
+client-router.workspace = true
+leptos.workspace = true
+leptos_i18n.workspace = true
+leptos_router.workspace = true
+unocss-classes.workspace = true
