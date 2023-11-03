@@ -80,11 +80,6 @@ export default defineConfig({
       "**/{app,components,composables,layouts,pages}/**/*.rs",
       "**/styles/**/*.scss",
     ],
-    pipeline: {
-      include: [
-        "**/{app,components,composables,layouts,pages}/**/*.rs",
-        "**/styles/**/*.scss",
-      ],
-    },
+    pipeline: { include: [] },
   },
 });
