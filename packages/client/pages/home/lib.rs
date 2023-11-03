@@ -11,7 +11,7 @@ use client_stores::{use_store, Names};
 use leptos_router::NavigateOptions;
 
 #[component]
-pub fn Home() -> impl IntoView {
+pub fn Index() -> impl IntoView {
     let i18n = use_i18n();
 
     let names_store = use_store::<Names>();

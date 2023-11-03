@@ -1,4 +1,5 @@
-use crate::app::{composables::toast, prelude::*};
+use client_composables::toast;
+use client_globals::prelude::*;
 
 #[component]
 pub fn Toast(children: Children, severity: toast::Severity) -> impl IntoView {

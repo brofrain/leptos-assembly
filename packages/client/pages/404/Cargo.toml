@@ -1,5 +1,5 @@
 [package]
-name = "client-page-not-found"
+name = "client-page-404"
 version.workspace = true
 edition.workspace = true
 publish = false

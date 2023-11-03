@@ -1,16 +1,16 @@
-use components::{TheConfirms, TheOverlay, TheToasts};
+use client_composables::{
+    i18n::{provide_i18n_context, t},
+    panic_handler,
+};
+use client_globals::prelude::*;
+use client_router::{HiParams, NotFoundParams, Route};
+use client_utils::provide_global_context;
+use common_macros::is_ssr;
 use leptos_meta::{provide_meta_context, Html, Link, Meta, Title};
-use leptos_router::Router;
+use leptos_router::{Route as RouteView, Router, Routes};
 use leptos_use::use_color_mode;
 
-use crate::app::{
-    composables::{
-        i18n::provide_i18n_context,
-        panic_handler,
-        provide_global_context,
-    },
-    prelude::*,
-};
+flatten_mod!(the_confirms, the_overlay, the_toasts);
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -50,7 +50,33 @@ pub fn App() -> impl IntoView {
 
         <div id="app">
             <Router>
-                <router::View></router::View>
+                <Routes>
+                    <RouteView path="" view=client_layouts::Home>
+                        <RouteView path=Route::Home view=client_page_home::Index/>
+                    </RouteView>
+
+                    <RouteView path="" view=client_layouts::Default>
+                        <RouteView
+                            path=Route::Hi(HiParams {
+                                name: ":name".to_owned(),
+                            })
+
+                            view=client_page_hi::Index
+                        />
+                        <RouteView path=Route::About view=client_page_about::Index/>
+                    </RouteView>
+
+                    <RouteView path="" view=client_layouts::Blank>
+                        <RouteView
+                            path=Route::NotFound(NotFoundParams {
+                                path: "*path".to_owned(),
+                            })
+
+                            view=client_page_404::Index
+                        />
+                    </RouteView>
+
+                </Routes>
             </Router>
 
             <TheOverlay/>

@@ -84,7 +84,7 @@ impl FeatureBrick {
 }
 
 #[component]
-pub fn About() -> impl IntoView {
+pub fn Index() -> impl IntoView {
     let i18n = use_i18n();
     let rng = StoredValue::new(thread_rng());
 

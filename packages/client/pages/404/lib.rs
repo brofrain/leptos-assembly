@@ -5,7 +5,7 @@ use client_router::{use_navigate, NotFoundParams, Route};
 use leptos_router::{use_params, NavigateOptions};
 
 #[component]
-pub fn NotFound() -> impl IntoView {
+pub fn Index() -> impl IntoView {
     let params = use_params::<NotFoundParams>();
     let i18n = use_i18n();
 

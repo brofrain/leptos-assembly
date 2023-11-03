@@ -1,4 +1,5 @@
-use crate::app::{composables::overlay, prelude::*};
+use client_composables::overlay;
+use client_globals::prelude::*;
 
 #[component]
 pub fn TheOverlay() -> impl IntoView {
