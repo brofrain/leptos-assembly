@@ -116,7 +116,7 @@ reload-port = 3334
 watch = false
 bin-features = []
 bin-default-features = false
-lib-features = ["client"]
+lib-features = ["csr"]
 lib-default-features = false
 lib-profile-release = "wasm-release"
 

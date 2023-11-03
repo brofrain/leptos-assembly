@@ -23,6 +23,7 @@ getrandom = { workspace = true, optional = true }
 
 [features]
 csr = [
+  "client-app/csr",
   "dep:getrandom",
   "time/wasm-bindgen",
   "leptos/csr",
@@ -31,6 +32,7 @@ csr = [
   "leptos_router/csr",
 ]
 ssr = [
+  "client-app/ssr",
   "leptos/ssr",
   "leptos_animated_for/ssr",
   "leptos_meta/ssr",
@@ -39,8 +41,4 @@ ssr = [
 ]
 
 [package.metadata.cargo-all-features]
-skip_feature_sets = [
-  ["csr", "ssr"],
-  ["_client-deps", "_server-deps"],
-  ["client", "server"],
-]
+skip_feature_sets = [["csr", "ssr"]]
