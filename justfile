@@ -11,20 +11,6 @@ _default: help
 clean:
     cargo clean
 
-# This command is used by `build.rs` to prepare assets for the browser-side of the app
-_prebuild vite_mode:
-    npx vite build --mode={{ vite_mode }}
-    # Vite does not yield all the files at the same moment, which breaks
-    # cargo-leptos' HMR. As a workaround, we generate the assets in a temporary
-    # location and then move them where they should be at once.
-    rm -r target/prebuild || true
-    mkdir --parents target/prebuild
-    # This file should not be present along other assets as cargo-leptos then
-    # will try to remove it from its own asset dir during HMR, fail in doing so
-    # and crash.
-    mv target/tmp-prebuild/bindings.mjs target/prebuild/bindings.mjs
-    mv target/tmp-prebuild target/prebuild/assets
-
 # Builds the application in release mode
 build:
     cargo leptos build --release

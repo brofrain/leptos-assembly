@@ -58,10 +58,11 @@ const pwa = () => {
         { url: "index.html", revision },
         { url: "pkg/app.js", revision },
         { url: "pkg/app.wasm", revision },
-        {
-          url: "pkg/snippets/app-ab472218d0dc7732/target/prebuild/bindings.mjs",
-          revision,
-        },
+        // @kw
+        // {
+        //   url: "pkg/snippets/app-ab472218d0dc7732/target/prebuild/bindings.mjs",
+        //   revision,
+        // },
       ],
     },
     manifest: {
@@ -90,16 +91,16 @@ const pwa = () => {
   });
 };
 
-export default defineConfig(({ mode }) => {
-  const prod = mode === "production";
+export default defineConfig((_) => {
+  const prod = process.env.PROFILE !== "debug";
   return {
     build: {
-      outDir: "target/tmp-prebuild",
+      outDir: "../../target/tmp-client-prebuild",
       minify: prod,
       cssMinify: prod && "lightningcss",
       lib: {
         formats: ["es"],
-        entry: "src/bindings.ts",
+        entry: "bindings.ts",
         fileName: "bindings",
       },
     },

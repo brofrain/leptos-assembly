@@ -76,7 +76,17 @@ export default defineConfig({
   transformers: [transformerDirectives(), transformerVariantGroup()],
 
   content: {
-    filesystem: ["**/src/**/*.rs", "**/src/**/*.scss"],
-    pipeline: { include: ["**/src/**/*.rs", "**/src/**/*.scss"] },
+    filesystem: [
+      "**/components/**/*.rs",
+      "**/composables/**/*.rs",
+      "**/styles/**/*.scss",
+    ],
+    pipeline: {
+      include: [
+        "**/components/**/*.rs",
+        "**/composables/**/*.rs",
+        "**/styles/**/*.scss",
+      ],
+    },
   },
 });

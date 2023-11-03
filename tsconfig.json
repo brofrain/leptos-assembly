@@ -16,5 +16,5 @@
     "strict": true,
     "target": "ESNext"
   },
-  "include": ["*.config.ts"]
+  "include": ["e2e/**/*.ts", "packages/**/*.ts"]
 }

@@ -15,7 +15,7 @@
 macro_rules! bind_js_fn {
     ($js_namespace:ident => $($function_definition:tt)*) => {
         #[wasm_bindgen::prelude::wasm_bindgen(
-            module = "bindings.mjs"
+            raw_module = "/bindings.mjs"
         )]
         extern "C" {
             #[allow(unsafe_code)]
@@ -26,7 +26,7 @@ macro_rules! bind_js_fn {
 
     ($($function_definition:tt)*) => {
         #[wasm_bindgen::prelude::wasm_bindgen(
-            module = "bindings.mjs"
+            raw_module = "/bindings.mjs"
         )]
         extern "C" {
             #[allow(unsafe_code)]
