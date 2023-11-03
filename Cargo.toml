@@ -113,7 +113,6 @@ site-pkg-dir = "pkg"
 assets-dir = "target/client-prebuild"
 site-addr = "127.0.0.1:3333"
 reload-port = 3334
-watch = false
 bin-features = []
 bin-default-features = false
 lib-features = ["csr"]
