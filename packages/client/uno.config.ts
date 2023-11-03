@@ -77,14 +77,12 @@ export default defineConfig({
 
   content: {
     filesystem: [
-      "**/components/**/*.rs",
-      "**/composables/**/*.rs",
+      "**/{app,components,composables,layouts,pages}/**/*.rs",
       "**/styles/**/*.scss",
     ],
     pipeline: {
       include: [
-        "**/components/**/*.rs",
-        "**/composables/**/*.rs",
+        "**/{app,components,composables,layouts,pages}/**/*.rs",
         "**/styles/**/*.scss",
       ],
     },
