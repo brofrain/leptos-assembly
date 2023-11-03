@@ -14,7 +14,7 @@ members = [
   "packages/client/pages/about",
   "packages/client/pages/hi",
   "packages/client/pages/home",
-  "packages/client/pages/not_found",
+  "packages/client/pages/404",
   "packages/client/router",
   "packages/client/stores",
   "packages/client/utils",
@@ -33,7 +33,6 @@ client-components = { path = "packages/client/components" }
 client-composables = { path = "packages/client/composables" }
 client-env = { path = "packages/client/env" }
 client-globals = { path = "packages/client/globals" }
-client-layouts = { path = "packages/client/layouts" }
 client-macros = { path = "packages/client/macros" }
 client-router = { path = "packages/client/router" }
 client-stores = { path = "packages/client/stores" }

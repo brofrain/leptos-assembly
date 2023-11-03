@@ -349,47 +349,44 @@ checksum = "5603d514e43c7439b594a021fa63bf6bfde2b47b6af966023624fd777d4dd8b3"
 name = "client"
 version = "0.0.0"
 dependencies = [
- "anyhow",
- "axum",
- "cfg-if",
- "client-macros",
+ "client-app",
  "common-logger",
  "common-macros",
- "common-utils",
- "console_log",
- "derive-getters",
- "derive_more",
- "derive_setters",
- "educe",
- "futures",
  "getrandom",
  "leptos",
- "leptos-use",
  "leptos_animated_for",
- "leptos_axum",
  "leptos_i18n",
  "leptos_meta",
  "leptos_router",
- "log",
- "paste",
- "pct-str",
- "rand",
- "reqwest",
- "serde",
- "serde_json",
- "thiserror",
  "time",
- "tokio",
- "tower",
- "tower-http",
- "unocss-classes",
  "wasm-bindgen",
- "web-sys",
 ]
 
 [[package]]
 name = "client-app"
 version = "0.0.0"
+dependencies = [
+ "client-components",
+ "client-composables",
+ "client-env",
+ "client-globals",
+ "client-layouts",
+ "client-macros",
+ "client-page-404",
+ "client-page-about",
+ "client-page-hi",
+ "client-page-home",
+ "client-router",
+ "client-utils",
+ "common-macros",
+ "leptos",
+ "leptos-use",
+ "leptos_i18n",
+ "leptos_meta",
+ "leptos_router",
+ "paste",
+ "unocss-classes",
+]
 
 [[package]]
 name = "client-components"
@@ -471,6 +468,20 @@ dependencies = [
 ]
 
 [[package]]
+name = "client-page-404"
+version = "0.0.0"
+dependencies = [
+ "client-components",
+ "client-composables",
+ "client-globals",
+ "client-router",
+ "leptos",
+ "leptos_i18n",
+ "leptos_router",
+ "unocss-classes",
+]
+
+[[package]]
 name = "client-page-about"
 version = "0.0.0"
 dependencies = [
@@ -516,20 +527,6 @@ dependencies = [
  "paste",
  "unocss-classes",
  "web-sys",
-]
-
-[[package]]
-name = "client-page-not-found"
-version = "0.0.0"
-dependencies = [
- "client-components",
- "client-composables",
- "client-globals",
- "client-router",
- "leptos",
- "leptos_i18n",
- "leptos_router",
- "unocss-classes",
 ]
 
 [[package]]

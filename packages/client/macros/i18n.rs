@@ -2,7 +2,7 @@
 macro_rules! __t_get {
     ($macro:ident; $i18n_method:ident; $i18n:ident, $($t:tt)*) => {
         paste::item! {
-            composables::i18n::$macro!(
+            client_composables::i18n::$macro!(
                 $i18n.[< $i18n_method >](), $($t)*
             )
         }

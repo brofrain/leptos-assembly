@@ -1,8 +1,6 @@
-use crate::app::{
-    components::base::{AnimatedFor, Button, Modal},
-    composables::confirm,
-    prelude::*,
-};
+use client_components::{BaseAnimatedFor, BaseButton, BaseModal};
+use client_composables::confirm;
+use client_globals::prelude::*;
 
 #[component]
 pub fn TheConfirms() -> impl IntoView {
@@ -13,7 +11,7 @@ pub fn TheConfirms() -> impl IntoView {
     });
 
     view! {
-        <AnimatedFor
+        <BaseAnimatedFor
             each=reversed_queue
             key=|confirm| confirm.with_value(|v| *v.id())
             children=move |confirm| {
@@ -31,14 +29,14 @@ pub fn TheConfirms() -> impl IntoView {
                         v.cancel()
                             .map(move |cancel_msg| {
                                 view! {
-                                    <Button on:click=cancel attr:test="confirm-cancel-btn">
+                                    <BaseButton on:click=cancel attr:test="confirm-cancel-btn">
                                         {cancel_msg}
-                                    </Button>
+                                    </BaseButton>
                                 }
                             })
                     });
                 view! {
-                    <Modal on_overlay_click=cancel>
+                    <BaseModal on_overlay_click=cancel>
                         <div class=uno!["text-center"] test="confirm-body">
                             {confirm.with_value(|v| *v.body())}
                         </div>
@@ -47,11 +45,11 @@ pub fn TheConfirms() -> impl IntoView {
                             "mt4", "flex justify-center gap4"
                         ]>
                             {cancel_btn_view}
-                            <Button on:click=accept attr:test="confirm-accept-btn">
+                            <BaseButton on:click=accept attr:test="confirm-accept-btn">
                                 {confirm.with_value(|v| *v.accept())}
-                            </Button>
+                            </BaseButton>
                         </div>
-                    </Modal>
+                    </BaseModal>
                 }
             }
         />

@@ -3,6 +3,7 @@ use std::fmt;
 use leptos::Params;
 use leptos_router::{IntoParam, NavigateOptions, Params};
 
+// @kw rename params to "RouteParamsX"?
 #[derive(Params, PartialEq)]
 pub struct HiParams {
     pub name: String,

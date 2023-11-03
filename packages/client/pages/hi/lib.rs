@@ -7,7 +7,7 @@ use leptos_router::use_params;
 use pct_str::PctStr;
 
 #[component]
-pub fn Hi() -> impl IntoView {
+pub fn Index() -> impl IntoView {
     let params = use_params::<HiParams>();
     let i18n = use_i18n();
 
