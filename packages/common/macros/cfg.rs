@@ -4,7 +4,7 @@
 /// # Example
 ///
 /// ```
-/// leptos_assembly::cfg_csr! {
+/// common_macros::cfg_csr! {
 ///     leptos::logging::log!("Hello from browser!");
 /// }
 /// ```
@@ -23,7 +23,7 @@ macro_rules! cfg_csr {
 /// # Example
 ///
 /// ```
-/// leptos_assembly::cfg_ssr! {
+/// common_macros::cfg_ssr! {
 ///     leptos::logging::log!("Hello from server!");
 /// }
 /// ```
@@ -41,7 +41,7 @@ macro_rules! cfg_ssr {
 /// # Example
 ///
 /// ```
-/// assert_eq!(leptos_assembly::is_csr!(), cfg!(feature = "csr"));
+/// assert_eq!(common_macros::is_csr!(), cfg!(feature = "csr"));
 /// ```
 #[macro_export]
 macro_rules! is_csr {
@@ -55,7 +55,7 @@ macro_rules! is_csr {
 /// # Example
 ///
 /// ```
-/// assert_eq!(leptos_assembly::is_ssr!(), cfg!(feature = "ssr"));
+/// assert_eq!(common_macros::is_ssr!(), cfg!(feature = "ssr"));
 /// ```
 #[macro_export]
 macro_rules! is_ssr {
