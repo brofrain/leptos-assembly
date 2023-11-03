@@ -91,6 +91,7 @@ export default defineConfig((_) => {
   return {
     build: {
       outDir: "../../target/client-prebuild",
+      emptyOutDir: true,
       minify: prod,
       cssMinify: prod && "lightningcss",
       lib: {
