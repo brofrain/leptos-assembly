@@ -5,11 +5,10 @@ fn main() {
         return;
     }
 
-    // @kw remove all just --unstable flags and move the prebuild process here
     assert!(
-        Command::new("just")
-            .arg("--unstable")
-            .arg("_prebuild")
+        Command::new("npx")
+            .arg("vite")
+            .arg("build")
             .status()
             .expect("Failed to prebuild")
             .success(),

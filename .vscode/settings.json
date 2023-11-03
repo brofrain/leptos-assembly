@@ -1,23 +1,12 @@
 {
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": "packages/client/locales",
-  // @kw
-  // "rust-analyzer.cargo.features": [
-  //   "csr",
-  //   "ssr",
-  //   "_client-deps",
-  //   "_server-deps"
-  // ],
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.procMacro.ignored": {
     "leptos_macro": ["component", "server"],
     "proc-macros": ["component", "server"]
   },
-  "rust-analyzer.rustfmt.overrideCommand": [
-    "just",
-    "--unstable",
-    "_vscode-fmt"
-  ],
+  "rust-analyzer.rustfmt.overrideCommand": ["just", "_vscode-fmt"],
   "[toml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }

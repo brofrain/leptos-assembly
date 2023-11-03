@@ -58,11 +58,6 @@ const pwa = () => {
         { url: "index.html", revision },
         { url: "pkg/app.js", revision },
         { url: "pkg/app.wasm", revision },
-        // @kw
-        // {
-        //   url: "pkg/snippets/app-ab472218d0dc7732/target/prebuild/bindings.mjs",
-        //   revision,
-        // },
       ],
     },
     manifest: {
@@ -95,7 +90,7 @@ export default defineConfig((_) => {
   const prod = process.env.PROFILE !== "debug";
   return {
     build: {
-      outDir: "../../target/tmp-client-prebuild",
+      outDir: "../../target/client-prebuild",
       minify: prod,
       cssMinify: prod && "lightningcss",
       lib: {
