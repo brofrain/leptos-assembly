@@ -1,3 +1,5 @@
+#![allow(clippy::module_name_repetitions)]
+
 /// Contents will be compiled only for client-side of the application -
 /// shorthand for `cfg_if::cfg_if! { if #[cfg(feature = "csr")] { ... } }`.
 ///
