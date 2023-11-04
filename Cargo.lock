@@ -690,38 +690,15 @@ dependencies = [
 name = "core"
 version = "0.0.0"
 dependencies = [
- "anyhow",
  "axum",
- "cfg-if",
  "client",
  "common-logger",
- "console_log",
- "derive-getters",
- "derive_more",
- "derive_setters",
- "educe",
- "futures",
- "getrandom",
  "leptos",
- "leptos-use",
- "leptos_animated_for",
  "leptos_axum",
- "leptos_meta",
- "leptos_router",
  "log",
- "paste",
- "pct-str",
- "rand",
- "serde",
- "serde_json",
- "thiserror",
- "time",
  "tokio",
  "tower",
  "tower-http",
- "unocss-classes",
- "wasm-bindgen",
- "web-sys",
 ]
 
 [[package]]
