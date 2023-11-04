@@ -1,5 +1,4 @@
 // @kw rename crate
-// @kw i18n macros should not come from `client_macros`
 
 pub mod prelude {
     pub use cfg_if::*;

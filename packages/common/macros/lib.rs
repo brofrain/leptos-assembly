@@ -1,5 +1,3 @@
-#![allow(clippy::module_name_repetitions)] // @kw still needed?
-
 pub use common_proc_macros::*;
 
 #[macro_use]

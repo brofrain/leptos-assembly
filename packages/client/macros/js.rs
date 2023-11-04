@@ -1,5 +1,3 @@
-// @kw fix binding path and remove the tmp bindings
-
 /// Extracts a JS function from the bindings file.
 ///
 /// # Example
