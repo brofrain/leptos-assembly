@@ -12,7 +12,10 @@ use client_utils::future::{next_tick, spawn_local_owned};
 use leptos_i18n::t;
 use rand::{seq::SliceRandom, thread_rng, Rng};
 
-flatten_mod!(feature_brick);
+mod components {
+    flatten_pub_mod!(feature_brick);
+}
+use components::FeatureBrick;
 
 #[derive(Clone, PartialEq)]
 struct Feature {

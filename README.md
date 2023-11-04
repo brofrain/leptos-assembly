@@ -166,31 +166,23 @@ just build
 
 ## 🌱 File architecture
 
-// @kw update
+// TODO: make sure its good enough and add exhaustive guide
 
 ```bash
 📁project
 ├─ 📁apps
-│  └─ 📁main
-│     ├─ 📁public
+│  └─ 📁core
 │     ├─ 🚩main.rs
 │     └─ ⚙️Cargo.toml
 ├─ 📁e2e
 ├─ 📁packages
-│  ├─ 📁core
-│  │  ├─ 📁components # only for multiple clients
-│  │  │  ├─ 🚩lib.rs
-│  │  │  └─ ⚙️Cargo.toml
-│  │  ├─ 📁composables # only for multiple clients
-│  │  │  ├─ 🚩lib.rs
-│  │  │  └─ ⚙️Cargo.toml
+│  ├─ 📁common
 │  │  ├─ 📁macros
 │  │  │  ├─ 📁proc
 │  │  │  │  ├─ 🚩lib.rs
 │  │  │  │  └─ ⚙️Cargo.toml
 │  │  │  ├─ 🚩lib.rs
 │  │  │  └─ ⚙️Cargo.toml
-│  │  ├─ 📁locales
 │  │  ├─ 📁utils
 │  │  │  ├─ 🚩lib.rs
 │  │  │  └─ ⚙️Cargo.toml
@@ -210,7 +202,7 @@ just build
 │  │  │  ├─ 🚩lib.rs
 │  │  │  └─ ⚙️Cargo.toml
 │  │  ├─ 📁pages
-│  │  │  ├─ 📁home # @kw nested routes?
+│  │  │  └─ 📁home
 │  │  │     ├─ 📁components
 │  │  │     ├─ 📁composables
 │  │  │     ├─ 🚩lib.rs
@@ -222,13 +214,11 @@ just build
 │  │  │  └─ ⚙️Cargo.toml
 │  │  ├─ 🚩lib.rs
 │  │  └─ ⚙️Cargo.toml
-│  ├─ 📁server
-│  │  ├─ 🚩lib.rs
-│  │  └─ ⚙️Cargo.toml
+│  └─ 📁server
+│     ├─ 🚩lib.rs
+│     └─ ⚙️Cargo.toml
 
 ```
-
-// TODO: need to play around with the current one a little bit more, to make sure it's good enough
 
 ## 🏁 Checklist
 
