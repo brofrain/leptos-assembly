@@ -15,7 +15,7 @@ impl Parse for ServerFn {
 impl ToTokens for ServerFn {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         tokens.extend(self.0.build(
-            "__app_server_fn_wrapper",
+            "__server_fn_wrapper",
             &quote! {
                 #[allow(clippy::disallowed_macros)]
                 #[allow(clippy::str_to_string)]

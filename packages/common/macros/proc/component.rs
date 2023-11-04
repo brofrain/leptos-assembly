@@ -15,7 +15,7 @@ impl Parse for Component {
 impl ToTokens for Component {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         tokens.extend(self.0.build(
-            "__app_component_wrapper",
+            "__component_wrapper",
             &quote! {
                 #[allow(clippy::disallowed_macros)]
                 #[allow(clippy::empty_structs_with_brackets)]
