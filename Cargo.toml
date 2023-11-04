@@ -120,7 +120,7 @@ lib-default-features = false
 lib-profile-release = "wasm-release"
 
 [workspace.lints.rust]
-unsafe_code = "deny" # @kw forbid?
+unsafe_code = "deny"
 
 [workspace.lints.clippy]
 # warn
@@ -132,7 +132,6 @@ disallowed_types = "warn"
 dbg_macro = "warn"
 deref_by_slicing = "warn"
 empty_structs_with_brackets = "warn"
-exit = "warn"
 float_cmp_const = "warn"
 fn_to_numeric_cast_any = "warn"
 get_unwrap = "warn"
@@ -140,10 +139,8 @@ integer_division = "warn"
 implied_bounds_in_impls = "warn"
 lossy_float_literal = "warn"
 map_err_ignore = "warn"
-mem_forget = "warn"
 multiple_inherent_impl = "warn"
 mutex_atomic = "warn"
-needless_lifetimes = "warn"
 panic_in_result_fn = "warn"
 partial_pub_fields = "warn"
 print_stderr = "warn"
@@ -161,10 +158,7 @@ string_to_string = "warn"
 suspicious_xor_used_as_pow = "warn"
 todo = "warn"
 try_err = "warn"
-undocumented_unsafe_blocks = "warn"
 unimplemented = "warn"
-unnecessary_safety_comment = "warn"
-unnecessary_safety_doc = "warn"
 unnecessary_self_imports = "warn"
 unneeded_field_pattern = "warn"
 unreachable = "warn"
