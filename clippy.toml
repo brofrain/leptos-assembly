@@ -7,7 +7,7 @@ disallowed-macros = [
   { path = "leptos_dom::logging::log", reason = "The macro is intended as a debugging tool. Remove the invocation before committing it to a version control system." },
   { path = "leptos_dom::logging::debug_warn", reason = "The macro is intended as a debugging tool. Remove the invocation before committing it to a version control system." },
   { path = "leptos_dom::logging::error", reason = "For logging purposes use `log::error!` instead." },
-  { path = "leptos_macro::component", reason = "Use `#[component]` from the project's `proc-macros` subcrate instead." },
+  { path = "leptos_macro::component", reason = "Use `#[component]` from the project's `proc-macros` subcrate instead." }, # @kw
   { path = "leptos_macro::server", reason = "Use `#[server]` from the project's `proc-macros` subcrate instead." },
 ]
 disallowed-methods = [
@@ -19,7 +19,7 @@ disallowed-methods = [
   { path = "leptos_reactive::resource::create_local_resource", reason = "Use `LocalResource::new` instead" },
   { path = "leptos_reactive::stored_value::store_value", reason = "Use `StoredValue::new` instead" },
   { path = "leptos_reactive::signal::SignalGet::get", reason = "Use function syntax instead." },
-  { path = "leptos_router::hooks::use_navigate", reason = "Use `crate::app::router::use_navigate` instead for strict route checking." },
+  { path = "leptos_router::hooks::use_navigate", reason = "Use `crate::app::router::use_navigate` instead for strict route checking." }, # @kw
   { path = "web_sys::window", reason = "Use `leptos::window` instead." },
 ]
 disallowed-types = [

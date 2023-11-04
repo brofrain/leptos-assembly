@@ -25,7 +25,6 @@ impl From<&str> for BaseLinkTo {
 }
 
 impl BaseLinkTo {
-    #[must_use]
     pub fn is_external(&self) -> bool {
         matches!(self, Self::External(_))
     }

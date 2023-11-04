@@ -1,12 +1,14 @@
-# @kw move bin definition to root?
 [package]
-name = "main"
+name = "core"
 version.workspace = true
 edition.workspace = true
 publish = false
 
+[lints]
+workspace = true
+
 [[bin]]
-name = "main"
+name = "core"
 path = "main.rs"
 
 # @kw clean up below

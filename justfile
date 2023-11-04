@@ -31,7 +31,9 @@ serve-release:
 
 # Runs tests
 test:
+    # cargo-nextest doesnt't support doctests yet: https://github.com/nextest-rs/nextest/issues/16
     cargo test --doc
+    # TODO add some example dummy tests
     cargo nextest run
 
 # Serves the app and runs E2E tests with Playwright
@@ -132,16 +134,9 @@ fmt-check:
 
 # --- Lint ---
 
-# Runs check against the client-side
-check-client:
-    cargo check --lib --features client
-
-# Runs check against the server-side
-check-server:
-    cargo check --features server
-
 # Checks Rust codebase
-check: check-client check-server
+check:
+    cargo check --workspace
 
 _clippy flag feature:
     cargo clippy {{ flag }} --features {{ feature }} -- -D warnings
@@ -195,7 +190,6 @@ cargo-nextest@0.9.61
 cargo-outdated@0.13.1
 cargo-audit@0.18.2
 ''', '\s+', ' ')
-
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.74
 cargo-edit@0.12.2

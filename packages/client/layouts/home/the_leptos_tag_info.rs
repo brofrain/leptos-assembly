@@ -35,7 +35,7 @@ pub fn TheLeptosTagInfo() -> impl IntoView {
         || (),
         |()| async {
             nprogress::enable();
-            let result = "//@kw".to_string();
+            let result = "//@kw".to_owned();
             nprogress::disable();
             result
         },

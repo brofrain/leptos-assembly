@@ -34,8 +34,8 @@ impl AppItemFnWrapper {
     pub fn build(
         &self,
         wrapper_module_name: &str,
-        wrapper_module_prefix: TokenStream,
-        item_fn_prefix: TokenStream,
+        wrapper_module_prefix: &TokenStream,
+        item_fn_prefix: &TokenStream,
     ) -> TokenStream {
         let AppItemFnWrapper { id, vis, item_fn } = &self;
 

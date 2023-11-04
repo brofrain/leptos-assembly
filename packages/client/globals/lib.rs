@@ -3,8 +3,7 @@
 
 pub mod prelude {
     pub use cfg_if::*;
-    pub use client_macros::component;
-    pub use common_macros::{flatten_mod, flatten_pub_mod};
+    pub use common_macros::{component, flatten_mod, flatten_pub_mod};
     pub use derive_getters::*;
     pub use derive_more::*;
     pub use derive_setters::*;
