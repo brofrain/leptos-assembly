@@ -17,6 +17,7 @@ client-env.workspace = true
 client-globals.workspace = true
 client-i18n.workspace = true
 client-router.workspace = true
+server.workspace = true
 leptos.workspace = true
 leptos_i18n.workspace = true
 leptos_router.workspace = true
