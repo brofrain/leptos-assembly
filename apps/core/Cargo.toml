@@ -11,39 +11,11 @@ workspace = true
 name = "core"
 path = "main.rs"
 
-# @kw clean up below
 [dependencies]
 client = { path = "../../packages/client", features = ["ssr"] }
 common-logger = { workspace = true, features = ["ssr"] }
-# full-stack
-anyhow.workspace = true
-cfg-if.workspace = true
-derive-getters.workspace = true
-derive_more.workspace = true
-derive_setters.workspace = true
-educe.workspace = true
-futures.workspace = true
 leptos.workspace = true
-leptos_animated_for.workspace = true
-leptos_meta.workspace = true
-leptos_router.workspace = true
-leptos-use.workspace = true
 log.workspace = true
-paste.workspace = true
-pct-str.workspace = true
-rand.workspace = true
-serde.workspace = true
-serde_json.workspace = true
-thiserror.workspace = true
-time.workspace = true
-unocss-classes.workspace = true
-wasm-bindgen.workspace = true
-web-sys.workspace = true
-# client-only
-console_log.workspace = true
-getrandom.workspace = true
-# @kw remove below?
-# server-only
 axum.workspace = true
 leptos_axum.workspace = true
 tokio.workspace = true
