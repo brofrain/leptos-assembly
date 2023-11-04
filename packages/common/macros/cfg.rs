@@ -11,7 +11,7 @@
 #[macro_export]
 macro_rules! cfg_csr {
     ($($t:tt)*) => {
-        $crate::exports::cfg_if::cfg_if! { if #[cfg(feature = "csr")] {
+        $crate::__exports::cfg_if::cfg_if! { if #[cfg(feature = "csr")] {
             $($t)*
         }}
     };
@@ -30,7 +30,7 @@ macro_rules! cfg_csr {
 #[macro_export]
 macro_rules! cfg_ssr {
     ($($t:tt)*) => {
-        $crate::exports::cfg_if::cfg_if! { if #[cfg(feature = "ssr")] {
+        $crate::__exports::cfg_if::cfg_if! { if #[cfg(feature = "ssr")] {
             $($t)*
         }}
     };

@@ -31,6 +31,6 @@ macro_rules! flatten_pub_mod {
     };
 }
 
-pub mod exports {
+pub mod __exports {
     pub use cfg_if;
 }

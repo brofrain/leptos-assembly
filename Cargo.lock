@@ -385,7 +385,6 @@ dependencies = [
  "leptos_i18n",
  "leptos_meta",
  "leptos_router",
- "paste",
  "unocss-classes",
 ]
 
@@ -468,7 +467,6 @@ dependencies = [
  "leptos-use",
  "leptos_i18n",
  "leptos_router",
- "paste",
  "unocss-classes",
 ]
 
@@ -539,7 +537,6 @@ dependencies = [
  "leptos",
  "leptos_i18n",
  "leptos_router",
- "paste",
  "unocss-classes",
  "web-sys",
 ]
@@ -708,7 +705,6 @@ dependencies = [
  "leptos-use",
  "leptos_animated_for",
  "leptos_axum",
- "leptos_i18n",
  "leptos_meta",
  "leptos_router",
  "log",

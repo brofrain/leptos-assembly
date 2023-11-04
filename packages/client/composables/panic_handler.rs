@@ -1,10 +1,10 @@
 use std::panic;
 
+use client_i18n::use_i18n;
 use leptos::{spawn_local, window};
+use leptos_i18n::t;
 
 use super::confirm;
-// @kw ban `leptos_i18n::t`
-use client_i18n::{t, use_i18n};
 
 pub fn init() {
     let i18n = use_i18n();

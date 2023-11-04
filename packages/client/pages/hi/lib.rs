@@ -1,8 +1,9 @@
 use client_components::{BaseAnimatedFor, BaseLink};
 use client_globals::prelude::*;
-use client_i18n::{t, use_i18n};
+use client_i18n::use_i18n;
 use client_router::{HiParams, Route};
 use client_stores::{use_store, Names};
+use leptos_i18n::t;
 use leptos_router::use_params;
 use pct_str::PctStr;
 

@@ -1,11 +1,17 @@
+// @kw common #[macro_use] leptos_i18n ?
+
 leptos_i18n::load_locales!();
-pub use i18n::*;
+pub use i18n::{provide_i18n_context, use_i18n, Locale};
+
+pub mod __exports {
+    pub use paste;
+}
 
 #[macro_export]
 macro_rules! __t_get {
     ($macro:ident; $i18n_method:ident; $i18n:ident, $($t:tt)*) => {
-        paste::item! {
-            $crate::$macro!($i18n.[< $i18n_method >](), $($t)*)
+        $crate::__exports::paste::item! {
+            leptos_i18n::$macro!($i18n.[< $i18n_method >](), $($t)*)
         }
     };
 }
