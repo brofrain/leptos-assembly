@@ -1,8 +1,6 @@
-use client_composables::{
-    i18n::{provide_i18n_context, t},
-    panic_handler,
-};
+use client_composables::panic_handler;
 use client_globals::prelude::*;
+use client_i18n::{provide_i18n_context, t};
 use client_router::{HiParams, NotFoundParams, Route};
 use client_utils::reactivity::provide_global_context;
 use common_macros::is_ssr;

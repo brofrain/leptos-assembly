@@ -15,6 +15,7 @@ client-components.workspace = true
 client-composables.workspace = true
 client-env.workspace = true
 client-globals.workspace = true
+client-i18n.workspace = true
 client-layouts.path = "../layouts"
 client-macros.workspace = true
 client-page-about.path = "../pages/about"

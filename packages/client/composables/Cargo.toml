@@ -12,6 +12,7 @@ path = "lib.rs"
 
 [dependencies]
 client-globals.workspace = true
+client-i18n.workspace = true
 client-macros.workspace = true
 client-utils.workspace = true
 futures.workspace = true
@@ -23,8 +24,3 @@ paste.workspace = true
 serde.workspace = true
 time.workspace = true
 wasm-bindgen.workspace = true
-
-[package.metadata.leptos-i18n]
-default = "en"
-locales = ["en", "la"]
-locales-dir = "../locales"

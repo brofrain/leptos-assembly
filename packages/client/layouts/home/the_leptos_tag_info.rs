@@ -1,9 +1,6 @@
-use client_composables::{
-    i18n::{t, use_i18n},
-    nprogress,
-};
+use client_composables::nprogress;
 use client_globals::prelude::*;
-use client_macros::t_view;
+use client_i18n::{t, t_view, use_i18n};
 
 // @kw
 // #[server]

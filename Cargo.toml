@@ -8,6 +8,7 @@ members = [
   "packages/client/composables",
   "packages/client/env",
   "packages/client/globals",
+  "packages/client/i18n",
   "packages/client/layouts",
   "packages/client/macros",
   "packages/client/macros/proc",
@@ -33,6 +34,7 @@ client-components = { path = "packages/client/components" }
 client-composables = { path = "packages/client/composables" }
 client-env = { path = "packages/client/env" }
 client-globals = { path = "packages/client/globals" }
+client-i18n = { path = "packages/client/i18n" }
 client-macros = { path = "packages/client/macros" }
 client-router = { path = "packages/client/router" }
 client-stores = { path = "packages/client/stores" }

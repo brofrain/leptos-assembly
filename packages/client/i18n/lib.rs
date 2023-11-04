@@ -1,10 +1,11 @@
+leptos_i18n::load_locales!();
+pub use i18n::*;
+
 #[macro_export]
 macro_rules! __t_get {
     ($macro:ident; $i18n_method:ident; $i18n:ident, $($t:tt)*) => {
         paste::item! {
-            client_composables::i18n::$macro!(
-                $i18n.[< $i18n_method >](), $($t)*
-            )
+            $crate::$macro!($i18n.[< $i18n_method >](), $($t)*)
         }
     };
 }

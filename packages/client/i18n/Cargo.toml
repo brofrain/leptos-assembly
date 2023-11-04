@@ -1,0 +1,22 @@
+[package]
+name = "client-i18n"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lints]
+workspace = true
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+leptos.workspace = true
+leptos_i18n.workspace = true
+paste.workspace = true
+serde.workspace = true
+
+[package.metadata.leptos-i18n]
+default = "en"
+locales = ["en", "la"]
+locales-dir = "locales"

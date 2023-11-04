@@ -1,6 +1,5 @@
 #![allow(clippy::module_name_repetitions)]
 
-pub mod i18n;
 pub mod js;
 
 /// Shorthand for `mod module; use module::*;` with hushed
