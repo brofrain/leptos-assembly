@@ -1,6 +1,5 @@
-use leptos::Callable;
-
 use client_globals::prelude::*;
+use leptos::Callable;
 
 #[derive(Clone, Copy)]
 pub struct ViewCallback(Callback<(), View>);

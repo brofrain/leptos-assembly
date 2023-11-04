@@ -56,8 +56,10 @@ e2e-ui-release:
 _fmt-rustfmt flag='':
     #!/usr/bin/env sh
     (
-        rustfmt build.rs {{ flag }} &
-        for f in `find src -name '*.rs'`; do
+        for f in `find apps -name '*.rs'`; do
+            rustfmt $f {{ flag }} &
+        done
+        for f in `find packages -name '*.rs'`; do
             rustfmt $f {{ flag }} &
         done
         wait
@@ -65,7 +67,7 @@ _fmt-rustfmt flag='':
 
 # Formats Leptos components using leptosfmt
 _fmt-leptosfmt flag='':
-    leptosfmt src/components/**/*.rs {{ flag }}
+    leptosfmt packages/**/components/**/*.rs {{ flag }}
 
 # Formats Rust files including Leptos component syntax
 fmt-rs:
@@ -73,7 +75,7 @@ fmt-rs:
     just _fmt-leptosfmt
 
 _prettier flag:
-    npx prettier "(!(locales/TODO.*)/|!(pnpm-lock))*.{html,yaml,yml,toml}" {{ flag }}
+    npx prettier "**/*.{html,yaml,yml,toml}" "!pnpm-lock.yaml" {{ flag }}
 
 # Formats supported files with Biome
 _fmt-biome:
