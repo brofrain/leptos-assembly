@@ -29,16 +29,9 @@ serve-release:
 
 # --- Test ---
 
-# Runs front-end tests
-test-client:
-    cargo test --lib --features client
-
-# Runs back-end tests
-test-server:
-    cargo test --features server
-
 # Runs tests
-test: test-client test-server
+test:
+    cargo test
 
 # Serves the app and runs E2E tests with Playwright
 e2e:
@@ -195,19 +188,26 @@ CARGO_EXECUTABLES := replace_regex('''
 just@1.15.0
 cargo-leptos@0.2.0
 leptosfmt@0.1.17
-cargo-expand@1.0.74
 cargo-outdated@0.13.1
 cargo-audit@0.18.2
+''', '\s+', ' ')
+
+CARGO_DEV_EXECUTABLES := replace_regex('''
+cargo-expand@1.0.74
 cargo-edit@0.12.2
 ''', '\s+', ' ')
 
-# Performs full project setup
-setup:
+_setup +executables:
     #!/usr/bin/env sh
     (
         # Rust toolchain
         rustup toolchain install nightly --profile minimal -c rustfmt clippy
         rustup target add wasm32-unknown-unknown
+
+        # cargo-binstall
+        curl -L --proto '=https' --tlsv1.2 \
+            -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh \
+            | bash > /dev/null
 
         # Node dependencies
         # (should not run in parallel with other stuff,
@@ -218,13 +218,21 @@ setup:
         npx playwright install-deps
 
         # Cargo executables
-        for dep in {{ CARGO_EXECUTABLES }}; do
-            cargo install $dep &
+        for dep in {{ executables }}; do
+            cargo binstall --only-signed --no-discover-github-token $dep &
         done
 
         wait
     )
+
+# Performs complete project setup and clears previous build artifacts
+setup:
+    just _setup {{ CARGO_EXECUTABLES }} {{ CARGO_DEV_EXECUTABLES }}
     just clean
+
+# Performs project setup, but skips dependencies ununsed in CI
+setup-ci:
+    just _setup {{ CARGO_EXECUTABLES }}
 
 _upgrade:
     cargo upgrade
