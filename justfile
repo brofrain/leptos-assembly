@@ -31,7 +31,8 @@ serve-release:
 
 # Runs tests
 test:
-    cargo test
+    cargo test --doc
+    cargo nextest run
 
 # Serves the app and runs E2E tests with Playwright
 e2e:
@@ -188,6 +189,7 @@ CARGO_EXECUTABLES := replace_regex('''
 just@1.15.0
 cargo-leptos@0.2.0
 leptosfmt@0.1.17
+cargo-nextest@0.9.61
 cargo-outdated@0.13.1
 cargo-audit@0.18.2
 ''', '\s+', ' ')
@@ -219,7 +221,7 @@ _setup +executables:
 
         # Cargo executables
         for dep in {{ executables }}; do
-            cargo binstall --only-signed --no-discover-github-token $dep &
+            cargo binstall -y --only-signed --no-discover-github-token $dep &
         done
 
         wait
