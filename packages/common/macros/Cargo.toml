@@ -11,5 +11,5 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-common-proc-macros.workspace = true
+common-proc-macros.path = "proc"
 cfg-if.workspace = true

@@ -40,7 +40,6 @@ client-router = { path = "packages/client/router" }
 client-stores = { path = "packages/client/stores" }
 client-utils = { path = "packages/client/utils" }
 common-macros = { path = "packages/common/macros" }
-common-proc-macros = { path = "packages/common/macros/proc" }
 common-utils = { path = "packages/common/utils" }
 common-logger = { path = "packages/common/logger" }
 # full-stack
