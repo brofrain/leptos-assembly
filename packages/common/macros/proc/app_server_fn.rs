@@ -16,12 +16,12 @@ impl ToTokens for AppServerFn {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         tokens.extend(self.0.build(
             "__app_server_fn_wrapper",
-            quote! {
+            &quote! {
                 #[allow(clippy::disallowed_macros)]
                 #[allow(clippy::str_to_string)]
                 #[allow(clippy::unsafe_derive_deserialize)]
             },
-            quote! { #[leptos::server] },
+            &quote! { #[leptos::server] },
         ));
     }
 }

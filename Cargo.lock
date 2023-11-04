@@ -674,6 +674,46 @@ dependencies = [
 ]
 
 [[package]]
+name = "core"
+version = "0.0.0"
+dependencies = [
+ "anyhow",
+ "axum",
+ "cfg-if",
+ "client",
+ "common-logger",
+ "console_log",
+ "derive-getters",
+ "derive_more",
+ "derive_setters",
+ "educe",
+ "futures",
+ "getrandom",
+ "leptos",
+ "leptos-use",
+ "leptos_animated_for",
+ "leptos_axum",
+ "leptos_i18n",
+ "leptos_meta",
+ "leptos_router",
+ "log",
+ "paste",
+ "pct-str",
+ "rand",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "thiserror",
+ "time",
+ "tokio",
+ "tower",
+ "tower-http",
+ "unocss-classes",
+ "wasm-bindgen",
+ "web-sys",
+]
+
+[[package]]
 name = "core-foundation"
 version = "0.9.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1683,46 +1723,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a4a83fb7698b3643a0e34f9ae6f2e8f0178c0fd42f8b59d493aa271ff3a5bf21"
 dependencies = [
  "hashbrown 0.14.2",
-]
-
-[[package]]
-name = "main"
-version = "0.0.0"
-dependencies = [
- "anyhow",
- "axum",
- "cfg-if",
- "client",
- "common-logger",
- "console_log",
- "derive-getters",
- "derive_more",
- "derive_setters",
- "educe",
- "futures",
- "getrandom",
- "leptos",
- "leptos-use",
- "leptos_animated_for",
- "leptos_axum",
- "leptos_i18n",
- "leptos_meta",
- "leptos_router",
- "log",
- "paste",
- "pct-str",
- "rand",
- "reqwest",
- "serde",
- "serde_json",
- "thiserror",
- "time",
- "tokio",
- "tower",
- "tower-http",
- "unocss-classes",
- "wasm-bindgen",
- "web-sys",
 ]
 
 [[package]]

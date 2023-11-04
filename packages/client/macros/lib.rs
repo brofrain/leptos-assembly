@@ -1,7 +1,5 @@
 #![allow(clippy::module_name_repetitions)]
 
-pub use client_proc_macros::*;
-
 pub mod i18n;
 pub mod js;
 

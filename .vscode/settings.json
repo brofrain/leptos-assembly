@@ -4,6 +4,8 @@
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.procMacro.ignored": {
     "leptos_macro": ["component", "server"],
+
+    // @kw this is no longer valid
     "proc-macros": ["component", "server"]
   },
   "rust-analyzer.rustfmt.overrideCommand": ["just", "_vscode-fmt"],
