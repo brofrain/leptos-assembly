@@ -28,6 +28,6 @@ runs:
       shell: bash
       run: cargo install just@1.15.0
 
-    - name: Project setup
+    - name: Project CI setup
       shell: bash
-      run: just setup
+      run: just setup-ci
