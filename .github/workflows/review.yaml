@@ -31,7 +31,7 @@ jobs:
       - name: Formatting
         run: just fmt-check
       - name: Lint
-        run: just lint
+        run: just lint-ci
       - name: Tests
         run: just test
       - name: Build

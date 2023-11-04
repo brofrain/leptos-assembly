@@ -138,23 +138,21 @@ fmt-check:
 check:
     cargo check --workspace
 
-_clippy flag feature:
-    cargo clippy {{ flag }} --features {{ feature }} -- -D warnings
-
-# Lints Rust front-end codebase with Clippy
-lint-client:
-    just _clippy --lib client
-
-# Lints Rust back-end codebase with Clippy
-lint-server:
-    just _clippy '' server
+# Lints Rust codebase with Clippy
+lint-rs
+    cargo clippy
 
 # Checks for TypeScript errors
-lint-tsc:
+lint-ts:
     npx tsc
 
-# Performs all lints
-lint: lint-client lint-server lint-tsc
+# Lints the project
+lint: lint-rs lint-ts
+
+# Lints the project, but disallows warnings
+lint-ci
+    cargo clippy -- -D warnings
+    just lint-ts
 
 # --- Security ---
 
