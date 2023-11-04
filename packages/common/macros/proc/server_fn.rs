@@ -2,17 +2,17 @@ use proc_macro2::TokenStream;
 use quote::{quote, ToTokens};
 use syn::parse::{Parse, ParseStream};
 
-use crate::app_item_fn_wrapper::AppItemFnWrapper;
+use crate::item_fn_wrapper::ItemFnWrapper;
 
-pub struct AppServerFn(AppItemFnWrapper);
+pub struct ServerFn(ItemFnWrapper);
 
-impl Parse for AppServerFn {
+impl Parse for ServerFn {
     fn parse(input: ParseStream) -> syn::Result<Self> {
-        Ok(Self(AppItemFnWrapper::parse(input)?))
+        Ok(Self(ItemFnWrapper::parse(input)?))
     }
 }
 
-impl ToTokens for AppServerFn {
+impl ToTokens for ServerFn {
     fn to_tokens(&self, tokens: &mut TokenStream) {
         tokens.extend(self.0.build(
             "__app_server_fn_wrapper",

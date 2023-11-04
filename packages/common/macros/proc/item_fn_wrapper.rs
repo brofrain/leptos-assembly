@@ -11,13 +11,13 @@ use syn::{
 
 static LAST_WRAPPER_ID: AtomicUsize = AtomicUsize::new(0);
 
-pub struct AppItemFnWrapper {
+pub struct ItemFnWrapper {
     id: usize,
     vis: Visibility,
     item_fn: ItemFn,
 }
 
-impl Parse for AppItemFnWrapper {
+impl Parse for ItemFnWrapper {
     fn parse(input: ParseStream) -> syn::Result<Self> {
         let id = LAST_WRAPPER_ID.load(Ordering::Acquire) + 1;
         LAST_WRAPPER_ID.store(id, Ordering::Release);
@@ -30,14 +30,14 @@ impl Parse for AppItemFnWrapper {
     }
 }
 
-impl AppItemFnWrapper {
+impl ItemFnWrapper {
     pub fn build(
         &self,
         wrapper_module_name: &str,
         wrapper_module_prefix: &TokenStream,
         item_fn_prefix: &TokenStream,
     ) -> TokenStream {
-        let AppItemFnWrapper { id, vis, item_fn } = &self;
+        let ItemFnWrapper { id, vis, item_fn } = &self;
 
         let mut result = TokenStream::new();
 
