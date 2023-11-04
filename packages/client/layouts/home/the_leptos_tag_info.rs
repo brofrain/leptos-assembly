@@ -2,28 +2,7 @@ use client_composables::nprogress;
 use client_globals::prelude::*;
 use client_i18n::{t_view, use_i18n};
 use leptos_i18n::t;
-
-// @kw
-// #[server]
-// async fn get_leptos_tag() -> Result<String, ServerFnError> {
-//     use reqwest::{header::USER_AGENT, Client};
-
-//     #[derive(Deserialize, Clone)]
-//     struct Data {
-//         tag_name: String,
-//     }
-
-//     let tag = Client::new()
-//         .get("https://api.github.com/repos/leptos-rs/leptos/releases/latest")
-//         .header(USER_AGENT, "app")
-//         .send()
-//         .await?
-//         .json::<Data>()
-//         .await?
-//         .tag_name;
-
-//     Ok(tag)
-// }
+use server::get_leptos_tag;
 
 #[component]
 pub fn TheLeptosTagInfo() -> impl IntoView {
@@ -33,7 +12,7 @@ pub fn TheLeptosTagInfo() -> impl IntoView {
         || (),
         |()| async {
             nprogress::enable();
-            let result = "//@kw".to_owned();
+            let result = get_leptos_tag().await;
             nprogress::disable();
             result
         },

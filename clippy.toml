@@ -7,8 +7,8 @@ disallowed-macros = [
   { path = "leptos_dom::logging::log", reason = "The macro is intended as a debugging tool. Remove the invocation before committing it to a version control system." },
   { path = "leptos_dom::logging::debug_warn", reason = "The macro is intended as a debugging tool. Remove the invocation before committing it to a version control system." },
   { path = "leptos_dom::logging::error", reason = "For logging purposes use `log::error!` instead." },
-  { path = "leptos_macro::component", reason = "Use `#[component]` from the project's `proc-macros` subcrate instead." }, # @kw
-  { path = "leptos_macro::server", reason = "Use `#[server]` from the project's `proc-macros` subcrate instead." },
+  { path = "leptos_macro::component", reason = "Use `#[component]` from the project's `common-macros` package instead." }, # @kw
+  { path = "leptos_macro::server", reason = "Use `#[server]` from the project's `common-macros` package instead." },
 ]
 disallowed-methods = [
   { path = "leptos_reactive::signal::create_signal", reason = "Use `RwSignal::new` instead" },
