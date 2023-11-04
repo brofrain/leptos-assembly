@@ -1,7 +1,7 @@
 use std::collections::VecDeque;
 
 use client_globals::prelude::*;
-use client_utils::{future::sleep, use_global_context};
+use client_utils::{future::sleep, reactivity::use_global_context};
 
 use super::{id, ViewCallback};
 

@@ -1,5 +1,5 @@
 use client_globals::prelude::*;
-use client_utils::use_global_context_with_initializer;
+use client_utils::reactivity::use_global_context_with_initializer;
 
 use super::throttle::{use_switch, UseSwitch};
 

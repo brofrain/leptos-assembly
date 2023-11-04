@@ -1,4 +1,4 @@
-use client_utils::use_global_context_with_initializer;
+use client_utils::reactivity::use_global_context_with_initializer;
 use common_macros::flatten_pub_mod;
 
 pub trait Store: Copy + 'static {

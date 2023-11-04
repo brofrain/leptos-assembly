@@ -139,7 +139,7 @@ check:
     cargo check --workspace
 
 # Lints Rust codebase with Clippy
-lint-rs
+lint-rs:
     cargo clippy
 
 # Checks for TypeScript errors
@@ -150,7 +150,7 @@ lint-ts:
 lint: lint-rs lint-ts
 
 # Lints the project, but disallows warnings
-lint-ci
+lint-ci:
     cargo clippy -- -D warnings
     just lint-ts
 

@@ -1,5 +1,5 @@
 use client_globals::prelude::*;
-use client_utils::use_global_context;
+use client_utils::reactivity::use_global_context;
 use futures::channel::oneshot;
 
 use super::{id, ViewCallback};

@@ -4,7 +4,7 @@ use client_composables::{
 };
 use client_globals::prelude::*;
 use client_router::{HiParams, NotFoundParams, Route};
-use client_utils::provide_global_context;
+use client_utils::reactivity::provide_global_context;
 use common_macros::is_ssr;
 use leptos_meta::{provide_meta_context, Html, Link, Meta, Title};
 use leptos_router::{Route as RouteView, Router, Routes};

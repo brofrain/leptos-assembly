@@ -1,5 +1,6 @@
-use common_macros::flatten_pub_mod;
+#[macro_use]
+extern  crate common_macros;
 
 pub mod future;
+pub mod reactivity;
 
-flatten_pub_mod!(global_context);
