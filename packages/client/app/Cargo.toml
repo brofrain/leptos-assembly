@@ -30,7 +30,6 @@ leptos_i18n.workspace = true
 leptos_meta.workspace = true
 leptos_router.workspace = true
 leptos-use.workspace = true
-paste.workspace = true # @kw dont enforce importing paste
 unocss-classes.workspace = true
 
 [features]

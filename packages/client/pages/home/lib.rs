@@ -2,9 +2,10 @@ use client_components::{BaseButton, BaseInput, BaseLink, TheLogo};
 use client_composables::confirm;
 use client_env::PROJECT_REPOSITORY_URL;
 use client_globals::prelude::*;
-use client_i18n::{t, t_string, use_i18n};
+use client_i18n::{t_string, use_i18n};
 use client_router::{use_navigate, HiParams, Route};
 use client_stores::{use_store, Names};
+use leptos_i18n::t;
 use leptos_router::NavigateOptions;
 
 #[component]

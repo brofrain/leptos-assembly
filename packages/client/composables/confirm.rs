@@ -1,7 +1,8 @@
 use client_globals::prelude::*;
-use client_i18n::{t, use_i18n};
+use client_i18n::use_i18n;
 use client_utils::reactivity::use_global_context;
 use futures::channel::oneshot;
+use leptos_i18n::t;
 
 use super::{id, ViewCallback};
 

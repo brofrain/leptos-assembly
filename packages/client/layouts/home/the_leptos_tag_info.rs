@@ -1,6 +1,7 @@
 use client_composables::nprogress;
 use client_globals::prelude::*;
-use client_i18n::{t, t_view, use_i18n};
+use client_i18n::{t_view, use_i18n};
+use leptos_i18n::t;
 
 // @kw
 // #[server]
