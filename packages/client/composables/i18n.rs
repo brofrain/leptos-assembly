@@ -1,10 +1,8 @@
 use client_globals::prelude::*;
+use client_i18n::{t, use_i18n, Locale};
 use client_utils::future::next_tick;
 
 use super::toast;
-
-leptos_i18n::load_locales!();
-pub use i18n::*;
 
 pub fn use_toggle_locale_and_push_toast() -> impl Fn() {
     let i18n = use_i18n();

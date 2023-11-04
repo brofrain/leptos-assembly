@@ -1,8 +1,8 @@
 use client_components::BaseLink;
-use client_composables::i18n::{self, use_i18n};
+use client_composables::i18n;
 use client_env::PROJECT_REPOSITORY_URL;
 use client_globals::prelude::*;
-use client_macros::t_string;
+use client_i18n::{t_string, use_i18n};
 use client_router::Route;
 use leptos_use::{use_color_mode, ColorMode, UseColorModeReturn};
 

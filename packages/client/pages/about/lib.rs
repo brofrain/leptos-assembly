@@ -3,11 +3,11 @@ extern crate client_globals;
 
 use client_components::{BaseAnimatedFor, BaseButton};
 use client_composables::{
-    i18n::{t, use_i18n},
     id,
     toast::{self, Severity},
 };
 use client_globals::prelude::*;
+use client_i18n::{t, use_i18n};
 use client_utils::future::{next_tick, spawn_local_owned};
 use rand::{seq::SliceRandom, thread_rng, Rng};
 

@@ -4,7 +4,7 @@ use leptos::{spawn_local, window};
 
 use super::confirm;
 // @kw ban `leptos_i18n::t`
-use crate::i18n::{t, use_i18n};
+use client_i18n::{t, use_i18n};
 
 pub fn init() {
     let i18n = use_i18n();

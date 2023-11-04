@@ -370,6 +370,7 @@ dependencies = [
  "client-composables",
  "client-env",
  "client-globals",
+ "client-i18n",
  "client-layouts",
  "client-macros",
  "client-page-404",
@@ -408,6 +409,7 @@ name = "client-composables"
 version = "0.0.0"
 dependencies = [
  "client-globals",
+ "client-i18n",
  "client-macros",
  "client-utils",
  "futures",
@@ -443,6 +445,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "client-i18n"
+version = "0.0.0"
+dependencies = [
+ "leptos",
+ "leptos_i18n",
+ "paste",
+ "serde",
+]
+
+[[package]]
 name = "client-layouts"
 version = "0.0.0"
 dependencies = [
@@ -450,7 +462,7 @@ dependencies = [
  "client-composables",
  "client-env",
  "client-globals",
- "client-macros",
+ "client-i18n",
  "client-router",
  "leptos",
  "leptos-use",
@@ -474,6 +486,7 @@ dependencies = [
  "client-components",
  "client-composables",
  "client-globals",
+ "client-i18n",
  "client-router",
  "leptos",
  "leptos_i18n",
@@ -488,6 +501,7 @@ dependencies = [
  "client-components",
  "client-composables",
  "client-globals",
+ "client-i18n",
  "client-utils",
  "leptos",
  "leptos_i18n",
@@ -502,6 +516,7 @@ dependencies = [
  "client-components",
  "client-composables",
  "client-globals",
+ "client-i18n",
  "client-router",
  "client-stores",
  "leptos",
@@ -518,7 +533,7 @@ dependencies = [
  "client-composables",
  "client-env",
  "client-globals",
- "client-macros",
+ "client-i18n",
  "client-router",
  "client-stores",
  "leptos",

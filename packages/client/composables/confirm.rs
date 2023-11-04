@@ -1,9 +1,9 @@
 use client_globals::prelude::*;
+use client_i18n::{t, use_i18n};
 use client_utils::reactivity::use_global_context;
 use futures::channel::oneshot;
 
 use super::{id, ViewCallback};
-use crate::i18n::{t, use_i18n};
 
 #[derive(Getters)]
 pub struct Confirm {
