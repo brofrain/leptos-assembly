@@ -8,7 +8,6 @@ use client_composables::{
 use client_i18n::use_i18n;
 use client_utils::future::{next_tick, spawn_local_owned};
 use common::prelude::*;
-use leptos_i18n::t;
 use rand::{seq::SliceRandom, thread_rng, Rng};
 
 mod components {

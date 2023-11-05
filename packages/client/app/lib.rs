@@ -3,7 +3,6 @@ use client_i18n::provide_i18n_context;
 use client_router::{HiParams, NotFoundParams, Route};
 use client_utils::reactivity::provide_global_context;
 use common::{macros::is_ssr, prelude::*};
-use leptos_i18n::t;
 use leptos_meta::{provide_meta_context, Html, Link, Meta, Title};
 use leptos_router::{Route as RouteView, Router, Routes};
 use leptos_use::use_color_mode;
