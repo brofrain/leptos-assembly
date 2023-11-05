@@ -1,6 +1,6 @@
 use client_components::BaseAnimatedFor;
 use client_composables::toast::use_queue;
-use client_globals::prelude::*;
+use common::prelude::*;
 
 flatten_mod!(toast);
 

@@ -1,5 +1,5 @@
 [package]
-name = "client-page-404"
+name = "client_page-404"
 version.workspace = true
 edition.workspace = true
 publish = false
@@ -11,11 +11,11 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-client-components.workspace = true
-client-composables.workspace = true
-client-globals.workspace = true
-client-i18n.workspace = true
-client-router.workspace = true
+client_components.workspace = true
+client_composables.workspace = true
+client_i18n.workspace = true
+client_router.workspace = true
+common.workspace = true
 leptos.workspace = true
 leptos_i18n.workspace = true
 leptos_router.workspace = true

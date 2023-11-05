@@ -1,5 +1,5 @@
 [package]
-name = "client-env"
+name = "client_env"
 version.workspace = true
 edition.workspace = true
 publish = false

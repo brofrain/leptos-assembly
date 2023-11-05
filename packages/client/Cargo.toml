@@ -12,9 +12,8 @@ crate-type = ["cdylib", "rlib"]
 path = "lib.rs"
 
 [dependencies]
-client-app.path = "app"
-common-macros.workspace = true
-common-logger.workspace = true
+client_app.path = "app"
+common = { workspace = true, features = ["logger"] }
 leptos.workspace = true
 leptos_animated_for.workspace = true
 leptos_i18n.workspace = true
@@ -26,7 +25,8 @@ getrandom = { workspace = true, optional = true }
 
 [features]
 csr = [
-  "client-app/csr",
+  "client_app/csr",
+  "common/csr",
   "dep:getrandom",
   "time/wasm-bindgen",
   "leptos/csr",
@@ -35,7 +35,7 @@ csr = [
   "leptos_router/csr",
 ]
 ssr = [
-  "client-app/ssr",
+  "client_app/ssr",
   "leptos/ssr",
   "leptos_animated_for/ssr",
   "leptos_meta/ssr",

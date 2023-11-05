@@ -1,5 +1,5 @@
 [package]
-name = "common-proc-macros"
+name = "common_proc_macros"
 version.workspace = true
 edition.workspace = true
 publish = false

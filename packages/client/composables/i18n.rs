@@ -1,4 +1,4 @@
-use client_globals::prelude::*;
+use common::prelude::*;
 use client_i18n::{use_i18n, Locale};
 use client_utils::future::next_tick;
 use leptos_i18n::t;

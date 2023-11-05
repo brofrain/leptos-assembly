@@ -1,5 +1,5 @@
 [package]
-name = "client-i18n"
+name = "client_i18n"
 version.workspace = true
 edition.workspace = true
 publish = false

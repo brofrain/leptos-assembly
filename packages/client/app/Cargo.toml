@@ -1,5 +1,5 @@
 [package]
-name = "client-app"
+name = "client_app"
 version.workspace = true
 edition.workspace = true
 publish = false
@@ -12,20 +12,19 @@ path = "lib.rs"
 
 # @kw make this a module of client?
 [dependencies]
-client-components.workspace = true
-client-composables.workspace = true
-client-env.workspace = true
-client-globals.workspace = true
-client-i18n.workspace = true
-client-layouts.path = "../layouts"
-client-macros.workspace = true
-client-page-about.path = "../pages/about"
-client-page-hi.path = "../pages/hi"
-client-page-home.path = "../pages/home"
-client-page-404.path = "../pages/404"
-client-router.workspace = true
-client-utils.workspace = true
-common-macros.workspace = true
+client_components.workspace = true
+client_composables.workspace = true
+client_env.workspace = true
+client_i18n.workspace = true
+client_layouts.path = "../layouts"
+client_macros.workspace = true
+client_page-about.path = "../pages/about"
+client_page-hi.path = "../pages/hi"
+client_page-home.path = "../pages/home"
+client_page-404.path = "../pages/404"
+client_router.workspace = true
+client_utils.workspace = true
+common.workspace = true
 leptos.workspace = true
 leptos_i18n.workspace = true
 leptos_meta.workspace = true

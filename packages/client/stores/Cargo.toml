@@ -1,5 +1,5 @@
 [package]
-name = "client-stores"
+name = "client_stores"
 version.workspace = true
 edition.workspace = true
 publish = false
@@ -11,8 +11,7 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-client-globals.workspace = true
-client-utils.workspace = true
-common-macros.workspace = true
+client_utils.workspace = true
+common.workspace = true
 leptos.workspace = true
 leptos-use.workspace = true

@@ -1,5 +1,5 @@
 [package]
-name = "client-proc-macros"
+name = "client_proc_macros"
 version.workspace = true
 edition.workspace = true
 publish = false

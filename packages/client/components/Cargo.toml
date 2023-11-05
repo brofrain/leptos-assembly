@@ -1,5 +1,5 @@
 [package]
-name = "client-components"
+name = "client_components"
 version.workspace = true
 edition.workspace = true
 publish = false
@@ -11,9 +11,9 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-client-composables.workspace = true
-client-globals.workspace = true
-client-router.workspace = true
+client_composables.workspace = true
+client_router.workspace = true
+common.workspace = true
 leptos.workspace = true
 leptos_animated_for.workspace = true
 paste.workspace = true

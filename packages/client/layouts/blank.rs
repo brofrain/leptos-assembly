@@ -1,4 +1,4 @@
-use client_globals::prelude::*;
+use common::prelude::*;
 use leptos_router::Outlet;
 
 #[component]

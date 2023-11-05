@@ -1,5 +1,5 @@
 use client_composables::overlay;
-use client_globals::prelude::*;
+use common::prelude::*;
 
 #[component]
 pub fn TheOverlay() -> impl IntoView {

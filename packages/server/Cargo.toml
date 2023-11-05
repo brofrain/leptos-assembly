@@ -11,7 +11,7 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-common-macros.workspace = true
+common.workspace = true
 leptos.workspace = true
 reqwest = { version = "0.11.22", features = ["json"] }
 serde.workspace = true

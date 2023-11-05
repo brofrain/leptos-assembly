@@ -1,5 +1,5 @@
 use client_composables::toast;
-use client_globals::prelude::*;
+use common::prelude::*;
 
 #[component]
 pub fn Toast(children: Children, severity: toast::Severity) -> impl IntoView {

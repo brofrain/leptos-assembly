@@ -1,6 +1,6 @@
 use std::collections::HashSet;
 
-use client_globals::prelude::*;
+use common::prelude::*;
 use leptos_use::storage::{
     use_storage_with_options,
     StorageType,

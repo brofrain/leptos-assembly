@@ -13,7 +13,7 @@ path = "main.rs"
 
 [dependencies]
 client = { path = "../../packages/client", features = ["ssr"] }
-common-logger = { workspace = true, features = ["ssr"] }
+common = { workspace = true, features = ["logger", "ssr"] }
 leptos.workspace = true
 log.workspace = true
 axum.workspace = true
