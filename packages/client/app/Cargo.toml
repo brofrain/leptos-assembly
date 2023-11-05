@@ -10,6 +10,7 @@ workspace = true
 [lib]
 path = "lib.rs"
 
+# @kw make this a module of client?
 [dependencies]
 client-components.workspace = true
 client-composables.workspace = true

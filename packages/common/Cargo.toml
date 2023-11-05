@@ -1,0 +1,22 @@
+[package]
+name = "common"
+version.workspace = true
+edition.workspace = true
+publish = false
+
+[lints]
+workspace = true
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+leptos.workspace = true
+log.workspace = true
+
+[features]
+csr = []
+ssr = []
+
+[package.metadata.cargo-all-features]
+skip_feature_sets = [["csr", "ssr"]]
