@@ -1,6 +1,6 @@
 use client_macros::bind_js_fn;
 use client_utils::reactivity::use_global_context_with_initializer;
-use time::ext::NumericalDuration;
+use common::exports::time::ext::NumericalDuration;
 
 use super::throttle::{use_switch, UseSwitch};
 

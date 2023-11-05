@@ -1,8 +1,7 @@
 use std::panic;
 
 use client_i18n::use_i18n;
-use leptos::{spawn_local, window};
-use leptos_i18n::t;
+use common::prelude::*;
 
 use super::confirm;
 

@@ -1,8 +1,7 @@
 use std::rc::Rc;
 
-use common::prelude::*;
+use common::{exports::time::Duration, prelude::*};
 use leptos_use::{use_debounce_fn_with_arg_and_options, DebounceOptions};
-use time::Duration;
 
 #[derive(Clone, Copy)]
 pub struct UseSwitch {

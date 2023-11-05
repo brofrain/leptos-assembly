@@ -19,7 +19,5 @@ client_router.workspace = true
 common = { workspace = true, features = ["leptos"] }
 server.workspace = true
 leptos.workspace = true
-leptos_i18n.workspace = true
 leptos_router.workspace = true
 leptos-use.workspace = true
-unocss-classes.workspace = true

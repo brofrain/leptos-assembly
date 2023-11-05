@@ -16,11 +16,6 @@ client_macros.workspace = true
 client_utils.workspace = true
 common = { workspace = true, features = ["leptos"] }
 futures.workspace = true
-leptos.workspace = true
-leptos_i18n.workspace = true
 leptos-use.workspace = true
-log.workspace = true
 paste.workspace = true
-serde.workspace = true
-time.workspace = true
 wasm-bindgen.workspace = true

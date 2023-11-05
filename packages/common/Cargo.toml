@@ -22,6 +22,7 @@ serde.workspace = true
 leptos = { workspace = true, optional = true }
 leptos_i18n = { workspace = true, optional = true }
 log.workspace = true
+time.workspace = true
 unocss-classes.workspace = true
 
 [features]
