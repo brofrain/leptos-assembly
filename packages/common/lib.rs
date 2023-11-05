@@ -31,6 +31,7 @@ pub mod prelude {
         Suspense,
         View,
     };
+    pub use log;
     pub use serde::*;
     pub use time::ext::NumericalDuration;
     pub use unocss_classes::uno;

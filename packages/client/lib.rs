@@ -5,7 +5,7 @@ cfg_csr! {
 
     #[wasm_bindgen]
     pub fn hydrate() {
-        common::logger::init(env!("CARGO_CRATE_NAME"));
+        common::logger::init!();
         leptos::mount_to_body(client_app::App);
     }
 }
