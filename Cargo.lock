@@ -458,9 +458,7 @@ dependencies = [
  "client_router",
  "common",
  "leptos",
- "leptos_i18n",
  "leptos_router",
- "unocss-classes",
 ]
 
 [[package]]
@@ -473,9 +471,7 @@ dependencies = [
  "client_utils",
  "common",
  "leptos",
- "leptos_i18n",
  "rand",
- "unocss-classes",
 ]
 
 [[package]]
@@ -506,9 +502,7 @@ dependencies = [
  "client_stores",
  "common",
  "leptos",
- "leptos_i18n",
  "leptos_router",
- "unocss-classes",
  "web-sys",
 ]
 

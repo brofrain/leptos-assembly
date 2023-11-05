@@ -17,6 +17,4 @@ client_i18n.workspace = true
 client_utils.workspace = true
 common = { workspace = true, features = ["leptos"] }
 leptos.workspace = true
-leptos_i18n.workspace = true
 rand.workspace = true
-unocss-classes.workspace = true

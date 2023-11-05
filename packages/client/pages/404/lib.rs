@@ -1,8 +1,7 @@
 use client_components::BaseButton;
-use common::prelude::*;
 use client_i18n::use_i18n;
 use client_router::{use_navigate, NotFoundParams, Route};
-use leptos_i18n::t;
+use common::prelude::*;
 use leptos_router::{use_params, NavigateOptions};
 
 #[component]
