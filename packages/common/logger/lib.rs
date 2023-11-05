@@ -90,7 +90,6 @@ pub fn __init(app_crate_name: &'static str) {
     dispatch.apply().expect("Failed to initialize logger");
 }
 
-
 #[macro_export]
 macro_rules! init {
     () => {
