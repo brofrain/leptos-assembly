@@ -42,6 +42,7 @@ client-utils = { path = "packages/client/utils" }
 common-macros = { path = "packages/common/macros" }
 common-utils = { path = "packages/common/utils" }
 common-logger = { path = "packages/common/logger" }
+common = { path = "packages/common" }
 server = { path = "packages/server" }
 # full-stack
 anyhow = "1.0.75"
