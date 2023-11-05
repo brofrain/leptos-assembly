@@ -1,5 +1,4 @@
-#[macro_use]
-extern crate client_globals;
+common::use_macros!();
 
 mod shared;
 

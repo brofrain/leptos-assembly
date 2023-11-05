@@ -11,12 +11,27 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
+common_logger = { path = "logger", optional = true }
+common_macros = { path = "macros", optional = true }
+common_utils = { path = "utils", optional = true }
+cfg-if.workspace = true
+derive-getters.workspace = true
+derive_more.workspace = true
+derive_setters.workspace = true
+educe.workspace = true
+serde.workspace = true
 leptos.workspace = true
 log.workspace = true
+time.workspace = true
+unocss-classes.workspace = true
 
 [features]
-csr = []
-ssr = []
+logger = ["dep:common_logger"]
+macros = ["dep:common_macros"]
+utils = ["dep:common_utils"]
+csr = ["common_logger/csr"]
+ssr = ["common_logger/ssr"]
+default = ["macros"]
 
 [package.metadata.cargo-all-features]
 skip_feature_sets = [["csr", "ssr"]]

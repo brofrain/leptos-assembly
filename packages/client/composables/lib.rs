@@ -1,8 +1,7 @@
 #![feature(fn_traits)]
 #![feature(unboxed_closures)]
 
-#[macro_use]
-extern crate client_globals;
+common::use_macros!();
 
 pub mod confirm;
 pub mod i18n;

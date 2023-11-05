@@ -1,5 +1,5 @@
 use client_composables::overlay;
-use client_globals::prelude::*;
+use common::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::MouseEvent;
 

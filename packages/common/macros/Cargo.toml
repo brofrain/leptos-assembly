@@ -1,5 +1,5 @@
 [package]
-name = "common-macros"
+name = "common_macros"
 version.workspace = true
 edition.workspace = true
 publish = false
@@ -11,5 +11,5 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-common-proc-macros.path = "proc"
+common_proc_macros.path = "proc"
 cfg-if.workspace = true

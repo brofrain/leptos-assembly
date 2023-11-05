@@ -1,4 +1,4 @@
-use client_globals::prelude::*;
+use common::prelude::*;
 
 #[component]
 pub fn BaseInput(

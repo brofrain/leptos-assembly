@@ -349,9 +349,8 @@ checksum = "5603d514e43c7439b594a021fa63bf6bfde2b47b6af966023624fd777d4dd8b3"
 name = "client"
 version = "0.0.0"
 dependencies = [
- "client-app",
- "common-logger",
- "common-macros",
+ "client_app",
+ "common",
  "getrandom",
  "leptos",
  "leptos_animated_for",
@@ -363,23 +362,22 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-app"
+name = "client_app"
 version = "0.0.0"
 dependencies = [
- "client-components",
- "client-composables",
- "client-env",
- "client-globals",
- "client-i18n",
- "client-layouts",
- "client-macros",
- "client-page-404",
- "client-page-about",
- "client-page-hi",
- "client-page-home",
- "client-router",
- "client-utils",
- "common-macros",
+ "client_components",
+ "client_composables",
+ "client_env",
+ "client_i18n",
+ "client_layouts",
+ "client_macros",
+ "client_page-404",
+ "client_page-about",
+ "client_page-hi",
+ "client_page-home",
+ "client_router",
+ "client_utils",
+ "common",
  "leptos",
  "leptos-use",
  "leptos_i18n",
@@ -389,12 +387,12 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-components"
+name = "client_components"
 version = "0.0.0"
 dependencies = [
- "client-composables",
- "client-globals",
- "client-router",
+ "client_composables",
+ "client_router",
+ "common",
  "leptos",
  "leptos_animated_for",
  "paste",
@@ -404,13 +402,13 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-composables"
+name = "client_composables"
 version = "0.0.0"
 dependencies = [
- "client-globals",
- "client-i18n",
- "client-macros",
- "client-utils",
+ "client_i18n",
+ "client_macros",
+ "client_utils",
+ "common",
  "futures",
  "leptos",
  "leptos-use",
@@ -423,28 +421,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-env"
+name = "client_env"
 version = "0.0.0"
 
 [[package]]
-name = "client-globals"
-version = "0.0.0"
-dependencies = [
- "cfg-if",
- "client-macros",
- "common-macros",
- "derive-getters",
- "derive_more",
- "derive_setters",
- "educe",
- "leptos",
- "serde",
- "time",
- "unocss-classes",
-]
-
-[[package]]
-name = "client-i18n"
+name = "client_i18n"
 version = "0.0.0"
 dependencies = [
  "leptos",
@@ -454,15 +435,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-layouts"
+name = "client_layouts"
 version = "0.0.0"
 dependencies = [
- "client-components",
- "client-composables",
- "client-env",
- "client-globals",
- "client-i18n",
- "client-router",
+ "client_components",
+ "client_composables",
+ "client_env",
+ "client_i18n",
+ "client_router",
+ "common",
  "leptos",
  "leptos-use",
  "leptos_i18n",
@@ -472,21 +453,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-macros"
+name = "client_macros"
 version = "0.0.0"
 dependencies = [
- "client-proc-macros",
+ "client_proc_macros",
 ]
 
 [[package]]
-name = "client-page-404"
+name = "client_page-404"
 version = "0.0.0"
 dependencies = [
- "client-components",
- "client-composables",
- "client-globals",
- "client-i18n",
- "client-router",
+ "client_components",
+ "client_composables",
+ "client_i18n",
+ "client_router",
+ "common",
  "leptos",
  "leptos_i18n",
  "leptos_router",
@@ -494,14 +475,14 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-page-about"
+name = "client_page-about"
 version = "0.0.0"
 dependencies = [
- "client-components",
- "client-composables",
- "client-globals",
- "client-i18n",
- "client-utils",
+ "client_components",
+ "client_composables",
+ "client_i18n",
+ "client_utils",
+ "common",
  "leptos",
  "leptos_i18n",
  "rand",
@@ -509,15 +490,15 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-page-hi"
+name = "client_page-hi"
 version = "0.0.0"
 dependencies = [
- "client-components",
- "client-composables",
- "client-globals",
- "client-i18n",
- "client-router",
- "client-stores",
+ "client_components",
+ "client_composables",
+ "client_i18n",
+ "client_router",
+ "client_stores",
+ "common",
  "leptos",
  "leptos_i18n",
  "leptos_router",
@@ -525,16 +506,16 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-page-home"
+name = "client_page-home"
 version = "0.0.0"
 dependencies = [
- "client-components",
- "client-composables",
- "client-env",
- "client-globals",
- "client-i18n",
- "client-router",
- "client-stores",
+ "client_components",
+ "client_composables",
+ "client_env",
+ "client_i18n",
+ "client_router",
+ "client_stores",
+ "common",
  "leptos",
  "leptos_i18n",
  "leptos_router",
@@ -543,7 +524,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-proc-macros"
+name = "client_proc_macros"
 version = "0.0.0"
 dependencies = [
  "proc-macro2",
@@ -552,7 +533,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-router"
+name = "client_router"
 version = "0.0.0"
 dependencies = [
  "leptos",
@@ -560,21 +541,20 @@ dependencies = [
 ]
 
 [[package]]
-name = "client-stores"
+name = "client_stores"
 version = "0.0.0"
 dependencies = [
- "client-globals",
- "client-utils",
- "common-macros",
+ "client_utils",
+ "common",
  "leptos",
  "leptos-use",
 ]
 
 [[package]]
-name = "client-utils"
+name = "client_utils"
 version = "0.0.0"
 dependencies = [
- "common-macros",
+ "common",
  "futures",
  "leptos",
  "time",
@@ -587,11 +567,30 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "186dce98367766de751c42c4f03970fc60fc012296e706ccbb9d5df9b6c1e271"
 
 [[package]]
-name = "common-logger"
+name = "common"
 version = "0.0.0"
 dependencies = [
  "cfg-if",
- "common-macros",
+ "common_logger",
+ "common_macros 0.0.0",
+ "common_utils",
+ "derive-getters",
+ "derive_more",
+ "derive_setters",
+ "educe",
+ "leptos",
+ "log",
+ "serde",
+ "time",
+ "unocss-classes",
+]
+
+[[package]]
+name = "common_logger"
+version = "0.0.0"
+dependencies = [
+ "cfg-if",
+ "common_macros 0.0.0",
  "console_log",
  "fern",
  "log",
@@ -600,15 +599,21 @@ dependencies = [
 ]
 
 [[package]]
-name = "common-macros"
+name = "common_macros"
 version = "0.0.0"
 dependencies = [
  "cfg-if",
- "common-proc-macros",
+ "common_proc_macros",
 ]
 
 [[package]]
-name = "common-proc-macros"
+name = "common_macros"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f3f6d59c71e7dc3af60f0af9db32364d96a16e9310f3f5db2b55ed642162dd35"
+
+[[package]]
+name = "common_proc_macros"
 version = "0.0.0"
 dependencies = [
  "proc-macro2",
@@ -617,14 +622,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "common-utils"
+name = "common_utils"
 version = "0.0.0"
-
-[[package]]
-name = "common_macros"
-version = "0.1.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f3f6d59c71e7dc3af60f0af9db32364d96a16e9310f3f5db2b55ed642162dd35"
 
 [[package]]
 name = "config"
@@ -692,7 +691,7 @@ version = "0.0.0"
 dependencies = [
  "axum",
  "client",
- "common-logger",
+ "common",
  "leptos",
  "leptos_axum",
  "log",
@@ -1626,7 +1625,7 @@ checksum = "d5ca4422fdfba8af03d347d346f9364a4393ad36e227a018567192395285cf65"
 dependencies = [
  "cached",
  "cfg-if",
- "common_macros",
+ "common_macros 0.1.1",
  "gloo-net",
  "itertools 0.11.0",
  "js-sys",
@@ -2538,7 +2537,7 @@ dependencies = [
 name = "server"
 version = "0.0.0"
 dependencies = [
- "common-macros",
+ "common",
  "leptos",
  "reqwest",
  "serde",

@@ -1,6 +1,6 @@
 use client_composables::nprogress;
-use client_globals::prelude::*;
 use client_i18n::{t_view, use_i18n};
+use common::prelude::*;
 use leptos_i18n::t;
 use server::get_leptos_tag;
 

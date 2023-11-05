@@ -1,5 +1,5 @@
 [package]
-name = "client-composables"
+name = "client_composables"
 version.workspace = true
 edition.workspace = true
 publish = false
@@ -11,10 +11,10 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-client-globals.workspace = true
-client-i18n.workspace = true
-client-macros.workspace = true
-client-utils.workspace = true
+client_i18n.workspace = true
+client_macros.workspace = true
+client_utils.workspace = true
+common.workspace = true
 futures.workspace = true
 leptos.workspace = true
 leptos_i18n.workspace = true

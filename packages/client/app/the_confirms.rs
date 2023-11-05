@@ -1,6 +1,6 @@
 use client_components::{BaseAnimatedFor, BaseButton, BaseModal};
 use client_composables::confirm;
-use client_globals::prelude::*;
+use common::prelude::*;
 
 #[component]
 pub fn TheConfirms() -> impl IntoView {

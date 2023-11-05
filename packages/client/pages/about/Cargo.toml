@@ -1,5 +1,5 @@
 [package]
-name = "client-page-about"
+name = "client_page-about"
 version.workspace = true
 edition.workspace = true
 publish = false
@@ -11,11 +11,11 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-client-components.workspace = true
-client-composables.workspace = true
-client-globals.workspace = true
-client-i18n.workspace = true
-client-utils.workspace = true
+client_components.workspace = true
+client_composables.workspace = true
+client_i18n.workspace = true
+client_utils.workspace = true
+common.workspace = true
 leptos.workspace = true
 leptos_i18n.workspace = true
 rand.workspace = true

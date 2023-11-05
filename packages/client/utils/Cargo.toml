@@ -1,5 +1,5 @@
 [package]
-name = "client-utils"
+name = "client_utils"
 version.workspace = true
 edition.workspace = true
 publish = false
@@ -11,7 +11,7 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-common-macros.workspace = true
+common.workspace = true
 futures.workspace = true
 leptos.workspace = true
 time.workspace = true

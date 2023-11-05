@@ -1,4 +1,4 @@
-use client_globals::prelude::*;
+use common::prelude::*;
 use client_router::Route;
 
 pub enum BaseLinkTo {

@@ -7,7 +7,6 @@ members = [
   "packages/client/components",
   "packages/client/composables",
   "packages/client/env",
-  "packages/client/globals",
   "packages/client/i18n",
   "packages/client/layouts",
   "packages/client/macros",
@@ -30,18 +29,14 @@ version = "0.0.0"
 edition = "2021"
 
 [workspace.dependencies]
-client-components = { path = "packages/client/components" }
-client-composables = { path = "packages/client/composables" }
-client-env = { path = "packages/client/env" }
-client-globals = { path = "packages/client/globals" }
-client-i18n = { path = "packages/client/i18n" }
-client-macros = { path = "packages/client/macros" }
-client-router = { path = "packages/client/router" }
-client-stores = { path = "packages/client/stores" }
-client-utils = { path = "packages/client/utils" }
-common-macros = { path = "packages/common/macros" }
-common-utils = { path = "packages/common/utils" }
-common-logger = { path = "packages/common/logger" }
+client_components = { path = "packages/client/components" }
+client_composables = { path = "packages/client/composables" }
+client_env = { path = "packages/client/env" }
+client_i18n = { path = "packages/client/i18n" }
+client_macros = { path = "packages/client/macros" }
+client_router = { path = "packages/client/router" }
+client_stores = { path = "packages/client/stores" }
+client_utils = { path = "packages/client/utils" }
 common = { path = "packages/common" }
 server = { path = "packages/server" }
 # full-stack
@@ -85,7 +80,7 @@ web-sys = { version = "0.3.64", features = [
   "MediaQueryList",
   "Performance",
 ] }
-# client-only
+# client_only
 console_log = { version = "1.0.0", features = ["color"] }
 getrandom = { version = "0.2.10", features = ["js"] }
 # server-only

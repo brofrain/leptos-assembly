@@ -1,5 +1,5 @@
 [package]
-name = "common-logger"
+name = "common_logger"
 version.workspace = true
 edition.workspace = true
 publish = false
@@ -11,7 +11,7 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-common-macros.workspace = true
+common_macros.path = "../macros"
 cfg-if.workspace = true
 console_log = { workspace = true, optional = true }
 log.workspace = true

@@ -1,4 +1,4 @@
-use common_macros::server;
+use common::macros::server; // @kw
 use leptos::ServerFnError;
 use serde::Deserialize;
 
