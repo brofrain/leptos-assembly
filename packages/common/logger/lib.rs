@@ -61,7 +61,7 @@ fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
         })
 }
 
-pub fn init(app_crate_name: &'static str) {
+pub fn __init(app_crate_name: &'static str) {
     let mut dispatch = Dispatch::new();
 
     // debug / info logs from external crates don't interest us
@@ -88,4 +88,12 @@ pub fn init(app_crate_name: &'static str) {
     }
 
     dispatch.apply().expect("Failed to initialize logger");
+}
+
+
+#[macro_export]
+macro_rules! init {
+    () => {
+        $crate::__init(env!("CARGO_CRATE_NAME"));
+    };
 }
