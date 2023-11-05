@@ -2,6 +2,7 @@
   "recommendations": [
     "antfu.iconify",
     "antfu.unocss",
+    "esbenp.prettier-vscode",
     "lokalise.i18n-ally",
     "ms-playwright.playwright",
     "rust-lang.rust-analyzer",
