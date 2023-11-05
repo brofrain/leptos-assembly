@@ -380,10 +380,8 @@ dependencies = [
  "common",
  "leptos",
  "leptos-use",
- "leptos_i18n",
  "leptos_meta",
  "leptos_router",
- "unocss-classes",
 ]
 
 [[package]]
@@ -395,8 +393,6 @@ dependencies = [
  "common",
  "leptos",
  "leptos_animated_for",
- "paste",
- "unocss-classes",
  "wasm-bindgen",
  "web-sys",
 ]
@@ -410,13 +406,8 @@ dependencies = [
  "client_utils",
  "common",
  "futures",
- "leptos",
  "leptos-use",
- "leptos_i18n",
- "log",
  "paste",
- "serde",
- "time",
  "wasm-bindgen",
 ]
 
@@ -446,10 +437,8 @@ dependencies = [
  "common",
  "leptos",
  "leptos-use",
- "leptos_i18n",
  "leptos_router",
  "server",
- "unocss-classes",
 ]
 
 [[package]]
@@ -546,7 +535,6 @@ version = "0.0.0"
 dependencies = [
  "client_utils",
  "common",
- "leptos",
  "leptos-use",
 ]
 
@@ -556,8 +544,6 @@ version = "0.0.0"
 dependencies = [
  "common",
  "futures",
- "leptos",
- "time",
 ]
 
 [[package]]
@@ -581,6 +567,7 @@ dependencies = [
  "leptos_i18n",
  "log",
  "serde",
+ "time",
  "unocss-classes",
 ]
 

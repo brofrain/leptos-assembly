@@ -16,7 +16,5 @@ client_router.workspace = true
 common = { workspace = true, features = ["leptos"] }
 leptos.workspace = true
 leptos_animated_for.workspace = true
-paste.workspace = true
-unocss-classes.workspace = true
 wasm-bindgen.workspace = true
 web-sys.workspace = true

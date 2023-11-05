@@ -38,6 +38,7 @@ pub mod exports {
     pub use educe;
     pub use log;
     pub use serde;
+    pub use time;
 }
 
 #[macro_export]
@@ -80,7 +81,7 @@ pub mod prelude {
     #[cfg(feature = "leptos")]
     pub use exports::leptos_i18n::{self, t};
     #[cfg(feature = "leptos")]
-    pub use exports::unocss_classes::uno;
+    pub use exports::unocss_classes::{self, uno};
     pub use exports::{
         derive_getters::Getters,
         derive_setters::Setters,
