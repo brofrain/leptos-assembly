@@ -1,11 +1,57 @@
+pub use common_macros::{flatten_mod, flatten_pub_mod};
+
+pub mod macros {
+    #[cfg(feature = "leptos")]
+    pub use common_macros::component;
+    pub use common_macros::{
+        cfg_csr,
+        cfg_ssr,
+        flatten_mod,
+        flatten_pub_mod,
+        is_csr,
+        is_ssr,
+        server, // @kw how to tackle backend?
+    };
+}
+
+#[cfg(feature = "logger")]
+pub mod logger {
+    pub use common_logger::*;
+}
+
+#[cfg(feature = "utils")]
+pub mod utils {
+    pub use common_utils::*;
+}
+
+pub mod exports {
+    cfg_if::cfg_if! {
+        if #[cfg(feature = "leptos")] {
+            pub use leptos;
+            pub use leptos_i18n;
+            pub use unocss_classes;
+        }
+    }
+
+    pub use derive_getters;
+    pub use derive_setters;
+    pub use educe;
+    pub use log;
+    pub use serde;
+}
+
+#[macro_export]
+macro_rules! use_macros {
+    () => {
+        #[macro_use]
+        extern crate common;
+    };
+}
+
 pub mod prelude {
-    pub use cfg_if::*;
-    pub use common_macros::{component, flatten_mod, flatten_pub_mod};
-    pub use derive_getters::*;
-    pub use derive_more::*;
-    pub use derive_setters::*;
-    pub use educe::*;
-    pub use leptos::{
+    #[cfg(feature = "leptos")]
+    pub use exports::leptos::{
+        self,
         create_action,
         event_target_value,
         leptos_dom::*,
@@ -31,33 +77,20 @@ pub mod prelude {
         Suspense,
         View,
     };
-    pub use log;
-    pub use serde::*;
-    pub use time::ext::NumericalDuration;
-    pub use unocss_classes::uno;
-}
-
-pub use prelude::*;
-
-#[macro_export]
-macro_rules! use_macros {
-    () => {
-        #[macro_use]
-        extern crate common;
+    #[cfg(feature = "leptos")]
+    pub use exports::leptos_i18n::{self, t};
+    #[cfg(feature = "leptos")]
+    pub use exports::unocss_classes::uno;
+    pub use exports::{
+        derive_getters::Getters,
+        derive_setters::Setters,
+        educe::Educe,
+        log,
+        serde::{self, Deserialize, Serialize},
     };
-}
+    #[cfg(feature = "leptos")]
+    pub use macros::component;
+    pub use macros::{flatten_mod, flatten_pub_mod};
 
-#[cfg(feature = "logger")]
-pub mod logger {
-    pub use common_logger::*;
-}
-
-#[cfg(feature = "macros")]
-pub mod macros {
-    pub use common_macros::*;
-}
-
-#[cfg(feature = "utils")]
-pub mod utils {
-    pub use common_utils::*;
+    use super::{exports, macros};
 }
