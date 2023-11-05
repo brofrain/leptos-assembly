@@ -14,7 +14,7 @@ path = "lib.rs"
 client_i18n.workspace = true
 client_macros.workspace = true
 client_utils.workspace = true
-common.workspace = true
+common = { workspace = true, features = ["leptos"] }
 futures.workspace = true
 leptos.workspace = true
 leptos_i18n.workspace = true

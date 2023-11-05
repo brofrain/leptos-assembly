@@ -1,5 +1,3 @@
-// @kw common #[macro_use] leptos_i18n ?
-
 leptos_i18n::load_locales!();
 pub use i18n::{provide_i18n_context, use_i18n, Locale};
 

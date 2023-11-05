@@ -10,7 +10,6 @@ workspace = true
 [lib]
 path = "lib.rs"
 
-# @kw make this a module of client?
 [dependencies]
 client_components.workspace = true
 client_composables.workspace = true
@@ -24,7 +23,7 @@ client_page-home.path = "../pages/home"
 client_page-404.path = "../pages/404"
 client_router.workspace = true
 client_utils.workspace = true
-common.workspace = true
+common = { workspace = true, features = ["leptos"] }
 leptos.workspace = true
 leptos_i18n.workspace = true
 leptos_meta.workspace = true

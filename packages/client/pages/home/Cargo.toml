@@ -17,7 +17,7 @@ client_env.workspace = true
 client_i18n.workspace = true
 client_router.workspace = true
 client_stores.workspace = true
-common.workspace = true
+common = { workspace = true, features = ["leptos"] }
 leptos.workspace = true
 leptos_i18n.workspace = true
 leptos_router.workspace = true
