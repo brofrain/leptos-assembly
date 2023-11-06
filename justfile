@@ -17,7 +17,7 @@ build:
 
 # Runs development server and watches for changes
 dev:
-    cargo leptos watch --hot-reload
+    cargo watch -x 'leptos serve'
 
 # Runs development server
 serve:
@@ -191,6 +191,7 @@ cargo-audit@0.18.2
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.74
 cargo-edit@0.12.2
+cargo-watch@8.4.1
 ''', '\s+', ' ')
 
 _setup +executables:
