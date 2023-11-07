@@ -12,5 +12,5 @@ path = "lib.rs"
 
 [dependencies]
 client_utils.workspace = true
-common = { workspace = true, features = ["leptos"] }
+common = { workspace = true, features = ["client"] }
 leptos-use.workspace = true

@@ -11,5 +11,5 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-common = { workspace = true, features = ["leptos"] }
+common = { workspace = true, features = ["client"] }
 futures.workspace = true
