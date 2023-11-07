@@ -26,11 +26,12 @@ time.workspace = true
 unocss-classes.workspace = true
 
 [features]
-leptos = ["dep:leptos", "dep:leptos_i18n"]
+client = ["dep:leptos", "dep:leptos_i18n"]
+server = []
 logger = ["dep:common_logger"]
 utils = ["dep:common_utils"]
 csr = ["common_logger/csr"]
 ssr = ["common_logger/ssr"]
 
 [package.metadata.cargo-all-features]
-skip_feature_sets = [["csr", "ssr"]]
+skip_feature_sets = [["csr", "ssr"], ["client", "server"]]

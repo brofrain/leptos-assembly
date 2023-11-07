@@ -16,7 +16,7 @@ client_composables.workspace = true
 client_env.workspace = true
 client_i18n.workspace = true
 client_router.workspace = true
-common = { workspace = true, features = ["leptos"] }
+common = { workspace = true, features = ["client"] }
 server.workspace = true
 leptos.workspace = true
 leptos_router.workspace = true

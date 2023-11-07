@@ -1,7 +1,7 @@
 pub use common_macros::{flatten_mod, flatten_pub_mod};
 
 pub mod macros {
-    #[cfg(feature = "leptos")]
+    #[cfg(feature = "client")]
     pub use common_macros::component;
     pub use common_macros::{
         cfg_csr,
@@ -26,7 +26,7 @@ pub mod utils {
 
 pub mod exports {
     cfg_if::cfg_if! {
-        if #[cfg(feature = "leptos")] {
+        if #[cfg(feature = "client")] {
             pub use leptos;
             pub use leptos_i18n;
             pub use unocss_classes;
@@ -50,7 +50,7 @@ macro_rules! use_macros {
 }
 
 pub mod prelude {
-    #[cfg(feature = "leptos")]
+    #[cfg(feature = "client")]
     pub use exports::leptos::{
         self,
         create_action,
@@ -78,9 +78,9 @@ pub mod prelude {
         Suspense,
         View,
     };
-    #[cfg(feature = "leptos")]
+    #[cfg(feature = "client")]
     pub use exports::leptos_i18n::{self, t};
-    #[cfg(feature = "leptos")]
+    #[cfg(feature = "client")]
     pub use exports::unocss_classes::{self, uno};
     pub use exports::{
         derive_getters::Getters,
@@ -89,7 +89,7 @@ pub mod prelude {
         log,
         serde::{self, Deserialize, Serialize},
     };
-    #[cfg(feature = "leptos")]
+    #[cfg(feature = "client")]
     pub use macros::component;
     pub use macros::{flatten_mod, flatten_pub_mod};
 
