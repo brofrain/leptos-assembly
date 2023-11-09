@@ -100,7 +100,10 @@ opt-level = 1
 [profile.dev.package."*"]
 opt-level = 3
 
-[profile.wasm-release]
+[profile.server-dev]
+inherits = "dev"
+
+[profile.client-release]
 inherits = "release"
 opt-level = 'z'
 lto = true
@@ -118,9 +121,10 @@ site-addr = "127.0.0.1:3333"
 reload-port = 3334
 bin-features = []
 bin-default-features = false
+bin-profile-dev = "server-dev"
 lib-features = ["csr"]
 lib-default-features = false
-lib-profile-release = "wasm-release"
+lib-profile-release = "client-release"
 
 [workspace.lints.rust]
 unsafe_code = "deny"
