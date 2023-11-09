@@ -36,21 +36,13 @@ test:
     # TODO add some example dummy tests
     cargo nextest run
 
-# Serves the app and runs E2E tests with Playwright
+# Serves the app in release mode and runs E2E tests with Playwright
 e2e:
     npx playwright test
 
-# Serves the app in release mode and runs E2E tests with Playwright
-e2e-release:
-    PLAYWRIGHT_WEBSERVER_RELEASE_MODE=true just e2e
-
-# Serves the app and opens Playwright UI
+# Serves the app in release mode and opens Playwright UI
 e2e-ui:
     npx playwright test --ui
-
-# Serves the app in release mode and opens Playwright UI
-e2e-ui-release:
-    PLAYWRIGHT_WEBSERVER_RELEASE_MODE=true just e2e-ui
 
 # --- Formatting ---
 
