@@ -198,7 +198,7 @@ _setup +executables:
     #!/usr/bin/env sh
     (
         # Rust toolchain
-        rustup toolchain install nightly --profile minimal -c rustfmt clippy
+        rustup toolchain install nightly --profile minimal -c rustfmt clippy rustc-codegen-cranelift-preview
         rustup target add wasm32-unknown-unknown
 
         # cargo-binstall
