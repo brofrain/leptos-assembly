@@ -125,7 +125,24 @@ Once you have everything, you can simply run:
 just setup
 ```
 
-This will install all the Cargo executables, crates and Node dependencies necessary to develop and build the project.
+This will install all the Cargo executables, crates and Node dependencies necessary to develop and build the project. **You're ready to go!**
+
+In order to improve compilation times, you can also setup [mold](https://github.com/rui314/mold) locally. `.cargo/config.toml` is skipped from version control, so you append your very own adjustments:
+
+```toml
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+rustflags = ["-C", "link-arg=-fuse-ld=/path/to/mold"]
+
+```
+
+You may also need `clang` to use `mold`:
+
+- Ubuntu:
+
+  ```bash
+  sudo apt install clang
+  ```
 
 ### 🔥 Compile and hot-reload for development
 
