@@ -1,6 +1,6 @@
 use client_i18n::use_i18n;
 use client_utils::reactivity::use_global_context;
-use common::prelude::*;
+use common_exports::client::prelude::*;
 use futures::channel::oneshot;
 
 use super::{id, ViewCallback};

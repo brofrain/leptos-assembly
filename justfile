@@ -174,7 +174,7 @@ outdated: outdated-cargo outdated-node
 
 CARGO_EXECUTABLES := replace_regex('''
 just@1.15.0
-cargo-leptos@0.2.0
+cargo-leptos@0.2.2
 leptosfmt@0.1.17
 cargo-nextest@0.9.61
 cargo-outdated@0.13.1

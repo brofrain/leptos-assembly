@@ -1,6 +1,6 @@
 use std::hash::Hash;
 
-use common::prelude::*;
+use common_exports::client::prelude::*;
 use leptos_animated_for::AnimatedFor as RawAnimatedFor;
 
 #[component]

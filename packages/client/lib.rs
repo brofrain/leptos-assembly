@@ -1,11 +1,11 @@
-use common::macros::{cfg_csr, cfg_ssr};
+use common_macros::{cfg_csr, cfg_ssr};
 
 cfg_csr! {
     use wasm_bindgen::prelude::*;
 
     #[wasm_bindgen]
     pub fn hydrate() {
-        common::logger::init!();
+        common_logger::init!();
         leptos::mount_to_body(client_app::App);
     }
 }

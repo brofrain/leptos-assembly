@@ -12,5 +12,5 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-common = { workspace = true, features = ["client"] }
+common_exports = { workspace = true, features = ["client"] }
 futures.workspace = true

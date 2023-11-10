@@ -1,8 +1,4 @@
-use common::macros::server; // @kw
-use leptos::ServerFnError;
-use serde::Deserialize;
-
-// @kw axum and serde are not welcome here :(
+use common_exports::server::prelude::*;
 
 #[server]
 pub async fn get_leptos_tag() -> Result<String, ServerFnError> {

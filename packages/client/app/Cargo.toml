@@ -24,7 +24,8 @@ client_page-home.path = "../pages/home"
 client_page-404.path = "../pages/404"
 client_router.workspace = true
 client_utils.workspace = true
-common = { workspace = true, features = ["client"] }
+common_exports = { workspace = true, features = ["client"] }
+common_macros.workspace = true
 leptos.workspace = true
 leptos_meta.workspace = true
 leptos_router.workspace = true

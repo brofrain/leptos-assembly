@@ -12,7 +12,7 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-common_macros.path = "../macros"
+common_macros.workspace = true
 cfg-if.workspace = true
 console_log = { workspace = true, optional = true }
 log.workspace = true

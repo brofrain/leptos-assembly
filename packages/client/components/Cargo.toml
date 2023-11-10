@@ -14,7 +14,7 @@ path = "lib.rs"
 [dependencies]
 client_composables.workspace = true
 client_router.workspace = true
-common = { workspace = true, features = ["client"] }
+common_exports = { workspace = true, features = ["client"] }
 leptos.workspace = true
 leptos_animated_for.workspace = true
 wasm-bindgen.workspace = true

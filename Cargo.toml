@@ -18,10 +18,12 @@ members = [
   "packages/client/router",
   "packages/client/stores",
   "packages/client/utils",
-  "packages/server",
+  "packages/common/exports",
+  "packages/common/logger",
   "packages/common/macros",
   "packages/common/macros/proc",
   "packages/common/utils",
+  "packages/server",
 ]
 
 [workspace.package]
@@ -38,7 +40,10 @@ client_macros = { path = "packages/client/macros" }
 client_router = { path = "packages/client/router" }
 client_stores = { path = "packages/client/stores" }
 client_utils = { path = "packages/client/utils" }
-common = { path = "packages/common" }
+common_exports = { path = "packages/common/exports" }
+common_logger = { path = "packages/common/logger" }
+common_macros = { path = "packages/common/macros" }
+common_utils = { path = "packages/common/utils" }
 server = { path = "packages/server" }
 # full-stack
 anyhow = "1.0.75"

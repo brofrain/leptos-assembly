@@ -1,5 +1,5 @@
-use common::prelude::*;
 use leptos_router::Outlet;
+use common_exports::client::prelude::*;
 
 use crate::shared::TheFooter;
 

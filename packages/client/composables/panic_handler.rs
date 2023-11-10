@@ -1,7 +1,7 @@
 use std::panic;
 
 use client_i18n::use_i18n;
-use common::prelude::*;
+use common_exports::client::prelude::*;
 
 use super::confirm;
 

@@ -1,4 +1,4 @@
-common::use_macros!();
+common_exports::use_macros!();
 
 use client_utils::reactivity::use_global_context_with_initializer;
 
