@@ -1,12 +1,15 @@
 [env]
 PROJECT_REPOSITORY_URL = "https://github.com/brofrain/leptos-assembly"
 
-[target.x86_64-unknown-linux-gnu]
-linker = "clang"
-rustflags = ["-C", "link-arg=-fuse-ld=/usr/local/bin/mold"]
+[build]
+rustflags = ["-Z", "threads=8"]
 
 [unstable]
 codegen-backend = true
 
 [profile.server-dev]
 codegen-backend = "cranelift"
+
+[target.x86_64-unknown-linux-gnu]
+linker = "clang"
+rustflags = ["-C", "link-arg=-fuse-ld=/usr/local/bin/mold"]
