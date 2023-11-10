@@ -2,6 +2,7 @@
 name = "common_logger"
 version.workspace = true
 edition.workspace = true
+rust-version.workspace = true
 publish = false
 
 [lints]
