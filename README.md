@@ -241,7 +241,7 @@ just build
 
 - [ ] Change the project name in `Cargo.toml` and `package.json`
 - [ ] Change the author name in `LICENSE` or simply remove the file
-- [ ] Change the favicon in `public/`
+- [ ] Change the favicon in `packages/client/public/`
 
 ## 🏷️ License
 
