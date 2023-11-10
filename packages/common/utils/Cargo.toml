@@ -13,4 +13,7 @@ path = "lib.rs"
 
 [dependencies]
 common_exports.workspace = true
-# @kw client/serve
+
+[features]
+client = []
+server = []
