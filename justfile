@@ -189,6 +189,9 @@ cargo-watch@8.4.1
 _setup +executables:
     #!/usr/bin/env sh
     (
+        # Create local .cargo/config.toml file
+        [ ! -f .cargo/config.toml ] && cp .cargo/config.example.toml .cargo/config.toml
+
         # Rust toolchain
         rustup toolchain install nightly --profile minimal -c rustfmt clippy rustc-codegen-cranelift-preview
         rustup target add wasm32-unknown-unknown
