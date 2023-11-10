@@ -1,4 +1,4 @@
-common::use_macros!();
+common_exports::use_macros!();
 
 mod shared;
 

@@ -14,7 +14,8 @@ path = "lib.rs"
 
 [dependencies]
 client_app.path = "app"
-common = { workspace = true, features = ["logger"] }
+common_logger.workspace = true
+common_macros.workspace = true
 leptos.workspace = true
 leptos_animated_for.workspace = true
 leptos_i18n.workspace = true
@@ -27,7 +28,7 @@ getrandom = { workspace = true, optional = true }
 [features]
 csr = [
   "client_app/csr",
-  "common/csr",
+  "common_logger/csr",
   "dep:getrandom",
   "time/wasm-bindgen",
   "leptos/csr",
@@ -37,6 +38,7 @@ csr = [
 ]
 ssr = [
   "client_app/ssr",
+  "common_logger/ssr",
   "leptos/ssr",
   "leptos_animated_for/ssr",
   "leptos_meta/ssr",

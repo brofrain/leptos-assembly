@@ -3,7 +3,7 @@ use client_composables::i18n;
 use client_env::PROJECT_REPOSITORY_URL;
 use client_i18n::{t_string, use_i18n};
 use client_router::Route;
-use common::prelude::*;
+use common_exports::client::prelude::*;
 use leptos_use::{use_color_mode, ColorMode, UseColorModeReturn};
 
 #[component]

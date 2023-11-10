@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use common::{exports::time::Duration, prelude::*};
+use common_exports::{client::prelude::*, time::Duration};
 use leptos_use::{use_debounce_fn_with_arg_and_options, DebounceOptions};
 
 #[derive(Clone, Copy)]

@@ -1,4 +1,4 @@
-use common::prelude::*;
+use common_exports::client::prelude::*;
 use leptos::Callable;
 
 #[derive(Clone, Copy)]

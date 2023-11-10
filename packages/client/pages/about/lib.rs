@@ -1,4 +1,4 @@
-common::use_macros!();
+common_exports::use_macros!();
 
 use client_components::{BaseAnimatedFor, BaseButton};
 use client_composables::{
@@ -7,7 +7,7 @@ use client_composables::{
 };
 use client_i18n::use_i18n;
 use client_utils::future::{next_tick, spawn_local_owned};
-use common::prelude::*;
+use common_exports::client::prelude::*;
 use rand::{seq::SliceRandom, thread_rng, Rng};
 
 mod components {

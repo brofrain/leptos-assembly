@@ -350,7 +350,8 @@ name = "client"
 version = "0.0.0"
 dependencies = [
  "client_app",
- "common",
+ "common_logger",
+ "common_macros 0.0.0",
  "getrandom",
  "leptos",
  "leptos_animated_for",
@@ -377,7 +378,8 @@ dependencies = [
  "client_page-home",
  "client_router",
  "client_utils",
- "common",
+ "common_exports",
+ "common_macros 0.0.0",
  "leptos",
  "leptos-use",
  "leptos_meta",
@@ -390,7 +392,7 @@ version = "0.0.0"
 dependencies = [
  "client_composables",
  "client_router",
- "common",
+ "common_exports",
  "leptos",
  "leptos_animated_for",
  "wasm-bindgen",
@@ -404,7 +406,7 @@ dependencies = [
  "client_i18n",
  "client_macros",
  "client_utils",
- "common",
+ "common_exports",
  "futures",
  "leptos-use",
  "paste",
@@ -434,7 +436,7 @@ dependencies = [
  "client_env",
  "client_i18n",
  "client_router",
- "common",
+ "common_exports",
  "leptos",
  "leptos-use",
  "leptos_router",
@@ -456,7 +458,7 @@ dependencies = [
  "client_composables",
  "client_i18n",
  "client_router",
- "common",
+ "common_exports",
  "leptos",
  "leptos_router",
 ]
@@ -469,7 +471,7 @@ dependencies = [
  "client_composables",
  "client_i18n",
  "client_utils",
- "common",
+ "common_exports",
  "leptos",
  "rand",
 ]
@@ -483,7 +485,7 @@ dependencies = [
  "client_i18n",
  "client_router",
  "client_stores",
- "common",
+ "common_exports",
  "leptos",
  "leptos_i18n",
  "leptos_router",
@@ -500,7 +502,7 @@ dependencies = [
  "client_i18n",
  "client_router",
  "client_stores",
- "common",
+ "common_exports",
  "leptos",
  "leptos_router",
  "web-sys",
@@ -528,7 +530,7 @@ name = "client_stores"
 version = "0.0.0"
 dependencies = [
  "client_utils",
- "common",
+ "common_exports",
  "leptos-use",
 ]
 
@@ -536,7 +538,7 @@ dependencies = [
 name = "client_utils"
 version = "0.0.0"
 dependencies = [
- "common",
+ "common_exports",
  "futures",
 ]
 
@@ -547,13 +549,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "186dce98367766de751c42c4f03970fc60fc012296e706ccbb9d5df9b6c1e271"
 
 [[package]]
-name = "common"
+name = "common_exports"
 version = "0.0.0"
 dependencies = [
- "cfg-if",
- "common_logger",
  "common_macros 0.0.0",
- "common_utils",
  "derive-getters",
  "derive_setters",
  "educe",
@@ -604,6 +603,9 @@ dependencies = [
 [[package]]
 name = "common_utils"
 version = "0.0.0"
+dependencies = [
+ "common_exports",
+]
 
 [[package]]
 name = "config"
@@ -665,7 +667,7 @@ version = "0.0.0"
 dependencies = [
  "axum",
  "client",
- "common",
+ "common_logger",
  "leptos",
  "leptos_axum",
  "log",
@@ -2483,7 +2485,7 @@ dependencies = [
 name = "server"
 version = "0.0.0"
 dependencies = [
- "common",
+ "common_exports",
  "leptos",
  "reqwest",
  "serde",

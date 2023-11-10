@@ -1,4 +1,4 @@
-use common::prelude::*;
+use common_exports::client::prelude::*;
 
 // FIXME: add click transition without breaking <AnimatedFor>
 #[component]
