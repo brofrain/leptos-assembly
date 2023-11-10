@@ -68,7 +68,7 @@ serde_json = "1.0.107"
 thiserror = "1.0.50"
 time = { version = "0.3.30", features = ["macros", "formatting", "parsing"] }
 unocss-classes = { version = "2.0.0" }
-wasm-bindgen = { version = "0.2.87" }
+wasm-bindgen = { version = "0.2.88" }
 web-sys = { version = "0.3.64", features = [
   "CssStyleDeclaration",
   "DomRect",
@@ -125,6 +125,7 @@ bin-profile-dev = "server-dev"
 lib-features = ["csr"]
 lib-default-features = false
 lib-profile-release = "client-release"
+separate-front-target-dir = true
 
 [workspace.lints.rust]
 unsafe_code = "deny"
