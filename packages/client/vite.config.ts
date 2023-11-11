@@ -89,7 +89,7 @@ const pwa = () => {
 
 export default defineConfig((_) => {
   const releaseMode = process.env.PROFILE !== "debug";
-  const pwaEnabled = !!process.env.CARGO_FEATURE_PWA;
+  const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
   return {
     build: {
       outDir: "../../target/client-prebuild",

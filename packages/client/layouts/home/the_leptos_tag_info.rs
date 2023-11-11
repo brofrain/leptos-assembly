@@ -18,9 +18,9 @@ pub fn TheLeptosTagInfo() -> impl IntoView {
     );
 
     let msg = Memo::new(move |_| {
-        tag().map_or_else(
-            move || t_view!(i18n, home.leptos_tag_error),
-            |tag| t_view!(i18n, home.leptos_tag, tag),
+        tag()?.map_or_else(
+            move |_| Some(t_view!(i18n, home.leptos_tag_error)),
+            |tag| Some(t_view!(i18n, home.leptos_tag, tag)),
         )
     });
 
