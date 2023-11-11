@@ -130,7 +130,7 @@ opt-level = 0
 opt-level = 0
 
 [[workspace.metadata.leptos]]
-name = "core"
+name = "app"
 bin-package = "core"
 lib-package = "client"
 site-root = "target/site"

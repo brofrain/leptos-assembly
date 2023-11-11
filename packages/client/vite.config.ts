@@ -58,6 +58,7 @@ const pwa = () => {
         { url: "index.html", revision },
         { url: "pkg/app.js", revision },
         { url: "pkg/app.wasm", revision },
+        { url: "bindings.mjs", revision },
       ],
     },
     manifest: {
