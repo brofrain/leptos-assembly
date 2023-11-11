@@ -3,8 +3,9 @@ PROJECT_REPOSITORY_URL = "https://github.com/brofrain/leptos-assembly"
 
 [build]
 rustflags = ["-Z", "threads=8"]
-# FIXME: cranelift doesn't work just yet
-# [unstable]
-# codegen-backend = true
-# [profile.server-dev]
-# codegen-backend = "cranelift"
+
+[unstable]
+codegen-backend = true
+
+[profile.server-dev]
+codegen-backend = "cranelift"
