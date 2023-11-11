@@ -1,0 +1,22 @@
+[package]
+name = "client_composables"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lints]
+workspace = true
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+client_i18n.workspace = true
+client_macros.workspace = true
+client_utils.workspace = true
+exports = { workspace = true, features = ["client"] }
+futures.workspace = true
+leptos-use.workspace = true
+paste.workspace = true
+wasm-bindgen.workspace = true

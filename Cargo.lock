@@ -350,14 +350,14 @@ name = "client"
 version = "0.0.0"
 dependencies = [
  "client_app",
- "common_logger",
- "common_macros 0.0.0",
  "getrandom",
  "leptos",
  "leptos_animated_for",
  "leptos_i18n",
  "leptos_meta",
  "leptos_router",
+ "logger",
+ "macros",
  "time",
  "wasm-bindgen",
 ]
@@ -378,12 +378,12 @@ dependencies = [
  "client_page-home",
  "client_router",
  "client_utils",
- "common_exports",
- "common_macros 0.0.0",
+ "exports",
  "leptos",
  "leptos-use",
  "leptos_meta",
  "leptos_router",
+ "macros",
 ]
 
 [[package]]
@@ -392,7 +392,7 @@ version = "0.0.0"
 dependencies = [
  "client_composables",
  "client_router",
- "common_exports",
+ "exports",
  "leptos",
  "leptos_animated_for",
  "wasm-bindgen",
@@ -406,7 +406,7 @@ dependencies = [
  "client_i18n",
  "client_macros",
  "client_utils",
- "common_exports",
+ "exports",
  "futures",
  "leptos-use",
  "paste",
@@ -436,7 +436,7 @@ dependencies = [
  "client_env",
  "client_i18n",
  "client_router",
- "common_exports",
+ "exports",
  "leptos",
  "leptos-use",
  "leptos_router",
@@ -458,7 +458,7 @@ dependencies = [
  "client_composables",
  "client_i18n",
  "client_router",
- "common_exports",
+ "exports",
  "leptos",
  "leptos_router",
 ]
@@ -471,7 +471,7 @@ dependencies = [
  "client_composables",
  "client_i18n",
  "client_utils",
- "common_exports",
+ "exports",
  "leptos",
  "rand",
 ]
@@ -485,7 +485,7 @@ dependencies = [
  "client_i18n",
  "client_router",
  "client_stores",
- "common_exports",
+ "exports",
  "leptos",
  "leptos_i18n",
  "leptos_router",
@@ -502,7 +502,7 @@ dependencies = [
  "client_i18n",
  "client_router",
  "client_stores",
- "common_exports",
+ "exports",
  "leptos",
  "leptos_router",
  "web-sys",
@@ -530,7 +530,7 @@ name = "client_stores"
 version = "0.0.0"
 dependencies = [
  "client_utils",
- "common_exports",
+ "exports",
  "leptos-use",
 ]
 
@@ -538,7 +538,7 @@ dependencies = [
 name = "client_utils"
 version = "0.0.0"
 dependencies = [
- "common_exports",
+ "exports",
  "futures",
 ]
 
@@ -549,63 +549,10 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "186dce98367766de751c42c4f03970fc60fc012296e706ccbb9d5df9b6c1e271"
 
 [[package]]
-name = "common_exports"
-version = "0.0.0"
-dependencies = [
- "common_macros 0.0.0",
- "derive-getters",
- "derive_setters",
- "educe",
- "leptos",
- "leptos_i18n",
- "log",
- "serde",
- "time",
- "unocss-classes",
-]
-
-[[package]]
-name = "common_logger"
-version = "0.0.0"
-dependencies = [
- "cfg-if",
- "common_macros 0.0.0",
- "console_log",
- "fern",
- "log",
- "owo-colors",
- "time",
-]
-
-[[package]]
-name = "common_macros"
-version = "0.0.0"
-dependencies = [
- "cfg-if",
- "common_proc_macros",
-]
-
-[[package]]
 name = "common_macros"
 version = "0.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f3f6d59c71e7dc3af60f0af9db32364d96a16e9310f3f5db2b55ed642162dd35"
-
-[[package]]
-name = "common_proc_macros"
-version = "0.0.0"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.39",
-]
-
-[[package]]
-name = "common_utils"
-version = "0.0.0"
-dependencies = [
- "common_exports",
-]
 
 [[package]]
 name = "config"
@@ -667,10 +614,10 @@ version = "0.0.0"
 dependencies = [
  "axum",
  "client",
- "common_logger",
  "leptos",
  "leptos_axum",
  "log",
+ "logger",
  "tokio",
  "tower",
  "tower-http",
@@ -877,6 +824,22 @@ checksum = "7c18ee0ed65a5f1f81cac6b1d213b69c35fa47d4252ad41f1486dbd8226fe36e"
 dependencies = [
  "libc",
  "windows-sys",
+]
+
+[[package]]
+name = "exports"
+version = "0.0.0"
+dependencies = [
+ "derive-getters",
+ "derive_setters",
+ "educe",
+ "leptos",
+ "leptos_i18n",
+ "log",
+ "macros",
+ "serde",
+ "time",
+ "unocss-classes",
 ]
 
 [[package]]
@@ -1588,7 +1551,7 @@ checksum = "d5ca4422fdfba8af03d347d346f9364a4393ad36e227a018567192395285cf65"
 dependencies = [
  "cached",
  "cfg-if",
- "common_macros 0.1.1",
+ "common_macros",
  "gloo-net",
  "itertools 0.11.0",
  "js-sys",
@@ -1667,12 +1630,33 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b5e6163cb8c49088c2c36f57875e58ccd8c87c7427f7fbd50ea6710b2f3f2e8f"
 
 [[package]]
+name = "logger"
+version = "0.0.0"
+dependencies = [
+ "cfg-if",
+ "console_log",
+ "fern",
+ "log",
+ "macros",
+ "owo-colors",
+ "time",
+]
+
+[[package]]
 name = "lru"
 version = "0.11.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a4a83fb7698b3643a0e34f9ae6f2e8f0178c0fd42f8b59d493aa271ff3a5bf21"
 dependencies = [
  "hashbrown 0.14.2",
+]
+
+[[package]]
+name = "macros"
+version = "0.0.0"
+dependencies = [
+ "cfg-if",
+ "proc_macros",
 ]
 
 [[package]]
@@ -2056,6 +2040,15 @@ dependencies = [
  "syn 2.0.39",
  "version_check",
  "yansi",
+]
+
+[[package]]
+name = "proc_macros"
+version = "0.0.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.39",
 ]
 
 [[package]]
@@ -2485,7 +2478,7 @@ dependencies = [
 name = "server"
 version = "0.0.0"
 dependencies = [
- "common_exports",
+ "exports",
  "leptos",
  "reqwest",
  "serde",
@@ -3064,6 +3057,10 @@ name = "utf8-width"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5190c9442dcdaf0ddd50f37420417d219ae5261bbf5db120d0f9bab996c9cba1"
+
+[[package]]
+name = "utils"
+version = "0.0.0"
 
 [[package]]
 name = "uuid"

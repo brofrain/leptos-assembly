@@ -1,0 +1,21 @@
+[package]
+name = "client_page-404"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lints]
+workspace = true
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+client_components.workspace = true
+client_composables.workspace = true
+client_i18n.workspace = true
+client_router.workspace = true
+exports = { workspace = true, features = ["client"] }
+leptos.workspace = true
+leptos_router.workspace = true

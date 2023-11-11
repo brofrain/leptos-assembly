@@ -1,0 +1,51 @@
+[package]
+name = "client"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lints]
+workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+path = "lib.rs"
+
+[dependencies]
+client_app.path = "app"
+logger.workspace = true
+macros.workspace = true
+leptos.workspace = true
+leptos_animated_for.workspace = true
+leptos_i18n.workspace = true
+leptos_meta.workspace = true
+leptos_router.workspace = true
+time.workspace = true
+wasm-bindgen.workspace = true
+getrandom = { workspace = true, optional = true }
+
+[features]
+pwa = ["client_app/pwa"]
+csr = [
+  "client_app/csr",
+  "logger/csr",
+  "dep:getrandom",
+  "time/wasm-bindgen",
+  "leptos/csr",
+  "leptos_i18n/csr",
+  "leptos_meta/csr",
+  "leptos_router/csr",
+]
+ssr = [
+  "client_app/ssr",
+  "logger/ssr",
+  "leptos/ssr",
+  "leptos_animated_for/ssr",
+  "leptos_meta/ssr",
+  "leptos_router/ssr",
+  "leptos_i18n/axum",
+]
+
+[package.metadata.cargo-all-features]
+skip_feature_sets = [["csr", "ssr"]]

@@ -1,29 +1,29 @@
 [workspace]
 resolver = "2"
 members = [
-  "apps/core",
-  "packages/client",
-  "packages/client/app",
-  "packages/client/components",
-  "packages/client/composables",
-  "packages/client/env",
-  "packages/client/i18n",
-  "packages/client/layouts",
-  "packages/client/macros",
-  "packages/client/macros/proc",
-  "packages/client/pages/about",
-  "packages/client/pages/hi",
-  "packages/client/pages/home",
-  "packages/client/pages/404",
-  "packages/client/router",
-  "packages/client/stores",
-  "packages/client/utils",
-  "packages/common/exports",
-  "packages/common/logger",
-  "packages/common/macros",
-  "packages/common/macros/proc",
-  "packages/common/utils",
-  "packages/server",
+  "build/core",
+  "apps/client",
+  "apps/client/app",
+  "apps/client/components",
+  "apps/client/composables",
+  "apps/client/env",
+  "apps/client/i18n",
+  "apps/client/layouts",
+  "apps/client/macros",
+  "apps/client/macros/proc",
+  "apps/client/pages/about",
+  "apps/client/pages/hi",
+  "apps/client/pages/home",
+  "apps/client/pages/404",
+  "apps/client/router",
+  "apps/client/stores",
+  "apps/client/utils",
+  "apps/server",
+  "packages/exports",
+  "packages/logger",
+  "packages/macros",
+  "packages/macros/proc",
+  "packages/utils",
 ]
 
 [workspace.package]
@@ -32,19 +32,20 @@ edition = "2021"
 rust-version = "1.73"
 
 [workspace.dependencies]
-client_components = { path = "packages/client/components" }
-client_composables = { path = "packages/client/composables" }
-client_env = { path = "packages/client/env" }
-client_i18n = { path = "packages/client/i18n" }
-client_macros = { path = "packages/client/macros" }
-client_router = { path = "packages/client/router" }
-client_stores = { path = "packages/client/stores" }
-client_utils = { path = "packages/client/utils" }
-common_exports = { path = "packages/common/exports" }
-common_logger = { path = "packages/common/logger" }
-common_macros = { path = "packages/common/macros" }
-common_utils = { path = "packages/common/utils" }
-server = { path = "packages/server" }
+client = { path = "apps/client" }
+client_components = { path = "apps/client/components" }
+client_composables = { path = "apps/client/composables" }
+client_env = { path = "apps/client/env" }
+client_i18n = { path = "apps/client/i18n" }
+client_macros = { path = "apps/client/macros" }
+client_router = { path = "apps/client/router" }
+client_stores = { path = "apps/client/stores" }
+client_utils = { path = "apps/client/utils" }
+exports = { path = "packages/exports" }
+logger = { path = "packages/logger" }
+macros = { path = "packages/macros" }
+utils = { path = "packages/utils" }
+server = { path = "apps/server" }
 # full-stack
 anyhow = "1.0.75"
 cfg-if = "1.0.0"

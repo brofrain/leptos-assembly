@@ -1,0 +1,16 @@
+[package]
+name = "macros"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+publish = false
+
+[lints]
+workspace = true
+
+[lib]
+path = "lib.rs"
+
+[dependencies]
+proc_macros.path = "proc"
+cfg-if.workspace = true
