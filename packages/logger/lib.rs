@@ -1,8 +1,8 @@
 #![feature(lazy_cell)]
 
 use cfg_if::cfg_if;
-use macros::{cfg_csr, cfg_ssr};
 use fern::Dispatch;
+use macros::{cfg_csr, cfg_ssr};
 
 #[cfg(feature = "ssr")]
 fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {

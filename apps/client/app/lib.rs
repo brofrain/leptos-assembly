@@ -3,10 +3,10 @@ use client_i18n::provide_i18n_context;
 use client_router::{HiParams, NotFoundParams, Route};
 use client_utils::reactivity::provide_global_context;
 use exports::client::prelude::*;
-use macros::is_ssr;
 use leptos_meta::{provide_meta_context, Html, Link, Meta, Title};
 use leptos_router::{Route as RouteView, Router, Routes};
 use leptos_use::use_color_mode;
+use macros::is_ssr;
 
 flatten_mod!(the_confirms, the_overlay, the_toasts);
 
