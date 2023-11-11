@@ -13,7 +13,7 @@ name = "core"
 path = "main.rs"
 
 [dependencies]
-client = { path = "../../packages/client", features = ["ssr", "pwa"] }
+client = { path = "../../packages/client", features = ["ssr"] }
 common_logger = { workspace = true, features = ["ssr"] }
 leptos.workspace = true
 log.workspace = true
@@ -22,3 +22,6 @@ leptos_axum.workspace = true
 tokio.workspace = true
 tower.workspace = true
 tower-http.workspace = true
+
+[features]
+pwa = ["client/pwa"]
