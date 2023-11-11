@@ -106,6 +106,13 @@ opt-level = 1
 [profile.dev.package."*"]
 opt-level = 3
 
+[profile.dev-ci]
+inherits = "dev"
+opt-level = 0
+
+[profile.dev-ci.package."*"]
+opt-level = 0
+
 [profile.client-dev]
 inherits = "dev"
 
@@ -121,13 +128,6 @@ panic = "abort"
 
 [profile.server-release]
 inherits = "release"
-
-[profile.test-ci]
-inherits = "test"
-opt-level = 0
-
-[profile.test-ci.package."*"]
-opt-level = 0
 
 [[workspace.metadata.leptos]]
 name = "app"

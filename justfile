@@ -42,10 +42,10 @@ test:
     # TODO add some example dummy tests
     cargo nextest run
 
-# Runs tests without dependency optimizations
+# Runs tests without optimizations
 test-ci:
-    cargo test --doc --profile test-ci
-    cargo nextest run --cargo-profile test-ci
+    cargo test --doc --profile dev-ci
+    cargo nextest run --cargo-profile dev-ci
 
 _e2e:
     npx playwright test
@@ -166,9 +166,9 @@ lint-ts:
 # Lints the project
 lint: lint-rs lint-ts
 
-# Lints the project, but disallows warnings
+# Lints the project without optimizations and disallows warnings
 lint-ci:
-    cargo clippy -- -D warnings
+    cargo clippy --profile dev-ci -- -D warnings
     just lint-ts
 
 # --- Security ---
