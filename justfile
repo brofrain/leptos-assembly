@@ -15,12 +15,16 @@ clean:
 build:
     cargo leptos build --release
 
-# Runs development server and watches for changes
+# Runs development server without PWA features and watches for changes
 dev:
-    cargo watch -x 'leptos serve'
+    cargo watch -x 'leptos serve --lib-features csr'
 
-# Runs development server
+# Runs development server without PWA features
 serve:
+    cargo leptos serve --lib-features csr
+
+# Runs development server including PWA features
+serve-pwa:
     cargo leptos serve
 
 # Serves the application in release mode
@@ -36,13 +40,32 @@ test:
     # TODO add some example dummy tests
     cargo nextest run
 
-# Serves the app in release mode and runs E2E tests with Playwright
-e2e:
+# Runs tests without dependency optimizations
+test-ci:
+    cargo test --doc --profile test-ci
+    cargo nextest run --cargo-profile test-ci
+
+_e2e:
     npx playwright test
 
-# Serves the app in release mode and opens Playwright UI
-e2e-ui:
+_e2e-ui:
     npx playwright test --ui
+
+# Serves the app and runs E2E tests with Playwright
+e2e:
+    PLAYWRIGHT_WEBSERVER_COMMAND='just serve-pwa' just _e2e
+
+# Serves the app in release mode and runs E2E tests with Playwright
+e2e-release:
+    PLAYWRIGHT_WEBSERVER_COMMAND='just serve-release' just _e2e
+
+# Serves the app and opens Playwright UI
+e2e-ui:
+    PLAYWRIGHT_WEBSERVER_COMMAND='just serve-pwa' just _e2e-ui
+
+# Serves the app in release mode and opens Playwright UI
+e2e-ui-release:
+    PLAYWRIGHT_WEBSERVER_COMMAND='just serve-release' just _e2e-ui
 
 # --- Formatting ---
 

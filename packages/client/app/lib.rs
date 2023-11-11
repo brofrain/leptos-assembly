@@ -26,8 +26,7 @@ pub fn App() -> impl IntoView {
         <Link rel="stylesheet" href="/style.css"/>
         <Link rel="stylesheet" href="/webfonts.css"/>
 
-        // PWA should be enabled only in production
-        {#[cfg(not(debug_assertions))]
+        {#[cfg(feature = "pwa")]
         {
             use leptos_meta::Script;
             view! { <Script src="/registerSW.js"/> }

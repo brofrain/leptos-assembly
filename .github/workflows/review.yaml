@@ -21,8 +21,8 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
 
-  quality:
-    name: Source code quality
+  fmt:
+    name: Formatting
     needs: setup
     runs-on: ubuntu-latest
     steps:
@@ -30,14 +30,38 @@ jobs:
       - uses: ./.github/actions/setup
       - name: Formatting
         run: just fmt-check
+
+  lint:
+    name: Lint
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
       - name: Lint
         run: just lint-ci
+
+  test:
+    name: Tests
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
       - name: Tests
-        run: just test
+        run: just test-ci
+
+  e2e:
+    name: E2E
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
       - name: Build
         run: just build
       - name: E2E
-        run: just e2e
+        run: just e2e-release
 
   audit:
     name: Dependency audit

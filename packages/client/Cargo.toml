@@ -26,6 +26,7 @@ wasm-bindgen.workspace = true
 getrandom = { workspace = true, optional = true }
 
 [features]
+pwa = ["client_app/pwa"]
 csr = [
   "client_app/csr",
   "common_logger/csr",

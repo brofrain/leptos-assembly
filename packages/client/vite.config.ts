@@ -87,13 +87,14 @@ const pwa = () => {
 };
 
 export default defineConfig((_) => {
-  const prod = process.env.PROFILE !== "debug";
+  const releaseMode = process.env.PROFILE !== "debug";
+  const pwaEnabled = !!process.env.CARGO_FEATURE_PWA;
   return {
     build: {
       outDir: "../../target/client-prebuild",
       emptyOutDir: true,
-      minify: prod,
-      cssMinify: prod && "lightningcss",
+      minify: releaseMode,
+      cssMinify: releaseMode && "lightningcss",
       lib: {
         formats: ["es"],
         entry: "bindings.ts",
@@ -114,7 +115,7 @@ export default defineConfig((_) => {
         },
       }),
 
-      prod ? pwa() : null,
+      pwaEnabled ? pwa() : null,
     ],
   };
 });

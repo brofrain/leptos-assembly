@@ -32,6 +32,7 @@ leptos_router.workspace = true
 leptos-use.workspace = true
 
 [features]
+pwa = []
 csr = []
 ssr = []
 
