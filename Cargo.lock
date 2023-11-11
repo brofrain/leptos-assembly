@@ -436,6 +436,7 @@ dependencies = [
  "client_env",
  "client_i18n",
  "client_router",
+ "client_utils",
  "exports",
  "leptos",
  "leptos-use",

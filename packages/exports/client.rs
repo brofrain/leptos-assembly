@@ -4,7 +4,6 @@ pub use unocss_classes;
 pub use super::*;
 
 pub mod prelude {
-    pub use macros::component;
     pub use leptos::{
         create_action,
         event_target_value,
@@ -32,6 +31,8 @@ pub mod prelude {
         View,
     };
     pub use leptos_i18n::{self, t};
+    pub use macros::component;
+    pub use time::ext::NumericalDuration;
     pub use unocss_classes::{self, uno};
 
     pub use crate::prelude::*;

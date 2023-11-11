@@ -1,5 +1,5 @@
 use client_utils::reactivity::use_global_context_with_initializer;
-use exports::{client::prelude::*, time::ext::NumericalDuration};
+use exports::client::prelude::*;
 
 use super::throttle::{use_switch, UseSwitch};
 

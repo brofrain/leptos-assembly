@@ -17,12 +17,12 @@ pub fn TheLeptosTagInfo() -> impl IntoView {
         },
     );
 
-    let msg = Memo::new(move |_| {
+    let msg = move || {
         tag()?.map_or_else(
             move |_| Some(t_view!(i18n, home.leptos_tag_error)),
             |tag| Some(t_view!(i18n, home.leptos_tag, tag)),
         )
-    });
+    };
 
     view! {
         <div class=uno!["text-(sm center) italic", "op70", "mb2"]>
