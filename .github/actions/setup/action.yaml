@@ -6,14 +6,7 @@ runs:
     - uses: actions/checkout@v3
 
     - name: Cargo cache setup
-      uses: actions/cache@v3
-      with:
-        path: |
-          ~/.cargo/
-          ~/.rustup/toolchains/
-          target/
-        key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
-        restore-keys: ${{ runner.os }}-cargo-
+      uses: Swatinem/rust-cache@v2
 
     - name: pnpm setup
       uses: pnpm/action-setup@v2
