@@ -1,13 +1,7 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
 import { devices } from "@playwright/test";
 
-const webServerCommand = process.env.PLAYWRIGHT_WEBSERVER_COMMAND;
-
-if (!webServerCommand) {
-  throw new Error(
-    "PLAYWRIGHT_WEBSERVER_COMMAND environment variable must be set",
-  );
-}
+const releaseMode = process.env.PW_WEBSERVER_RELEASE_MODE === "true";
 
 const config: PlaywrightTestConfig = {
   testDir: "e2e",
@@ -24,7 +18,7 @@ const config: PlaywrightTestConfig = {
     { name: "firefox", use: { ...devices["Desktop Firefox"] } },
   ],
   webServer: {
-    command: webServerCommand,
+    command: releaseMode ? "just serve-release" : "just serve-pwa",
     port: 3333,
     timeout: 1000 * 60 * 10,
   },

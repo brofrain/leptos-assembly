@@ -55,19 +55,19 @@ _e2e-ui:
 
 # Serves the app and runs E2E tests with Playwright
 e2e:
-    PLAYWRIGHT_WEBSERVER_COMMAND='just serve-pwa' just _e2e
+    just _e2e
 
 # Serves the app in release mode and runs E2E tests with Playwright
 e2e-release:
-    PLAYWRIGHT_WEBSERVER_COMMAND='just serve-release' just _e2e
+    PW_WEBSERVER_RELEASE_MODE=true just _e2e
 
 # Serves the app and opens Playwright UI
 e2e-ui:
-    PLAYWRIGHT_WEBSERVER_COMMAND='just serve-pwa' just _e2e-ui
+    just _e2e-ui
 
 # Serves the app in release mode and opens Playwright UI
 e2e-ui-release:
-    PLAYWRIGHT_WEBSERVER_COMMAND='just serve-release' just _e2e-ui
+    PW_WEBSERVER_RELEASE_MODE=true just _e2e-ui
 
 # --- Formatting ---
 
