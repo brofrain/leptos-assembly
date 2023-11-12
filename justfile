@@ -231,8 +231,7 @@ _setup +executables:
         # because `playwright install-deps` can ask for permissions)
         npm i -g pnpm
         pnpm i --frozen-lockfile
-        npx playwright install
-        npx playwright install-deps
+        npx playwright install --with-deps
 
         # Cargo executables
         for dep in {{ executables }}; do
