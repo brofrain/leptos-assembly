@@ -17,8 +17,8 @@ devDependencies:
     specifier: 1.3.3
     version: 1.3.3
   '@iconify/json':
-    specifier: ^2.2.140
-    version: 2.2.140
+    specifier: ^2.2.141
+    version: 2.2.141
   '@playwright/test':
     specifier: ^1.39.0
     version: 1.39.0
@@ -32,11 +32,11 @@ devDependencies:
     specifier: ^1.22.1
     version: 1.22.1
   prettier:
-    specifier: ^3.0.3
-    version: 3.0.3
+    specifier: ^3.1.0
+    version: 3.1.0
   prettier-plugin-toml:
     specifier: ^1.0.0
-    version: 1.0.0(prettier@3.0.3)
+    version: 1.0.0(prettier@3.1.0)
   sass:
     specifier: ^1.69.5
     version: 1.69.5
@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^0.16.7
     version: 0.16.7(vite@4.5.0)(workbox-build@7.0.0)(workbox-window@7.0.0)
   vite-plugin-webfont-dl:
-    specifier: ^3.8.1
-    version: 3.8.1(vite@4.5.0)
+    specifier: ^3.9.0
+    version: 3.9.0(vite@4.5.0)
 
 packages:
 
@@ -1550,8 +1550,8 @@ packages:
     dev: true
     optional: true
 
-  /@iconify/json@2.2.140:
-    resolution: {integrity: sha512-pEDLyUe39vZy15C0LT3UrnTzAWq1xkZ+F8+u9XfcHzqC7W9IwsocVMzWBGtXUn+pCmLpksfwHlzVycbbz7eMvw==}
+  /@iconify/json@2.2.141:
+    resolution: {integrity: sha512-EmHsjVngGE7K9ykKkkGczXTW5552h/dDp7SicHT3SaQD1Krb/GvIVCff9jRgBDFu9QxhcqVdVk+kDHfbzJXT8Q==}
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.1
@@ -2127,7 +2127,7 @@ packages:
     hasBin: true
     dependencies:
       caniuse-lite: 1.0.30001561
-      electron-to-chromium: 1.4.581
+      electron-to-chromium: 1.4.582
       node-releases: 2.0.13
       update-browserslist-db: 1.0.13(browserslist@4.22.1)
     dev: true
@@ -2356,8 +2356,8 @@ packages:
       jake: 10.8.7
     dev: true
 
-  /electron-to-chromium@1.4.581:
-    resolution: {integrity: sha512-6uhqWBIapTJUxgPTCHH9sqdbxIMPt7oXl0VcAL1kOtlU6aECdcMncCrX5Z7sHQ/invtrC9jUQUef7+HhO8vVFw==}
+  /electron-to-chromium@1.4.582:
+    resolution: {integrity: sha512-89o0MGoocwYbzqUUjc+VNpeOFSOK9nIdC5wY4N+PVUarUK0MtjyTjks75AZS2bW4Kl8MdewdFsWaH0jLy+JNoA==}
     dev: true
 
   /es-abstract@1.22.3:
@@ -2537,9 +2537,9 @@ packages:
       path-exists: 4.0.0
     dev: true
 
-  /flat-cache@3.1.1:
-    resolution: {integrity: sha512-/qM2b3LUIaIgviBQovTLvijfyOQXPtSRnRK26ksj2J7rzPIecePUIpJsZ4T02Qg+xiAEKIs5K8dsHEd+VaKa/Q==}
-    engines: {node: '>=12.0.0'}
+  /flat-cache@3.2.0:
+    resolution: {integrity: sha512-CYcENa+FtcUKLmhhqyctpclsq7QF38pKjZHsGNiSQF5r4FtoKDWabFDl3hzaEQMvT1LHEysw5twgLvpYYb4vbw==}
+    engines: {node: ^10.12.0 || >=12.0.0}
     dependencies:
       flatted: 3.2.9
       keyv: 4.5.4
@@ -3379,18 +3379,18 @@ packages:
       source-map-js: 1.0.2
     dev: true
 
-  /prettier-plugin-toml@1.0.0(prettier@3.0.3):
+  /prettier-plugin-toml@1.0.0(prettier@3.1.0):
     resolution: {integrity: sha512-YMn4Fqy/ANHommZh61s5qqtpfcgPB00Ty890bFPr73B0HAy77zgyH89SvAK+NyPPx3AdM56a4Yo66LH9GPnuZw==}
     peerDependencies:
       prettier: ^3.0.0
     dependencies:
       '@toml-tools/lexer': 1.0.0
       '@toml-tools/parser': 1.0.0
-      prettier: 3.0.3
+      prettier: 3.1.0
     dev: true
 
-  /prettier@3.0.3:
-    resolution: {integrity: sha512-L/4pUDMxcNa8R/EthV08Zt42WBO4h1rarVtK0K+QJG0X187OLo7l699jWw0GKuwzkPQ//jMFA/8Xm6Fh3J/DAg==}
+  /prettier@3.1.0:
+    resolution: {integrity: sha512-TQLvXjq5IAibjh8EpBIkNKxO749UEWABoiIZehEPiY4GNpVdhaFKqSTu+QrlU6D2dPAfubRmtJTi4K4YkQ5eXw==}
     engines: {node: '>=14'}
     hasBin: true
     dev: true
@@ -3988,14 +3988,14 @@ packages:
       - supports-color
     dev: true
 
-  /vite-plugin-webfont-dl@3.8.1(vite@4.5.0):
-    resolution: {integrity: sha512-Rj4qrlR5NGKBMFbKKgwxW18kLxftW6zBAgWORWCgb6eGZOOlPIjQE6NKJ2QviApxYTVb2Jm3Ze6sGBuJRdxsRA==}
+  /vite-plugin-webfont-dl@3.9.0(vite@4.5.0):
+    resolution: {integrity: sha512-A56+B/newkXjGuftScl77ryiHZ8yfSy7Od4Vefn3Ddt1Yazt0wUFChLoQUrO9bXVF/3zOVavJBjdj4CDo6qkCA==}
     peerDependencies:
       vite: ^2 || ^3 || ^4
     dependencies:
       axios: 1.6.1
       clean-css: 5.3.2
-      flat-cache: 3.1.1
+      flat-cache: 3.2.0
       picocolors: 1.0.0
       vite: 4.5.0(@types/node@20.9.0)(lightningcss@1.22.1)(sass@1.69.5)
     transitivePeerDependencies:
