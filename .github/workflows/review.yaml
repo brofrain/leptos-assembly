@@ -71,8 +71,10 @@ jobs:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
       - name: Outdated Cargo dependencies check (emit warning only)
-        run: just outdated-cargo || echo "::warning ::Some Cargo dependencies are autdated"
+        run: just outdated-rs || echo "::warning ::Some Cargo dependencies are autdated"
       - name: Outdated Node dependencies check (emit warning only)
-        run: just outdated-pnpm || echo "::warning ::Some Node dependencies are autdated"
+        run: just outdated-js || echo "::warning ::Some Node dependencies are autdated"
+      - name: Unused Cargo dependencies check (emit warning only)
+        run: just ununsed || echo "::warning ::Some Rust dependencies are unused"
       - name: Security vulnerabilities audit
         run: just audit

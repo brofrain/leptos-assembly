@@ -174,26 +174,15 @@ lint-ci:
 # --- Security ---
 
 # Runs Cargo dependency audit
-audit-cargo:
+audit-rs:
     cargo audit
 
 # Runs Node dependency audit
-audit-node:
+audit-js:
     pnpm audit --prod
 
 # Runs all dependency audits
-audit: audit-cargo audit-node
-
-# Checks for outdated Cargo dependencies
-outdated-cargo:
-    cargo outdated --root-deps-only --exit-code 1
-
-# Checks for outdated Node dependencies
-outdated-node:
-    pnpm outdated
-
-# Checks for outdated dependencies
-outdated: outdated-cargo outdated-node
+audit: audit-rs audit-js
 
 # --- Dependency management ---
 
@@ -204,6 +193,7 @@ leptosfmt@0.1.17
 cargo-nextest@0.9.61
 cargo-outdated@0.13.1
 cargo-audit@0.18.2
+cargo-udeps@0.1.43
 ''', '\s+', ' ')
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.74
@@ -250,34 +240,44 @@ setup:
 setup-ci:
     just _setup {{ CARGO_EXECUTABLES }}
 
-_upgrade:
+# Updates Cargo packages to the latest versions in their specified ranges
+update-rs:
     cargo upgrade
 
-_upgrade-latest:
-    cargo upgrade --incompatible allow
-
-_update:
-    cargo update
-
-# Updates Cargo packages to their latest versions in the specified ranges
-update-cargo: _upgrade _update
-
-# Updates Node packages to their latest versions in the specified ranges
-update-node:
+# Updates Node packages to the latest versions in their specified ranges
+update-js:
     pnpm update
 
-# Updates packages to their latest versions in the specified ranges
-update: update-cargo update-node
+# Updates packages to the latest versions in their specified ranges
+update: update-rs update-js
 
 # Updates Cargo packages to their latest versions ignoring ranges in Cargo.toml
-update-cargo-latest: _upgrade-latest _update
+update-rs-latest:
+    cargo upgrade --incompatible allow
 
 # Updates Node packages to their latest versions ignoring ranges in package.json
-update-node-latest:
+update-js-latest:
     pnpm update --latest
 
 # Updates packages to the latest versions ignoring their ranges
-update-latest: update-cargo-latest update-node-latest
+update-latest: update-rs-latest update-js-latest
+
+# Checks for outdated Cargo dependencies
+outdated-rs:
+    cargo outdated --root-deps-only --exit-code 1
+
+# Checks for outdated Node dependencies
+outdated-js:
+    pnpm outdated
+
+# Checks for outdated dependencies
+outdated: outdated-rs outdated-js
+
+# Checks for unused dependencies
+unused:
+    cargo udeps --workspace
+
+# --- Misc ---
 
 _vscode-fmt:
     # Using `leptosfmt --stdin --rustfmt` seems to add redundant newlines
