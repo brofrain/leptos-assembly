@@ -1,5 +1,5 @@
 [package]
-name = "client_page-hi"
+name = "client_page_hi_name"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true

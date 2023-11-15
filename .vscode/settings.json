@@ -1,10 +1,10 @@
 {
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.localesPaths": "packages/client/i18n/locales",
+  "i18n-ally.localesPaths": "apps/client/i18n/locales",
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.procMacro.ignored": {
     "leptos_macro": ["component", "server"],
-    "common-proc-macros": ["component", "server"]
+    "proc_macros": ["component", "server"]
   },
   "rust-analyzer.rustfmt.overrideCommand": ["just", "_vscode-fmt"],
   "[toml]": {

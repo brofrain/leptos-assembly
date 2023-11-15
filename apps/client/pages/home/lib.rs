@@ -37,7 +37,7 @@ pub fn Index() -> impl IntoView {
             .is_accepted()
             {
                 navigate(
-                    &Route::Hi(HiParams { name }),
+                    &Route::Hi(Some(HiParams { name })),
                     NavigateOptions::default(),
                 );
             }

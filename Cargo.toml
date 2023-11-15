@@ -12,7 +12,8 @@ members = [
   "apps/client/macros",
   "apps/client/macros/proc",
   "apps/client/pages/about",
-  "apps/client/pages/hi",
+  "apps/client/pages/hi/index",
+  "apps/client/pages/hi/[name]",
   "apps/client/pages/home",
   "apps/client/pages/404",
   "apps/client/router",
@@ -32,20 +33,20 @@ edition = "2021"
 rust-version = "1.73"
 
 [workspace.dependencies]
-client = { path = "apps/client" }
-client_components = { path = "apps/client/components" }
-client_composables = { path = "apps/client/composables" }
-client_env = { path = "apps/client/env" }
-client_i18n = { path = "apps/client/i18n" }
-client_macros = { path = "apps/client/macros" }
-client_router = { path = "apps/client/router" }
-client_stores = { path = "apps/client/stores" }
-client_utils = { path = "apps/client/utils" }
-exports = { path = "packages/exports" }
-logger = { path = "packages/logger" }
-macros = { path = "packages/macros" }
-utils = { path = "packages/utils" }
-server = { path = "apps/server" }
+client.path = "apps/client"
+client_components.path = "apps/client/components"
+client_composables.path = "apps/client/composables"
+client_env.path = "apps/client/env"
+client_i18n.path = "apps/client/i18n"
+client_macros.path = "apps/client/macros"
+client_router.path = "apps/client/router"
+client_stores.path = "apps/client/stores"
+client_utils.path = "apps/client/utils"
+exports.path = "packages/exports"
+logger.path = "packages/logger"
+macros.path = "packages/macros"
+utils.path = "packages/utils"
+server.path = "apps/server"
 # full-stack
 anyhow = "1.0.75"
 cfg-if = "1.0.0"

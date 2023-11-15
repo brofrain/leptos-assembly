@@ -53,12 +53,15 @@ pub fn App() -> impl IntoView {
                     </RouteView>
 
                     <RouteView path="" view=client_layouts::Default>
+                        <RouteView path=Route::Hi(None) view=client_page_hi_index::Index/>
                         <RouteView
-                            path=Route::Hi(HiParams {
-                                name: ":name".to_owned(),
-                            })
+                            path=Route::Hi(
+                                Some(HiParams {
+                                    name: ":name".to_owned(),
+                                }),
+                            )
 
-                            view=client_page_hi::Index
+                            view=client_page_hi_name::Index
                         />
                         <RouteView path=Route::About view=client_page_about::Index/>
                     </RouteView>

@@ -16,7 +16,7 @@ pub struct NotFoundParams {
 pub enum Route {
     Home,
     About,
-    Hi(HiParams),
+    Hi(Option<HiParams>),
     NotFound(NotFoundParams),
 }
 
@@ -25,7 +25,8 @@ impl fmt::Display for Route {
         match self {
             Self::Home => write!(f, "/"),
             Self::About => write!(f, "/about"),
-            Self::Hi(HiParams { name }) => write!(f, "/hi/{name}"),
+            Self::Hi(None) => write!(f, "/hi"),
+            Self::Hi(Some(HiParams { name })) => write!(f, "/hi/{name}"),
             Self::NotFound(NotFoundParams { path }) => write!(f, "/{path}"),
         }
     }

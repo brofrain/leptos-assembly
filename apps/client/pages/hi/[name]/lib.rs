@@ -51,7 +51,7 @@ pub fn Index() -> impl IntoView {
                                 view! {
                                     <BaseLink
                                         class="text-sm"
-                                        to=Route::Hi(HiParams { name: name.clone() })
+                                        to=Route::Hi(Some(HiParams { name: name.clone() }))
                                     >
                                         {name}
                                     </BaseLink>
