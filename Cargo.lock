@@ -352,6 +352,7 @@ dependencies = [
  "client_app",
  "getrandom",
  "leptos",
+ "leptos-use",
  "leptos_animated_for",
  "leptos_i18n",
  "leptos_meta",

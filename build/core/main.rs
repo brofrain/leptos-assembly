@@ -8,7 +8,7 @@ use axum::{
 };
 use client::App;
 use leptos::{get_configuration, LeptosOptions};
-use leptos_axum::{generate_route_list, LeptosRoutes};
+use leptos_axum::{generate_route_list_with_exclusions, LeptosRoutes};
 use tower::ServiceExt;
 use tower_http::services::ServeDir;
 
@@ -48,7 +48,10 @@ async fn main() {
     let conf = get_configuration(None).await.unwrap();
     let leptos_options = conf.leptos_options;
     let addr = leptos_options.site_addr;
-    let routes = generate_route_list(App);
+    let routes = generate_route_list_with_exclusions(
+        App,
+        Some(vec!["/*path".to_owned()]),
+    );
 
     let app = Router::new()
         .route("/api/*fn_name", post(leptos_axum::handle_server_fns))

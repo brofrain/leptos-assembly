@@ -6,18 +6,19 @@ use exports::client::prelude::*;
 use leptos_meta::{provide_meta_context, Html, Link, Meta, Title};
 use leptos_router::{Route as RouteView, Router, Routes};
 use leptos_use::use_color_mode;
-use macros::is_ssr;
 
 flatten_mod!(the_confirms, the_overlay, the_toasts);
 
 #[component]
 pub fn App() -> impl IntoView {
-    provide_meta_context();
-    provide_global_context();
-
     let i18n = provide_i18n_context();
 
-    let head = view! {
+    panic_handler::init();
+    provide_meta_context();
+    provide_global_context();
+    use_color_mode();
+
+    view! {
         <Title text=t!(i18n, meta.title)/>
         <Link rel="apple-touch-icon" href="/pwa-192x192.png"/>
         <Link rel="mask-icon" href="/safari-pinned-tab.svg"/>
@@ -33,17 +34,6 @@ pub fn App() -> impl IntoView {
         }}
 
         <Html class="dark"/>
-    };
-
-    if is_ssr!() {
-        return head;
-    }
-
-    panic_handler::init();
-    use_color_mode();
-
-    view! {
-        {head}
 
         <div id="app">
             <Router>
@@ -52,19 +42,34 @@ pub fn App() -> impl IntoView {
                         <RouteView path=Route::Home view=client_page_home::Index/>
                     </RouteView>
 
-                    <RouteView path="" view=client_layouts::Default>
-                        <RouteView path=Route::Hi(None) view=client_page_hi_index::Index/>
-                        <RouteView
-                            path=Route::Hi(
-                                Some(HiParams {
-                                    name: ":name".to_owned(),
-                                }),
-                            )
+                    // <RouteView path="" view=client_layouts::Default>
+                    // <RouteView path=Route::Hi(None) view=client_page_hi_index::Index/>
+                    // <RouteView
+                    // path=Route::Hi(
+                    // Some(HiParams {
+                    // name: ":name".to_owned(),
+                    // }),
+                    // )
 
-                            view=client_page_hi_name::Index
-                        />
-                        <RouteView path=Route::About view=client_page_about::Index/>
-                    </RouteView>
+                    // view=client_page_hi_name::Index
+                    // />
+                    // <RouteView path=Route::About view=client_page_about::Index/>
+                    // </RouteView>
+
+                    // {#[cfg(not(feature = "ssr"))]
+                    // {
+                    // view! {
+                    // <RouteView path="" view=client_layouts::Blank>
+                    // <RouteView
+                    // path=Route::NotFound(NotFoundParams {
+                    // path: "*path".to_owned(),
+                    // })
+
+                    // view=client_page_404::Index
+                    // />
+                    // </RouteView>
+                    // }
+                    // }}
 
                     <RouteView path="" view=client_layouts::Blank>
                         <RouteView

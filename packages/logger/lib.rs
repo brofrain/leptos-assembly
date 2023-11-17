@@ -6,6 +6,8 @@ use macros::{cfg_csr, cfg_ssr};
 
 #[cfg(feature = "ssr")]
 fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
+    use std::backtrace::Backtrace;
+
     use owo_colors::OwoColorize;
     use time::{macros::format_description, OffsetDateTime};
 
@@ -16,6 +18,13 @@ fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
         .chain(std::io::stdout())
         .format(|out, message, record| {
             let level = record.level();
+
+            let message = match level {
+                log::Level::Error => {
+                    format!("{message}\n{}", Backtrace::force_capture())
+                }
+                _ => message.to_string(),
+            };
 
             macro_rules! bold_string {
                     ($($t:tt)*) => {
