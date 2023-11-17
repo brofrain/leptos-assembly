@@ -59,7 +59,7 @@ async fn main() {
         .fallback(file_and_error_handler)
         .with_state(leptos_options);
 
-    log::info!("Listening on http://{}", &addr);
+    log::info!("Listening on http://{addr}");
 
     axum::Server::bind(&addr)
         .serve(app.into_make_service())

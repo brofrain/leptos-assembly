@@ -13,9 +13,9 @@ crate-type = ["cdylib", "rlib"]
 path = "lib.rs"
 
 [dependencies]
+cfg-if.workspace = true
 client_app.path = "app"
 logger.workspace = true
-macros.workspace = true
 leptos.workspace = true
 leptos_animated_for.workspace = true
 leptos_i18n.workspace = true
@@ -30,7 +30,6 @@ getrandom = { workspace = true, optional = true }
 pwa = ["client_app/pwa"]
 csr = [
   "client_app/csr",
-  "logger/csr",
   "dep:getrandom",
   "time/wasm-bindgen",
   "leptos/csr",
@@ -40,7 +39,6 @@ csr = [
 ]
 hydrate = [
   "client_app/csr",
-  "logger/csr",
   "dep:getrandom",
   "time/wasm-bindgen",
   "leptos/hydrate",
@@ -50,7 +48,6 @@ hydrate = [
 ]
 ssr = [
   "client_app/ssr",
-  "logger/ssr",
   "leptos/ssr",
   "leptos_animated_for/ssr",
   "leptos_i18n/axum",

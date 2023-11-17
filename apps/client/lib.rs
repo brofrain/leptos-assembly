@@ -1,7 +1,7 @@
-use macros::{__exports::cfg_if::cfg_if, cfg_csr, cfg_ssr};
+use cfg_if::cfg_if;
 
 cfg_if! {
-    if #[cfg(any(feature = "csr", feature = "hydrate"))] {
+    if #[cfg(target_arch = "wasm32")] {
         use wasm_bindgen::prelude::*;
 
         #[wasm_bindgen]
@@ -12,17 +12,4 @@ cfg_if! {
     }
 }
 
-// @kw ugly code
-// cfg_csr! {
-//     use wasm_bindgen::prelude::*;
-
-//     #[wasm_bindgen]
-//     pub fn hydrate() {
-//         logger::init!();
-//         leptos::mount_to_body(client_app::App);
-//     }
-// }
-
-cfg_ssr! {
-    pub use client_app::App;
-}
+pub use client_app::App;

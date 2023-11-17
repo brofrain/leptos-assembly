@@ -89,7 +89,6 @@ web-sys = { version = "0.3.65", features = [
   "Performance",
 ] }
 # client_only
-console_log = { version = "1.0.0", features = ["color"] }
 getrandom = { version = "0.2.11", features = ["js"] }
 # server-only
 axum = { version = "0.6.20" }

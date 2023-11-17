@@ -1,10 +1,7 @@
-#![feature(lazy_cell)]
-
 use cfg_if::cfg_if;
 use fern::Dispatch;
-use macros::{cfg_csr, cfg_ssr};
 
-#[cfg(feature = "ssr")]
+#[cfg(not(target_arch = "wasm32"))]
 fn build_server_dispatch(dispatch: Dispatch) -> Dispatch {
     use std::backtrace::Backtrace;
 
@@ -84,16 +81,16 @@ pub fn __init(app_crate_name: &'static str) {
         }
     }
 
-    cfg_csr! {
-        dispatch = dispatch.chain(fern::Output::call(console_log::log)).format(
-            |out, message, _| {
-                out.finish(*message);
-            },
-        );
-    }
-
-    cfg_ssr! {
-        dispatch = build_server_dispatch(dispatch);
+    cfg_if! {
+        if #[cfg(target_arch = "wasm32")] {
+            dispatch = dispatch.chain(fern::Output::call(console_log::log)).format(
+                |out, message, _| {
+                    out.finish(*message);
+                },
+            );
+        } else {
+            dispatch = build_server_dispatch(dispatch);
+        }
     }
 
     dispatch.apply().expect("Failed to initialize logger");

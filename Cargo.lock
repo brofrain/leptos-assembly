@@ -349,6 +349,7 @@ checksum = "5603d514e43c7439b594a021fa63bf6bfde2b47b6af966023624fd777d4dd8b3"
 name = "client"
 version = "0.0.0"
 dependencies = [
+ "cfg-if",
  "client_app",
  "getrandom",
  "leptos",
@@ -358,7 +359,6 @@ dependencies = [
  "leptos_meta",
  "leptos_router",
  "logger",
- "macros",
  "time",
  "wasm-bindgen",
 ]
@@ -1653,7 +1653,6 @@ dependencies = [
  "console_log",
  "fern",
  "log",
- "macros",
  "owo-colors",
  "time",
 ]
