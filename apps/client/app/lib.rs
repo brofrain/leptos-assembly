@@ -42,34 +42,19 @@ pub fn App() -> impl IntoView {
                         <RouteView path=Route::Home view=client_page_home::Index/>
                     </RouteView>
 
-                    // <RouteView path="" view=client_layouts::Default>
-                    // <RouteView path=Route::Hi(None) view=client_page_hi_index::Index/>
-                    // <RouteView
-                    // path=Route::Hi(
-                    // Some(HiParams {
-                    // name: ":name".to_owned(),
-                    // }),
-                    // )
+                    <RouteView path="" view=client_layouts::Default>
+                        <RouteView path=Route::Hi(None) view=client_page_hi_index::Index/>
+                        <RouteView
+                            path=Route::Hi(
+                                Some(HiParams {
+                                    name: ":name".to_owned(),
+                                }),
+                            )
 
-                    // view=client_page_hi_name::Index
-                    // />
-                    // <RouteView path=Route::About view=client_page_about::Index/>
-                    // </RouteView>
-
-                    // {#[cfg(not(feature = "ssr"))]
-                    // {
-                    // view! {
-                    // <RouteView path="" view=client_layouts::Blank>
-                    // <RouteView
-                    // path=Route::NotFound(NotFoundParams {
-                    // path: "*path".to_owned(),
-                    // })
-
-                    // view=client_page_404::Index
-                    // />
-                    // </RouteView>
-                    // }
-                    // }}
+                            view=client_page_hi_name::Index
+                        />
+                        <RouteView path=Route::About view=client_page_about::Index/>
+                    </RouteView>
 
                     <RouteView path="" view=client_layouts::Blank>
                         <RouteView
