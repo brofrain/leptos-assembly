@@ -34,8 +34,3 @@ leptos-use.workspace = true
 
 [features]
 pwa = []
-csr = []
-ssr = []
-
-[package.metadata.cargo-all-features]
-skip_feature_sets = [["csr", "ssr"]]

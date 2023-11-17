@@ -29,7 +29,6 @@ getrandom = { workspace = true, optional = true }
 [features]
 pwa = ["client_app/pwa"]
 csr = [
-  "client_app/csr",
   "dep:getrandom",
   "time/wasm-bindgen",
   "leptos/csr",
@@ -38,7 +37,6 @@ csr = [
   "leptos_router/csr",
 ]
 hydrate = [
-  "client_app/csr",
   "dep:getrandom",
   "time/wasm-bindgen",
   "leptos/hydrate",
@@ -47,7 +45,6 @@ hydrate = [
   "leptos_router/hydrate",
 ]
 ssr = [
-  "client_app/ssr",
   "leptos/ssr",
   "leptos_animated_for/ssr",
   "leptos_i18n/axum",
