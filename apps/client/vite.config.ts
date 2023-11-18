@@ -56,8 +56,8 @@ const pwa = () => {
       globPatterns: ["**/*.{js,css,svg,woff2}"],
       additionalManifestEntries: [
         { url: "index.html", revision },
-        { url: "pkg/app.js", revision },
-        { url: "pkg/app.wasm", revision },
+        { url: "pkg/core.js", revision },
+        { url: "pkg/core.wasm", revision },
         { url: "bindings.mjs", revision },
       ],
     },

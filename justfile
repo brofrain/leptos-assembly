@@ -23,7 +23,7 @@ dev:
 
 # Runs development server without PWA features
 serve:
-    cargo leptos serve
+    cargo leptos serve --project core
 
 # Runs development server including PWA features
 serve-pwa:

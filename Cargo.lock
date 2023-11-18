@@ -2087,6 +2087,10 @@ dependencies = [
 ]
 
 [[package]]
+name = "pwa"
+version = "0.0.0"
+
+[[package]]
 name = "quote"
 version = "1.0.33"
 source = "registry+https://github.com/rust-lang/crates.io-index"

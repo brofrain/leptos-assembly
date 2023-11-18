@@ -2,6 +2,7 @@
 resolver = "2"
 members = [
   "build/core",
+  "build/pwa",
   "apps/client",
   "apps/client/app",
   "apps/client/components",
@@ -131,7 +132,7 @@ panic = "abort"
 inherits = "release"
 
 [[workspace.metadata.leptos]]
-name = "app"
+name = "core"
 bin-package = "core"
 lib-package = "client"
 site-root = "target/site"
@@ -144,6 +145,22 @@ bin-default-features = false
 bin-profile-dev = "server-dev"
 bin-profile-release = "server-release"
 lib-features = ["hydrate"]
+lib-default-features = false
+lib-profile-dev = "client-dev"
+lib-profile-release = "client-release"
+separate-front-target-dir = true
+
+[[workspace.metadata.leptos]]
+name = "pwa"
+bin-package = "pwa"
+lib-package = "client"
+site-root = "target/pwa"
+site-pkg-dir = "pkg"
+bin-features = []
+bin-default-features = false
+bin-profile-dev = "server-dev"
+bin-profile-release = "server-release"
+lib-features = ["csr", "pwa"]
 lib-default-features = false
 lib-profile-dev = "client-dev"
 lib-profile-release = "client-release"
