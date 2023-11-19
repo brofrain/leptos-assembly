@@ -2,7 +2,6 @@
   "name": "leptos-assembly",
   "version": "0.0.0",
   "private": true,
-  "packageManager": "pnpm@8.8.0",
   "engines": {
     "node": "^21.2.0",
     "pnpm": "^8.10.0"
