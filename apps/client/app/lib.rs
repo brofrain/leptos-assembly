@@ -20,17 +20,17 @@ pub fn App() -> impl IntoView {
 
     view! {
         <Title text=t!(i18n, meta.title)/>
-        <Link rel="apple-touch-icon" href="/pwa-192x192.png"/>
-        <Link rel="mask-icon" href="/safari-pinned-tab.svg"/>
+        <Link rel="apple-touch-icon" href="/assets/pwa-192x192.png"/>
+        <Link rel="mask-icon" href="/assets/safari-pinned-tab.svg"/>
         <Meta name="msapplication-TileColor" content="#00aba9"/>
 
-        <Link rel="stylesheet" href="/style.css"/>
-        <Link rel="stylesheet" href="/webfonts.css"/>
+        <Link rel="stylesheet" href="/assets/style.css"/>
+        <Link rel="stylesheet" href="/assets/webfonts.css"/>
 
         {#[cfg(feature = "pwa")]
         {
             use leptos_meta::Script;
-            view! { <Script src="/registerSW.js"/> }
+            view! { <Script src="/assets/registerSW.js"/> }
         }}
 
         <Html class="dark"/>

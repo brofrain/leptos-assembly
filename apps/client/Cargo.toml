@@ -27,6 +27,7 @@ wasm-bindgen.workspace = true
 getrandom = { workspace = true, optional = true }
 
 [features]
+vite-prebuild = []
 pwa = ["client_app/pwa"]
 csr = [
   "dep:getrandom",

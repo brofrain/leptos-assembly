@@ -56,8 +56,8 @@ const pwa = () => {
       globPatterns: ["**/*.{js,css,svg,woff2}"],
       additionalManifestEntries: [
         { url: "index.html", revision },
-        { url: "pkg/core.js", revision },
-        { url: "pkg/core.wasm", revision },
+        { url: "pkg/app.js", revision },
+        { url: "pkg/app.wasm", revision },
         { url: "bindings.mjs", revision },
       ],
     },
@@ -92,7 +92,7 @@ export default defineConfig((_) => {
   const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
   return {
     build: {
-      outDir: "../../target/client-prebuild",
+      outDir: "../../target/client-prebuild/assets",
       emptyOutDir: true,
       minify: releaseMode,
       cssMinify: releaseMode && "lightningcss",

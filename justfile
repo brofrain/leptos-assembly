@@ -11,11 +11,15 @@ _default: help
 clean:
     cargo clean
 
-PWA_BUILD_ARGS := "--bin-features pwa --lib-features csr,pwa"
+CORE_BUILD_PWA_ARGS := "--project core --bin-features pwa --lib-features hydrate,pwa,vite-prebuild"
+
+_build-core-pwa *args:
+    cargo leptos build --project core-pwa {{ args }}
 
 # Builds the application in release mode
 build:
-    cargo leptos build {{ PWA_BUILD_ARGS }} --release
+    just _build-core-pwa --release
+    cargo leptos build {{ CORE_BUILD_PWA_ARGS }} --release
 
 # Runs development server without PWA features and watches for changes
 dev:
@@ -27,11 +31,12 @@ serve:
 
 # Runs development server including PWA features
 serve-pwa:
-    cargo leptos serve {{ PWA_BUILD_ARGS }}
+    just _build-core-pwa
+    cargo leptos serve {{ CORE_BUILD_PWA_ARGS }}
 
 # Serves the application in release mode
 serve-release:
-    cargo leptos serve {{ PWA_BUILD_ARGS }} --release
+    cargo leptos serve {{ CORE_BUILD_PWA_ARGS }} --release
 
 # --- Test ---
 

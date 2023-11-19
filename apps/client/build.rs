@@ -1,7 +1,7 @@
 use std::process::Command;
 
 fn main() {
-    if cfg!(feature = "ssr") {
+    if !cfg!(feature = "vite-prebuild") {
         return;
     }
 
