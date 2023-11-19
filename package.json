@@ -7,7 +7,6 @@
     "node": "^21.2.0",
     "pnpm": "^8.10.0"
   },
-  "engineStrict": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm"
   },
