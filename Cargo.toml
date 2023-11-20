@@ -149,7 +149,6 @@ lib-features = ["hydrate", "vite-prebuild"]
 lib-default-features = false
 lib-profile-dev = "client-dev"
 lib-profile-release = "client-release"
-separate-front-target-dir = true
 
 [[workspace.metadata.leptos]]
 name = "core-pwa"
@@ -166,7 +165,6 @@ lib-features = ["csr", "pwa"]
 lib-default-features = false
 lib-profile-dev = "client-dev"
 lib-profile-release = "client-release"
-separate-front-target-dir = true
 
 [workspace.lints.rust]
 unsafe_code = "deny"
