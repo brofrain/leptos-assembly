@@ -1,8 +1,8 @@
-import { execSync } from "node:child_process";
 import Unocss from "unocss/vite";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import WebfontDownload from "vite-plugin-webfont-dl";
+import { v4 as uuid } from "uuid";
 
 const unocssWithFonts = (
   fonts: Record<
@@ -46,10 +46,8 @@ const unocssWithFonts = (
   return [Unocss({ theme: { fontFamily } }), WebfontDownload(urls)];
 };
 
-const pwa = () => {
-  const revision = execSync("git rev-parse --short HEAD").toString().trim();
-
-  return VitePWA({
+const pwa = () =>
+  VitePWA({
     strategies: "injectManifest",
     filename: "sw.ts",
     srcDir: ".",
@@ -81,12 +79,14 @@ const pwa = () => {
       ],
     },
   });
-};
 
 const releaseMode = process.env.PROFILE !== "debug";
 const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
 
 export default defineConfig({
+  define: {
+    __BUILD_PIPELINE_ID__: JSON.stringify(uuid()),
+  },
   base: "/assets",
   build: {
     outDir: "../../target/client-prebuild/assets",
