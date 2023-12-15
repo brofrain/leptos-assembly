@@ -87,36 +87,36 @@ const pwa = () => {
   });
 };
 
-export default defineConfig((_) => {
-  const releaseMode = process.env.PROFILE !== "debug";
-  const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
-  return {
-    build: {
-      outDir: "../../target/client-prebuild/assets",
-      emptyOutDir: true,
-      minify: releaseMode,
-      cssMinify: releaseMode && "lightningcss",
-      lib: {
-        formats: ["es"],
-        entry: "bindings.ts",
-        fileName: "bindings",
-      },
-    },
-    plugins: [
-      ...unocssWithFonts({
-        sans: {
-          name: "B612",
-          weights: [400, 700],
-          italic: true,
-        },
-        mono: {
-          name: "B612 Mono",
-          weights: [400, 700],
-          italic: true,
-        },
-      }),
+const releaseMode = process.env.PROFILE !== "debug";
+const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
 
-      pwaEnabled ? pwa() : null,
-    ],
-  };
+export default defineConfig({
+  base: "/assets",
+  build: {
+    outDir: "../../target/client-prebuild/assets",
+    emptyOutDir: true,
+    minify: releaseMode,
+    cssMinify: releaseMode && "lightningcss",
+    lib: {
+      formats: ["es"],
+      entry: "bindings.ts",
+      fileName: "bindings",
+    },
+  },
+  plugins: [
+    ...unocssWithFonts({
+      sans: {
+        name: "B612",
+        weights: [400, 700],
+        italic: true,
+      },
+      mono: {
+        name: "B612 Mono",
+        weights: [400, 700],
+        italic: true,
+      },
+    }),
+
+    pwaEnabled ? pwa() : null,
+  ],
 });
