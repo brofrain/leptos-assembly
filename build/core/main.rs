@@ -2,15 +2,23 @@ use axum::{
     body::{boxed, Body, BoxBody},
     extract::State,
     http::{Request, Response, Uri},
-    response::{IntoResponse, Response as AxumResponse},
-    routing::post,
+    response::{Html, IntoResponse, Response as AxumResponse},
+    routing::{get, post},
     Router,
 };
 use client::App;
 use leptos::{get_configuration, LeptosOptions};
 use leptos_axum::{generate_route_list_with_exclusions, LeptosRoutes};
+use leptos_integration_utils::html_parts_separated;
 use tower::ServiceExt;
 use tower_http::services::ServeDir;
+
+async fn pwa_index_handler(
+    State(options): State<LeptosOptions>,
+) -> Html<String> {
+    let (head, tail) = html_parts_separated(&options, None);
+    Html(format!("{head}</head><body>{tail}"))
+}
 
 async fn get_static_file(root: &str, uri: &Uri) -> Response<BoxBody> {
     let request = Request::builder()
@@ -55,6 +63,7 @@ async fn main() {
 
     let app = Router::new()
         .route("/api/*fn_name", post(leptos_axum::handle_server_fns))
+        .route("/pwa/index.html", get(pwa_index_handler))
         .leptos_routes(&leptos_options, routes, App)
         .fallback(file_and_error_handler)
         .with_state(leptos_options);

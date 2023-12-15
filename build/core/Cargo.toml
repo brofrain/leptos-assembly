@@ -16,6 +16,7 @@ path = "main.rs"
 client = { workspace = true, features = ["ssr"] }
 logger.workspace = true
 leptos.workspace = true
+leptos_integration_utils.workspace = true
 log.workspace = true
 axum.workspace = true
 leptos_axum.workspace = true

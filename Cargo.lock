@@ -626,6 +626,7 @@ dependencies = [
  "client",
  "leptos",
  "leptos_axum",
+ "leptos_integration_utils",
  "log",
  "logger",
  "tokio",
