@@ -57,7 +57,7 @@ derive_setters = "0.1.6"
 educe = "0.5.7"
 futures = "0.3.29"
 leptos = { version = "0.5.4", features = ["nightly"] }
-leptos_animated_for = "0.0.4"
+leptos_animated_for = "0.1.0"
 leptos_i18n = { version = "0.2.3", features = [
   "nightly",
   "serde",
