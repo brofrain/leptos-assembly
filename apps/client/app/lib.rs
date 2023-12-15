@@ -30,7 +30,7 @@ pub fn App() -> impl IntoView {
         {#[cfg(feature = "pwa")]
         {
             use leptos_meta::Script;
-            view! { <Script src="/assets/registerSW.js"/> }
+            view! { <Script src="/assets/registerSW.js" async_=""/> }
         }}
 
         <Html class="dark"/>

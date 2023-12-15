@@ -50,16 +50,12 @@ const pwa = () => {
   const revision = execSync("git rev-parse --short HEAD").toString().trim();
 
   return VitePWA({
-    registerType: "autoUpdate",
+    strategies: "injectManifest",
+    filename: "sw.ts",
+    srcDir: ".",
     includeAssets: ["favicon.ico", "safari-pinned-tab.svg"],
-    workbox: {
+    injectManifest: {
       globPatterns: ["**/*.{js,css,svg,woff2}"],
-      additionalManifestEntries: [
-        { url: "index.html", revision },
-        { url: "pkg/app.js", revision },
-        { url: "pkg/app.wasm", revision },
-        { url: "bindings.mjs", revision },
-      ],
     },
     manifest: {
       name: "App",
