@@ -15,8 +15,6 @@ const manifest = self.__WB_MANIFEST;
 precacheAndRoute([
   ...manifest,
   { url: "/pwa/index.html", revision: __BUILD_PIPELINE_ID__ },
-  { url: "/pwa/app.js", revision: __BUILD_PIPELINE_ID__ },
-  { url: "/pwa/app.wasm", revision: __BUILD_PIPELINE_ID__ },
 ]);
 
 registerRoute(({ url }) => url.pathname.startsWith("/"), new NetworkFirst());

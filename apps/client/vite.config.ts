@@ -49,11 +49,14 @@ const unocssWithFonts = (
 const pwa = () =>
   VitePWA({
     strategies: "injectManifest",
-    filename: "sw.ts",
     srcDir: ".",
+    filename: "sw.ts",
+    base: "/",
+    outDir: "../../target/client-prebuild",
     includeAssets: ["favicon.ico", "safari-pinned-tab.svg"],
     injectManifest: {
-      globPatterns: ["**/*.{js,css,svg,woff2}"],
+      globPatterns: ["assets/**/*.{js,css,svg,woff2}", "pwa/*.{js,wasm}"],
+      maximumFileSizeToCacheInBytes: 1024 * 1024 * 10, // 10MB
     },
     manifest: {
       name: "App",
