@@ -9,7 +9,7 @@
 <p>
   <i>
     <div align="center">
-      Leptos / Axum / PWA / I18n
+      Leptos / Axum / SSR + PWA / I18n
     </div>
     <div align="center">
       UnoCSS / Iconify / cargo-leptos & Vite / Playwright
@@ -135,7 +135,6 @@ In order to improve compilation times, you can also setup [mold](https://github.
 [target.x86_64-unknown-linux-gnu]
 linker = "clang"
 rustflags = ["-C", "link-arg=-fuse-ld=/path/to/mold"]
-
 ```
 
 You may also need `clang` to use `mold`:
