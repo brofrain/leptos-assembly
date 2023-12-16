@@ -17,8 +17,6 @@ precacheAndRoute([
   { url: "/pwa", revision: __BUILD_PIPELINE_ID__ },
 ]);
 
-registerRoute(({ url }) => url.pathname.startsWith("/"), new NetworkFirst());
-
 registerRoute(
   ({ url }) => url.pathname.startsWith("/hydrate"),
   (options) => {
@@ -33,7 +31,6 @@ registerRoute(
   ({ url }) =>
     !url.pathname.startsWith("/api") &&
     !url.pathname.startsWith("/assets") &&
-    !url.pathname.startsWith("/hydrate") &&
     !url.pathname.startsWith("/pwa"),
   (options) => {
     const request = new Request("/pwa");
