@@ -2,9 +2,10 @@
   "name": "leptos-assembly",
   "version": "0.0.0",
   "private": true,
+  "packageManager": "pnpm@8.12.0",
   "engines": {
     "node": "^21.2.0",
-    "pnpm": "^8.10.0"
+    "pnpm": "^8.12.0"
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm"
