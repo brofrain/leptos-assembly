@@ -20,6 +20,7 @@ pub fn App() -> impl IntoView {
 
     view! {
         <Title text=t!(i18n, meta.title)/>
+        <Link rel="icon" type_="image/x-icon" href="/assets/favicon.ico"/>
         <Link rel="apple-touch-icon" href="/assets/pwa-192x192.png"/>
         <Link rel="mask-icon" href="/assets/safari-pinned-tab.svg"/>
         <Meta name="msapplication-TileColor" content="#00aba9"/>

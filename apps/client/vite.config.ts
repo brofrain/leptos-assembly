@@ -53,9 +53,8 @@ const pwa = () =>
     filename: "sw.ts",
     base: "/",
     outDir: "../../target/client-prebuild",
-    includeAssets: ["favicon.ico", "safari-pinned-tab.svg"],
     injectManifest: {
-      globPatterns: ["assets/**/*.{js,css,svg,woff2}", "pwa/*.{js,wasm}"],
+      globPatterns: ["assets/**/*.{js,css,ico,svg,woff2}", "pwa/*.{js,wasm}"],
       maximumFileSizeToCacheInBytes: 1024 * 1024 * 10, // 10MB
     },
     manifest: {
@@ -64,17 +63,17 @@ const pwa = () =>
       theme_color: "#ffffff",
       icons: [
         {
-          src: "/pwa-192x192.png",
+          src: "/assets/pwa-192x192.png",
           sizes: "192x192",
           type: "image/png",
         },
         {
-          src: "/pwa-512x512.png",
+          src: "/assets/pwa-512x512.png",
           sizes: "512x512",
           type: "image/png",
         },
         {
-          src: "/pwa-512x512.png",
+          src: "/assets/pwa-512x512.png",
           sizes: "512x512",
           type: "image/png",
           purpose: "any maskable",
