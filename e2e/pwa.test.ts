@@ -15,5 +15,12 @@ test.describe("pwa", () => {
 
     await logoLocator.waitFor();
     expect(await logoLocator.isVisible()).toBe(true);
+
+    await page.goto("/hi/abc");
+
+    const welcomeLocator = page.locator("[test='welcome']");
+    await welcomeLocator.waitFor();
+    expect(await welcomeLocator.isVisible()).toBe(true);
+    expect(await welcomeLocator.textContent()).toBe("Hi, abc!");
   });
 });

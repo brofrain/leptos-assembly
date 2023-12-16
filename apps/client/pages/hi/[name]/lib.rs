@@ -33,7 +33,7 @@ pub fn Index() -> impl IntoView {
             <div class="inline-block text-4xl mb1 icon-mdi-human-greeting"></div>
 
             <div>
-                <p>{t!(i18n, name.hi, name)}</p>
+                <p test="welcome">{t!(i18n, name.welcome, name)}</p>
             </div>
 
             <p>

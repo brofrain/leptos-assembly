@@ -13,10 +13,6 @@ panic_confirm:
   accept: Reload the page
 locale:
   changed: The locale has been changed to "{{new_locale}}"
-cookie_bar:
-  hi: Hi
-  accept: Accept
-  cookies: the nonexistent cookies
 nav:
   link_home: Home
   link_about: About
@@ -43,7 +39,7 @@ about:
     nothing_to_remove: Nothing to remove
     shuffle_changed_nothing: Nothing has changed
 name:
-  hi: Hi, {{name}}!
+  welcome: Hi, {{name}}!
   description: Demo of dynamic route
   aka: Also known as
 page_not_found: "Page not found:"
