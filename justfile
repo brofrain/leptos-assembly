@@ -103,7 +103,7 @@ _prettier flag:
 
 # Formats supported files with Biome
 _fmt-biome:
-    npx biome format . --write
+    npx biome check . --apply
 
 # Formats files not supported by Biome with Prettier
 _fmt-prettier: (_prettier "-w")

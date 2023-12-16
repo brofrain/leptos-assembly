@@ -1,8 +1,8 @@
 import Unocss from "unocss/vite";
+import { v4 as uuid } from "uuid";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import WebfontDownload from "vite-plugin-webfont-dl";
-import { v4 as uuid } from "uuid";
 
 const unocssWithFonts = (
   fonts: Record<
