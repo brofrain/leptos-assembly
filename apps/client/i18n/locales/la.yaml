@@ -13,10 +13,6 @@ panic_confirm:
   accept: Reload paginae
 locale:
   changed: Locus mutatus est ad "{{new_locale}}"
-cookie_bar:
-  hi: Salve
-  accept: Accipere
-  cookies: nulla crustula
 nav:
   link_home: Domus
   link_about: De
@@ -43,7 +39,7 @@ about:
     nothing_to_remove: Nihil ad removendum
     shuffle_changed_nothing: Nihil mutatum
 name:
-  hi: Salve, {{name}}!
+  welcome: Salve, {{name}}!
   description: Demo de dynamic pagina
   aka: Qui et
 page_not_found: "Pagina non inveni:"

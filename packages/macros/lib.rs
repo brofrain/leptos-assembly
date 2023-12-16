@@ -1,8 +1,5 @@
 pub use proc_macros::*;
 
-#[macro_use]
-pub mod cfg;
-
 /// Shorthand for `mod module; use module::*;` with hushed
 /// `clippy::module_name_repetitions` lint.
 #[macro_export]

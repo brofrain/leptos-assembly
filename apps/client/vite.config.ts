@@ -1,5 +1,5 @@
-import { execSync } from "node:child_process";
 import Unocss from "unocss/vite";
+import { v4 as uuid } from "uuid";
 import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import WebfontDownload from "vite-plugin-webfont-dl";
@@ -46,20 +46,16 @@ const unocssWithFonts = (
   return [Unocss({ theme: { fontFamily } }), WebfontDownload(urls)];
 };
 
-const pwa = () => {
-  const revision = execSync("git rev-parse --short HEAD").toString().trim();
-
-  return VitePWA({
-    registerType: "autoUpdate",
-    includeAssets: ["favicon.ico", "safari-pinned-tab.svg"],
-    workbox: {
-      globPatterns: ["**/*.{js,css,svg,woff2}"],
-      additionalManifestEntries: [
-        { url: "index.html", revision },
-        { url: "pkg/app.js", revision },
-        { url: "pkg/app.wasm", revision },
-        { url: "bindings.mjs", revision },
-      ],
+const pwa = () =>
+  VitePWA({
+    strategies: "injectManifest",
+    srcDir: ".",
+    filename: "sw.ts",
+    base: "/",
+    outDir: "../../target/client-prebuild",
+    injectManifest: {
+      globPatterns: ["assets/**/*.{js,css,ico,svg,woff2}", "pwa/*.{js,wasm}"],
+      maximumFileSizeToCacheInBytes: 1024 * 1024 * 10, // 10MB
     },
     manifest: {
       name: "App",
@@ -67,17 +63,17 @@ const pwa = () => {
       theme_color: "#ffffff",
       icons: [
         {
-          src: "/pwa-192x192.png",
+          src: "/assets/pwa-192x192.png",
           sizes: "192x192",
           type: "image/png",
         },
         {
-          src: "/pwa-512x512.png",
+          src: "/assets/pwa-512x512.png",
           sizes: "512x512",
           type: "image/png",
         },
         {
-          src: "/pwa-512x512.png",
+          src: "/assets/pwa-512x512.png",
           sizes: "512x512",
           type: "image/png",
           purpose: "any maskable",
@@ -85,38 +81,40 @@ const pwa = () => {
       ],
     },
   });
-};
 
-export default defineConfig((_) => {
-  const releaseMode = process.env.PROFILE !== "debug";
-  const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
-  return {
-    build: {
-      outDir: "../../target/client-prebuild",
-      emptyOutDir: true,
-      minify: releaseMode,
-      cssMinify: releaseMode && "lightningcss",
-      lib: {
-        formats: ["es"],
-        entry: "bindings.ts",
-        fileName: "bindings",
-      },
+const releaseMode = process.env.PROFILE !== "debug";
+const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
+
+export default defineConfig({
+  define: {
+    __BUILD_PIPELINE_ID__: JSON.stringify(uuid()),
+  },
+  base: "/assets",
+  build: {
+    outDir: "../../target/client-prebuild/assets",
+    emptyOutDir: true,
+    minify: releaseMode,
+    cssMinify: releaseMode && "lightningcss",
+    lib: {
+      formats: ["es"],
+      entry: "bindings.ts",
+      fileName: "bindings",
     },
-    plugins: [
-      ...unocssWithFonts({
-        sans: {
-          name: "B612",
-          weights: [400, 700],
-          italic: true,
-        },
-        mono: {
-          name: "B612 Mono",
-          weights: [400, 700],
-          italic: true,
-        },
-      }),
+  },
+  plugins: [
+    ...unocssWithFonts({
+      sans: {
+        name: "B612",
+        weights: [400, 700],
+        italic: true,
+      },
+      mono: {
+        name: "B612 Mono",
+        weights: [400, 700],
+        italic: true,
+      },
+    }),
 
-      pwaEnabled ? pwa() : null,
-    ],
-  };
+    pwaEnabled ? pwa() : null,
+  ],
 });

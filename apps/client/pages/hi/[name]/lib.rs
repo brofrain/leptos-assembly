@@ -11,6 +11,7 @@ pub fn Index() -> impl IntoView {
     let params = use_params::<HiParams>();
     let i18n = use_i18n();
 
+    // BUG: hydration problem - names are kept in local storage
     let names_store = use_store::<Names>();
 
     let name = Memo::new(move |_| {
@@ -32,7 +33,7 @@ pub fn Index() -> impl IntoView {
             <div class="inline-block text-4xl mb1 icon-mdi-human-greeting"></div>
 
             <div>
-                <p>{t!(i18n, name.hi, name)}</p>
+                <p test="welcome">{t!(i18n, name.welcome, name)}</p>
             </div>
 
             <p>

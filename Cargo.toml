@@ -2,6 +2,7 @@
 resolver = "2"
 members = [
   "build/core",
+  "build/pwa",
   "apps/client",
   "apps/client/app",
   "apps/client/components",
@@ -53,10 +54,10 @@ cfg-if = "1.0.0"
 derive-getters = "0.3.0"
 derive_more = "0.99.17"
 derive_setters = "0.1.6"
-educe = "0.4.23"
+educe = "0.5.7"
 futures = "0.3.29"
-leptos = { version = "0.5.2", features = ["nightly"] }
-leptos_animated_for = "0.0.4"
+leptos = { version = "0.5.4", features = ["nightly"] }
+leptos_animated_for = "0.1.0"
 leptos_i18n = { version = "0.2.3", features = [
   "nightly",
   "serde",
@@ -64,20 +65,20 @@ leptos_i18n = { version = "0.2.3", features = [
   "interpolate_display",
   "yaml_files",
 ], default-features = false }
-leptos_meta = { version = "0.5.2", features = ["nightly"] }
-leptos_router = { version = "0.5.2", features = ["nightly"] }
-leptos-use = { version = "0.8.2", features = ["storage"] }
+leptos_meta = { version = "0.5.4", features = ["nightly"] }
+leptos_router = { version = "0.5.4", features = ["nightly"] }
+leptos-use = { version = "0.9.0", features = ["serde"] }
 log = "0.4.20"
 paste = "1.0.14"
-pct-str = { version = "2.0.0" }
+pct-str = "2.0.0"
 rand = "0.8.5"
-serde = { version = "1.0.192", features = ["derive"] }
+serde = { version = "1.0.193", features = ["derive"] }
 serde_json = "1.0.108"
 thiserror = "1.0.50"
 time = { version = "0.3.30", features = ["macros", "formatting", "parsing"] }
-unocss-classes = { version = "2.0.0" }
-wasm-bindgen = { version = "0.2.88" }
-web-sys = { version = "0.3.65", features = [
+unocss-classes = "2.0.0"
+wasm-bindgen = "0.2.89"
+web-sys = { version = "0.3.66", features = [
   "CssStyleDeclaration",
   "DomRect",
   "DomTokenList",
@@ -89,18 +90,18 @@ web-sys = { version = "0.3.65", features = [
   "Performance",
 ] }
 # client_only
-console_log = { version = "1.0.0", features = ["color"] }
 getrandom = { version = "0.2.11", features = ["js"] }
 # server-only
-axum = { version = "0.6.20" }
-leptos_axum = { version = "0.5.2" }
-tokio = { version = "1.34.0", features = ["full"] }
-tower = { version = "0.4.13" }
+axum = "0.6.20"
+leptos_axum = "0.5.4"
+leptos_integration_utils = "0.5.4"
+tokio = { version = "1.35.0", features = ["full"] }
+tower = "0.4.13"
 tower-http = { version = "0.4.4", features = ["fs"] }
 # proc macros
-proc-macro2 = "1.0.69"
+proc-macro2 = "1.0.70"
 quote = "1.0.33"
-syn = { version = "2.0.39", features = ["full"] }
+syn = { version = "2.0.41", features = ["full"] }
 
 [profile.dev]
 opt-level = 1
@@ -132,11 +133,12 @@ panic = "abort"
 inherits = "release"
 
 [[workspace.metadata.leptos]]
-name = "app"
+name = "core"
 bin-package = "core"
 lib-package = "client"
-site-root = "target/site"
-site-pkg-dir = "pkg"
+site-root = "target/client"
+site-pkg-dir = "hydrate"
+output-name = "app"
 assets-dir = "target/client-prebuild"
 site-addr = "127.0.0.1:3333"
 reload-port = 3334
@@ -144,11 +146,26 @@ bin-features = []
 bin-default-features = false
 bin-profile-dev = "server-dev"
 bin-profile-release = "server-release"
-lib-features = ["csr"]
+lib-features = ["hydrate", "vite-prebuild"]
 lib-default-features = false
 lib-profile-dev = "client-dev"
 lib-profile-release = "client-release"
-separate-front-target-dir = true
+
+[[workspace.metadata.leptos]]
+name = "core-pwa"
+bin-package = "pwa"
+lib-package = "client"
+site-root = "target/client-prebuild/pwa"
+site-pkg-dir = ""
+output-name = "app"
+bin-features = []
+bin-default-features = false
+bin-profile-dev = "server-dev"
+bin-profile-release = "server-release"
+lib-features = ["csr", "pwa"]
+lib-default-features = false
+lib-profile-dev = "client-dev"
+lib-profile-release = "client-release"
 
 [workspace.lints.rust]
 unsafe_code = "deny"

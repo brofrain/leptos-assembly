@@ -6,44 +6,35 @@ use exports::client::prelude::*;
 use leptos_meta::{provide_meta_context, Html, Link, Meta, Title};
 use leptos_router::{Route as RouteView, Router, Routes};
 use leptos_use::use_color_mode;
-use macros::is_ssr;
 
 flatten_mod!(the_confirms, the_overlay, the_toasts);
 
 #[component]
 pub fn App() -> impl IntoView {
-    provide_meta_context();
-    provide_global_context();
-
     let i18n = provide_i18n_context();
 
-    let head = view! {
+    panic_handler::init();
+    provide_meta_context();
+    provide_global_context();
+    use_color_mode();
+
+    view! {
         <Title text=t!(i18n, meta.title)/>
-        <Link rel="apple-touch-icon" href="/pwa-192x192.png"/>
-        <Link rel="mask-icon" href="/safari-pinned-tab.svg"/>
+        <Link rel="icon" type_="image/x-icon" href="/assets/favicon.ico"/>
+        <Link rel="apple-touch-icon" href="/assets/pwa-192x192.png"/>
+        <Link rel="mask-icon" href="/assets/safari-pinned-tab.svg"/>
         <Meta name="msapplication-TileColor" content="#00aba9"/>
 
-        <Link rel="stylesheet" href="/style.css"/>
-        <Link rel="stylesheet" href="/webfonts.css"/>
+        <Link rel="stylesheet" href="/assets/style.css"/>
+        <Link rel="stylesheet" href="/assets/webfonts.css"/>
 
         {#[cfg(feature = "pwa")]
         {
             use leptos_meta::Script;
-            view! { <Script src="/registerSW.js"/> }
+            view! { <Script src="/assets/registerSW.js" async_=""/> }
         }}
 
         <Html class="dark"/>
-    };
-
-    if is_ssr!() {
-        return head;
-    }
-
-    panic_handler::init();
-    use_color_mode();
-
-    view! {
-        {head}
 
         <div id="app">
             <Router>

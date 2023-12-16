@@ -90,6 +90,8 @@ Additionally, the project aspires to implement a strict, predictable and scalabl
 
 - [cargo-outdated](https://crates.io/crates/cargo-outdated) - detecting outdated dependencies
 
+- [cargo-udeps](https://crates.io/crates/cargo-udeps) - detecting unused dependencies
+
 ## 🛠️ Project setup
 
 ### Prerequisites

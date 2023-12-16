@@ -1,11 +1,7 @@
 use std::collections::HashSet;
 
 use exports::client::prelude::*;
-use leptos_use::storage::{
-    use_storage_with_options,
-    StorageType,
-    UseStorageOptions,
-};
+use leptos_use::storage::{use_local_storage, JsonCodec};
 
 use super::Store;
 
@@ -16,24 +12,12 @@ pub struct Names {
     other_names_sorted: Memo<Vec<String>>,
 }
 
-fn storage_options<T>() -> UseStorageOptions<T> {
-    UseStorageOptions::<T>::default()
-        .storage_type(StorageType::Local)
-        .debounce(1000.0)
-}
-
 impl Store for Names {
     fn create() -> Self {
-        let (last_name, set_last_name, ..) = use_storage_with_options(
-            "last-name",
-            None::<String>,
-            storage_options(),
-        );
-        let (names, set_names, ..) = use_storage_with_options(
-            "names",
-            HashSet::<String>::new(),
-            storage_options(),
-        );
+        let (last_name, set_last_name, ..) =
+            use_local_storage::<Option<String>, JsonCodec>("last-name");
+        let (names, set_names, ..) =
+            use_local_storage::<HashSet<String>, JsonCodec>("names");
 
         let other_names_sorted = Memo::new(move |_| {
             let mut names = names();

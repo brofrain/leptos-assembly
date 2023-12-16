@@ -11,11 +11,15 @@ _default: help
 clean:
     cargo clean
 
-PWA_BUILD_ARGS := "--bin-features pwa --lib-features csr,pwa"
+CORE_BUILD_PWA_ARGS := "--project core --bin-features pwa --lib-features hydrate,pwa,vite-prebuild"
+
+_build-core-pwa *args:
+    cargo leptos build --project core-pwa {{ args }}
 
 # Builds the application in release mode
 build:
-    cargo leptos build {{ PWA_BUILD_ARGS }} --release
+    just _build-core-pwa --release
+    cargo leptos build {{ CORE_BUILD_PWA_ARGS }} --release
 
 # Runs development server without PWA features and watches for changes
 dev:
@@ -23,15 +27,16 @@ dev:
 
 # Runs development server without PWA features
 serve:
-    cargo leptos serve
+    cargo leptos serve --project core
 
 # Runs development server including PWA features
 serve-pwa:
-    cargo leptos serve {{ PWA_BUILD_ARGS }}
+    just _build-core-pwa
+    cargo leptos serve {{ CORE_BUILD_PWA_ARGS }}
 
 # Serves the application in release mode
 serve-release:
-    cargo leptos serve {{ PWA_BUILD_ARGS }} --release
+    cargo leptos serve {{ CORE_BUILD_PWA_ARGS }} --release
 
 # --- Test ---
 
@@ -98,7 +103,7 @@ _prettier flag:
 
 # Formats supported files with Biome
 _fmt-biome:
-    npx biome format . --write
+    npx biome check . --apply
 
 # Formats files not supported by Biome with Prettier
 _fmt-prettier: (_prettier "-w")
@@ -187,13 +192,13 @@ audit: audit-rs audit-js
 # --- Dependency management ---
 
 CARGO_EXECUTABLES := replace_regex('''
-just@1.15.0
-cargo-leptos@0.2.2
+just@1.16.0
+cargo-leptos@0.2.5
 leptosfmt@0.1.17
-cargo-nextest@0.9.61
-cargo-outdated@0.13.1
-cargo-audit@0.18.2
-cargo-udeps@0.1.43
+cargo-nextest@0.9.66
+cargo-outdated@0.14.0
+cargo-audit@0.18.3
+cargo-udeps@0.1.44
 ''', '\s+', ' ')
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.74

@@ -14,7 +14,7 @@ pub mod prelude {
     pub use leptos;
     pub use log;
     pub use macros::{flatten_mod, flatten_pub_mod};
-    pub use serde::{self, Deserialize, Serialize};
+    pub use serde::{self, de::DeserializeOwned, Deserialize, Serialize};
 }
 
 #[cfg(feature = "client")]
