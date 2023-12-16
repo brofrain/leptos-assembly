@@ -14,27 +14,29 @@ clientsClaim();
 const manifest = self.__WB_MANIFEST;
 precacheAndRoute([
   ...manifest,
-  { url: "/pwa/index.html", revision: __BUILD_PIPELINE_ID__ },
+  { url: "/pwa", revision: __BUILD_PIPELINE_ID__ },
 ]);
 
 registerRoute(({ url }) => url.pathname.startsWith("/"), new NetworkFirst());
 
-registerRoute("/", (options) => {
-  const request = new Request("/pwa/index.html");
-  return new NetworkFirst().handle({ ...options, request });
-});
+registerRoute(
+  ({ url }) => url.pathname.startsWith("/hydrate"),
+  (options) => {
+    const request = new Request(
+      options.request.url.replace("/hydrate", "/pwa"),
+    );
+    return new NetworkFirst().handle({ ...options, request });
+  },
+);
 
-registerRoute("/index.html", (options) => {
-  const request = new Request("/pwa/index.html");
-  return new NetworkFirst().handle({ ...options, request });
-});
-
-registerRoute("/pkg/app.js", (options) => {
-  const request = new Request("/pwa/app.js");
-  return new NetworkFirst().handle({ ...options, request });
-});
-
-registerRoute("/pkg/app.wasm", (options) => {
-  const request = new Request("/pwa/app.wasm");
-  return new NetworkFirst().handle({ ...options, request });
-});
+registerRoute(
+  ({ url }) =>
+    !url.pathname.startsWith("/api") &&
+    !url.pathname.startsWith("/assets") &&
+    !url.pathname.startsWith("/hydrate") &&
+    !url.pathname.startsWith("/pwa"),
+  (options) => {
+    const request = new Request("/pwa");
+    return new NetworkFirst().handle({ ...options, request });
+  },
+);
