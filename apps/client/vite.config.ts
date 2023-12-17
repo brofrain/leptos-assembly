@@ -49,7 +49,7 @@ const unocssWithFonts = (
 const pwa = () =>
   VitePWA({
     strategies: "injectManifest",
-    srcDir: ".",
+    srcDir: "js",
     filename: "sw.ts",
     base: "/",
     outDir: "../../target/client-prebuild",
@@ -97,7 +97,7 @@ export default defineConfig({
     cssMinify: releaseMode && "lightningcss",
     lib: {
       formats: ["es"],
-      entry: "bindings.ts",
+      entry: "js/bindings.ts",
       fileName: "bindings",
     },
   },
