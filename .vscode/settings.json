@@ -6,7 +6,11 @@
     "leptos_macro": ["component", "server"],
     "proc_macros": ["component", "server"]
   },
-  "rust-analyzer.rustfmt.overrideCommand": ["just", "_vscode-fmt"],
+  "rust-analyzer.rustfmt.overrideCommand": [
+    "leptosfmt",
+    "--stdin",
+    "--rustfmt"
+  ],
   "[toml]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   }

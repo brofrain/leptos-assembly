@@ -192,16 +192,16 @@ audit: audit-rs audit-js
 # --- Dependency management ---
 
 CARGO_EXECUTABLES := replace_regex('''
-just@1.16.0
+just@1.17.0
 cargo-leptos@0.2.5
-leptosfmt@0.1.17
+leptosfmt@0.1.18
 cargo-nextest@0.9.66
 cargo-outdated@0.14.0
 cargo-audit@0.18.3
 cargo-udeps@0.1.44
 ''', '\s+', ' ')
 CARGO_DEV_EXECUTABLES := replace_regex('''
-cargo-expand@1.0.74
+cargo-expand@1.0.75
 cargo-edit@0.12.2
 cargo-watch@8.4.1
 ''', '\s+', ' ')
@@ -281,9 +281,3 @@ outdated: outdated-rs outdated-js
 # Checks for unused dependencies
 unused:
     cargo udeps --workspace
-
-# --- Misc ---
-
-_vscode-fmt:
-    # Using `leptosfmt --stdin --rustfmt` seems to add redundant newlines
-    leptosfmt --stdin | rustfmt
