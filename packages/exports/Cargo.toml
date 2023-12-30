@@ -18,8 +18,9 @@ derive_setters.workspace = true
 educe.workspace = true
 leptos.workspace = true
 leptos_i18n = { workspace = true, optional = true }
-serde.workspace = true
 log.workspace = true
+num.workspace = true
+serde.workspace = true
 time.workspace = true
 unocss-classes = { workspace = true, optional = true }
 

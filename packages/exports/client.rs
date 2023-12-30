@@ -5,6 +5,7 @@ pub use super::*;
 
 pub mod prelude {
     pub use leptos::{
+        component,
         create_action,
         event_target_value,
         leptos_dom::*,
@@ -31,7 +32,6 @@ pub mod prelude {
         View,
     };
     pub use leptos_i18n::{self, t};
-    pub use macros::component;
     pub use time::ext::NumericalDuration;
     pub use unocss_classes::{self, uno};
 

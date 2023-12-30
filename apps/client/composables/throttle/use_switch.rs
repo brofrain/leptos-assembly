@@ -34,7 +34,7 @@ where
     F1: Fn() + 'static,
     F2: Fn() + 'static,
 {
-    let ms = debounce.whole_milliseconds() as f64;
+    let ms: f64 = num::cast(debounce.whole_milliseconds()).unwrap();
 
     let activation_meter = StoredValue::new(0);
     let active = StoredValue::new(false);

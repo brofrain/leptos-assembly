@@ -1,4 +1,5 @@
 allow-mixed-uninlined-format-args = false
+avoid-breaking-exported-api = false
 enum-variant-name-threshold = 1
 max-trait-bounds = 1
 too-many-arguments-threshold = 5
@@ -7,8 +8,6 @@ disallowed-macros = [
   { path = "leptos_dom::logging::log", reason = "The macro is intended as a debugging tool. Remove the invocation before committing it to a version control system." },
   { path = "leptos_dom::logging::debug_warn", reason = "The macro is intended as a debugging tool. Remove the invocation before committing it to a version control system." },
   { path = "leptos_dom::logging::error", reason = "For logging purposes use `log::error!` instead." },
-  { path = "leptos_macro::component", reason = "Use `#[component]` from the project's `macros` package instead." },
-  { path = "leptos_macro::server", reason = "Use `#[server]` from the project's `macros` package instead." },
 ]
 disallowed-methods = [
   { path = "leptos_reactive::signal::create_signal", reason = "Use `RwSignal::new` instead" },

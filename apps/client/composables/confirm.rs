@@ -69,6 +69,8 @@ impl Queue {
     }
 }
 
+// FIXME: use derive setters?
+#[must_use]
 #[derive(Default)]
 pub struct Options {
     custom_body: Option<ViewCallback>,

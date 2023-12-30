@@ -1,3 +1,6 @@
+// FIXME: There is nothing here currently, but it's preferred not to
+// distinguish declarative macros from procedural ones in the target codebase.
+#[allow(unused_imports)]
 pub use proc_macros::*;
 
 /// Shorthand for `mod module; use module::*;` with hushed
@@ -24,8 +27,4 @@ macro_rules! flatten_pub_mod {
             pub use $module::*;
         )*
     };
-}
-
-pub mod __exports {
-    pub use cfg_if;
 }

@@ -4,6 +4,7 @@ pub use educe;
 pub use leptos;
 pub use log;
 pub use macros::{flatten_mod, flatten_pub_mod};
+pub use num;
 pub use serde;
 pub use time;
 
@@ -14,6 +15,7 @@ pub mod prelude {
     pub use leptos;
     pub use log;
     pub use macros::{flatten_mod, flatten_pub_mod};
+    pub use num;
     pub use serde::{self, de::DeserializeOwned, Deserialize, Serialize};
 }
 

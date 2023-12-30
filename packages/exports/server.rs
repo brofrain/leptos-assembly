@@ -1,8 +1,7 @@
 pub use super::*;
 
 pub mod prelude {
-    pub use leptos::ServerFnError;
-    pub use macros::server;
+    pub use leptos::{server, ServerFnError};
 
     pub use crate::prelude::*;
 }
