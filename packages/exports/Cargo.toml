@@ -13,9 +13,8 @@ path = "lib.rs"
 
 [dependencies]
 macros.workspace = true
-derive-getters.workspace = true
-derive_setters.workspace = true
 educe.workspace = true
+getset.workspace = true
 leptos.workspace = true
 leptos_i18n = { workspace = true, optional = true }
 log.workspace = true

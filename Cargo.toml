@@ -51,11 +51,10 @@ server.path = "apps/server"
 # full-stack
 anyhow = "1.0.75"
 cfg-if = "1.0.0"
-derive-getters = "0.3.0"
 derive_more = "0.99.17"
-derive_setters = "0.1.6"
 educe = "0.5.9"
 futures = "0.3.29"
+getset = "0.1.2"
 leptos = { version = "0.5.4", features = ["nightly"] }
 leptos_animated_for = "0.1.0"
 leptos_i18n = { version = "0.2.3", features = [

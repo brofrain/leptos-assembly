@@ -1,5 +1,4 @@
-pub use derive_getters;
-pub use derive_setters;
+pub use getset;
 pub use educe;
 pub use leptos;
 pub use log;
@@ -9,8 +8,7 @@ pub use serde;
 pub use time;
 
 pub mod prelude {
-    pub use derive_getters::Getters;
-    pub use derive_setters::Setters;
+    pub use getset::{Getters, Setters,CopyGetters, MutGetters };
     pub use educe::Educe;
     pub use leptos;
     pub use log;

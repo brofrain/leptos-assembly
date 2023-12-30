@@ -6,6 +6,7 @@ use futures::channel::oneshot;
 use super::{id, ViewCallback};
 
 #[derive(Getters)]
+#[getset(get = "pub")]
 pub struct Confirm {
     id: id::Usize,
     body: ViewCallback,
@@ -69,7 +70,6 @@ impl Queue {
     }
 }
 
-// FIXME: use derive setters?
 #[must_use]
 #[derive(Default)]
 pub struct Options {

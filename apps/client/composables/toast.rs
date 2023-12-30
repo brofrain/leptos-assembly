@@ -15,6 +15,7 @@ pub enum Severity {
 }
 
 #[derive(Getters, Clone)]
+#[getset(get = "pub")]
 pub struct Toast {
     id: id::Usize,
     body: ViewCallback,
