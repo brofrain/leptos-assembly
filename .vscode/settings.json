@@ -3,8 +3,7 @@
   "i18n-ally.localesPaths": "apps/client/i18n/locales",
   "rust-analyzer.check.command": "clippy",
   "rust-analyzer.procMacro.ignored": {
-    "leptos_macro": ["component", "server"],
-    "proc_macros": ["component", "server"]
+    "leptos_macro": ["component", "server"]
   },
   "rust-analyzer.rustfmt.overrideCommand": [
     "leptosfmt",
