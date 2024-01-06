@@ -18,11 +18,7 @@ client_env.workspace = true
 client_i18n.workspace = true
 client_layouts.path = "../layouts"
 client_macros.workspace = true
-client_page_about.path = "../pages/about"
-client_page_hi_index.path = "../pages/hi/index"
-client_page_hi_name.path = "../pages/hi/[name]"
-client_page_home.path = "../pages/home"
-client_page_404.path = "../pages/404"
+client_pages.path = "../pages"
 client_router.workspace = true
 client_utils.workspace = true
 exports = { workspace = true, features = ["client"] }

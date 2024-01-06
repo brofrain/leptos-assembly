@@ -1,7 +1,7 @@
 use exports::client::prelude::*;
 use leptos_router::Outlet;
 
-use crate::shared::TheFooter;
+use crate::common::TheFooter;
 
 flatten_mod!(the_leptos_tag_info);
 

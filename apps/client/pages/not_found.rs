@@ -5,7 +5,7 @@ use exports::client::prelude::*;
 use leptos_router::{use_params, NavigateOptions};
 
 #[component]
-pub fn Index() -> impl IntoView {
+pub fn NotFound() -> impl IntoView {
     let params = use_params::<NotFoundParams>();
     let i18n = use_i18n();
 

@@ -3,7 +3,7 @@ use client_stores::{use_store, Names};
 use exports::client::prelude::*;
 
 #[component]
-pub fn Index() -> impl IntoView {
+pub fn Hi() -> impl IntoView {
     let i18n = use_i18n();
 
     let names_store = use_store::<Names>();

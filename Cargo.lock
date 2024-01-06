@@ -373,11 +373,7 @@ dependencies = [
  "client_i18n",
  "client_layouts",
  "client_macros",
- "client_page_404",
- "client_page_about",
- "client_page_hi_index",
- "client_page_hi_name",
- "client_page_home",
+ "client_pages",
  "client_router",
  "client_utils",
  "exports",
@@ -454,62 +450,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "client_page_404"
-version = "0.0.0"
-dependencies = [
- "client_components",
- "client_composables",
- "client_i18n",
- "client_router",
- "exports",
- "leptos",
- "leptos_router",
-]
-
-[[package]]
-name = "client_page_about"
-version = "0.0.0"
-dependencies = [
- "client_components",
- "client_composables",
- "client_i18n",
- "client_utils",
- "exports",
- "leptos",
- "rand",
-]
-
-[[package]]
-name = "client_page_hi_index"
-version = "0.0.0"
-dependencies = [
- "client_i18n",
- "client_router",
- "client_stores",
- "exports",
- "leptos",
- "leptos_i18n",
- "leptos_router",
-]
-
-[[package]]
-name = "client_page_hi_name"
-version = "0.0.0"
-dependencies = [
- "client_components",
- "client_composables",
- "client_i18n",
- "client_router",
- "client_stores",
- "exports",
- "leptos",
- "leptos_i18n",
- "leptos_router",
- "pct-str",
-]
-
-[[package]]
-name = "client_page_home"
+name = "client_pages"
 version = "0.0.0"
 dependencies = [
  "client_components",
@@ -518,9 +459,12 @@ dependencies = [
  "client_i18n",
  "client_router",
  "client_stores",
+ "client_utils",
  "exports",
  "leptos",
  "leptos_router",
+ "pct-str",
+ "rand",
  "web-sys",
 ]
 

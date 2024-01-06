@@ -1,5 +1,3 @@
-exports::use_macros!();
-
 use client_components::{BaseAnimatedFor, BaseButton};
 use client_composables::{
     id,
@@ -86,7 +84,7 @@ impl FeatureBrick {
 }
 
 #[component]
-pub fn Index() -> impl IntoView {
+pub fn About() -> impl IntoView {
     let i18n = use_i18n();
     let rng = StoredValue::new(thread_rng());
 

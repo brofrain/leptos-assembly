@@ -40,11 +40,11 @@ pub fn App() -> impl IntoView {
             <Router>
                 <Routes>
                     <RouteView path="" view=client_layouts::Home>
-                        <RouteView path=Route::Home view=client_page_home::Index/>
+                        <RouteView path=Route::Home view=client_pages::Index/>
                     </RouteView>
 
                     <RouteView path="" view=client_layouts::Default>
-                        <RouteView path=Route::Hi(None) view=client_page_hi_index::Index/>
+                        <RouteView path=Route::Hi(None) view=client_pages::Hi/>
                         <RouteView
                             path=Route::Hi(
                                 Some(HiParams {
@@ -52,9 +52,9 @@ pub fn App() -> impl IntoView {
                                 }),
                             )
 
-                            view=client_page_hi_name::Index
+                            view=client_pages::HiName
                         />
-                        <RouteView path=Route::About view=client_page_about::Index/>
+                        <RouteView path=Route::About view=client_pages::About/>
                     </RouteView>
 
                     <RouteView path="" view=client_layouts::Blank>
@@ -63,7 +63,7 @@ pub fn App() -> impl IntoView {
                                 path: "*path".to_owned(),
                             })
 
-                            view=client_page_404::Index
+                            view=client_pages::NotFound
                         />
                     </RouteView>
 
