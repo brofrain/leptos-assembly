@@ -55,7 +55,7 @@ async fn main() {
     tracing_subscriber::registry()
         .with(tracing_subscriber::EnvFilter::from(
             #[cfg(debug_assertions)]
-            "debug,hyper=warn",
+            "debug,hyper=info",
             #[cfg(not(debug_assertions))]
             "warn",
         ))
