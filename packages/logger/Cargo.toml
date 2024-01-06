@@ -12,13 +12,6 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-cfg-if.workspace = true
 log.workspace = true
-fern = "0.6.2"
-
-[target.'cfg(target_arch = "wasm32")'.dependencies]
 console_log = { version = "1.0.0", features = ["color"] }
-
-[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-time.workspace = true
-owo-colors.version = "3.5.0"
+fern = "0.6.2"

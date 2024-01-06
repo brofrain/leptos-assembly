@@ -11,7 +11,8 @@ use leptos::{get_configuration, LeptosOptions};
 use leptos_axum::{generate_route_list_with_exclusions, LeptosRoutes};
 use leptos_integration_utils::html_parts_separated;
 use tower::ServiceExt;
-use tower_http::services::ServeDir;
+use tower_http::{services::ServeDir, trace::TraceLayer};
+use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 async fn pwa_index_handler(
     State(options): State<LeptosOptions>,
@@ -51,7 +52,15 @@ async fn file_and_error_handler(
 
 #[tokio::main]
 async fn main() {
-    logger::init!();
+    tracing_subscriber::registry()
+        .with(tracing_subscriber::EnvFilter::from(
+            #[cfg(debug_assertions)]
+            "debug,hyper=warn",
+            #[cfg(not(debug_assertions))]
+            "warn",
+        ))
+        .with(tracing_subscriber::fmt::layer())
+        .init();
 
     let conf = get_configuration(None).await.unwrap();
     let leptos_options = conf.leptos_options;
@@ -66,7 +75,8 @@ async fn main() {
         .route("/pwa", get(pwa_index_handler))
         .leptos_routes(&leptos_options, routes, App)
         .fallback(file_and_error_handler)
-        .with_state(leptos_options);
+        .with_state(leptos_options)
+        .layer(TraceLayer::new_for_http());
 
     log::info!("Listening on http://{addr}");
 
