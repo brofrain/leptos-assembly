@@ -1,4 +1,4 @@
-use client_composables::panic_handler;
+use client_composables::{logger, panic_handler};
 use client_i18n::provide_i18n_context;
 use client_router::{HiParams, NotFoundParams, Route};
 use client_utils::reactivity::provide_global_context;
@@ -13,6 +13,7 @@ flatten_mod!(the_confirms, the_overlay, the_toasts);
 pub fn App() -> impl IntoView {
     let i18n = provide_i18n_context();
 
+    logger::init();
     panic_handler::init();
     provide_meta_context();
     provide_global_context();

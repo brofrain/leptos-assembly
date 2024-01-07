@@ -1,7 +1,6 @@
-use fern::Dispatch;
-
 pub fn init() {
-    Dispatch::new()
+    #[cfg(target_arch = "wasm32")]
+    fern::Dispatch::new()
         .level(
             #[cfg(debug_assertions)]
             log::LevelFilter::Debug,

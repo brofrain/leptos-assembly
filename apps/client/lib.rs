@@ -6,7 +6,6 @@ cfg_if! {
 
         #[wasm_bindgen]
         pub fn hydrate() {
-            logger::init();
             leptos::mount_to_body(client_app::App);
         }
     }

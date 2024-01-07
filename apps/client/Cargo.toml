@@ -15,7 +15,6 @@ path = "lib.rs"
 [dependencies]
 cfg-if.workspace = true
 client_app.path = "app"
-logger.workspace = true
 leptos.workspace = true
 leptos_animated_for.workspace = true
 leptos_i18n.workspace = true
