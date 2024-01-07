@@ -1,22 +1,22 @@
 [workspace]
 resolver = "2"
 members = [
-  "build/core",
-  "build/pwa",
-  "apps/client",
-  "apps/client/app",
-  "apps/client/components",
-  "apps/client/composables",
-  "apps/client/env",
-  "apps/client/i18n",
-  "apps/client/layouts",
-  "apps/client/macros",
-  "apps/client/macros/proc",
-  "apps/client/pages",
-  "apps/client/router",
-  "apps/client/stores",
-  "apps/client/utils",
-  "apps/server",
+  "apps/core",
+  "apps/pwa",
+  "packages/client",
+  "packages/client/app",
+  "packages/client/components",
+  "packages/client/composables",
+  "packages/client/env",
+  "packages/client/i18n",
+  "packages/client/layouts",
+  "packages/client/macros",
+  "packages/client/macros/proc",
+  "packages/client/pages",
+  "packages/client/router",
+  "packages/client/stores",
+  "packages/client/utils",
+  "packages/server",
   "packages/exports",
   "packages/macros",
   "packages/macros/proc",
@@ -29,19 +29,19 @@ edition = "2021"
 rust-version = "1.73"
 
 [workspace.dependencies]
-client.path = "apps/client"
-client_components.path = "apps/client/components"
-client_composables.path = "apps/client/composables"
-client_env.path = "apps/client/env"
-client_i18n.path = "apps/client/i18n"
-client_macros.path = "apps/client/macros"
-client_router.path = "apps/client/router"
-client_stores.path = "apps/client/stores"
-client_utils.path = "apps/client/utils"
+client.path = "packages/client"
+client_components.path = "packages/client/components"
+client_composables.path = "packages/client/composables"
+client_env.path = "packages/client/env"
+client_i18n.path = "packages/client/i18n"
+client_macros.path = "packages/client/macros"
+client_router.path = "packages/client/router"
+client_stores.path = "packages/client/stores"
+client_utils.path = "packages/client/utils"
 exports.path = "packages/exports"
 macros.path = "packages/macros"
 utils.path = "packages/utils"
-server.path = "apps/server"
+server.path = "packages/server"
 # full-stack
 anyhow = "1.0.75"
 cfg-if = "1.0.0"
