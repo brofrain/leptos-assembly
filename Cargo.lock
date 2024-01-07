@@ -566,16 +566,9 @@ dependencies = [
 name = "core"
 version = "0.0.0"
 dependencies = [
- "axum",
  "client",
- "leptos",
- "leptos_axum",
- "leptos_integration_utils",
- "log",
+ "server",
  "tokio",
- "tower",
- "tower-http",
- "tracing-subscriber",
 ]
 
 [[package]]
@@ -2524,10 +2517,17 @@ dependencies = [
 name = "server"
 version = "0.0.0"
 dependencies = [
+ "axum",
  "exports",
  "leptos",
+ "leptos_axum",
+ "leptos_integration_utils",
+ "log",
  "reqwest",
  "serde",
+ "tower",
+ "tower-http",
+ "tracing-subscriber",
 ]
 
 [[package]]

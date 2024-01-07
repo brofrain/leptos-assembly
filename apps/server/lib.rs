@@ -1,22 +1,6 @@
-use exports::server::prelude::*;
+exports::server::use_macros!();
 
-#[server]
-pub async fn get_leptos_tag() -> Result<String, ServerFnError> {
-    use reqwest::{header::USER_AGENT, Client};
+flatten_pub_mod!(api);
 
-    #[derive(Deserialize, Clone)]
-    struct Data {
-        tag_name: String,
-    }
-
-    let tag = Client::new()
-        .get("https://api.github.com/repos/leptos-rs/leptos/releases/latest")
-        .header(USER_AGENT, "app")
-        .send()
-        .await?
-        .json::<Data>()
-        .await?
-        .tag_name;
-
-    Ok(tag)
-}
+#[cfg(not(target_arch = "wasm32"))]
+flatten_pub_mod!(app);
