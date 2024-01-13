@@ -1,4 +1,4 @@
-pub fn init() {
+pub const fn init() {
     #[cfg(target_arch = "wasm32")]
     fern::Dispatch::new()
         .level(

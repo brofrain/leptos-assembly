@@ -23,8 +23,8 @@ pub enum ResolutionStatus {
 }
 
 impl ResolutionStatus {
-    pub fn is_accepted(&self) -> bool {
-        matches!(self, ResolutionStatus::Accepted)
+    pub const fn is_accepted(&self) -> bool {
+        matches!(self, Self::Accepted)
     }
 }
 
@@ -100,7 +100,7 @@ macro_rules! options_setters {
 impl Options {
     options_setters!(body, accept, cancel);
 
-    pub fn disable_cancel(mut self) -> Self {
+    pub const fn disable_cancel(mut self) -> Self {
         self.disable_cancel = true;
         self
     }

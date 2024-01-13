@@ -44,7 +44,7 @@ impl Names {
         (self.last_name.0)()
     }
 
-    pub fn other_names_sorted(&self) -> Memo<Vec<String>> {
+    pub const fn other_names_sorted(&self) -> Memo<Vec<String>> {
         self.other_names_sorted
     }
 
