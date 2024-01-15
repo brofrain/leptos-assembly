@@ -1,5 +1,6 @@
 meta:
   title: Leptos Assembly
+  description: Full stack, fully packed
 common:
   button:
     back: Back
