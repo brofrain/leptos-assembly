@@ -158,11 +158,11 @@ fmt-check:
 
 # Checks Rust codebase
 check:
-    cargo check --workspace
+    cargo check --workspace --all-targets
 
 # Lints Rust codebase with Clippy
 lint-rs:
-    cargo clippy
+    cargo clippy --workspace --all-targets
 
 # Checks for TypeScript errors
 lint-ts:
