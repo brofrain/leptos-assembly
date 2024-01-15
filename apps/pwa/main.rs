@@ -7,4 +7,4 @@
 // We choose the first option here, as it introduces no new CLI tools to the
 // project. Everything is bundled and optimized by cargo-leptos, thus
 // maintaining the workaround should be the least painful.
-pub fn main() {}
+pub const fn main() {}
