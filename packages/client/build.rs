@@ -6,6 +6,10 @@ fn main() {
     println!("cargo:rerun-if-changed=components");
     println!("cargo:rerun-if-changed=layouts");
     println!("cargo:rerun-if-changed=pages");
+    println!("cargo:rerun-if-changed=styles");
+    println!("cargo:rerun-if-changed=js");
+    println!("cargo:rerun-if-changed=uno.config.ts");
+    println!("cargo:rerun-if-changed=vite.config.ts");
 
     if !cfg!(feature = "vite-prebuild") {
         return;

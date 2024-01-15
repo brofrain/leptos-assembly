@@ -60,6 +60,7 @@ const pwa = () =>
     manifest: {
       name: "App",
       short_name: "App",
+      description: "App",
       theme_color: "#ffffff",
       icons: [
         {

@@ -1,5 +1,5 @@
-pub const fn init() {
-    #[cfg(target_arch = "wasm32")]
+#[cfg(target_arch = "wasm32")]
+pub fn init() {
     fern::Dispatch::new()
         .level(
             #[cfg(debug_assertions)]
@@ -14,3 +14,6 @@ pub const fn init() {
         .apply()
         .expect("Failed to initialize logger");
 }
+
+#[cfg(not(target_arch = "wasm32"))]
+pub const fn init() {}
