@@ -30,7 +30,7 @@ macro_rules! t_get_untracked {
     }
 }
 
-/// Returns translation tranformed into [`leptos::View`]. Shorthand for
+/// Returns translation transformed into [`leptos::View`]. Shorthand for
 /// `i18n::get_keys().*.into_view()`.
 #[macro_export]
 macro_rules! t_view {
@@ -39,7 +39,7 @@ macro_rules! t_view {
     };
 }
 
-/// Returns untracked translation tranformed into [`leptos::View`]. Shorthand
+/// Returns untracked translation transformed into [`leptos::View`]. Shorthand
 /// for `i18n::get_keys_untracked().*.into_view()`.
 #[macro_export]
 macro_rules! t_view_untracked {
@@ -48,7 +48,7 @@ macro_rules! t_view_untracked {
     };
 }
 
-/// Returns translation tranformed into [`String`]. Shorthand
+/// Returns translation transformed into [`String`]. Shorthand
 /// for `td_string!(i18n::get_locale(), ...)`.
 #[macro_export]
 macro_rules! t_string {
@@ -60,7 +60,7 @@ macro_rules! t_string {
     };
 }
 
-/// Returns translation tranformed into [`String`]. Shorthand
+/// Returns translation transformed into [`String`]. Shorthand
 /// for `td_string!(i18n::get_locale_untracked(), ...)`.
 #[macro_export]
 macro_rules! t_string_untracked {

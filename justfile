@@ -1,6 +1,6 @@
 _default: help
 
-# Prints avialable recipes
+# Prints available recipes
 @help:
     echo "\nRun a task using \`just [RECIPE]\`."
     just --list
@@ -168,13 +168,17 @@ lint-rs:
 lint-ts:
     npx tsc
 
+# Checks for typos
+lint-typos:
+    typos
+
 # Lints the project
-lint: lint-rs lint-ts
+lint: lint-rs lint-ts lint-typos
 
 # Lints the project without optimizations and disallows warnings
 lint-ci:
     cargo clippy --profile dev-ci -- -D warnings
-    just lint-ts
+    just lint-ts lint-typos
 
 # --- Security ---
 
@@ -199,6 +203,7 @@ cargo-nextest@0.9.66
 cargo-outdated@0.14.0
 cargo-audit@0.18.3
 cargo-udeps@0.1.44
+typos-cli@1.17.1
 ''', '\s+', ' ')
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.75
@@ -241,7 +246,7 @@ setup:
     just _setup {{ CARGO_EXECUTABLES }} {{ CARGO_DEV_EXECUTABLES }}
     just clean
 
-# Performs project setup, but skips dependencies ununsed in CI
+# Performs project setup, but skips dependencies unused in CI
 setup-ci:
     just _setup {{ CARGO_EXECUTABLES }}
 

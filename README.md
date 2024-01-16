@@ -44,7 +44,7 @@ Additionally, the project aspires to implement a strict, predictable and scalabl
 
 ### Core plugins:
 
-- [Routing](https://leptos-rs.github.io/leptos/router/index.html) - necessity for most apps nowdays
+- [Routing](https://leptos-rs.github.io/leptos/router/index.html) - necessity for most apps nowadays
 
 - [Leptos-Use](https://leptos-use.rs/) - lots of useful stuff
 
@@ -76,7 +76,7 @@ Additionally, the project aspires to implement a strict, predictable and scalabl
 
 - [vite-plugin-pwa](https://github.com/vite-pwa/vite-plugin-pwa) - you probably don't want your users to download that fat `.wasm` file every time they visit the website
 
-- [Webfont Dowload Vite plugin](https://github.com/feat-agency/vite-plugin-webfont-dl) - self-hoisted Google fonts without polluting our repository with them
+- [Webfont Download Vite plugin](https://github.com/feat-agency/vite-plugin-webfont-dl) - self-hoisted Google fonts without polluting our repository with them
 
 - [pnpm](https://pnpm.io/) - package manager for Node dependencies
 
