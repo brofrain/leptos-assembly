@@ -65,7 +65,8 @@ const pwa = () =>
           manifest: entries.map(({ url, size }) => ({
             url,
             size,
-            revision: buildPipelineId,
+            // fonts rarely change and their filenames are already hashed
+            revision: url.endsWith(".woff2") ? null : buildPipelineId,
           })),
         }),
       ],
