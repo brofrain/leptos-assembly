@@ -769,6 +769,7 @@ dependencies = [
  "educe",
  "getset",
  "leptos",
+ "leptos-use",
  "leptos_i18n",
  "log",
  "macros",

@@ -1,10 +1,11 @@
 use std::collections::VecDeque;
 
-use client_utils::{future::sleep, reactivity::use_global_context};
+use client_utils::{
+    future::sleep,
+    reactivity::{use_global_context, ViewCallback},
+};
 use exports::client::prelude::*;
 use utils::id;
-
-use super::ViewCallback;
 
 #[derive(Default, Clone, Copy)]
 pub enum Severity {

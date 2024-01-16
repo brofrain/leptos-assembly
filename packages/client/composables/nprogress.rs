@@ -1,8 +1,9 @@
 use client_macros::bind_js_fn;
-use client_utils::reactivity::use_global_context_with_initializer;
+use client_utils::reactivity::{
+    throttle::{use_switch, UseSwitch},
+    use_global_context_with_initializer,
+};
 use exports::time::ext::NumericalDuration;
-
-use super::throttle::{use_switch, UseSwitch};
 
 bind_js_fn! { nprogress => start() }
 bind_js_fn! { nprogress => done() }

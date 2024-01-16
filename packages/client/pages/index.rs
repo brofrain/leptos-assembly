@@ -50,7 +50,7 @@ pub fn Index() -> impl IntoView {
         }
     };
 
-    let name_is_empty = (move || name().is_empty()).into_signal();
+    let name_is_empty = (move || with!(|name| name.is_empty())).into_signal();
 
     view! {
         <div class="text-center">

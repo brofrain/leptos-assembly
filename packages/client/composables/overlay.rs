@@ -1,7 +1,8 @@
-use client_utils::reactivity::use_global_context_with_initializer;
+use client_utils::reactivity::{
+    throttle::{use_switch, UseSwitch},
+    use_global_context_with_initializer,
+};
 use exports::client::prelude::*;
-
-use super::throttle::{use_switch, UseSwitch};
 
 #[derive(Clone, Copy)]
 struct Ctx {

@@ -1,5 +1,6 @@
 pub use leptos_i18n;
 pub use unocss_classes;
+pub use leptos_use;
 
 pub use super::*;
 
