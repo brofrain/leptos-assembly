@@ -1,7 +1,7 @@
 use std::fmt;
 
 use leptos::Params;
-use leptos_router::{IntoParam, NavigateOptions, Params};
+use leptos_router::{NavigateOptions, Params};
 
 #[derive(Params, PartialEq)]
 pub struct HiParams {
