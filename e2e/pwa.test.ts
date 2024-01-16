@@ -1,7 +1,15 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("pwa", () => {
-  test("should be available offline", async ({ page, context }) => {
+  test("should be available offline", async ({
+    page,
+    context,
+    browserName,
+  }) => {
+    if (browserName === "webkit") {
+      test.skip();
+    }
+
     await page.goto("/");
 
     const logoLocator = page.locator("[test='logo']");

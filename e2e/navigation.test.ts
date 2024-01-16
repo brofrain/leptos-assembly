@@ -18,6 +18,7 @@ test.describe("navigation", () => {
       await expect(page).toHaveURL(HOME_REG);
 
       await page.locator("input").fill(HI_NAME);
+      await page.waitForTimeout(500);
       await page.locator("button").click();
 
       await page.locator("[test='confirm-accept-btn']").click();
@@ -30,6 +31,7 @@ test.describe("navigation", () => {
 
       const input = page.locator("input");
       await input.fill(HI_NAME);
+      await page.waitForTimeout(500);
       await input.press("Enter");
 
       await page.locator("[test='confirm-accept-btn']").click();
