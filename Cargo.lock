@@ -410,6 +410,7 @@ dependencies = [
  "leptos-use",
  "log",
  "paste",
+ "utils",
  "wasm-bindgen",
 ]
 
@@ -467,6 +468,7 @@ dependencies = [
  "leptos_router",
  "pct-str",
  "rand",
+ "utils",
  "web-sys",
 ]
 

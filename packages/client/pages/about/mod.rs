@@ -1,12 +1,10 @@
 use client_components::{BaseAnimatedFor, BaseButton};
-use client_composables::{
-    id,
-    toast::{self, Severity},
-};
+use client_composables::toast::{self, Severity};
 use client_i18n::use_i18n;
 use client_utils::future::{next_tick, spawn_local_owned};
 use exports::client::prelude::*;
 use rand::{seq::SliceRandom, thread_rng, Rng};
+use utils::id;
 
 mod components {
     flatten_pub_mod!(feature_brick);
