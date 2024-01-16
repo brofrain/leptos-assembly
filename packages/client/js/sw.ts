@@ -1,9 +1,9 @@
 /// <reference lib="WebWorker" />
 
-import { clientsClaim } from "workbox-core";
+import { cacheNames, clientsClaim } from "workbox-core";
 import { precacheAndRoute } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { NetworkFirst } from "workbox-strategies";
+import { CacheFirst } from "workbox-strategies";
 
 declare const self: ServiceWorkerGlobalScope;
 declare const __BUILD_PIPELINE_ID__: string;
@@ -19,11 +19,18 @@ precacheAndRoute([
 
 registerRoute(
   ({ url }) => url.pathname.startsWith("/hydrate"),
-  (options) => {
+  async (options) => {
     const request = new Request(
-      options.request.url.replace("/hydrate", "/pwa"),
+      `${options.url.pathname.replace(
+        "/hydrate",
+        "/pwa",
+      )}?__WB_REVISION__=${__BUILD_PIPELINE_ID__}`,
     );
-    return new NetworkFirst().handle({ ...options, request });
+
+    const cache = await caches.open(cacheNames.precache);
+    const response = await cache.match(request);
+
+    return response || new CacheFirst().handle({ ...options, request });
   },
 );
 
@@ -32,8 +39,14 @@ registerRoute(
     !url.pathname.startsWith("/api") &&
     !url.pathname.startsWith("/assets") &&
     !url.pathname.startsWith("/pwa"),
-  (options) => {
-    const request = new Request("/pwa");
-    return new NetworkFirst().handle({ ...options, request });
+  async (options) => {
+    const request = new Request(
+      `/pwa?__WB_REVISION__=${__BUILD_PIPELINE_ID__}`,
+    );
+
+    const cache = await caches.open(cacheNames.precache);
+    const response = await cache.match(request);
+
+    return response || new CacheFirst().handle({ ...options, request });
   },
 );

@@ -46,6 +46,8 @@ const unocssWithFonts = (
   return [Unocss({ theme: { fontFamily } }), WebfontDownload(urls)];
 };
 
+const buildPipelineId = uuid();
+
 const pwa = () =>
   VitePWA({
     strategies: "injectManifest",
@@ -54,7 +56,19 @@ const pwa = () =>
     base: "/",
     outDir: "../../target/client-prebuild",
     injectManifest: {
-      globPatterns: ["assets/**/*.{js,css,ico,svg,woff2}", "pwa/*.{js,wasm}"],
+      globPatterns: [
+        "assets/**/*.{js,css,ico,svg,woff2,webmanifest}",
+        "pwa/*.{js,wasm}",
+      ],
+      manifestTransforms: [
+        (entries) => ({
+          manifest: entries.map(({ url, size }) => ({
+            url,
+            size,
+            revision: buildPipelineId,
+          })),
+        }),
+      ],
       maximumFileSizeToCacheInBytes: 1024 * 1024 * 10, // 10MB
     },
     manifest: {
@@ -88,7 +102,7 @@ const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
 
 export default defineConfig({
   define: {
-    __BUILD_PIPELINE_ID__: JSON.stringify(uuid()),
+    __BUILD_PIPELINE_ID__: JSON.stringify(buildPipelineId),
   },
   base: "/assets",
   build: {
