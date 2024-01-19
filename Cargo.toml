@@ -72,7 +72,6 @@ thiserror = "1.0.51"
 time = { version = "0.3.31", features = ["macros", "formatting", "parsing"] }
 unocss-classes = "2.0.0"
 wasm-bindgen = "0.2.90"
-wasm-bindgen-futures = "0.4.40"
 web-sys = { version = "0.3.67", features = [
   "CssStyleDeclaration",
   "DomRect",

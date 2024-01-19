@@ -382,7 +382,6 @@ dependencies = [
  "leptos_router",
  "macros",
  "wasm-bindgen",
- "wasm-bindgen-futures",
  "web-sys",
 ]
 

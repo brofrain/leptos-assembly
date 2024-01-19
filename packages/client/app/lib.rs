@@ -1,3 +1,5 @@
+#![feature(let_chains)]
+
 use client_composables::{logger, panic_handler};
 use client_i18n::provide_i18n_context;
 use client_router::{HiParams, NotFoundParams, Route};

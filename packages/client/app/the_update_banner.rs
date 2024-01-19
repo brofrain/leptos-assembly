@@ -7,31 +7,36 @@ pub fn TheUpdateBanner() -> impl IntoView {
     let i18n = use_i18n();
     let show = RwSignal::new(false);
 
-    #[cfg(target_arch = "wasm32")]
+    #[cfg(all(target_arch = "wasm32", feature = "pwa"))]
     {
         use wasm_bindgen::{closure::Closure, JsCast};
-        use wasm_bindgen_futures::JsFuture;
+        use web_sys::ServiceWorkerState;
 
-        spawn_local(async move {
-            if let Ok(sw_ready_promise) =
-                window().navigator().service_worker().ready()
-            {
-                if JsFuture::from(sw_ready_promise).await.is_ok() {
-                    let controllerchange_cb =
-                        Closure::<dyn Fn()>::wrap(Box::new(move || {
-                            show.set(true);
-                        }))
-                        .into_js_value();
+        let update_cb = Closure::<dyn Fn()>::wrap(Box::new(move || {
+            show.set(true);
+        }))
+        .into_js_value();
 
-                    window()
-                        .navigator()
-                        .service_worker()
-                        .set_oncontrollerchange(Some(
-                            controllerchange_cb.unchecked_ref(),
-                        ));
+        let sw_container = window().navigator().service_worker();
+
+        if let Some(sw) = window().navigator().service_worker().controller()
+            && sw.state() == ServiceWorkerState::Activated
+        {
+            sw_container
+                .set_oncontrollerchange(Some(update_cb.unchecked_ref()));
+        } else {
+            let init_cb = Closure::<dyn Fn()>::wrap(Box::new({
+                let sw_container = sw_container.clone();
+                move || {
+                    sw_container.set_oncontrollerchange(Some(
+                        update_cb.unchecked_ref(),
+                    ));
                 }
-            }
-        });
+            }))
+            .into_js_value();
+
+            sw_container.set_oncontrollerchange(Some(init_cb.unchecked_ref()));
+        }
     }
 
     view! {
