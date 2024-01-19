@@ -160,9 +160,16 @@ fmt-check:
 check:
     cargo check --workspace --all-targets
 
+# FIXME: this would make life easier, but seems broken: https://doc.rust-lang.org/cargo/reference/unstable.html#per-package-target
+_lint-wasm:
+    for dir in `ls packages | grep -v server`; do \
+        (cd "packages/$dir" && cargo clippy --target wasm32-unknown-unknown -- -A clippy::str-to-string); \
+    done
+
 # Lints Rust codebase with Clippy
 lint-rs:
     cargo clippy --workspace --all-targets
+    just _lint-wasm
 
 # Checks for TypeScript errors
 lint-ts:
