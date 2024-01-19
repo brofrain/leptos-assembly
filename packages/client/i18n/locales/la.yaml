@@ -12,6 +12,9 @@ common:
 panic_confirm:
   body: Inopinatum error inciderunt!
   accept: Reload paginae
+sw_update:
+  body: Nova versio applicationis praesto est!
+  accept: Reload paginae
 locale:
   changed: Locus mutatus est ad "{{new_locale}}"
 nav:

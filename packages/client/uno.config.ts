@@ -13,6 +13,7 @@ export default defineConfig({
 
   shortcuts: [
     ["cover", "absolute inset-0 max-w-full max-h-full rounded-[inherit]"],
+    ["flex-center", "flex items-center justify-center"],
   ],
 
   theme: { duration: { DEFAULT: "200ms" } },

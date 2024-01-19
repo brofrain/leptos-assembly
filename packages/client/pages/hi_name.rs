@@ -40,7 +40,7 @@ pub fn HiName() -> impl IntoView {
                 <em class="text-xs op60">{t!(i18n, name.description)}</em>
             </p>
 
-            <Show when=move || !other_names_sorted().is_empty() fallback=|| {}>
+            <Show when=move || !other_names_sorted().is_empty()>
                 <div class="text-sm mt4">
                     <span class="op75">{t!(i18n, name.aka)} ":"</span>
 
