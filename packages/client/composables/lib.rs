@@ -6,4 +6,5 @@ pub mod logger;
 pub mod nprogress;
 pub mod overlay;
 pub mod panic_handler;
+pub mod sw;
 pub mod toast;

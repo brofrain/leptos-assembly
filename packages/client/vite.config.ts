@@ -113,7 +113,7 @@ export default defineConfig({
     cssMinify: releaseMode && "lightningcss",
     lib: {
       formats: ["es"],
-      entry: "js/bindings.ts",
+      entry: "js/bindings/index.ts",
       fileName: "bindings",
     },
   },

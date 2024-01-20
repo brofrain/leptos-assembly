@@ -23,6 +23,9 @@ dependencies:
   workbox-strategies:
     specifier: ^7.0.0
     version: 7.0.0
+  workbox-window:
+    specifier: ^7.0.0
+    version: 7.0.0
 
 devDependencies:
   '@biomejs/biome':
@@ -1910,7 +1913,6 @@ packages:
 
   /@types/trusted-types@2.0.7:
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
-    dev: true
 
   /@types/uuid@9.0.7:
     resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
@@ -4383,7 +4385,6 @@ packages:
     dependencies:
       '@types/trusted-types': 2.0.7
       workbox-core: 7.0.0
-    dev: true
 
   /wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}

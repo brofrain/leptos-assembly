@@ -21,6 +21,12 @@ pub fn App() -> impl IntoView {
     provide_global_context();
     use_color_mode();
 
+    #[cfg(all(feature = "pwa", target_arch = "wasm32"))]
+    {
+        use client_composables::sw;
+        sw::register();
+    }
+
     view! {
         <Title text=t!(i18n, meta.title)/>
         <Meta name="description" content=t!(i18n, meta.description)/>
@@ -35,11 +41,7 @@ pub fn App() -> impl IntoView {
 
         {#[cfg(feature = "pwa")]
         {
-            use leptos_meta::Script;
-            view! {
-                <Link rel="manifest" href="/assets/manifest.webmanifest"/>
-                <Script src="/assets/registerSW.js" async_=""/>
-            }
+            view! { <Link rel="manifest" href="/assets/manifest.webmanifest"/> }
         }}
 
         <Html class="dark"/>
