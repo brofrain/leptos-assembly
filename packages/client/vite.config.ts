@@ -47,9 +47,20 @@ const unocssWithFonts = (
 };
 
 const buildPipelineId = uuid();
+const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
+
+const ALREADY_HASHED_FILENAME_REGEXES = [
+  /\.woff2$/,
+  /^assets\/workbox-window\.prod\..*\.js$/,
+  /^assets\/virtual_pwa-register-.*\.js$/,
+];
+
+const isAlreadyHashed = (url: string) =>
+  ALREADY_HASHED_FILENAME_REGEXES.some((r) => r.test(url));
 
 const pwa = () =>
   VitePWA({
+    disable: !pwaEnabled,
     strategies: "injectManifest",
     srcDir: "js",
     filename: "sw.ts",
@@ -57,7 +68,7 @@ const pwa = () =>
     outDir: "../../target/client-prebuild",
     injectManifest: {
       globPatterns: [
-        "assets/**/*.{js,css,ico,svg,woff2,webmanifest}",
+        "assets/**/*.{js,css,ico,png,svg,woff2,webmanifest}",
         "pwa/*.{js,wasm}",
       ],
       manifestTransforms: [
@@ -65,8 +76,7 @@ const pwa = () =>
           manifest: entries.map(({ url, size }) => ({
             url,
             size,
-            // fonts rarely change and their filenames are already hashed
-            revision: url.endsWith(".woff2") ? null : buildPipelineId,
+            revision: isAlreadyHashed(url) ? null : buildPipelineId,
           })),
         }),
       ],
@@ -99,7 +109,6 @@ const pwa = () =>
   });
 
 const releaseMode = process.env.PROFILE !== "debug";
-const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
 
 export default defineConfig({
   define: {
@@ -130,7 +139,6 @@ export default defineConfig({
         italic: true,
       },
     }),
-
-    pwaEnabled ? pwa() : null,
+    pwa(),
   ],
 });
