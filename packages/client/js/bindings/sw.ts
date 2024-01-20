@@ -5,11 +5,14 @@ export const sw = {
     registerSW({
       onRegistered: (r) =>
         r &&
-        setInterval(async () => {
-          try {
-            await r.update();
-          } catch {}
-        }, 1000 * 5),
+        setInterval(
+          async () => {
+            try {
+              await r.update();
+            } catch {}
+          },
+          1000 * 60 * 2, // 2 minutes
+        ),
     });
   },
 };
