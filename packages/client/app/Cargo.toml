@@ -27,8 +27,6 @@ leptos.workspace = true
 leptos_meta.workspace = true
 leptos_router.workspace = true
 leptos-use.workspace = true
-wasm-bindgen.workspace = true
-web-sys.workspace = true
 
 [features]
 pwa = []

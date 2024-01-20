@@ -1,5 +1,3 @@
-#![feature(let_chains)]
-
 use client_composables::{logger, panic_handler};
 use client_i18n::provide_i18n_context;
 use client_router::{HiParams, NotFoundParams, Route};
@@ -21,7 +19,7 @@ pub fn App() -> impl IntoView {
     provide_global_context();
     use_color_mode();
 
-    #[cfg(all(feature = "pwa", target_arch = "wasm32"))]
+    #[cfg(all(target_arch = "wasm32", feature = "pwa"))]
     {
         use client_composables::sw;
         sw::register();

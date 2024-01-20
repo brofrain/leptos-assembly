@@ -1,3 +1,5 @@
+#![feature(let_chains)]
+
 exports::use_macros!();
 
 pub mod confirm;
