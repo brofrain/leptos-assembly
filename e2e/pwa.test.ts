@@ -12,12 +12,18 @@ test.describe("pwa", () => {
 
     await page.goto("/");
 
+    await page.evaluate(
+      () =>
+        new Promise((resolve) =>
+          navigator.serviceWorker.addEventListener("controllerchange", resolve),
+        ),
+    );
+
     const logoLocator = page.locator("[test='logo']");
 
     await logoLocator.waitFor();
     expect(await logoLocator.isVisible()).toBe(true);
 
-    await page.evaluate(() => navigator.serviceWorker.ready);
     await context.setOffline(true);
     await page.reload();
 
