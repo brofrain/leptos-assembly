@@ -15,6 +15,7 @@ path = "lib.rs"
 macros.workspace = true
 educe.workspace = true
 getset.workspace = true
+icondata.workspace = true
 leptos.workspace = true
 leptos_i18n = { workspace = true, optional = true }
 leptos-use = { workspace = true, optional = true }

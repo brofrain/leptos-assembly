@@ -49,6 +49,7 @@ derive_more = "0.99.17"
 educe = "0.5.9"
 futures = "0.3.29"
 getset = "0.1.2"
+icondata = "0.3.0"
 leptos = { version = "0.5.5", features = ["nightly"] }
 leptos_animated_for = "0.1.0"
 leptos_i18n = { version = "0.2.3", features = [
@@ -145,6 +146,7 @@ lib-features = ["hydrate", "vite-prebuild"]
 lib-default-features = false
 lib-profile-dev = "client-dev"
 lib-profile-release = "client-release"
+watch-additional-files = ["apps/core", "packages"]
 
 [[workspace.metadata.leptos]]
 name = "core-pwa"

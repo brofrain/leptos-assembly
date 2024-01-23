@@ -1,18 +1,22 @@
-use exports::client::prelude::*;
+use exports::client::{icondata as i, prelude::*};
+
+use crate::BaseIcon;
 
 #[component]
 pub fn TheLogo(
     #[prop(optional, into)] class: MaybeProp<String>,
 ) -> impl IntoView {
     view! {
-        <div
-            class=move || {
+        <BaseIcon
+            icon=i::SiLeptos
+            class=Signal::derive(move || {
                 uno![
-                    "icon-simple-icons-leptos", "text-secondary hover:text-accent",
-                    "transition-colors", "cursor-pointer", class()
+                    "text-secondary hover:text-accent", "transition-colors", "cursor-pointer",
+                    class()
                 ]
-            }
-            test="logo"
-        ></div>
+            })
+
+            attr:test="logo"
+        />
     }
 }

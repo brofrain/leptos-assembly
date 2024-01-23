@@ -10,14 +10,15 @@ disallowed-macros = [
   { path = "leptos_dom::error", reason = "For logging purposes use `log::error!` instead." },
 ]
 disallowed-methods = [
-  { path = "leptos_reactive::signal::create_signal", reason = "Use `RwSignal::new` instead" },
-  { path = "leptos_reactive::signal::create_rw_signal", reason = "Use `RwSignal::new` instead" },
-  { path = "leptos_reactive::memo::create_memo", reason = "Use `Memo::new` instead" },
-  { path = "leptos_reactive::effect::create_effect", reason = "Use `Effect::new` instead" },
-  { path = "leptos_reactive::resource::create_resource", reason = "Use `Resource::new` instead" },
-  { path = "leptos_reactive::resource::create_local_resource", reason = "Use `LocalResource::new` instead" },
-  { path = "leptos_reactive::stored_value::store_value", reason = "Use `StoredValue::new` instead" },
+  { path = "leptos_reactive::signal::create_signal", reason = "Use `RwSignal::new` instead." },
+  { path = "leptos_reactive::signal::create_rw_signal", reason = "Use `RwSignal::new` instead." },
+  { path = "leptos_reactive::memo::create_memo", reason = "Use `Memo::new` instead." },
+  { path = "leptos_reactive::effect::create_effect", reason = "Use `Effect::new` instead." },
+  { path = "leptos_reactive::resource::create_resource", reason = "Use `Resource::new` instead." },
+  { path = "leptos_reactive::resource::create_local_resource", reason = "Use `LocalResource::new` instead." },
+  { path = "leptos_reactive::stored_value::store_value", reason = "Use `StoredValue::new` instead." },
   { path = "leptos_reactive::signal::SignalGet::get", reason = "Use function syntax instead." },
+  { path = "leptos_reactive::signal_wrappers_read::IntoSignal::into_signal", reason = "Use `Signal::derive` instead." },
   { path = "leptos_router::hooks::use_navigate", reason = "Use `client_router::use_navigate` instead for strict route checking." },
   { path = "web_sys::window", reason = "Use `leptos::window` instead." },
 ]

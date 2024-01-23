@@ -23,7 +23,7 @@ build:
 
 # Runs development server without PWA features and watches for changes
 dev:
-    cargo watch -x 'leptos serve'
+    cargo leptos watch --project core
 
 # Runs development server without PWA features
 serve:
@@ -215,7 +215,6 @@ typos-cli@1.17.2
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.79
 cargo-edit@0.12.2
-cargo-watch@8.5.2
 ''', '\s+', ' ')
 
 _setup +executables:

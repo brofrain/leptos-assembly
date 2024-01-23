@@ -17,5 +17,6 @@ client_router.workspace = true
 exports = { workspace = true, features = ["client"] }
 leptos.workspace = true
 leptos_animated_for.workspace = true
+leptos_icons = "0.2.1"
 wasm-bindgen.workspace = true
 web-sys.workspace = true

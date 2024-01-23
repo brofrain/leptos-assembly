@@ -1,6 +1,5 @@
 import {
   defineConfig,
-  presetIcons,
   presetTypography,
   presetUno,
   transformerDirectives,
@@ -71,16 +70,12 @@ export default defineConfig({
 
     presetUno(),
     presetTypography(),
-    presetIcons({ prefix: "icon-", scale: 1.2, warn: true }),
   ],
 
   transformers: [transformerDirectives(), transformerVariantGroup()],
 
   content: {
-    filesystem: [
-      "**/{app,components,composables,layouts,pages}/**/*.rs",
-      "**/styles/**/*.scss",
-    ],
+    filesystem: ["{app,components,composables,layouts,pages}/**/*.rs"],
     pipeline: { include: [] },
   },
 });
