@@ -22,7 +22,6 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.5.2",
-    "@iconify/json": "^2.2.171",
     "@playwright/test": "^1.41.1",
     "@types/node": "^20.11.5",
     "@types/nprogress": "^0.2.3",
