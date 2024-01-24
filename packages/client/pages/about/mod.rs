@@ -2,7 +2,10 @@ use client_components::{BaseAnimatedFor, BaseButton};
 use client_composables::toast::{self, Severity};
 use client_i18n::use_i18n;
 use client_utils::future::{next_tick, spawn_local_owned};
-use exports::client::prelude::*;
+use exports::client::{
+    icondata::{self as i, Icon},
+    prelude::*,
+};
 use rand::{seq::SliceRandom, thread_rng, Rng};
 use utils::id;
 
@@ -13,54 +16,54 @@ use components::FeatureBrick;
 
 #[derive(Clone, PartialEq)]
 struct Feature {
-    icon_class: &'static str,
     title: &'static str,
+    icon: Icon,
 }
 
-const FEATURES: [Feature; 11] = [
+static FEATURES: [Feature; 11] = [
     Feature {
         title: "Leptos",
-        icon_class: "icon-simple-icons-leptos",
+        icon: i::SiLeptos,
     },
     Feature {
         title: "Rust",
-        icon_class: "icon-simple-icons-rust",
+        icon: i::SiRust,
     },
     Feature {
         title: "Axum",
-        icon_class: "icon-fluent-box-16-filled",
+        icon: i::BsBoxSeamFill,
     },
     Feature {
         title: "Leptos-Use",
-        icon_class: "icon-fluent-box-16-filled",
+        icon: i::BsBoxSeamFill,
     },
     Feature {
         title: "Leptos i18n",
-        icon_class: "icon-fluent-box-16-filled",
+        icon: i::IoEarth,
     },
     Feature {
         title: "UnoCSS",
-        icon_class: "icon-simple-icons-unocss",
+        icon: i::SiUnocss,
     },
     Feature {
-        title: "Iconify",
-        icon_class: "icon-simple-icons-iconify",
+        title: "Leptos Icons",
+        icon: i::FaFaceSmileRegular,
     },
     Feature {
         title: "Vite",
-        icon_class: "icon-simple-icons-vite",
+        icon: i::SiVite,
     },
     Feature {
         title: "PWA",
-        icon_class: "icon-ion-cloud-offline",
+        icon: i::IoCloudOffline,
     },
     Feature {
         title: "Webfonts",
-        icon_class: "icon-mingcute-font-size-fill",
+        icon: i::RiFontSizeEditor,
     },
     Feature {
         title: "Playwright",
-        icon_class: "icon-simple-icons-playwright",
+        icon: i::SiPlaywright,
     },
 ];
 
@@ -86,24 +89,26 @@ pub fn About() -> impl IntoView {
     let i18n = use_i18n();
     let rng = StoredValue::new(thread_rng());
 
-    let feature_breaks = RwSignal::new({
+    let feature_bricks = RwSignal::new({
         let mut bricks =
             FEATURES.iter().map(FeatureBrick::new).collect::<Vec<_>>();
 
+        // BUG: randomized bricks don't match during hydration and SVGs are
+        // broken as the result
         rng.update_value(|rng| bricks.shuffle(&mut *rng));
 
         bricks
     });
 
     let gen_random_feature_brick_index = Callback::new(move |()| {
-        if with!(|feature_breaks| feature_breaks.is_empty()) {
+        if with!(|feature_bricks| feature_bricks.is_empty()) {
             return 0;
         }
 
         let mut i = None;
         update!(|rng| {
             i = Some(
-                rng.gen_range(0..with!(|feature_breaks| feature_breaks.len())),
+                rng.gen_range(0..with!(|feature_bricks| feature_bricks.len())),
             );
         });
         i.unwrap()
@@ -118,18 +123,18 @@ pub fn About() -> impl IntoView {
 
     let add_random_feature_brick = move |_| {
         let index = gen_random_feature_brick_index(());
-        update!(|rng, feature_breaks| {
+        update!(|rng, feature_bricks| {
             let new_brick =
                 FeatureBrick::new(&FEATURES[rng.gen_range(0..FEATURES.len())]);
 
-            feature_breaks.insert(index, new_brick);
+            feature_bricks.insert(index, new_brick);
         });
 
         push_bricks_updated_toast_on_next_tick();
     };
 
-    let remove_random_feature_break = move |_| {
-        if with!(|feature_breaks| feature_breaks.is_empty()) {
+    let remove_random_feature_brick = move |_| {
+        if with!(|feature_bricks| feature_bricks.is_empty()) {
             toast::push(
                 Severity::Error,
                 t!(i18n, about.features.nothing_to_remove),
@@ -138,8 +143,8 @@ pub fn About() -> impl IntoView {
         }
 
         let index = gen_random_feature_brick_index(());
-        update!(|feature_breaks| {
-            feature_breaks.remove(index);
+        update!(|feature_bricks| {
+            feature_bricks.remove(index);
         });
         push_bricks_updated_toast_on_next_tick();
     };
@@ -147,15 +152,15 @@ pub fn About() -> impl IntoView {
     let shuffle_feature_bricks = {
         move |_| {
             let previous_feature_and_active_pairs =
-                with!(|feature_breaks| feature_breaks
+                with!(|feature_bricks| feature_bricks
                     .iter()
                     .map(|brick| (brick.feature, (brick.active)()))
                     .collect::<Vec<_>>());
 
-            update!(|feature_breaks| {
-                rng.update_value(|rng| feature_breaks.shuffle(&mut *rng));
+            update!(|feature_bricks| {
+                rng.update_value(|rng| feature_bricks.shuffle(&mut *rng));
 
-                for (i, brick) in feature_breaks.iter().enumerate() {
+                for (i, brick) in feature_bricks.iter().enumerate() {
                     let (previous_feature, previous_active) =
                         previous_feature_and_active_pairs[i];
 
@@ -186,20 +191,20 @@ pub fn About() -> impl IntoView {
                     {t!(i18n, about.features.shuffle)}
                 </BaseButton>
 
-                <BaseButton on:click=remove_random_feature_break>
+                <BaseButton on:click=remove_random_feature_brick>
                     {t!(i18n, about.features.remove_random)}
                 </BaseButton>
             </div>
 
             <div class="mt2 grid grid-cols-[repeat(3,auto)] justify-center gap2">
                 <BaseAnimatedFor
-                    each=feature_breaks
+                    each=feature_bricks
                     key=|brick| brick.id
                     children=move |brick| {
                         view! {
                             <FeatureBrick
                                 title=brick.feature.title
-                                icon_class=brick.feature.icon_class
+                                icon=brick.feature.icon
                                 active=brick.active
                             />
                         }

@@ -1,7 +1,7 @@
-use client_components::BaseButton;
+use client_components::{BaseButton, BaseIcon};
 use client_i18n::use_i18n;
 use client_router::{use_navigate, NotFoundParams, Route};
-use exports::client::prelude::*;
+use exports::client::{icondata as i, prelude::*};
 use leptos_router::{use_params, NavigateOptions};
 
 #[component]
@@ -19,7 +19,7 @@ pub fn NotFound() -> impl IntoView {
 
     view! {
         <div class=uno!["text-center"]>
-            <div class=uno!["inline-block text-4xl mb1 icon-carbon-warning"]></div>
+            <BaseIcon icon=i::BsExclamationCircle class=uno!["inline-block text-4xl mb3"]/>
 
             <div class=uno!["text-lg"]>
                 <span class=uno!["op75"]>{t!(i18n, page_not_found)}</span>

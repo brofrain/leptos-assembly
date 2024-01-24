@@ -1,10 +1,11 @@
-use exports::client::prelude::*;
+use client_components::BaseIcon;
+use exports::client::{icondata::Icon, prelude::*};
 
 // FIXME: add click transition without breaking <AnimatedFor>
 #[component]
 pub fn FeatureBrick(
     title: &'static str,
-    icon_class: &'static str,
+    icon: Icon,
     active: RwSignal<bool>,
 ) -> impl IntoView {
     view! {
@@ -19,7 +20,7 @@ pub fn FeatureBrick(
 
             on:click=move |_| active.set(!active())
         >
-            <div class=uno![icon_class, "text-lg"]></div>
+            <BaseIcon icon=icon class="text-lg"/>
             <div>{title}</div>
         </div>
     }
