@@ -1,1 +1,1 @@
-flatten_pub_mod!(animated_for, button, input, link, modal);
+flatten_pub_mod!(animated_for, button, icon, input, link, modal);

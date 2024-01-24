@@ -1,8 +1,8 @@
-use client_components::{BaseAnimatedFor, BaseLink};
+use client_components::{BaseAnimatedFor, BaseIcon, BaseLink};
 use client_i18n::use_i18n;
 use client_router::{HiParams, Route};
 use client_stores::{use_store, Names};
-use exports::client::prelude::*;
+use exports::client::{icondata as i, prelude::*};
 use leptos_router::use_params;
 use pct_str::PctStr;
 
@@ -30,7 +30,7 @@ pub fn HiName() -> impl IntoView {
 
     view! {
         <div class="text-center">
-            <div class="inline-block text-4xl mb1 icon-mdi-human-greeting"></div>
+            <BaseIcon icon=i::BsPersonRaisedHand class="inline-block text-4xl mb3"/>
 
             <div>
                 <p test="welcome">{t!(i18n, name.welcome, name)}</p>
@@ -40,7 +40,7 @@ pub fn HiName() -> impl IntoView {
                 <em class="text-xs op60">{t!(i18n, name.description)}</em>
             </p>
 
-            <Show when=move || !other_names_sorted().is_empty() fallback=|| {}>
+            <Show when=move || !other_names_sorted().is_empty()>
                 <div class="text-sm mt4">
                     <span class="op75">{t!(i18n, name.aka)} ":"</span>
 

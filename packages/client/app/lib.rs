@@ -7,7 +7,7 @@ use leptos_meta::{provide_meta_context, Html, Link, Meta, Title};
 use leptos_router::{Route as RouteView, Router, Routes};
 use leptos_use::use_color_mode;
 
-flatten_mod!(the_confirms, the_overlay, the_toasts);
+flatten_mod!(the_confirms, the_overlay, the_toasts, the_update_banner);
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -19,6 +19,12 @@ pub fn App() -> impl IntoView {
     provide_global_context();
     use_color_mode();
 
+    #[cfg(all(target_arch = "wasm32", feature = "pwa"))]
+    {
+        use client_composables::sw;
+        sw::register();
+    }
+
     view! {
         <Title text=t!(i18n, meta.title)/>
         <Meta name="description" content=t!(i18n, meta.description)/>
@@ -27,15 +33,13 @@ pub fn App() -> impl IntoView {
         <Link rel="icon" href="/assets/favicon.ico"/>
         <Link rel="apple-touch-icon" href="/assets/pwa-192x192.png" sizes="192x192"/>
         <Link rel="mask-icon" href="/assets/safari-pinned-tab.svg"/>
-        <Link rel="manifest" href="/assets/manifest.webmanifest"/>
 
         <Link rel="stylesheet" href="/assets/style.css"/>
         <Link rel="stylesheet" href="/assets/webfonts.css"/>
 
         {#[cfg(feature = "pwa")]
         {
-            use leptos_meta::Script;
-            view! { <Script src="/assets/registerSW.js" async_=""/> }
+            view! { <Link rel="manifest" href="/assets/manifest.webmanifest"/> }
         }}
 
         <Html class="dark"/>
@@ -74,9 +78,10 @@ pub fn App() -> impl IntoView {
                 </Routes>
             </Router>
 
+            <TheUpdateBanner/>
             <TheOverlay/>
-            <TheToasts/>
             <TheConfirms/>
+            <TheToasts/>
         </div>
     }
 }

@@ -23,7 +23,7 @@ build:
 
 # Runs development server without PWA features and watches for changes
 dev:
-    cargo watch -x 'leptos serve'
+    cargo leptos watch --project core
 
 # Runs development server without PWA features
 serve:
@@ -160,9 +160,16 @@ fmt-check:
 check:
     cargo check --workspace --all-targets
 
+# FIXME: this would make life easier, but seems broken: https://doc.rust-lang.org/cargo/reference/unstable.html#per-package-target
+_lint-wasm:
+    for dir in `ls packages | grep -v server`; do \
+        (cd "packages/$dir" && cargo clippy --target wasm32-unknown-unknown -- -A clippy::str-to-string); \
+    done
+
 # Lints Rust codebase with Clippy
 lint-rs:
     cargo clippy --workspace --all-targets
+    just _lint-wasm
 
 # Checks for TypeScript errors
 lint-ts:
@@ -196,19 +203,18 @@ audit: audit-rs audit-js
 # --- Dependency management ---
 
 CARGO_EXECUTABLES := replace_regex('''
-just@1.17.0
-cargo-leptos@0.2.5
+just@1.23.0
+cargo-leptos@0.2.6
 leptosfmt@0.1.18
-cargo-nextest@0.9.66
+cargo-nextest@0.9.67
 cargo-outdated@0.14.0
 cargo-audit@0.18.3
-cargo-udeps@0.1.44
-typos-cli@1.17.1
+cargo-udeps@0.1.45
+typos-cli@1.17.2
 ''', '\s+', ' ')
 CARGO_DEV_EXECUTABLES := replace_regex('''
-cargo-expand@1.0.75
+cargo-expand@1.0.79
 cargo-edit@0.12.2
-cargo-watch@8.4.1
 ''', '\s+', ' ')
 
 _setup +executables:
@@ -235,7 +241,7 @@ _setup +executables:
 
         # Cargo executables
         for dep in {{ executables }}; do
-            cargo binstall -y --only-signed --no-discover-github-token $dep &
+            cargo binstall $dep -y --only-signed --no-discover-github-token --log-level error &
         done
 
         wait

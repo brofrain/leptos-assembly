@@ -1,6 +1,5 @@
 import {
   defineConfig,
-  presetIcons,
   presetTypography,
   presetUno,
   transformerDirectives,
@@ -13,6 +12,7 @@ export default defineConfig({
 
   shortcuts: [
     ["cover", "absolute inset-0 max-w-full max-h-full rounded-[inherit]"],
+    ["flex-center", "flex items-center justify-center"],
   ],
 
   theme: { duration: { DEFAULT: "200ms" } },
@@ -70,16 +70,12 @@ export default defineConfig({
 
     presetUno(),
     presetTypography(),
-    presetIcons({ prefix: "icon-", scale: 1.2, warn: true }),
   ],
 
   transformers: [transformerDirectives(), transformerVariantGroup()],
 
   content: {
-    filesystem: [
-      "**/{app,components,composables,layouts,pages}/**/*.rs",
-      "**/styles/**/*.scss",
-    ],
+    filesystem: ["{app,components,composables,layouts,pages}/**/*.rs"],
     pipeline: { include: [] },
   },
 });

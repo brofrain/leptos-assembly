@@ -15,14 +15,13 @@ pub fn Index() -> impl IntoView {
 
     let name = RwSignal::new(String::new());
 
-    let input_name_placeholder = (move || {
+    let input_name_placeholder = Signal::derive(move || {
         if let Some(last_name) = names_store.last_name() {
             t_string!(i18n, home.input_placeholder_with_name, name = last_name)
         } else {
             t_string!(i18n, home.input_placeholder)
         }
-    })
-    .into_signal();
+    });
 
     let navigate_name_hi = move || {
         let name = name();
@@ -50,11 +49,11 @@ pub fn Index() -> impl IntoView {
         }
     };
 
-    let name_is_empty = (move || with!(|name| name.is_empty())).into_signal();
+    let name_is_empty = Signal::derive(move || with!(|name| name.is_empty()));
 
     view! {
         <div class="text-center">
-            <TheLogo class="inline-block text-5xl mb1"/>
+            <TheLogo class="inline-block text-5xl mb3"/>
 
             <div>
                 <BaseLink to=PROJECT_REPOSITORY_URL>{t!(i18n, home.title)}</BaseLink>

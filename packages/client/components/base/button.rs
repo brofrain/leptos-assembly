@@ -12,7 +12,7 @@ pub fn BaseButton(
             {..attrs}
             class=move || {
                 uno![
-                    "inline-block", "rounded", "p-(x4 y.5)",
+                    "inline-block", "rounded", "p-(x4 t1 b.5)",
                     "fw-bold text-accent-interactive-contrast", "bg-accent-interactive",
                     "transition-colors", "cursor-pointer", "select-none",
                     "disabled:pointer-events-none", class()
