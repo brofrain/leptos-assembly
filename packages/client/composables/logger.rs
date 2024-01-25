@@ -1,5 +1,5 @@
 #[cfg(target_arch = "wasm32")]
-pub fn init() {
+pub fn use_init() {
     fern::Dispatch::new()
         .level(
             #[cfg(debug_assertions)]
@@ -16,4 +16,4 @@ pub fn init() {
 }
 
 #[cfg(not(target_arch = "wasm32"))]
-pub const fn init() {}
+pub const fn use_init() {}

@@ -1,4 +1,6 @@
 #![feature(let_chains)]
+#![feature(unboxed_closures)]
+#![feature(fn_traits)]
 
 exports::use_macros!();
 

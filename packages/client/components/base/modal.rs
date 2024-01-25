@@ -15,8 +15,9 @@ pub fn BaseModal(
         }
     };
 
-    overlay::enable();
-    on_cleanup(overlay::disable);
+    let overlay = overlay::use_switch();
+    overlay.enable();
+    on_cleanup(move || overlay.disable());
 
     if let Some(el) = document().active_element() {
         el.dyn_into::<web_sys::HtmlElement>()

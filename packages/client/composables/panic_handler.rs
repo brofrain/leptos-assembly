@@ -5,7 +5,7 @@ use exports::client::prelude::*;
 
 use super::confirm;
 
-pub fn init() {
+pub fn use_init() {
     let i18n = use_i18n();
 
     panic::set_hook(Box::new(move |panic_info| {

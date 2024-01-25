@@ -6,13 +6,14 @@ use server::get_leptos_tag;
 #[component]
 pub fn TheLeptosTagInfo() -> impl IntoView {
     let i18n = use_i18n();
+    let nprogress = nprogress::use_switch();
 
     let tag = Resource::local(
         || (),
-        |()| async {
-            nprogress::enable();
+        move |()| async move {
+            nprogress.enable();
             let result = get_leptos_tag().await;
-            nprogress::disable();
+            nprogress.disable();
             result
         },
     );

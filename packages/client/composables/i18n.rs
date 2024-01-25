@@ -6,6 +6,7 @@ use super::toast;
 
 pub fn use_toggle_locale_and_push_toast() -> impl Fn() {
     let i18n = use_i18n();
+    let push_toast = toast::use_push();
 
     move || {
         let current_locale = i18n.get_locale_untracked();
@@ -25,7 +26,7 @@ pub fn use_toggle_locale_and_push_toast() -> impl Fn() {
                 Locale::la => "en",
             };
 
-            toast::push(
+            push_toast(
                 toast::Severity::Info,
                 t!(i18n, locale.changed, new_locale),
             );

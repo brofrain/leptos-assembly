@@ -13,8 +13,8 @@ flatten_mod!(the_confirms, the_overlay, the_toasts, the_update_banner);
 pub fn App() -> impl IntoView {
     let i18n = provide_i18n_context();
 
-    logger::init();
-    panic_handler::init();
+    logger::use_init();
+    panic_handler::use_init();
     provide_meta_context();
     provide_global_context();
     use_color_mode();

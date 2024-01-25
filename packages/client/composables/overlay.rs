@@ -1,5 +1,5 @@
 use client_utils::reactivity::{
-    throttle::{use_switch, UseSwitch},
+    throttle::{self, UseSwitch},
     use_global_context_with_initializer,
 };
 use exports::client::prelude::*;
@@ -14,7 +14,7 @@ fn use_ctx() -> Ctx {
     use_global_context_with_initializer::<Ctx>(|| {
         let show = RwSignal::new(false);
 
-        let switch = use_switch(
+        let switch = throttle::use_switch(
             move || show.set(true),
             move || show.set(false),
             10.milliseconds(),
@@ -24,12 +24,8 @@ fn use_ctx() -> Ctx {
     })
 }
 
-pub fn enable() {
-    use_ctx().switch.enable();
-}
-
-pub fn disable() {
-    use_ctx().switch.disable();
+pub fn use_switch() -> UseSwitch {
+    use_ctx().switch
 }
 
 pub fn use_show() -> ReadSignal<bool> {

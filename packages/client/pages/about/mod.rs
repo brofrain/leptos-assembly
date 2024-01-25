@@ -87,6 +87,7 @@ impl FeatureBrick {
 #[component]
 pub fn About() -> impl IntoView {
     let i18n = use_i18n();
+    let push_toast = toast::use_push();
     let rng = StoredValue::new(thread_rng());
 
     let feature_bricks = RwSignal::new({
@@ -117,7 +118,7 @@ pub fn About() -> impl IntoView {
     let push_bricks_updated_toast_on_next_tick = move || {
         spawn_local_owned(async move {
             next_tick().await;
-            toast::push(Severity::Success, t!(i18n, about.features.updated));
+            push_toast(Severity::Success, t!(i18n, about.features.updated));
         });
     };
 
@@ -135,7 +136,7 @@ pub fn About() -> impl IntoView {
 
     let remove_random_feature_brick = move |_| {
         if with!(|feature_bricks| feature_bricks.is_empty()) {
-            toast::push(
+            push_toast(
                 Severity::Error,
                 t!(i18n, about.features.nothing_to_remove),
             );
@@ -172,7 +173,7 @@ pub fn About() -> impl IntoView {
                     }
                 }
 
-                toast::push(
+                push_toast(
                     Severity::Warning,
                     t!(i18n, about.features.shuffle_changed_nothing),
                 );
