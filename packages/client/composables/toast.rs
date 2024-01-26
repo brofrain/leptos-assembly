@@ -63,8 +63,9 @@ impl UsePushReturn {
 
 // TODO
 // Implementing same behavior for FnOnce, FnMut, Fn repeats also in
-// packages/client/utils/reactivity/callback.rs. Maybe a nice macro would make
-// the code a bit smaller?
+// packages/client/utils/reactivity/callback.rs &
+// packages/client/composables/confirm.rs. Maybe a nice macro would make the
+// code a bit smaller?
 
 impl<V, F> FnOnce<(Severity, F)> for UsePushReturn
 where

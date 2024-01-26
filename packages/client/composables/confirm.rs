@@ -1,7 +1,9 @@
+use std::pin::Pin;
+
 use client_i18n::use_i18n;
 use client_utils::reactivity::{use_global_context, ViewCallback};
 use exports::client::prelude::*;
-use futures::channel::oneshot;
+use futures::{channel::oneshot, Future, FutureExt};
 use utils::id;
 
 #[derive(Getters)]
@@ -127,9 +129,46 @@ impl From<Options> for Confirm {
     }
 }
 
-pub async fn show(options: Options) -> ResolutionStatus {
-    let rx = use_global_context::<Queue>().push(options.into());
-    rx.await.unwrap()
+type ResolutionFuture = Pin<Box<dyn Future<Output = ResolutionStatus>>>;
+
+#[derive(Clone, Copy)]
+pub struct UseShowReturn {
+    queue: Queue,
+}
+
+impl UseShowReturn {
+    fn show(&self, options: Options) -> ResolutionFuture {
+        let rx = self.queue.push(options.into());
+        Box::pin(rx.map(Result::unwrap))
+    }
+}
+
+impl FnOnce<(Options,)> for UseShowReturn {
+    type Output = ResolutionFuture;
+
+    extern "rust-call" fn call_once(self, args: (Options,)) -> Self::Output {
+        self.show(args.0)
+    }
+}
+
+impl FnMut<(Options,)> for UseShowReturn {
+    extern "rust-call" fn call_mut(
+        &mut self,
+        args: (Options,),
+    ) -> Self::Output {
+        self.show(args.0)
+    }
+}
+
+impl Fn<(Options,)> for UseShowReturn {
+    extern "rust-call" fn call(&self, args: (Options,)) -> Self::Output {
+        self.show(args.0)
+    }
+}
+
+pub fn use_show() -> UseShowReturn {
+    let queue = use_global_context::<Queue>();
+    UseShowReturn { queue }
 }
 
 pub fn use_queue() -> Queue {

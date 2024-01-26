@@ -10,6 +10,7 @@ use leptos_router::NavigateOptions;
 #[component]
 pub fn Index() -> impl IntoView {
     let i18n = use_i18n();
+    let show_confirm = confirm::use_show();
 
     let names_store = use_store::<Names>();
 
@@ -28,7 +29,7 @@ pub fn Index() -> impl IntoView {
 
         let navigate = use_navigate();
         spawn_local(async move {
-            if confirm::show(
+            if show_confirm(
                 confirm::Options::default()
                     .set_cancel(t!(i18n, home.confirm.cancel)),
             )
