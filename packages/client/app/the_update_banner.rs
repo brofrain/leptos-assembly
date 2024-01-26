@@ -1,5 +1,5 @@
 use client_components::BaseLink;
-use client_composables::sw;
+use client_hooks::sw;
 use client_i18n::use_i18n;
 use exports::client::prelude::*;
 

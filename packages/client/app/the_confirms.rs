@@ -1,5 +1,5 @@
 use client_components::{BaseAnimatedFor, BaseButton, BaseModal};
-use client_composables::confirm;
+use client_hooks::confirm;
 use exports::client::prelude::*;
 
 #[component]

@@ -1,4 +1,4 @@
-use client_composables::overlay;
+use client_hooks::overlay;
 use exports::client::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::MouseEvent;

@@ -367,8 +367,8 @@ name = "client_app"
 version = "0.0.0"
 dependencies = [
  "client_components",
- "client_composables",
  "client_env",
+ "client_hooks",
  "client_i18n",
  "client_layouts",
  "client_macros",
@@ -387,7 +387,7 @@ dependencies = [
 name = "client_components"
 version = "0.0.0"
 dependencies = [
- "client_composables",
+ "client_hooks",
  "client_router",
  "exports",
  "leptos",
@@ -398,7 +398,11 @@ dependencies = [
 ]
 
 [[package]]
-name = "client_composables"
+name = "client_env"
+version = "0.0.0"
+
+[[package]]
+name = "client_hooks"
 version = "0.0.0"
 dependencies = [
  "client_i18n",
@@ -417,10 +421,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "client_env"
-version = "0.0.0"
-
-[[package]]
 name = "client_i18n"
 version = "0.0.0"
 dependencies = [
@@ -435,8 +435,8 @@ name = "client_layouts"
 version = "0.0.0"
 dependencies = [
  "client_components",
- "client_composables",
  "client_env",
+ "client_hooks",
  "client_i18n",
  "client_router",
  "client_utils",
@@ -459,8 +459,8 @@ name = "client_pages"
 version = "0.0.0"
 dependencies = [
  "client_components",
- "client_composables",
  "client_env",
+ "client_hooks",
  "client_i18n",
  "client_router",
  "client_stores",

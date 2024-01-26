@@ -75,7 +75,7 @@ export default defineConfig({
   transformers: [transformerDirectives(), transformerVariantGroup()],
 
   content: {
-    filesystem: ["{app,components,composables,layouts,pages}/**/*.rs"],
+    filesystem: ["{app,components,hooks,layouts,pages}/**/*.rs"],
     pipeline: { include: [] },
   },
 });

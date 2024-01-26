@@ -1,5 +1,5 @@
 [package]
-name = "client_composables"
+name = "client_hooks"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true

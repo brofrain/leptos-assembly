@@ -1,4 +1,4 @@
-use client_composables::overlay;
+use client_hooks::overlay;
 use exports::client::prelude::*;
 
 #[component]

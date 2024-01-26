@@ -1,4 +1,4 @@
-use client_composables::nprogress;
+use client_hooks::nprogress;
 use client_i18n::{t_view, use_i18n};
 use exports::client::prelude::*;
 use server::get_leptos_tag;

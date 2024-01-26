@@ -13,7 +13,7 @@ path = "lib.rs"
 
 [dependencies]
 client_components.workspace = true
-client_composables.workspace = true
+client_hooks.workspace = true
 client_env.workspace = true
 client_i18n.workspace = true
 client_layouts.path = "../layouts"

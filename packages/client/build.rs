@@ -3,7 +3,7 @@ use std::process::Command;
 fn main() {
     println!("cargo:rerun-if-changed=app");
     println!("cargo:rerun-if-changed=components");
-    println!("cargo:rerun-if-changed=composables");
+    println!("cargo:rerun-if-changed=hooks");
     println!("cargo:rerun-if-changed=layouts");
     println!("cargo:rerun-if-changed=pages");
     println!("cargo:rerun-if-changed=styles");

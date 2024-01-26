@@ -1,5 +1,5 @@
 use client_components::BaseIcon;
-use client_composables::toast;
+use client_hooks::toast;
 use exports::client::{icondata as i, prelude::*};
 
 #[component]

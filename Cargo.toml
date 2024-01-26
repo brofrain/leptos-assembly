@@ -6,7 +6,7 @@ members = [
   "packages/client",
   "packages/client/app",
   "packages/client/components",
-  "packages/client/composables",
+  "packages/client/hooks",
   "packages/client/env",
   "packages/client/i18n",
   "packages/client/layouts",
@@ -31,7 +31,7 @@ rust-version = "1.73"
 [workspace.dependencies]
 client.path = "packages/client"
 client_components.path = "packages/client/components"
-client_composables.path = "packages/client/composables"
+client_hooks.path = "packages/client/hooks"
 client_env.path = "packages/client/env"
 client_i18n.path = "packages/client/i18n"
 client_macros.path = "packages/client/macros"
