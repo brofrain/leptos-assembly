@@ -131,44 +131,13 @@ impl From<Options> for Confirm {
 
 type ResolutionFuture = Pin<Box<dyn Future<Output = ResolutionStatus>>>;
 
-#[derive(Clone, Copy)]
-pub struct UseShowReturn {
-    queue: Queue,
-}
-
-impl UseShowReturn {
-    fn show(&self, options: Options) -> ResolutionFuture {
-        let rx = self.queue.push(options.into());
-        Box::pin(rx.map(Result::unwrap))
-    }
-}
-
-impl FnOnce<(Options,)> for UseShowReturn {
-    type Output = ResolutionFuture;
-
-    extern "rust-call" fn call_once(self, args: (Options,)) -> Self::Output {
-        self.show(args.0)
-    }
-}
-
-impl FnMut<(Options,)> for UseShowReturn {
-    extern "rust-call" fn call_mut(
-        &mut self,
-        args: (Options,),
-    ) -> Self::Output {
-        self.show(args.0)
-    }
-}
-
-impl Fn<(Options,)> for UseShowReturn {
-    extern "rust-call" fn call(&self, args: (Options,)) -> Self::Output {
-        self.show(args.0)
-    }
-}
-
-pub fn use_show() -> UseShowReturn {
+pub fn use_show() -> Callback<Options, ResolutionFuture> {
     let queue = use_global_context::<Queue>();
-    UseShowReturn { queue }
+
+    Callback::new(move |options: Options| {
+        let rx = queue.push(options.into());
+        async move { rx.await.unwrap() }.boxed_local()
+    })
 }
 
 pub fn use_queue() -> Queue {
