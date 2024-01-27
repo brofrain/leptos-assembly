@@ -30,7 +30,7 @@ pub fn HiName() -> impl IntoView {
 
     view! {
         <div class="text-center">
-            <BaseIcon icon=i::BsPersonRaisedHand class="inline-block text-4xl mb3"/>
+            <BaseIcon icon=i::BsPersonRaisedHand class="text-4xl mb3"/>
 
             <div>
                 <p test="welcome">{t!(i18n, name.welcome, name)}</p>

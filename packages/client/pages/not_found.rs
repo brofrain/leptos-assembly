@@ -19,7 +19,7 @@ pub fn NotFound() -> impl IntoView {
 
     view! {
         <div class=uno!["text-center"]>
-            <BaseIcon icon=i::BsExclamationCircle class=uno!["inline-block text-4xl mb3"]/>
+            <BaseIcon icon=i::BsExclamationCircle class=uno!["text-4xl mb3"]/>
 
             <div class=uno!["text-lg"]>
                 <span class=uno!["op75"]>{t!(i18n, page_not_found)}</span>

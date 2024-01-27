@@ -26,7 +26,7 @@ pub fn TheFooter() -> impl IntoView {
     };
 
     view! {
-        <nav class=uno!["flex", "justify-center", "gap-3", "text-xl", "my-4"]>
+        <nav class=uno!["flex", "justify-center", "gap-3", "text-xl", "my-4", "children:lh-0"]>
             <BaseLink title=Signal::derive(move || t_string!(i18n, nav.link_home)) to=Route::Home>
                 <BaseIcon icon=i::AiHomeOutlined/>
             </BaseLink>

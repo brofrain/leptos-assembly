@@ -54,7 +54,7 @@ pub fn Index() -> impl IntoView {
 
     view! {
         <div class="text-center">
-            <TheLogo class="inline-block text-5xl mb3"/>
+            <TheLogo class="text-5xl mb1"/>
 
             <div>
                 <BaseLink to=PROJECT_REPOSITORY_URL>{t!(i18n, home.title)}</BaseLink>
