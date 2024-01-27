@@ -77,29 +77,29 @@ e2e-ui-release:
 # --- Formatting ---
 
 # Formats Rust files using rustfmt
-_fmt-rustfmt flag='':
+_fmt-rustfmt *args:
     #!/usr/bin/env sh
     (
         for f in `find apps -name '*.rs'`; do
-            rustfmt $f {{ flag }} &
+            rustfmt $f {{ args }} &
         done
         for f in `find packages -name '*.rs'`; do
-            rustfmt $f {{ flag }} &
+            rustfmt $f {{ args }} &
         done
         wait
     )
 
 # Formats Leptos components using leptosfmt
-_fmt-leptosfmt flag='':
-    leptosfmt packages/**/components/**/*.rs {{ flag }}
+_fmt-leptosfmt *args:
+    leptosfmt packages/**/components/**/*.rs {{ args }}
 
 # Formats Rust files including Leptos component syntax
 fmt-rs:
     just _fmt-rustfmt
     just _fmt-leptosfmt
 
-_prettier flag:
-    npx prettier "**/*.{html,yaml,yml,toml}" "!pnpm-lock.yaml" {{ flag }}
+_prettier +args:
+    npx prettier "**/*.{html,yaml,yml,toml}" "!pnpm-lock.yaml" {{ args }}
 
 # Formats supported files with Biome
 _fmt-biome:
@@ -156,20 +156,63 @@ fmt-check:
 
 # --- Lint ---
 
+_check path message_format *args:
+    (cd {{ path }} && cargo check --message-format={{ message_format }} {{ args }})
+
+_clippy path message_format *args:
+    (cd {{ path }} && cargo clippy --message-format={{ message_format }} {{ args }})
+
+_check-wasm path message_format:
+    just _check {{ path }} {{ message_format }} --target wasm32-unknown-unknown
+
+# `clippy::str-to-string` is triggered by Leptos' `#[server]` macro for the wasm triple, therefore it's disabled here
+_clippy-wasm path message_format *args='--':
+    just _clippy {{ path }} {{ message_format }} \
+        --target wasm32-unknown-unknown \
+        {{ args }} -A clippy::str-to-string
+
+_check-workspace message_format:
+    just _check . {{ message_format }} --workspace --all-targets
+
+_clippy-workspace message_format *args:
+    just _clippy . {{ message_format }} --workspace --all-targets {{ args }}
+
+WASM_PACKAGES := replace_regex('''
+packages/client
+''', '\s+', ' ')
+
 # Checks Rust codebase
 check:
-    cargo check --workspace --all-targets
+    just _check-workspace human
+    for dir in {{ WASM_PACKAGES }}; do \
+        just _check-wasm $dir human; \
+    done
 
-# FIXME: this would make life easier, but seems broken: https://doc.rust-lang.org/cargo/reference/unstable.html#per-package-target
-_lint-wasm:
-    for dir in `ls packages | grep -v server`; do \
-        (cd "packages/$dir" && cargo clippy --target wasm32-unknown-unknown -- -A clippy::str-to-string); \
+_lint-rs *args='--':
+    just _clippy-workspace human {{ args }}
+    for dir in {{ WASM_PACKAGES }}; do \
+        just _clippy-wasm $dir human {{ args }}; \
     done
 
 # Lints Rust codebase with Clippy
-lint-rs:
-    cargo clippy --workspace --all-targets
-    just _lint-wasm
+lint-rs: _lint-rs
+
+# Script made for IDEs to support server and wasm targets at the same time. `cargo check` is fired first because it's much faster than `cargo clippy`.
+_rust-analyzer-check:
+    #!/usr/bin/env sh
+    (
+        (
+            just _check-workspace json;
+            just _clippy-workspace json --jobs=1
+        ) &
+        for dir in {{ WASM_PACKAGES }}; do
+            (
+                just _check-wasm $dir json;
+                just _clippy-wasm $dir json --jobs=1 --
+            ) &
+        done
+        wait
+    )
 
 # Checks for TypeScript errors
 lint-ts:
@@ -184,7 +227,7 @@ lint: lint-rs lint-ts lint-typos
 
 # Lints the project without optimizations and disallows warnings
 lint-ci:
-    cargo clippy --profile dev-ci -- -D warnings
+    just _lint-rs --profile dev-ci -- -D warnings
     just lint-ts lint-typos
 
 # --- Security ---
@@ -224,7 +267,9 @@ _setup +executables:
         [ ! -f .cargo/config.toml ] && cp .cargo/config.example.toml .cargo/config.toml
 
         # Rust toolchain
-        rustup toolchain install nightly --profile minimal -c rustfmt clippy rustc-codegen-cranelift-preview
+        rustup toolchain install nightly \
+            --profile minimal \
+            -c rustfmt clippy rustc-codegen-cranelift-preview
         rustup target add wasm32-unknown-unknown
 
         # cargo-binstall
@@ -234,7 +279,7 @@ _setup +executables:
 
         # Node dependencies
         # (should not run in parallel with other stuff,
-        # because `playwright install-deps` can ask for permissions)
+        # because `playwright install --with-deps` may ask for permissions)
         npm i -g pnpm
         pnpm i --frozen-lockfile
         npx playwright install --with-deps
