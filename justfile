@@ -78,16 +78,7 @@ e2e-ui-release:
 
 # Formats Rust files using rustfmt
 _fmt-rustfmt *args:
-    #!/usr/bin/env sh
-    (
-        for f in `find apps -name '*.rs'`; do
-            rustfmt $f {{ args }} &
-        done
-        for f in `find packages -name '*.rs'`; do
-            rustfmt $f {{ args }} &
-        done
-        wait
-    )
+    rustfmt apps/**/*.rs packages/**/*.rs {{ args }}
 
 # Formats Leptos components using leptosfmt
 _fmt-leptosfmt *args:
