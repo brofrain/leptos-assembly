@@ -1,5 +1,5 @@
 use client_router::Route;
-use exports::client::prelude::*;
+use common::vendor::client::prelude::*;
 
 pub enum BaseLinkTo {
     Internal(Route),

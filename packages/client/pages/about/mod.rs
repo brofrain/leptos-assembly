@@ -2,12 +2,14 @@ use client_components::{BaseAnimatedFor, BaseButton};
 use client_hooks::toast::{self, Severity};
 use client_i18n::use_i18n;
 use client_utils::future::{next_tick, spawn_local_owned};
-use exports::client::{
-    icondata::{self as i, Icon},
-    prelude::*,
+use common::{
+    utils::id,
+    vendor::client::{
+        icondata::{self as i, Icon},
+        prelude::*,
+    },
 };
 use rand::{seq::SliceRandom, thread_rng, Rng};
-use utils::id;
 
 mod components {
     flatten_pub_mod!(feature_brick);

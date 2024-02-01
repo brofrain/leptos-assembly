@@ -1,6 +1,6 @@
 use client_components::BaseIcon;
 use client_hooks::toast;
-use exports::client::{icondata as i, prelude::*};
+use common::vendor::client::{icondata as i, prelude::*};
 
 #[component]
 pub fn Toast(children: Children, severity: toast::Severity) -> impl IntoView {

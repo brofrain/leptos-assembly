@@ -3,7 +3,7 @@ use client_utils::reactivity::{
     throttle::{self, UseSwitch},
     use_global_context_with_initializer,
 };
-use exports::time::ext::NumericalDuration;
+use common::vendor::time::ext::NumericalDuration;
 
 bind_js_fn! { nprogress => start }
 bind_js_fn! { nprogress => done }

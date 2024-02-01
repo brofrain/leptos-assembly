@@ -1,5 +1,5 @@
 [package]
-name = "client_utils"
+name = "common_utils"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -10,7 +10,3 @@ workspace = true
 
 [lib]
 path = "lib.rs"
-
-[dependencies]
-common.workspace = true
-futures.workspace = true

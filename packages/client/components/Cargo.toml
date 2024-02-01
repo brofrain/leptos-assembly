@@ -14,7 +14,7 @@ path = "lib.rs"
 [dependencies]
 client_hooks.workspace = true
 client_router.workspace = true
-exports = { workspace = true, features = ["client"] }
+common.workspace = true
 leptos.workspace = true
 leptos_animated_for.workspace = true
 leptos_icons = "0.2.1"

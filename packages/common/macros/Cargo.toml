@@ -1,5 +1,5 @@
 [package]
-name = "macros"
+name = "common_macros"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -12,5 +12,5 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-proc_macros.path = "proc"
+common_proc_macros.path = "proc"
 cfg-if.workspace = true

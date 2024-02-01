@@ -1,7 +1,7 @@
-use exports::client::prelude::*;
+use common::vendor::client::prelude::*;
 use leptos_router::Outlet;
 
-use crate::common::TheFooter;
+use crate::shared::TheFooter;
 
 #[component]
 pub fn Default() -> impl IntoView {

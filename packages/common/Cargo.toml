@@ -1,5 +1,5 @@
 [package]
-name = "utils"
+name = "common"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -10,3 +10,9 @@ workspace = true
 
 [lib]
 path = "lib.rs"
+
+[dependencies]
+common_macros.path = "macros"
+common_utils.path = "utils"
+common_vendor.path = "vendor"
+

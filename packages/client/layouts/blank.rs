@@ -1,4 +1,4 @@
-use exports::client::prelude::*;
+use common::vendor::client::prelude::*;
 use leptos_router::Outlet;
 
 #[component]

@@ -1,7 +1,7 @@
 use client_components::{BaseButton, BaseIcon};
 use client_i18n::use_i18n;
 use client_router::{use_navigate, NotFoundParams, Route};
-use exports::client::{icondata as i, prelude::*};
+use common::vendor::client::{icondata as i, prelude::*};
 use leptos_router::{use_params, NavigateOptions};
 
 #[component]

@@ -1,4 +1,4 @@
-use exports::{
+use common::vendor::{
     leptos::{on_cleanup, request_animation_frame, set_timeout, spawn_local},
     time::Duration,
 };

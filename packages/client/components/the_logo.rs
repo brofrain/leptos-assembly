@@ -1,4 +1,4 @@
-use exports::client::{icondata as i, prelude::*};
+use common::vendor::client::{icondata as i, prelude::*};
 
 use crate::BaseIcon;
 

@@ -1,5 +1,5 @@
 use client_hooks::overlay;
-use exports::client::prelude::*;
+use common::vendor::client::prelude::*;
 
 #[component]
 pub fn TheOverlay() -> impl IntoView {

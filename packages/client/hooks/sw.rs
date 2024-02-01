@@ -1,4 +1,4 @@
-use exports::client::prelude::*;
+use common::vendor::client::prelude::*;
 use wasm_bindgen::{closure::Closure, JsCast};
 use web_sys::ServiceWorkerState;
 

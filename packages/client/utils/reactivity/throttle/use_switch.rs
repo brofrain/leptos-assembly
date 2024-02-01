@@ -1,6 +1,6 @@
 use std::rc::Rc;
 
-use exports::{
+use common::vendor::{
     client::{
         leptos_use::{use_debounce_fn_with_arg_and_options, DebounceOptions},
         prelude::*,

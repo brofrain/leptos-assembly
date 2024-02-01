@@ -1,4 +1,4 @@
-use exports::client::{icondata::Icon as IconType, prelude::*};
+use common::vendor::client::{icondata::Icon as IconType, prelude::*};
 use leptos_icons::Icon;
 
 const SIZE: &str = "1.2em";

@@ -375,12 +375,11 @@ dependencies = [
  "client_pages",
  "client_router",
  "client_utils",
- "exports",
+ "common",
  "leptos",
  "leptos-use",
  "leptos_meta",
  "leptos_router",
- "macros",
 ]
 
 [[package]]
@@ -389,7 +388,7 @@ version = "0.0.0"
 dependencies = [
  "client_hooks",
  "client_router",
- "exports",
+ "common",
  "leptos",
  "leptos_animated_for",
  "leptos_icons",
@@ -408,14 +407,13 @@ dependencies = [
  "client_i18n",
  "client_macros",
  "client_utils",
+ "common",
  "console_log",
- "exports",
  "fern",
  "futures",
  "leptos-use",
  "log",
  "paste",
- "utils",
  "wasm-bindgen",
  "web-sys",
 ]
@@ -440,7 +438,7 @@ dependencies = [
  "client_i18n",
  "client_router",
  "client_utils",
- "exports",
+ "common",
  "leptos",
  "leptos-use",
  "leptos_router",
@@ -465,12 +463,11 @@ dependencies = [
  "client_router",
  "client_stores",
  "client_utils",
- "exports",
+ "common",
  "leptos",
  "leptos_router",
  "pct-str",
  "rand",
- "utils",
  "web-sys",
 ]
 
@@ -496,7 +493,7 @@ name = "client_stores"
 version = "0.0.0"
 dependencies = [
  "client_utils",
- "exports",
+ "common",
  "leptos-use",
 ]
 
@@ -504,7 +501,7 @@ dependencies = [
 name = "client_utils"
 version = "0.0.0"
 dependencies = [
- "exports",
+ "common",
  "futures",
 ]
 
@@ -513,6 +510,54 @@ name = "collection_literals"
 version = "1.0.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "186dce98367766de751c42c4f03970fc60fc012296e706ccbb9d5df9b6c1e271"
+
+[[package]]
+name = "common"
+version = "0.0.0"
+dependencies = [
+ "common_macros",
+ "common_utils",
+ "common_vendor",
+]
+
+[[package]]
+name = "common_macros"
+version = "0.0.0"
+dependencies = [
+ "cfg-if",
+ "common_proc_macros",
+]
+
+[[package]]
+name = "common_proc_macros"
+version = "0.0.0"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.41",
+]
+
+[[package]]
+name = "common_utils"
+version = "0.0.0"
+
+[[package]]
+name = "common_vendor"
+version = "0.0.0"
+dependencies = [
+ "common_macros",
+ "educe",
+ "getset",
+ "icondata",
+ "leptos",
+ "leptos-use",
+ "leptos_i18n",
+ "log",
+ "num",
+ "serde",
+ "time",
+ "unocss-classes",
+]
 
 [[package]]
 name = "config"
@@ -762,24 +807,6 @@ checksum = "7c18ee0ed65a5f1f81cac6b1d213b69c35fa47d4252ad41f1486dbd8226fe36e"
 dependencies = [
  "libc",
  "windows-sys",
-]
-
-[[package]]
-name = "exports"
-version = "0.0.0"
-dependencies = [
- "educe",
- "getset",
- "icondata",
- "leptos",
- "leptos-use",
- "leptos_i18n",
- "log",
- "macros",
- "num",
- "serde",
- "time",
- "unocss-classes",
 ]
 
 [[package]]
@@ -1805,14 +1832,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "macros"
-version = "0.0.0"
-dependencies = [
- "cfg-if",
- "proc_macros",
-]
-
-[[package]]
 name = "manyhow"
 version = "0.8.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2262,15 +2281,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "proc_macros"
-version = "0.0.0"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn 2.0.41",
-]
-
-[[package]]
 name = "ptr_meta"
 version = "0.1.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2717,7 +2727,7 @@ name = "server"
 version = "0.0.0"
 dependencies = [
  "axum",
- "exports",
+ "common",
  "leptos",
  "leptos_axum",
  "leptos_integration_utils",
@@ -3351,10 +3361,6 @@ name = "utf8-width"
 version = "0.1.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5190c9442dcdaf0ddd50f37420417d219ae5261bbf5db120d0f9bab996c9cba1"
-
-[[package]]
-name = "utils"
-version = "0.0.0"
 
 [[package]]
 name = "uuid"

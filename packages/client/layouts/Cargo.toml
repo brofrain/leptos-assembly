@@ -18,7 +18,7 @@ client_env.workspace = true
 client_i18n.workspace = true
 client_router.workspace = true
 client_utils.workspace = true
-exports = { workspace = true, features = ["client"] }
+common.workspace = true
 server.workspace = true
 leptos.workspace = true
 leptos_router.workspace = true

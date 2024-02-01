@@ -2,7 +2,7 @@ use client_components::{BaseAnimatedFor, BaseIcon, BaseLink};
 use client_i18n::use_i18n;
 use client_router::{HiParams, Route};
 use client_stores::{use_store, Names};
-use exports::client::{icondata as i, prelude::*};
+use common::vendor::client::{icondata as i, prelude::*};
 use leptos_router::use_params;
 use pct_str::PctStr;
 

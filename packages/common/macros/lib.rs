@@ -1,7 +1,7 @@
 // FIXME: There is nothing here currently, but it's preferred not to
 // distinguish declarative macros from procedural ones in the target codebase.
 #[allow(unused_imports)]
-pub use proc_macros::*;
+pub use common_proc_macros::*;
 
 /// Shorthand for `mod module; use module::*;` with hushed
 /// `clippy::module_name_repetitions` lint.

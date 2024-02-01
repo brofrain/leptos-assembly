@@ -1,6 +1,6 @@
 use std::cell::RefCell;
 
-use exports::leptos::{provide_context, use_context, with_owner, Owner};
+use common::vendor::leptos::{provide_context, use_context, with_owner, Owner};
 
 thread_local! {
     static GLOBAL_CTX_OWNER: RefCell<Option<Owner>> = const { RefCell::new(None) };

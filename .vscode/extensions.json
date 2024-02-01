@@ -1,6 +1,5 @@
 {
   "recommendations": [
-    "antfu.iconify",
     "antfu.unocss",
     "esbenp.prettier-vscode",
     "lokalise.i18n-ally",

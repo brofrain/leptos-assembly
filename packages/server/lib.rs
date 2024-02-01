@@ -1,4 +1,4 @@
-exports::server::use_macros!();
+common::use_macros!();
 
 flatten_pub_mod!(api);
 

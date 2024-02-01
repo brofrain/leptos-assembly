@@ -1,5 +1,5 @@
 [package]
-name = "exports"
+name = "common_vendor"
 version.workspace = true
 edition.workspace = true
 rust-version.workspace = true
@@ -12,19 +12,15 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
-macros.workspace = true
+common_macros.workspace = true
 educe.workspace = true
 getset.workspace = true
 icondata.workspace = true
 leptos.workspace = true
-leptos_i18n = { workspace = true, optional = true }
-leptos-use = { workspace = true, optional = true }
+leptos_i18n.workspace = true
+leptos-use.workspace = true
 log.workspace = true
 num.workspace = true
 serde.workspace = true
 time.workspace = true
-unocss-classes = { workspace = true, optional = true }
-
-[features]
-client = ["dep:leptos_i18n", "dep:leptos-use", "dep:unocss-classes"]
-server = []
+unocss-classes.workspace = true

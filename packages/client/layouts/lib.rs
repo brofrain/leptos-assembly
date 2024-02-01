@@ -1,5 +1,5 @@
-exports::use_macros!();
+common::use_macros!();
 
-mod common;
+mod shared;
 
 flatten_pub_mod!(default, home, blank);

@@ -1,4 +1,4 @@
-use exports::server::prelude::*;
+use common::vendor::server::prelude::*;
 
 #[server]
 pub async fn get_leptos_tag() -> Result<String, ServerFnError> {

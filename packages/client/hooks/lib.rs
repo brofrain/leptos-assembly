@@ -2,7 +2,7 @@
 #![feature(unboxed_closures)]
 #![feature(fn_traits)]
 
-exports::use_macros!();
+common::use_macros!();
 
 pub mod confirm;
 pub mod i18n;

@@ -21,8 +21,7 @@ client_macros.workspace = true
 client_pages.path = "../pages"
 client_router.workspace = true
 client_utils.workspace = true
-exports = { workspace = true, features = ["client"] }
-macros.workspace = true
+common.workspace = true
 leptos.workspace = true
 leptos_meta.workspace = true
 leptos_router.workspace = true
