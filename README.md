@@ -103,7 +103,7 @@ Additionally, the project aspires to implement a strict, predictable and scalabl
   - Ubuntu:
 
     ```bash
-    sudo apt install -y build-essential libssl-dev
+    sudo apt install -y build-essential libssl-dev pkg-config
     ```
 
 - [just](https://github.com/casey/just) is required for running CLI tasks.\
