@@ -382,6 +382,7 @@ version = "0.0.0"
 dependencies = [
  "client_hooks",
  "client_router",
+ "client_utils",
  "common",
  "leptos",
  "leptos_animated_for",

@@ -1,4 +1,5 @@
 use client_hooks::overlay;
+use client_utils::reactivity::{MaybeTextProp, MaybeTextPropExt};
 use common::vendor::client::prelude::*;
 use wasm_bindgen::JsCast;
 use web_sys::MouseEvent;
@@ -6,7 +7,7 @@ use web_sys::MouseEvent;
 #[component]
 pub fn BaseModal(
     children: Children,
-    #[prop(optional, into)] class: MaybeProp<String>,
+    #[prop(optional, into)] class: MaybeTextProp,
     #[prop(optional, into)] on_overlay_click: Option<Callback<MouseEvent>>,
 ) -> impl IntoView {
     let on_overlay_click = move |e| {
@@ -30,7 +31,7 @@ pub fn BaseModal(
         <div class="cover flex justify-center items-center pb1/4" on:click=on_overlay_click>
             <div
                 class=move || {
-                    uno!["min-w-86 max-w-93/100", "rounded", "p4", "bg-primary", class()]
+                    uno!["min-w-86 max-w-93/100", "rounded", "p4", "bg-primary", class.get_string()]
                 }
 
                 on:click=|e| e.stop_propagation()

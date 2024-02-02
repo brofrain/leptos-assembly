@@ -1,4 +1,5 @@
 use client_router::Route;
+use client_utils::reactivity::{MaybeTextProp, MaybeTextPropExt};
 use common::vendor::client::prelude::*;
 
 pub enum BaseLinkTo {
@@ -34,8 +35,8 @@ impl BaseLinkTo {
 pub fn BaseLink(
     children: Children,
     #[prop(optional, into)] to: Option<BaseLinkTo>,
-    #[prop(optional, into)] title: MaybeProp<TextProp>,
-    #[prop(optional, into)] class: MaybeProp<String>,
+    #[prop(optional, into)] title: MaybeTextProp,
+    #[prop(optional, into)] class: MaybeTextProp,
     #[prop(attrs)] attrs: Vec<(&'static str, Attribute)>,
 ) -> impl IntoView {
     let external = to.as_ref().is_some_and(BaseLinkTo::is_external);
@@ -46,7 +47,7 @@ pub fn BaseLink(
             class=move || {
                 uno![
                     "inline-block", "underline text-secondary-interactive", "transition-colors",
-                    "cursor-pointer", "select-none", class()
+                    "cursor-pointer", "select-none", class.get_string()
                 ]
             }
 
