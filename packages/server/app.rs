@@ -1,5 +1,3 @@
-use std::sync::Arc;
-
 use axum::{
     body::Body,
     extract::State,
@@ -11,6 +9,7 @@ use axum::{
 use leptos::{get_configuration, IntoView, LeptosOptions};
 use leptos_axum::{generate_route_list_with_exclusions, LeptosRoutes};
 use leptos_integration_utils::html_parts_separated;
+use tokio::net::TcpListener;
 use tower::ServiceExt;
 use tower_http::{services::ServeDir, trace::TraceLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -48,7 +47,7 @@ where
             #[cfg(debug_assertions)]
             "debug,hyper=info",
             #[cfg(not(debug_assertions))]
-            "warn",
+            "info",
         ))
         .with(tracing_subscriber::fmt::layer())
         .init();
@@ -61,13 +60,10 @@ where
         Some(vec!["/*path".to_owned()]),
     );
 
-    let app_handler = Arc::new(leptos_axum::render_app_to_stream(
-        leptos_options.clone(),
-        app,
-    ));
+    let app_handler =
+        leptos_axum::render_app_to_stream(leptos_options.clone(), app);
 
-    let file_and_error_handler = {
-        let app_handler = Arc::clone(&app_handler);
+    let file_and_error_handler =
         move |uri: Uri,
               State(options): State<LeptosOptions>,
               req: Request<Body>| async move {
@@ -79,11 +75,9 @@ where
             } else {
                 res
             }
-        }
-    };
+        };
 
     let router = Router::new()
-        .route("/", get(move |req| app_handler(req)))
         .route("/pwa", get(pwa_app_handler))
         .route("/api/*fn_name", post(leptos_axum::handle_server_fns))
         .leptos_routes(&leptos_options, routes, app)
@@ -91,7 +85,7 @@ where
         .with_state(leptos_options)
         .layer(TraceLayer::new_for_http());
 
-    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
+    let listener = TcpListener::bind(&addr).await.unwrap();
 
     log::info!("Listening on http://{addr}");
 
