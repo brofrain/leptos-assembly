@@ -16,7 +16,7 @@ pub fn Index() -> impl IntoView {
 
     let name = RwSignal::new(String::new());
 
-    let input_name_placeholder = Signal::derive(move || {
+    let input_name_placeholder = TextProp::from(move || {
         if let Some(last_name) = names_store.last_name() {
             t_string!(i18n, home.input_placeholder_with_name, name = last_name)
         } else {

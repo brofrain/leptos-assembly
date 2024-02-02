@@ -34,7 +34,7 @@ impl BaseLinkTo {
 pub fn BaseLink(
     children: Children,
     #[prop(optional, into)] to: Option<BaseLinkTo>,
-    #[prop(optional, into)] title: TextProp,
+    #[prop(optional, into)] title: MaybeProp<TextProp>,
     #[prop(optional, into)] class: MaybeProp<String>,
     #[prop(attrs)] attrs: Vec<(&'static str, Attribute)>,
 ) -> impl IntoView {

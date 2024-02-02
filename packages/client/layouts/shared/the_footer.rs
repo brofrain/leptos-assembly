@@ -27,20 +27,20 @@ pub fn TheFooter() -> impl IntoView {
 
     view! {
         <nav class=uno!["flex", "justify-center", "gap-3", "text-xl", "my-4", "children:lh-0"]>
-            <BaseLink title=t!(i18n, nav.link_home) to=Route::Home>
+            <BaseLink title=TextProp::from(t!(i18n, nav.link_home)) to=Route::Home>
                 <BaseIcon icon=i::AiHomeOutlined/>
             </BaseLink>
 
-            <BaseLink title=t!(i18n, nav.toggle_dark) on:click=toggle_dark>
+            <BaseLink title=TextProp::from(t!(i18n, nav.toggle_dark)) on:click=toggle_dark>
                 <BaseIcon icon=i::ChSun class="dark:hidden"/>
                 <BaseIcon icon=i::TbMoon class="hidden dark:block"/>
             </BaseLink>
 
-            <BaseLink title=t!(i18n, nav.toggle_locale) on:click=toggle_locale>
+            <BaseLink title=TextProp::from(t!(i18n, nav.toggle_locale)) on:click=toggle_locale>
                 <BaseIcon icon=i::IoLanguage/>
             </BaseLink>
 
-            <BaseLink title=t!(i18n, nav.link_about) to=Route::About>
+            <BaseLink title=TextProp::from(t!(i18n, nav.link_about)) to=Route::About>
                 <BaseIcon icon=i::BsCardText/>
             </BaseLink>
 
