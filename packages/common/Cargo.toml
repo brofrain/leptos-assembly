@@ -15,4 +15,3 @@ path = "lib.rs"
 common_macros.path = "macros"
 common_utils.path = "utils"
 common_vendor.path = "vendor"
-
