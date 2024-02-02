@@ -1,7 +1,7 @@
 use client_components::{BaseIcon, BaseLink};
 use client_env::PROJECT_REPOSITORY_URL;
 use client_hooks::i18n;
-use client_i18n::{t_string, use_i18n};
+use client_i18n::use_i18n;
 use client_router::Route;
 use common::vendor::client::{icondata as i, prelude::*};
 use leptos_use::{use_color_mode, ColorMode, UseColorModeReturn};
@@ -27,26 +27,20 @@ pub fn TheFooter() -> impl IntoView {
 
     view! {
         <nav class=uno!["flex", "justify-center", "gap-3", "text-xl", "my-4", "children:lh-0"]>
-            <BaseLink title=Signal::derive(move || t_string!(i18n, nav.link_home)) to=Route::Home>
+            <BaseLink title=t!(i18n, nav.link_home) to=Route::Home>
                 <BaseIcon icon=i::AiHomeOutlined/>
             </BaseLink>
 
-            <BaseLink
-                title=Signal::derive(move || t_string!(i18n, nav.toggle_dark))
-                on:click=toggle_dark
-            >
+            <BaseLink title=t!(i18n, nav.toggle_dark) on:click=toggle_dark>
                 <BaseIcon icon=i::ChSun class="dark:hidden"/>
                 <BaseIcon icon=i::TbMoon class="hidden dark:block"/>
             </BaseLink>
 
-            <BaseLink
-                title=Signal::derive(move || t_string!(i18n, nav.toggle_locale))
-                on:click=toggle_locale
-            >
+            <BaseLink title=t!(i18n, nav.toggle_locale) on:click=toggle_locale>
                 <BaseIcon icon=i::IoLanguage/>
             </BaseLink>
 
-            <BaseLink title=Signal::derive(move || t_string!(i18n, nav.link_about)) to=Route::About>
+            <BaseLink title=t!(i18n, nav.link_about) to=Route::About>
                 <BaseIcon icon=i::BsCardText/>
             </BaseLink>
 

@@ -1,5 +1,5 @@
 use client_hooks::nprogress;
-use client_i18n::{t_view, use_i18n};
+use client_i18n::use_i18n;
 use common::vendor::client::prelude::*;
 use server::get_leptos_tag;
 
@@ -19,10 +19,14 @@ pub fn TheLeptosTagInfo() -> impl IntoView {
     );
 
     let msg = move || {
-        tag()?.map_or_else(
-            move |_| Some(t_view!(i18n, home.leptos_tag_error)),
-            |tag| Some(t_view!(i18n, home.leptos_tag, tag)),
-        )
+        tag.with(|tag| {
+            tag.as_ref().map(|tag| {
+                tag.as_ref().map_or_else(
+                    move |_| t_string!(i18n, home.leptos_tag_error),
+                    |tag| t_string!(i18n, home.leptos_tag, tag),
+                )
+            })
+        })
     };
 
     view! {

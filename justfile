@@ -295,6 +295,7 @@ setup-ci:
 # Updates Cargo packages to the latest versions in their specified ranges
 update-rs:
     cargo upgrade
+    cargo update
 
 # Updates Node packages to the latest versions in their specified ranges
 update-js:
@@ -306,6 +307,7 @@ update: update-rs update-js
 # Updates Cargo packages to their latest versions ignoring ranges in Cargo.toml
 update-rs-latest:
     cargo upgrade --incompatible allow
+    cargo update
 
 # Updates Node packages to their latest versions ignoring ranges in package.json
 update-js-latest:

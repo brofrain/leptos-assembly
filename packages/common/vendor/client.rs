@@ -33,7 +33,7 @@ pub mod prelude {
         Suspense,
         View,
     };
-    pub use leptos_i18n::{self, t};
+    pub use leptos_i18n::{self, t, t_string};
     pub use time::ext::NumericalDuration;
     pub use unocss_classes::{self, uno};
 

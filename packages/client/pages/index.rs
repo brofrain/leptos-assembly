@@ -1,7 +1,7 @@
 use client_components::{BaseButton, BaseInput, BaseLink, TheLogo};
 use client_env::PROJECT_REPOSITORY_URL;
 use client_hooks::confirm;
-use client_i18n::{t_string, use_i18n};
+use client_i18n::use_i18n;
 use client_router::{use_navigate, HiParams, Route};
 use client_stores::{use_store, Names};
 use common::vendor::client::prelude::*;

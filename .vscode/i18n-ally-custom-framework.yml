@@ -9,8 +9,7 @@ usageMatchRegex:
   - "[^\\w\\d]td_string!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
   - "[^\\w\\d]td_display!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
   # Custom macros
-  - "[^\\w\\d]t_get(?:_untracked)?!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
-  - "[^\\w\\d]t_view(?:_untracked)?!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
+  - "[^\\w\\d]t_untracked!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
   - "[^\\w\\d]t_string(?:_untracked)?!\\(\\s*[\\w.:]*,\\s*([\\w.]*)"
 
 monopoly: true

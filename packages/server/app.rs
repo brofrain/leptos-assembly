@@ -1,8 +1,10 @@
+use std::sync::Arc;
+
 use axum::{
-    body::{boxed, Body, BoxBody},
+    body::Body,
     extract::State,
-    http::{Request, Response, Uri},
-    response::{Html, IntoResponse},
+    http::{Request, StatusCode, Uri},
+    response::{Html, IntoResponse, Response},
     routing::{get, post},
     Router,
 };
@@ -13,24 +15,27 @@ use tower::ServiceExt;
 use tower_http::{services::ServeDir, trace::TraceLayer};
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
-async fn pwa_index_handler(
-    State(options): State<LeptosOptions>,
-) -> Html<String> {
+async fn pwa_app_handler(State(options): State<LeptosOptions>) -> Html<String> {
     let (head, tail) = html_parts_separated(&options, None);
     Html(format!("{head}</head><body>{tail}"))
 }
 
-async fn get_static_file(root: &str, uri: &Uri) -> Response<BoxBody> {
-    let request = Request::builder()
+async fn get_static_file(root: &str, uri: &Uri) -> Response {
+    let req = Request::builder()
         .uri(uri.clone())
         .body(Body::empty())
         .unwrap();
 
-    ServeDir::new(root)
-        .oneshot(request)
-        .await
-        .unwrap()
-        .map(boxed)
+    match ServeDir::new(root).oneshot(req).await {
+        Ok(res) => res.into_response(),
+        Err(err) => {
+            log::error!("Failed to serve a static file: {err:?}");
+            Response::builder()
+                .status(StatusCode::INTERNAL_SERVER_ERROR)
+                .body(Body::empty())
+                .unwrap()
+        }
+    }
 }
 
 pub async fn serve_app<App, AppView>(app: App)
@@ -56,34 +61,41 @@ where
         Some(vec!["/*path".to_owned()]),
     );
 
-    let file_and_error_handler =
+    let app_handler = Arc::new(leptos_axum::render_app_to_stream(
+        leptos_options.clone(),
+        app,
+    ));
+
+    let file_and_error_handler = {
+        let app_handler = Arc::clone(&app_handler);
         move |uri: Uri,
               State(options): State<LeptosOptions>,
               req: Request<Body>| async move {
             let root = &options.site_root;
-            let response = get_static_file(root, &uri).await;
+            let res = get_static_file(root, &uri).await;
 
-            if response.status().is_success() {
-                response.into_response()
+            if res.status() == StatusCode::NOT_FOUND {
+                app_handler(req).await.into_response()
             } else {
-                let handler =
-                    leptos_axum::render_app_to_stream(options.clone(), app);
-                handler(req).await.into_response()
+                res
             }
-        };
+        }
+    };
 
     let router = Router::new()
+        .route("/", get(move |req| app_handler(req)))
+        .route("/pwa", get(pwa_app_handler))
         .route("/api/*fn_name", post(leptos_axum::handle_server_fns))
-        .route("/pwa", get(pwa_index_handler))
         .leptos_routes(&leptos_options, routes, app)
         .fallback(file_and_error_handler)
         .with_state(leptos_options)
         .layer(TraceLayer::new_for_http());
 
+    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
+
     log::info!("Listening on http://{addr}");
 
-    axum::Server::bind(&addr)
-        .serve(router.into_make_service())
+    axum::serve(listener, router.into_make_service())
         .await
         .unwrap();
 }

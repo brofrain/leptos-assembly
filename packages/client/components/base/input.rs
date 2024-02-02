@@ -3,7 +3,7 @@ use common::vendor::client::prelude::*;
 #[component]
 pub fn BaseInput(
     value: RwSignal<String>,
-    #[prop(optional, into)] placeholder: MaybeProp<String>,
+    #[prop(optional, into)] placeholder: TextProp,
     #[prop(attrs)] attrs: Vec<(&'static str, Attribute)>,
 ) -> impl IntoView {
     view! {

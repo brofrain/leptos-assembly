@@ -45,34 +45,35 @@ common_utils.path = "packages/common/utils"
 common_vendor.path = "packages/common/vendor"
 server.path = "packages/server"
 # full-stack
-anyhow = "1.0.75"
+anyhow = "1.0.79"
 cfg-if = "1.0.0"
 derive_more = "0.99.17"
-educe = "0.5.9"
-futures = "0.3.29"
+educe = "0.5.11"
+futures = "0.3.30"
 getset = "0.1.2"
 icondata = "0.3.0"
-leptos = { version = "0.5.5", features = ["nightly"] }
-leptos_animated_for = "0.1.0"
-leptos_i18n = { version = "0.2.3", features = [
+leptos = { version = "0.6.5", features = ["nightly"] }
+leptos_animated_for = "0.3.1"
+leptos_i18n = { version = "0.3.0-rc", features = [
   "nightly",
   "serde",
   "cookie",
   "interpolate_display",
   "yaml_files",
 ], default-features = false }
-leptos_meta = { version = "0.5.5", features = ["nightly"] }
-leptos_router = { version = "0.5.5", features = ["nightly"] }
-leptos-use = { version = "0.9.0", features = ["serde"] }
+leptos_meta = { version = "0.6.5", features = ["nightly"] }
+leptos_router = { version = "0.6.5", features = ["nightly"] }
+leptos-use = { version = "0.10.1", features = ["serde"] }
 log = "0.4.20"
 num = "0.4.1"
 paste = "1.0.14"
 pct-str = "2.0.0"
 rand = "0.8.5"
-serde = { version = "1.0.193", features = ["derive"] }
-serde_json = "1.0.108"
-thiserror = "1.0.51"
-time = { version = "0.3.31", features = ["macros", "formatting", "parsing"] }
+serde = { version = "1.0.196", features = ["derive"] }
+serde_json = "1.0.113"
+thiserror = "1.0.56"
+# FIXME: `time` v0.3.32 is currently broken - https://github.com/time-rs/time/issues/652
+time = { version = "=0.3.31", features = ["macros", "formatting", "parsing"] }
 unocss-classes = "2.0.0"
 wasm-bindgen = "0.2.90"
 web-sys = { version = "0.3.67", features = [
@@ -87,19 +88,19 @@ web-sys = { version = "0.3.67", features = [
   "Performance",
 ] }
 # client_only
-getrandom = { version = "0.2.11", features = ["js"] }
+getrandom = { version = "0.2.12", features = ["js"] }
 # server-only
-axum = "0.6.20"
-leptos_axum = "0.5.5"
-leptos_integration_utils = "0.5.5"
+axum = "0.7.4"
+leptos_axum = "0.6.5"
+leptos_integration_utils = "0.6.5"
 tokio = { version = "1.35.1", features = ["full"] }
 tower = "0.4.13"
-tower-http = { version = "0.4.4", features = ["fs", "trace"] }
+tower-http = { version = "0.5.1", features = ["fs", "trace"] }
 tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 # proc macros
-proc-macro2 = "1.0.70"
-quote = "1.0.33"
-syn = { version = "2.0.41", features = ["full"] }
+proc-macro2 = "1.0.78"
+quote = "1.0.35"
+syn = { version = "2.0.48", features = ["full"] }
 
 [profile.dev]
 opt-level = 1

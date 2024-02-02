@@ -17,6 +17,6 @@ client_router.workspace = true
 common.workspace = true
 leptos.workspace = true
 leptos_animated_for.workspace = true
-leptos_icons = "0.2.1"
+leptos_icons = "0.3.0"
 wasm-bindgen.workspace = true
 web-sys.workspace = true

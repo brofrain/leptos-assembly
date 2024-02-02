@@ -12,7 +12,7 @@ pub fn Hi() -> impl IntoView {
 
     view! {
         <div class="text-center">
-            <p>{t!(i18n, name.welcome, name = names_store.last_name())}</p>
+            <p>{t!(i18n, name.welcome, name = move || names_store.last_name())}</p>
         </div>
     }
 }

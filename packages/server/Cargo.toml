@@ -15,7 +15,7 @@ path = "lib.rs"
 common.workspace = true
 leptos.workspace = true
 log.workspace = true
-reqwest = { version = "0.11.23", features = ["json"] }
+reqwest = { version = "0.11.24", features = ["json"] }
 serde.workspace = true
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
@@ -23,5 +23,6 @@ axum.workspace = true
 leptos_axum.workspace = true
 leptos_integration_utils.workspace = true
 tracing-subscriber.workspace = true
+tokio.workspace = true
 tower.workspace = true
 tower-http.workspace = true
