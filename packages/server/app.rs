@@ -37,6 +37,8 @@ async fn get_static_file(root: &str, uri: &Uri) -> Response {
     }
 }
 
+async fn heathcheck() {}
+
 pub async fn serve_app<App, AppView>(app: App)
 where
     App: Fn() -> AppView + Clone + Copy + Send + Sync + 'static,
@@ -78,6 +80,7 @@ where
         };
 
     let router = Router::new()
+        .route("/health", get(heathcheck))
         .route("/pwa", get(pwa_app_handler))
         .route("/api/*fn_name", post(leptos_axum::handle_server_fns))
         .leptos_routes(&leptos_options, routes, app)
