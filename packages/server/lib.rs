@@ -1,7 +1,7 @@
 common::use_macros!();
 
 mod api {
-    flatten_pub_mod!(leptos_tag);
+    pub mod leptos_tag;
 }
 pub use api::*;
 

@@ -1,7 +1,7 @@
 use common::vendor::server::prelude::*;
 
 #[server]
-pub async fn get_leptos_tag() -> Result<String, ServerFnError> {
+pub async fn get() -> Result<String, ServerFnError> {
     use reqwest::{header::USER_AGENT, Client};
 
     #[derive(Deserialize, Clone)]

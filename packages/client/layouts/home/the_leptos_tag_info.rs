@@ -1,7 +1,7 @@
 use client_hooks::nprogress;
 use client_i18n::use_i18n;
 use common::vendor::client::prelude::*;
-use server::get_leptos_tag;
+use server::leptos_tag;
 
 #[component]
 pub fn TheLeptosTagInfo() -> impl IntoView {
@@ -12,7 +12,7 @@ pub fn TheLeptosTagInfo() -> impl IntoView {
         || (),
         move |()| async move {
             nprogress.enable();
-            let result = get_leptos_tag().await;
+            let result = leptos_tag::get().await;
             nprogress.disable();
             result
         },
