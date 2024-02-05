@@ -72,8 +72,7 @@ rand = "0.8.5"
 serde = { version = "1.0.196", features = ["derive"] }
 serde_json = "1.0.113"
 thiserror = "1.0.56"
-# FIXME: `time` v0.3.32 is currently broken - https://github.com/time-rs/time/issues/652
-time = { version = "=0.3.31", features = ["macros", "formatting", "parsing"] }
+time = { version = "0.3.34", features = ["macros", "formatting", "parsing"] }
 unocss-classes = "2.0.0"
 wasm-bindgen = "0.2.90"
 web-sys = { version = "0.3.67", features = [
