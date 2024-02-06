@@ -184,7 +184,7 @@ just build
 
 ## 🌱 File architecture
 
-// TODO: make sure its good enough and add exhaustive guide
+// TODO: make sure it's good enough and add exhaustive guide
 
 ```bash
 📁project
@@ -201,6 +201,11 @@ just build
 │  │  ├─ 📁hooks
 │  │  │  ├─ 🚩lib.rs
 │  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 📁i18n
+│  │  │  ├─ 📁locales
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 📁js
 │  │  ├─ 📁macros
 │  │  │  ├─ 📁proc
 │  │  │  │  ├─ 🚩lib.rs
@@ -208,14 +213,14 @@ just build
 │  │  │  ├─ 🚩lib.rs
 │  │  │  └─ ⚙️Cargo.toml
 │  │  ├─ 📁pages
-│  │  │  ├─ 🚩index.rs
-│  │  │  ├─ 📁example
-│  │  │  │  ├─ 📁components
-│  │  │  │  ├─ 📁hooks
-│  │  │  │  └─ 🚩mod.rs
 │  │  │  ├─ 🚩lib.rs
 │  │  │  └─ ⚙️Cargo.toml
 │  │  ├─ 📁router
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
+│  │  ├─ 📁stores
+│  │  │  ├─ 🚩lib.rs
+│  │  │  └─ ⚙️Cargo.toml
 │  │  ├─ 📁styles
 │  │  ├─ 📁utils
 │  │  │  ├─ 🚩lib.rs
@@ -227,16 +232,21 @@ just build
 │  │  ├─ 🚩lib.rs
 │  │  └─ ⚙️Cargo.toml
 │  │
-│  ├─ 📁macros
-│  │  ├─ 📁proc
-│  │  │  ├─ 🚩lib.rs
-│  │  │  └─ ⚙️Cargo.toml
-│  │  ├─ 🚩lib.rs
-│  │  └─ ⚙️Cargo.toml
-│  │
-│  └─ 📁utils
-│     ├─ 🚩lib.rs
-│     └─ ⚙️Cargo.toml
+│  └─ 📁common
+│     ├─ 📁macros
+│     │  ├─ 📁proc
+│     │  │  ├─ 🚩lib.rs
+│     │  │  └─ ⚙️Cargo.toml
+│     │  ├─ 🚩lib.rs
+│     │  └─ ⚙️Cargo.toml
+│     │
+│     ├─ 📁vendor
+│     │  ├─ 🚩lib.rs
+│     │  └─ ⚙️Cargo.toml
+│     │
+│     └─ 📁utils
+│        ├─ 🚩lib.rs
+│        └─ ⚙️Cargo.toml
 │
 ```
 
@@ -244,7 +254,7 @@ just build
 
 - [ ] Change the project name in `package.json`
 - [ ] Change the author name in `LICENSE` or simply remove the file
-- [ ] Change the favicon in `apps/client/public/`
+- [ ] Change the favicon in `packages/client/public/`
 
 ## 🏷️ License
 
