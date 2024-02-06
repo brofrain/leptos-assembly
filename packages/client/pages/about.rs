@@ -3,13 +3,13 @@ use client_hooks::toast::{self, Severity};
 use client_i18n::use_i18n;
 use client_utils::future::{next_tick, spawn_local_owned};
 use common::{
+    prelude::*,
     utils::id,
-    vendor::client::{
-        icondata::{self as i, Icon},
-        prelude::*,
+    vendor::{
+        icondata::Icon,
+        rand::{seq::SliceRandom, thread_rng, Rng},
     },
 };
-use rand::{seq::SliceRandom, thread_rng, Rng};
 
 mod components {
     flatten_pub_mod!(feature_brick);
@@ -25,47 +25,47 @@ struct Feature {
 static FEATURES: [Feature; 11] = [
     Feature {
         title: "Leptos",
-        icon: i::SiLeptos,
+        icon: icon::SiLeptos,
     },
     Feature {
         title: "Rust",
-        icon: i::SiRust,
+        icon: icon::SiRust,
     },
     Feature {
         title: "Axum",
-        icon: i::BsBoxSeamFill,
+        icon: icon::BsBoxSeamFill,
     },
     Feature {
         title: "Leptos-Use",
-        icon: i::BsBoxSeamFill,
+        icon: icon::BsBoxSeamFill,
     },
     Feature {
         title: "Leptos i18n",
-        icon: i::IoEarth,
+        icon: icon::IoEarth,
     },
     Feature {
         title: "UnoCSS",
-        icon: i::SiUnocss,
+        icon: icon::SiUnocss,
     },
     Feature {
         title: "Leptos Icons",
-        icon: i::FaFaceSmileRegular,
+        icon: icon::FaFaceSmileRegular,
     },
     Feature {
         title: "Vite",
-        icon: i::SiVite,
+        icon: icon::SiVite,
     },
     Feature {
         title: "PWA",
-        icon: i::IoCloudOffline,
+        icon: icon::IoCloudOffline,
     },
     Feature {
         title: "Webfonts",
-        icon: i::RiFontSizeEditor,
+        icon: icon::RiFontSizeEditor,
     },
     Feature {
         title: "Playwright",
-        icon: i::SiPlaywright,
+        icon: icon::SiPlaywright,
     },
 ];
 

@@ -1,6 +1,6 @@
 use client_components::{BaseAnimatedFor, BaseButton, BaseModal};
 use client_hooks::confirm;
-use common::vendor::client::prelude::*;
+use common::prelude::*;
 
 #[component]
 pub fn TheConfirms() -> impl IntoView {

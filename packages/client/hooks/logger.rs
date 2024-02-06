@@ -1,5 +1,7 @@
 #[cfg(target_arch = "wasm32")]
 pub fn use_init() {
+    use common::vendor::log;
+
     fern::Dispatch::new()
         .level(
             #[cfg(debug_assertions)]

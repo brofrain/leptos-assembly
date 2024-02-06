@@ -1,5 +1,4 @@
-use common::vendor::client::prelude::*;
-use leptos_router::Outlet;
+use common::{prelude::*, vendor::leptos_router::Outlet};
 
 #[component]
 pub fn Blank() -> impl IntoView {

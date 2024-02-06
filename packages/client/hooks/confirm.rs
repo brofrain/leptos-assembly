@@ -2,8 +2,14 @@ use std::pin::Pin;
 
 use client_i18n::use_i18n;
 use client_utils::reactivity::{use_global_context, ViewCallback};
-use common::{utils::id, vendor::client::prelude::*};
-use futures::{channel::oneshot, Future, FutureExt};
+use common::{
+    prelude::*,
+    utils::id,
+    vendor::{
+        futures::{channel::oneshot, Future, FutureExt},
+        paste,
+    },
+};
 
 #[derive(Getters)]
 #[getset(get = "pub")]

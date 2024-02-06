@@ -1,6 +1,6 @@
 use client_hooks::nprogress;
 use client_i18n::use_i18n;
-use common::vendor::client::prelude::*;
+use common::prelude::*;
 use server::leptos_tag;
 
 #[component]

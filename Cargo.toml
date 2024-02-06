@@ -44,16 +44,8 @@ common_macros.path = "packages/common/macros"
 common_utils.path = "packages/common/utils"
 common_vendor.path = "packages/common/vendor"
 server.path = "packages/server"
-# full-stack
-anyhow = "1.0.79"
 cfg-if = "1.0.0"
-derive_more = "0.99.17"
-educe = "0.5.11"
-futures = "0.3.30"
-getset = "0.1.2"
-icondata = "0.3.0"
 leptos = { version = "0.6.5", features = ["nightly"] }
-leptos_animated_for = "0.3.1"
 leptos_i18n = { version = "0.3.0-rc", features = [
   "nightly",
   "serde",
@@ -61,41 +53,10 @@ leptos_i18n = { version = "0.3.0-rc", features = [
   "interpolate_display",
   "yaml_files",
 ], default-features = false }
-leptos_meta = { version = "0.6.5", features = ["nightly"] }
 leptos_router = { version = "0.6.5", features = ["nightly"] }
-leptos-use = { version = "0.10.1", features = ["serde"] }
-log = "0.4.20"
-num = "0.4.1"
-paste = "1.0.14"
-pct-str = "2.0.0"
-rand = "0.8.5"
 serde = { version = "1.0.196", features = ["derive"] }
-serde_json = "1.0.113"
-thiserror = "1.0.56"
-time = { version = "0.3.34", features = ["macros", "formatting", "parsing"] }
-unocss-classes = "2.0.0"
-wasm-bindgen = "0.2.90"
-web-sys = { version = "0.3.67", features = [
-  "CssStyleDeclaration",
-  "DomRect",
-  "DomTokenList",
-  "Element",
-  "Event",
-  "EventTarget",
-  "HtmlElement",
-  "MediaQueryList",
-  "Performance",
-] }
-# client_only
-getrandom = { version = "0.2.12", features = ["js"] }
-# server-only
-axum = "0.7.4"
-leptos_axum = "0.6.5"
-leptos_integration_utils = "0.6.5"
 tokio = { version = "1.35.1", features = ["full"] }
-tower = "0.4.13"
-tower-http = { version = "0.5.1", features = ["fs", "trace"] }
-tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
+wasm-bindgen = "0.2.90"
 # proc macros
 proc-macro2 = "1.0.78"
 quote = "1.0.35"

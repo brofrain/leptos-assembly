@@ -2,7 +2,7 @@ use client_utils::reactivity::{
     throttle::{self, UseSwitch},
     use_global_context_with_initializer,
 };
-use common::vendor::client::prelude::*;
+use common::prelude::*;
 
 #[derive(Clone, Copy)]
 struct Ctx {

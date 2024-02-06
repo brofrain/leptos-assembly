@@ -1,6 +1,5 @@
-use common::vendor::client::prelude::*;
+use common::{prelude::*, vendor::web_sys::ServiceWorkerState};
 use wasm_bindgen::{closure::Closure, JsCast};
-use web_sys::ServiceWorkerState;
 
 mod js {
     use client_macros::bind_js_fn;

@@ -21,7 +21,3 @@ client_stores.workspace = true
 client_utils.workspace = true
 common.workspace = true
 leptos.workspace = true
-leptos_router.workspace = true
-pct-str.workspace = true
-rand.workspace = true
-web-sys.workspace = true

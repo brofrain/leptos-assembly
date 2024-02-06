@@ -1,9 +1,5 @@
-leptos_i18n::load_locales!();
+common::vendor::leptos_i18n::load_locales!();
 pub use i18n::{provide_i18n_context, use_i18n, Locale};
-
-pub mod __exports {
-    pub use paste;
-}
 
 /// Shorthand for `td!(i18n.get_locale_untracked(), ...)`.
 #[macro_export]

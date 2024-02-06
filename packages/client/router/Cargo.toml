@@ -12,5 +12,6 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
+common.workspace = true
 leptos.workspace = true
 leptos_router.workspace = true

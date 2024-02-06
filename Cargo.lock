@@ -345,14 +345,8 @@ version = "0.0.0"
 dependencies = [
  "cfg-if",
  "client_app",
- "getrandom",
+ "common",
  "leptos",
- "leptos-use",
- "leptos_animated_for",
- "leptos_i18n",
- "leptos_meta",
- "leptos_router",
- "time",
  "wasm-bindgen",
 ]
 
@@ -371,9 +365,6 @@ dependencies = [
  "client_utils",
  "common",
  "leptos",
- "leptos-use",
- "leptos_meta",
- "leptos_router",
 ]
 
 [[package]]
@@ -387,8 +378,6 @@ dependencies = [
  "leptos",
  "leptos_animated_for",
  "leptos_icons",
- "wasm-bindgen",
- "web-sys",
 ]
 
 [[package]]
@@ -405,21 +394,16 @@ dependencies = [
  "common",
  "console_log",
  "fern",
- "futures",
- "leptos-use",
- "log",
- "paste",
  "wasm-bindgen",
- "web-sys",
 ]
 
 [[package]]
 name = "client_i18n"
 version = "0.0.0"
 dependencies = [
+ "common",
  "leptos",
  "leptos_i18n",
- "paste",
  "serde",
 ]
 
@@ -435,8 +419,6 @@ dependencies = [
  "client_utils",
  "common",
  "leptos",
- "leptos-use",
- "leptos_router",
  "server",
 ]
 
@@ -445,6 +427,7 @@ name = "client_macros"
 version = "0.0.0"
 dependencies = [
  "client_proc_macros",
+ "common",
 ]
 
 [[package]]
@@ -460,10 +443,6 @@ dependencies = [
  "client_utils",
  "common",
  "leptos",
- "leptos_router",
- "pct-str",
- "rand",
- "web-sys",
 ]
 
 [[package]]
@@ -479,6 +458,7 @@ dependencies = [
 name = "client_router"
 version = "0.0.0"
 dependencies = [
+ "common",
  "leptos",
  "leptos_router",
 ]
@@ -489,7 +469,6 @@ version = "0.0.0"
 dependencies = [
  "client_utils",
  "common",
- "leptos-use",
 ]
 
 [[package]]
@@ -497,7 +476,6 @@ name = "client_utils"
 version = "0.0.0"
 dependencies = [
  "common",
- "futures",
 ]
 
 [[package]]
@@ -540,18 +518,30 @@ version = "0.0.0"
 name = "common_vendor"
 version = "0.0.0"
 dependencies = [
- "common_macros",
+ "anyhow",
+ "derive_more",
  "educe",
+ "futures",
+ "getrandom",
  "getset",
  "icondata",
  "leptos",
  "leptos-use",
  "leptos_i18n",
+ "leptos_meta",
+ "leptos_router",
  "log",
  "num",
+ "paste",
+ "pct-str",
+ "rand",
  "serde",
+ "serde_json",
+ "thiserror",
  "time",
  "unocss-classes",
+ "wasm-bindgen",
+ "web-sys",
 ]
 
 [[package]]
@@ -598,6 +588,12 @@ dependencies = [
  "quote",
  "unicode-xid",
 ]
+
+[[package]]
+name = "convert_case"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6245d59a3e82a7fc217c5828a6692dbc6dfb63a0c8c90495621f7b9d79704a0e"
 
 [[package]]
 name = "convert_case"
@@ -763,6 +759,19 @@ dependencies = [
  "proc-macro2",
  "quote",
  "syn 2.0.48",
+]
+
+[[package]]
+name = "derive_more"
+version = "0.99.17"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4fb810d30a7c1953f91334de7244731fc3f3c10d7fe163338a35b9f640960321"
+dependencies = [
+ "convert_case 0.4.0",
+ "proc-macro2",
+ "quote",
+ "rustc_version",
+ "syn 1.0.109",
 ]
 
 [[package]]
@@ -1643,9 +1652,9 @@ dependencies = [
 
 [[package]]
 name = "leptos_animated_for"
-version = "0.3.1"
+version = "0.4.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "47ca6214df647da31a7c1aa3190d12751be5a739446f625422cb76ce8fa57421"
+checksum = "934664346a02e5351c9d62c23722f21c4dc28923f5ba77f0214cd63e53d520f7"
 dependencies = [
  "cfg-if",
  "futures",
@@ -1807,7 +1816,7 @@ checksum = "039c510dafb7d9997e4b8accfcced5675fabc65720caf544592df32432d6d65a"
 dependencies = [
  "attribute-derive",
  "cfg-if",
- "convert_case",
+ "convert_case 0.6.0",
  "html-escape",
  "itertools",
  "leptos_hot_reload",
@@ -2688,6 +2697,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "08d43f7aa6b08d49f382cde6a7982047c3426db949b1424bc4b7ec9ae12c6ce2"
 
 [[package]]
+name = "rustc_version"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bfa0f585226d2e68097d4f95d113b15b83a82e819ab25717ec0590d9584ef366"
+dependencies = [
+ "semver",
+]
+
+[[package]]
 name = "rustix"
 version = "0.38.31"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2779,6 +2797,12 @@ name = "self_cell"
 version = "1.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "58bf37232d3bb9a2c4e641ca2a11d83b5062066f88df7fed36c28772046d65ba"
+
+[[package]]
+name = "semver"
+version = "1.0.21"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b97ed7a9823b74f99c7742f5336af7be5ecd3eeafcb1507d1fa93347b1d589b0"
 
 [[package]]
 name = "send_wrapper"
@@ -2904,7 +2928,6 @@ dependencies = [
  "leptos",
  "leptos_axum",
  "leptos_integration_utils",
- "log",
  "reqwest",
  "serde",
  "tokio",
@@ -2955,7 +2978,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3be6011b586a0665546b7ced372b0be690d9e005d3f8524795da2843274d7720"
 dependencies = [
  "const_format",
- "convert_case",
+ "convert_case 0.6.0",
  "proc-macro2",
  "quote",
  "syn 2.0.48",

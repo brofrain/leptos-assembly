@@ -12,9 +12,9 @@ workspace = true
 path = "lib.rs"
 
 [dependencies]
+common.workspace = true
 leptos.workspace = true
 leptos_i18n.workspace = true
-paste.workspace = true
 serde.workspace = true
 
 [package.metadata.leptos-i18n]

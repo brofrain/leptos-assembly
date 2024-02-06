@@ -23,9 +23,6 @@ client_router.workspace = true
 client_utils.workspace = true
 common.workspace = true
 leptos.workspace = true
-leptos_meta.workspace = true
-leptos_router.workspace = true
-leptos-use.workspace = true
 
 [features]
 pwa = []

@@ -1,11 +1,11 @@
 use std::rc::Rc;
 
-use common::vendor::{
-    client::{
+use common::{
+    prelude::*,
+    vendor::{
         leptos_use::{use_debounce_fn_with_arg_and_options, DebounceOptions},
-        prelude::*,
+        time::Duration,
     },
-    time::Duration,
 };
 
 #[derive(Clone, Copy)]

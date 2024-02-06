@@ -1,7 +1,7 @@
 use client_components::BaseLink;
 use client_hooks::sw;
 use client_i18n::use_i18n;
-use common::vendor::client::prelude::*;
+use common::prelude::*;
 
 #[component]
 pub fn TheUpdateBanner() -> impl IntoView {

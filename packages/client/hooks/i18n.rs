@@ -1,6 +1,6 @@
 use client_i18n::{use_i18n, Locale};
 use client_utils::future::next_tick;
-use common::vendor::client::prelude::*;
+use common::prelude::*;
 
 use super::toast;
 

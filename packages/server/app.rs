@@ -6,6 +6,7 @@ use axum::{
     routing::{get, post},
     Router,
 };
+use common::vendor::log;
 use leptos::{get_configuration, IntoView, LeptosOptions};
 use leptos_axum::{generate_route_list_with_exclusions, LeptosRoutes};
 use leptos_integration_utils::html_parts_separated;

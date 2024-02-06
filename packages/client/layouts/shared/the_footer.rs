@@ -3,8 +3,10 @@ use client_env::PROJECT_REPOSITORY_URL;
 use client_hooks::i18n;
 use client_i18n::use_i18n;
 use client_router::Route;
-use common::vendor::client::{icondata as i, prelude::*};
-use leptos_use::{use_color_mode, ColorMode, UseColorModeReturn};
+use common::{
+    prelude::*,
+    vendor::leptos_use::{use_color_mode, ColorMode, UseColorModeReturn},
+};
 
 #[component]
 pub fn TheFooter() -> impl IntoView {
@@ -28,24 +30,24 @@ pub fn TheFooter() -> impl IntoView {
     view! {
         <nav class=uno!["flex", "justify-center", "gap-3", "text-xl", "my-4", "children:lh-0"]>
             <BaseLink title=TextProp::from(t!(i18n, nav.link_home)) to=Route::Home>
-                <BaseIcon icon=i::AiHomeOutlined/>
+                <BaseIcon icon=icon::AiHomeOutlined/>
             </BaseLink>
 
             <BaseLink title=TextProp::from(t!(i18n, nav.toggle_dark)) on:click=toggle_dark>
-                <BaseIcon icon=i::ChSun class="dark:hidden"/>
-                <BaseIcon icon=i::TbMoon class="hidden dark:block"/>
+                <BaseIcon icon=icon::ChSun class="dark:hidden"/>
+                <BaseIcon icon=icon::TbMoon class="hidden dark:block"/>
             </BaseLink>
 
             <BaseLink title=TextProp::from(t!(i18n, nav.toggle_locale)) on:click=toggle_locale>
-                <BaseIcon icon=i::IoLanguage/>
+                <BaseIcon icon=icon::IoLanguage/>
             </BaseLink>
 
             <BaseLink title=TextProp::from(t!(i18n, nav.link_about)) to=Route::About>
-                <BaseIcon icon=i::BsCardText/>
+                <BaseIcon icon=icon::BsCardText/>
             </BaseLink>
 
             <BaseLink title="GitHub" to=PROJECT_REPOSITORY_URL>
-                <BaseIcon icon=i::AiGithubFilled/>
+                <BaseIcon icon=icon::AiGithubFilled/>
             </BaseLink>
         </nav>
     }

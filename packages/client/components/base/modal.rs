@@ -1,8 +1,12 @@
 use client_hooks::overlay;
 use client_utils::reactivity::{MaybeTextProp, MaybeTextPropExt};
-use common::vendor::client::prelude::*;
-use wasm_bindgen::JsCast;
-use web_sys::MouseEvent;
+use common::{
+    prelude::*,
+    vendor::{
+        wasm_bindgen::JsCast,
+        web_sys::{self, MouseEvent},
+    },
+};
 
 #[component]
 pub fn BaseModal(

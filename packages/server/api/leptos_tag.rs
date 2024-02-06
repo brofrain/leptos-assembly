@@ -1,4 +1,4 @@
-use common::vendor::server::prelude::*;
+use common::prelude::*;
 
 #[server]
 pub async fn get() -> Result<String, ServerFnError> {

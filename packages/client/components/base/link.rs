@@ -1,6 +1,6 @@
 use client_router::Route;
 use client_utils::reactivity::{MaybeTextProp, MaybeTextPropExt};
-use common::vendor::client::prelude::*;
+use common::prelude::*;
 
 pub enum BaseLinkTo {
     Internal(Route),

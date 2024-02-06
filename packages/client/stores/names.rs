@@ -1,7 +1,9 @@
 use std::collections::HashSet;
 
-use common::vendor::client::prelude::*;
-use leptos_use::{storage::use_local_storage, utils::JsonCodec};
+use common::{
+    prelude::*,
+    vendor::leptos_use::{storage::use_local_storage, utils::JsonCodec},
+};
 
 use super::Store;
 

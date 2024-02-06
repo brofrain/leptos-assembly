@@ -1,19 +1,19 @@
 use client_components::BaseIcon;
 use client_hooks::toast;
-use common::vendor::client::{icondata as i, prelude::*};
+use common::prelude::*;
 
 #[component]
 pub fn Toast(children: Children, severity: toast::Severity) -> impl IntoView {
     let icon = match severity {
-        toast::Severity::Info => view! { <BaseIcon icon=i::CgInfo/> },
+        toast::Severity::Info => view! { <BaseIcon icon=icon::CgInfo/> },
         toast::Severity::Success => {
-            view! { <BaseIcon icon=i::AiCheckCircleOutlined/> }
+            view! { <BaseIcon icon=icon::AiCheckCircleOutlined/> }
         }
         toast::Severity::Warning => {
-            view! { <BaseIcon icon=i::IoWarningOutline/> }
+            view! { <BaseIcon icon=icon::IoWarningOutline/> }
         }
         toast::Severity::Error => {
-            view! { <BaseIcon icon=i::BiErrorCircleRegular/> }
+            view! { <BaseIcon icon=icon::BiErrorCircleRegular/> }
         }
     };
 

@@ -13,45 +13,18 @@ crate-type = ["cdylib", "rlib"]
 path = "lib.rs"
 
 [dependencies]
+common.workspace = true
 cfg-if.workspace = true
 client_app.path = "app"
 leptos.workspace = true
-leptos_animated_for.workspace = true
-leptos_i18n.workspace = true
-leptos_meta.workspace = true
-leptos_router.workspace = true
-leptos-use.workspace = true
-time.workspace = true
 wasm-bindgen.workspace = true
-getrandom = { workspace = true, optional = true }
 
 [features]
 vite-prebuild = []
 pwa = ["client_app/pwa"]
-csr = [
-  "dep:getrandom",
-  "time/wasm-bindgen",
-  "leptos/csr",
-  "leptos_i18n/csr",
-  "leptos_meta/csr",
-  "leptos_router/csr",
-]
-hydrate = [
-  "dep:getrandom",
-  "time/wasm-bindgen",
-  "leptos/hydrate",
-  "leptos_i18n/hydrate",
-  "leptos_meta/hydrate",
-  "leptos_router/hydrate",
-]
-ssr = [
-  "leptos/ssr",
-  "leptos_animated_for/ssr",
-  "leptos_i18n/axum",
-  "leptos_meta/ssr",
-  "leptos_router/ssr",
-  "leptos-use/ssr",
-]
+csr = ["common/csr"]
+hydrate = ["common/hydrate"]
+ssr = ["common/ssr"]
 
 [package.metadata.cargo-all-features]
 skip_feature_sets = [["csr", "ssr"], ["hydrate", "ssr"], ["hydrate", "csr"]]

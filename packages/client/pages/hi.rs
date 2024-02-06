@@ -1,6 +1,6 @@
 use client_i18n::use_i18n;
 use client_stores::{use_store, Names};
-use common::vendor::client::prelude::*;
+use common::prelude::*;
 
 #[component]
 pub fn Hi() -> impl IntoView {

@@ -1,5 +1,5 @@
 use client_utils::reactivity::{MaybeTextProp, MaybeTextPropExt};
-use common::vendor::client::prelude::*;
+use common::prelude::*;
 
 #[component]
 pub fn BaseButton(

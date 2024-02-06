@@ -4,7 +4,7 @@ use client_utils::{
     future::sleep,
     reactivity::{use_global_context, ViewCallback},
 };
-use common::{utils::id, vendor::client::prelude::*};
+use common::{prelude::*, utils::id};
 
 #[derive(Default, Clone, Copy)]
 pub enum Severity {

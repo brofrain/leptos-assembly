@@ -1,5 +1,5 @@
 use client_utils::reactivity::{MaybeTextProp, MaybeTextPropExt};
-use common::vendor::client::{icondata as i, prelude::*};
+use common::prelude::*;
 
 use crate::BaseIcon;
 
@@ -7,7 +7,7 @@ use crate::BaseIcon;
 pub fn TheLogo(#[prop(optional, into)] class: MaybeTextProp) -> impl IntoView {
     view! {
         <BaseIcon
-            icon=i::SiLeptos
+            icon=icon::SiLeptos
             class=TextProp::from(move || {
                 uno![
                     "text-secondary hover:text-accent", "transition-colors", "cursor-pointer", class

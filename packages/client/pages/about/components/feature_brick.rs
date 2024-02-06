@@ -1,5 +1,5 @@
 use client_components::BaseIcon;
-use common::vendor::client::{icondata::Icon, prelude::*};
+use common::{prelude::*, vendor::icondata::Icon};
 
 // FIXME: add click transition without breaking <AnimatedFor>
 #[component]

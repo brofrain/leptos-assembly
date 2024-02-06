@@ -15,3 +15,11 @@ path = "lib.rs"
 common_macros.path = "macros"
 common_utils.path = "utils"
 common_vendor.path = "vendor"
+
+[features]
+csr = ["common_vendor/csr"]
+hydrate = ["common_vendor/hydrate"]
+ssr = ["common_vendor/ssr"]
+
+[package.metadata.cargo-all-features]
+skip_feature_sets = [["csr", "ssr"], ["hydrate", "ssr"], ["hydrate", "csr"]]
