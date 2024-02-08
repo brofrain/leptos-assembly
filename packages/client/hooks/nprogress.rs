@@ -5,8 +5,8 @@ use client_utils::reactivity::{
 };
 use common::vendor::time::ext::NumericalDuration;
 
-bind_js_fn! { nprogress => start }
-bind_js_fn! { nprogress => done }
+bind_js_fn! { nprogress => fn start() }
+bind_js_fn! { nprogress => fn done() }
 
 #[derive(Clone, Copy)]
 struct Ctx {

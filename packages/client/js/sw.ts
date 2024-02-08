@@ -30,12 +30,13 @@ registerRoute(
     const cache = await caches.open(cacheNames.precache);
     const response = await cache.match(request);
 
-    return response || new CacheFirst().handle({ ...options, request });
+    return response ?? new CacheFirst().handle({ ...options, request });
   },
 );
 
 registerRoute(
   ({ url }) =>
+    !url.pathname.startsWith("/favicon.ico") &&
     !url.pathname.startsWith("/api") &&
     !url.pathname.startsWith("/assets") &&
     !url.pathname.startsWith("/pwa"),
@@ -47,6 +48,6 @@ registerRoute(
     const cache = await caches.open(cacheNames.precache);
     const response = await cache.match(request);
 
-    return response || new CacheFirst().handle({ ...options, request });
+    return response ?? new CacheFirst().handle({ ...options, request });
   },
 );

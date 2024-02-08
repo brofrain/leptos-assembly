@@ -4,12 +4,12 @@
 ///
 /// ```ignore
 /// // top level function
-/// bind_js_fn! { console_log }
-/// bind_js_fn! { pub console_log }
+/// bind_js_fn! { fn console_log(msg: &str) }
+/// bind_js_fn! { pub fn console_log(msg: &str) }
 ///
 /// // nested in an object
-/// bind_js_fn! { nprogress => start }
-/// bind_js_fn! { nprogress => pub start }
+/// bind_js_fn! { nprogress => fn start() }
+/// bind_js_fn! { nprogress => pub fn start() }
 /// ```
 #[macro_export]
 macro_rules! bind_js_fn {
@@ -34,19 +34,19 @@ macro_rules! bind_js_fn {
         }
     };
 
-    ($js_namespace:ident => pub $($fn_name:tt)*) => {
-        bind_js_fn!(@wrap $js_namespace => pub fn $($fn_name)*());
+    ($js_namespace:ident => pub fn $($fn_name_and_types:tt)*) => {
+        bind_js_fn!(@wrap $js_namespace => pub fn $($fn_name_and_types)*);
     };
 
-    ($js_namespace:ident => $($fn_name:tt)*) => {
-        bind_js_fn!(@wrap $js_namespace => fn $($fn_name)*());
+    ($js_namespace:ident => fn $($fn_name_and_types:tt)*) => {
+        bind_js_fn!(@wrap $js_namespace => fn $($fn_name_and_types)*);
     };
 
-    (pub $($fn_name:tt)*) => {
-        bind_js_fn!(@wrap fn $($fn_name)*());
+    (pub fn $($fn_name_and_types:tt)*) => {
+        bind_js_fn!(@wrap pub fn $($fn_name_and_types)*);
     };
 
-    ($($fn_name:tt)*) => {
-        bind_js_fn!(@wrap fn $($fn_name)*());
+    (fn $($fn_name_and_types:tt)*) => {
+        bind_js_fn!(@wrap fn $($fn_name_and_types)*);
     };
 }

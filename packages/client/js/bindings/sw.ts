@@ -15,4 +15,10 @@ export const sw = {
         ),
     });
   },
+
+  // By default `window.navigator.serviceWorker` is typed as `ServiceWorkerContainer`
+  // and can be accessed without `Option<>` in `web_sys` bindings.
+  // However, it may actually be `undefined` in some cases - e.g. Firefox's private mode.
+  get: () =>
+    window.navigator.serviceWorker as ServiceWorkerContainer | undefined,
 };
