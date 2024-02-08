@@ -1,16 +1,14 @@
 import { expect, test } from "@playwright/test";
 
 test.describe("pwa", () => {
-  test("should be available offline", async ({
-    page,
-    context,
-    browserName,
-  }) => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/");
+  });
+
+  test("should be available offline", async ({ page, browserName }) => {
     if (browserName === "webkit") {
       test.skip();
     }
-
-    await page.goto("/");
 
     await page.evaluate(
       () =>
@@ -24,7 +22,9 @@ test.describe("pwa", () => {
     await logoLocator.waitFor();
     expect(await logoLocator.isVisible()).toBe(true);
 
-    await context.setOffline(true);
+    // simulate offline
+    await page.route("**/*", (route) => route.abort());
+
     await page.reload();
 
     await logoLocator.waitFor();
