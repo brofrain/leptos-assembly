@@ -17,6 +17,7 @@ leptos_router.workspace = true
 leptos_i18n.workspace = true
 serde.workspace = true
 wasm-bindgen.workspace = true
+ahash = "0.8.7"
 anyhow = "1.0.79"
 derive_more = "0.99.17"
 educe = "0.5.11"

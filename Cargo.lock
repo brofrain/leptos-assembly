@@ -451,10 +451,12 @@ dependencies = [
 name = "client_proc_macros"
 version = "0.0.0"
 dependencies = [
- "ahash 0.8.7",
+ "common",
  "proc-macro2",
  "quote",
+ "regex",
  "syn 2.0.48",
+ "walkdir",
 ]
 
 [[package]]
@@ -521,6 +523,7 @@ version = "0.0.0"
 name = "common_vendor"
 version = "0.0.0"
 dependencies = [
+ "ahash 0.8.7",
  "anyhow",
  "derive_more",
  "educe",

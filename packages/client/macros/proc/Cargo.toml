@@ -9,10 +9,12 @@ publish = false
 workspace = true
 
 [dependencies]
-ahash = "0.8.7"
+common.workspace = true
 proc-macro2.workspace = true
 quote.workspace = true
+regex = "1.10.3"
 syn.workspace = true
+walkdir = "2.4.0"
 
 [lib]
 path = "lib.rs"
