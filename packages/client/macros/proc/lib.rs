@@ -1,19 +1,15 @@
 #![feature(lazy_cell)]
 #![feature(proc_macro_expand)]
 
-use std::{
-    collections::HashMap,
-    sync::{LazyLock, Mutex},
-};
+use std::sync::{LazyLock, Mutex};
 
+use ahash::{AHashMap, RandomState};
 use proc_macro::TokenStream;
 use quote::{quote, ToTokens};
 use syn::{parse_macro_input, Ident, LitStr};
-use xxhash_rust::xxh3::{xxh3_64_with_seed, Xxh3Builder};
 
-static SELECTOR_PATH_PER_ID: LazyLock<
-    Mutex<HashMap<u64, String, Xxh3Builder>>,
-> = LazyLock::new(|| Mutex::new(HashMap::default()));
+static SELECTOR_PATH_PER_ID: LazyLock<Mutex<AHashMap<u64, String>>> =
+    LazyLock::new(|| Mutex::new(AHashMap::default()));
 
 struct SelectorInfo {
     file_path: LitStr,
@@ -46,7 +42,7 @@ impl ToTokens for SelectorInfo {
             selector_path.push_str(&el_id.value());
         }
 
-        let id = xxh3_64_with_seed(selector_path.as_bytes(), 0);
+        let id = RandomState::with_seeds(0, 0, 0, 0).hash_one(&selector_path);
 
         {
             let mut selector_path_per_id = SELECTOR_PATH_PER_ID.lock().unwrap();

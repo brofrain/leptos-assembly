@@ -35,6 +35,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "77c3a9648d43b9cd48db467b3f87fdd6e146bcc88ab0180006cef2179fe11d01"
 dependencies = [
  "cfg-if",
+ "getrandom",
  "once_cell",
  "version_check",
  "zerocopy",
@@ -450,10 +451,10 @@ dependencies = [
 name = "client_proc_macros"
 version = "0.0.0"
 dependencies = [
+ "ahash 0.8.7",
  "proc-macro2",
  "quote",
  "syn 2.0.48",
- "xxhash-rust",
 ]
 
 [[package]]
