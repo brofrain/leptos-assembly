@@ -54,7 +54,7 @@ impl ToTokens for SelectorInfo {
 }
 
 #[proc_macro]
-pub fn register_test_selector(tokens: TokenStream) -> TokenStream {
+pub fn pin_test_selector(tokens: TokenStream) -> TokenStream {
     let selector = parse_macro_input!(tokens as SelectorInfo);
     TokenStream::from(selector.into_token_stream())
 }
@@ -118,8 +118,8 @@ fn generate_test_selectors_struct(
 static FILENAME_REG: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"\/\w+\.rs$").unwrap());
 
-static REGISTER_TEST_SELECTOR_REG: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"register_test_selector\!\(\s*(?P<el_id>\w*)\s*\)").unwrap()
+static PIN_TEST_SELECTOR_REG: LazyLock<Regex> = LazyLock::new(|| {
+    Regex::new(r"pin_test_selector\!\(\s*(?P<el_id>\w*)\s*\)").unwrap()
 });
 
 #[proc_macro]
@@ -152,7 +152,7 @@ pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
         for line in reader.lines() {
             let line = line.unwrap();
 
-            if let Some(captures) = REGISTER_TEST_SELECTOR_REG.captures(&line) {
+            if let Some(captures) = PIN_TEST_SELECTOR_REG.captures(&line) {
                 let mut selector_path = path
                     .strip_prefix(&dir_path)
                     .unwrap()

@@ -1,4 +1,4 @@
-use client_macros::register_test_selector;
+use client_macros::pin_test_selector;
 use client_utils::reactivity::{MaybeTextProp, MaybeTextPropExt};
 use common::prelude::*;
 
@@ -16,7 +16,7 @@ pub fn TheLogo(#[prop(optional, into)] class: MaybeTextProp) -> impl IntoView {
                 ]
             })
 
-            attr:test=register_test_selector!()
+            attr:test=pin_test_selector!()
         />
     }
 }
