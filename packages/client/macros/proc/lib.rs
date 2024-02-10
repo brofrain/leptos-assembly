@@ -183,7 +183,7 @@ pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
 
     generate_test_selectors_struct(
         "selectors",
-        0,
+        1,
         &selector_ids,
         &selector_paths,
     )
