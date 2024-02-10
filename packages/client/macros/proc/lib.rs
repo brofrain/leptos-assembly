@@ -3,24 +3,17 @@
 
 use std::{
     collections::HashMap,
-    sync::{
-        atomic::{AtomicUsize, Ordering},
-        LazyLock,
-        Mutex,
-    },
+    sync::{LazyLock, Mutex},
 };
 
 use proc_macro::TokenStream;
 use quote::{quote, ToTokens};
 use syn::{parse_macro_input, Ident, LitStr};
+use xxhash_rust::xxh3::{xxh3_64_with_seed, Xxh3Builder};
 
-#[derive(PartialEq, Eq, Hash)]
-struct SelectorChunks(Vec<String>);
-
-static LAST_SELECTOR_ID: AtomicUsize = AtomicUsize::new(0);
-
-static SELECTOR_ID_PER_CHUNKS: LazyLock<Mutex<HashMap<SelectorChunks, usize>>> =
-    LazyLock::new(|| Mutex::new(HashMap::new()));
+static SELECTOR_PATH_PER_ID: LazyLock<
+    Mutex<HashMap<u64, String, Xxh3Builder>>,
+> = LazyLock::new(|| Mutex::new(HashMap::default()));
 
 struct SelectorInfo {
     file_path: LitStr,
@@ -45,43 +38,44 @@ impl syn::parse::Parse for SelectorInfo {
 
 impl ToTokens for SelectorInfo {
     fn to_tokens(&self, tokens: &mut proc_macro2::TokenStream) {
-        let id = LAST_SELECTOR_ID.load(Ordering::Acquire) + 1;
-        LAST_SELECTOR_ID.store(id, Ordering::Release);
-
-        let mut file_path = self.file_path.value();
-        file_path.truncate(file_path.len() - 3); // remove ".rs" from path
-        let mut selector_chunks = file_path
-            .split('/')
-            .skip_while(|chunk| *chunk != "components" && *chunk != "pages")
-            .map(ToString::to_string)
-            .collect::<Vec<_>>();
+        let mut selector_path = self.file_path.value();
+        selector_path.truncate(selector_path.len() - 3); // remove ".rs" from path
 
         if let Some(el_id) = &self.el_id {
-            selector_chunks.push(el_id.value());
+            selector_path.push('/');
+            selector_path.push_str(&el_id.value());
         }
 
-        let selector_chunks = SelectorChunks(selector_chunks);
+        let id = xxh3_64_with_seed(selector_path.as_bytes(), 0);
 
         {
-            let mut id_per_selector = SELECTOR_ID_PER_CHUNKS.lock().unwrap();
+            let mut selector_path_per_id = SELECTOR_PATH_PER_ID.lock().unwrap();
 
-            id_per_selector
-                .entry(selector_chunks)
+            selector_path_per_id
+                .entry(id)
                 .and_modify(|_| {
-                    tokens.extend(
-                        quote! { compile_error!("Duplicate selector") },
+                    let error_msg = LitStr::new(
+                        &format!("Duplicate selector: {selector_path}"),
+                        self.file_path.span(),
                     );
+
+                    tokens.extend(quote! { compile_error!(#error_msg) });
                 })
                 .or_insert_with(|| {
                     tokens.extend(quote! { #id });
-                    id
+                    selector_path
                 });
         }
     }
 }
 
 #[proc_macro]
-pub fn inject_test_selector(tokens: TokenStream) -> TokenStream {
+pub fn register_test_selector(tokens: TokenStream) -> TokenStream {
     let selector = parse_macro_input!(tokens as SelectorInfo);
     TokenStream::from(selector.into_token_stream())
+}
+
+#[proc_macro]
+pub fn generate_test_selectors_json(_tokens: TokenStream) -> TokenStream {
+    TokenStream::new()
 }
