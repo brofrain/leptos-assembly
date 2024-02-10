@@ -527,6 +527,7 @@ dependencies = [
  "futures",
  "getrandom",
  "getset",
+ "hashbrown 0.14.3",
  "icondata",
  "leptos",
  "leptos-use",

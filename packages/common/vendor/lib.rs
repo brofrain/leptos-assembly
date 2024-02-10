@@ -1,6 +1,7 @@
 pub use educe;
 pub use futures;
 pub use getset;
+pub use hashbrown;
 pub use icondata;
 pub use leptos;
 pub use leptos_i18n;

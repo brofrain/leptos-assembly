@@ -23,6 +23,7 @@ educe = "0.5.11"
 futures = "0.3.30"
 getrandom = { version = "0.2.12", features = ["js"], optional = true }
 getset = "0.1.2"
+hashbrown = "0.14.3"
 icondata = "0.3.0"
 leptos_meta = { version = "0.6.5", features = ["nightly"] }
 leptos-use = { version = "0.10.1", features = ["serde"] }
