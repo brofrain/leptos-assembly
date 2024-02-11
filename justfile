@@ -38,20 +38,28 @@ serve-pwa:
 serve-release:
     cargo leptos serve {{ CORE_BUILD_PWA_ARGS }} --release
 
+SKIP_WASM_CHECKS_PACKAGES := trim(replace_regex('''
+    core
+    server
+''', '\s+', ' '))
+
+skip_wasm_checks_workspace_exclude := '--exclude ' + replace_regex(SKIP_WASM_CHECKS_PACKAGES, ' ', ' --exclude ')
+
 # --- Test ---
 
-# Runs tests
-test:
-    # cargo-nextest doesnt't support doctests yet: https://github.com/nextest-rs/nextest/issues/16
-    cargo test --doc --workspace
-    cargo nextest run --workspace
-    cargo test -p client --target wasm32-unknown-unknown
-    cargo test -p client_components --target wasm32-unknown-unknown
+# Runs tests for wasm target
+test-wasm *args:
+    cargo test --profile client-dev \
+        --target wasm32-unknown-unknown \
+        --workspace {{ skip_wasm_checks_workspace_exclude }} \
+        {{ args }}
 
-# Runs tests without optimizations
-test-ci:
-    cargo test --doc --profile dev-ci
-    cargo nextest run --cargo-profile dev-ci
+# Runs tests
+test *filter:
+    # cargo-nextest doesnt't support doctests yet: https://github.com/nextest-rs/nextest/issues/16
+    cargo test {{ filter }} --doc --workspace --profile server-dev
+    cargo nextest run --workspace --cargo-profile server-dev -- {{ filter }}
+    just test-wasm {{ filter }}
 
 _e2e:
     npx playwright test
@@ -148,43 +156,34 @@ fmt-check:
 
 # --- Lint ---
 
-_check path message_format *args:
-    (cd {{ path }} && cargo check --all-targets --message-format={{ message_format }} {{ args }})
+_check message_format *args='--profile server-dev':
+    cargo check --all-targets --workspace --message-format={{ message_format }} {{ args }}
 
-_clippy path message_format *args:
-    (cd {{ path }} && cargo clippy --all-targets --message-format={{ message_format }} {{ args }})
+_clippy message_format *args='--profile server-dev':
+    cargo clippy --all-targets --workspace --message-format={{ message_format }} {{ args }}
 
-_check-wasm path message_format:
-    just _check {{ path }} {{ message_format }} --target wasm32-unknown-unknown
+_check-wasm message_format:
+    just _check {{ message_format }} \
+        --profile client-dev \
+        --target wasm32-unknown-unknown \
+        {{ skip_wasm_checks_workspace_exclude }}
 
 # `clippy::str-to-string` is triggered by Leptos' `#[server]` macro for the wasm triple, therefore it's disabled here
-_clippy-wasm path message_format *args='--':
-    just _clippy {{ path }} {{ message_format }} \
+_clippy-wasm message_format *lint_args:
+    just _clippy {{ message_format }} \
+        --profile client-dev \
         --target wasm32-unknown-unknown \
-        {{ args }} -A clippy::str-to-string
-
-_check-workspace message_format:
-    just _check . {{ message_format }} --workspace
-
-_clippy-workspace message_format *args:
-    just _clippy . {{ message_format }} --workspace {{ args }}
-
-WASM_PACKAGES := replace_regex('''
-packages/client
-''', '\s+', ' ')
+        {{ skip_wasm_checks_workspace_exclude }} \
+        -- -A clippy::str-to-string {{ lint_args }}
 
 # Checks Rust codebase
 check:
-    just _check-workspace human
-    for dir in {{ WASM_PACKAGES }}; do \
-        just _check-wasm $dir human; \
-    done
+    just _check human
+    just _check-wasm human
 
-_lint-rs *args='--':
-    just _clippy-workspace human {{ args }}
-    for dir in {{ WASM_PACKAGES }}; do \
-        just _clippy-wasm $dir human {{ args }}; \
-    done
+_lint-rs *lint_args:
+    just _clippy human --profile server-dev -- {{ lint_args }}
+    just _clippy-wasm human {{ lint_args }}
 
 # Lints Rust codebase with Clippy
 lint-rs: _lint-rs
@@ -194,15 +193,13 @@ _rust-analyzer-check:
     #!/usr/bin/env sh
     (
         (
-            just _check-workspace json;
-            just _clippy-workspace json --jobs=1
+            just _check json;
+            just _clippy json
         ) &
-        for dir in {{ WASM_PACKAGES }}; do
-            (
-                just _check-wasm $dir json;
-                just _clippy-wasm $dir json --jobs=1 --
-            ) &
-        done
+        (
+            just _check-wasm json;
+            just _clippy-wasm json
+        ) &
         wait
     )
 
@@ -219,7 +216,7 @@ lint: lint-rs lint-ts lint-typos
 
 # Lints the project without optimizations and disallows warnings
 lint-ci:
-    just _lint-rs --profile dev-ci -- -D warnings
+    just _lint-rs -D warnings
     just lint-ts lint-typos
 
 # --- Security ---

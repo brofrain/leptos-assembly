@@ -72,13 +72,6 @@ opt-level = 1
 [profile.dev.package."*"]
 opt-level = 3
 
-[profile.dev-ci]
-inherits = "dev"
-opt-level = 0
-
-[profile.dev-ci.package."*"]
-opt-level = 0
-
 [profile.client-dev]
 inherits = "dev"
 
