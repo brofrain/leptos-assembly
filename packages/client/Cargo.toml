@@ -10,18 +10,14 @@ workspace = true
 
 [lib]
 crate-type = ["cdylib", "rlib"]
+path = "lib.rs"
 
 [dependencies]
 common.workspace = true
 cfg-if.workspace = true
-client_app.path = "src/app"
+client_app.path = "app"
 leptos.workspace = true
 wasm-bindgen.workspace = true
-
-[dev-dependencies]
-insta.workspace = true
-pretty_assertions.workspace = true
-wasm-bindgen-test.workspace = true
 
 [features]
 vite-prebuild = []
@@ -32,3 +28,4 @@ ssr = ["common/ssr"]
 
 [package.metadata.cargo-all-features]
 skip_feature_sets = [["csr", "ssr"], ["hydrate", "ssr"], ["hydrate", "csr"]]
+ 

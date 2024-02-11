@@ -4,18 +4,18 @@ members = [
   "apps/core",
   "apps/pwa",
   "packages/client",
-  "packages/client/src/app",
-  "packages/client/src/components",
-  "packages/client/src/hooks",
-  "packages/client/src/env",
-  "packages/client/src/i18n",
-  "packages/client/src/layouts",
-  "packages/client/src/macros",
-  "packages/client/src/macros/proc",
-  "packages/client/src/pages",
-  "packages/client/src/router",
-  "packages/client/src/stores",
-  "packages/client/src/utils",
+  "packages/client/app",
+  "packages/client/components",
+  "packages/client/hooks",
+  "packages/client/env",
+  "packages/client/i18n",
+  "packages/client/layouts",
+  "packages/client/macros",
+  "packages/client/macros/proc",
+  "packages/client/pages",
+  "packages/client/router",
+  "packages/client/stores",
+  "packages/client/utils",
   "packages/common",
   "packages/common/vendor",
   "packages/common/macros",
@@ -31,14 +31,14 @@ rust-version = "1.73"
 
 [workspace.dependencies]
 client.path = "packages/client"
-client_components.path = "packages/client/src/components"
-client_hooks.path = "packages/client/src/hooks"
-client_env.path = "packages/client/src/env"
-client_i18n.path = "packages/client/src/i18n"
-client_macros.path = "packages/client/src/macros"
-client_router.path = "packages/client/src/router"
-client_stores.path = "packages/client/src/stores"
-client_utils.path = "packages/client/src/utils"
+client_components.path = "packages/client/components"
+client_hooks.path = "packages/client/hooks"
+client_env.path = "packages/client/env"
+client_i18n.path = "packages/client/i18n"
+client_macros.path = "packages/client/macros"
+client_router.path = "packages/client/router"
+client_stores.path = "packages/client/stores"
+client_utils.path = "packages/client/utils"
 common.path = "packages/common"
 common_macros.path = "packages/common/macros"
 common_utils.path = "packages/common/utils"

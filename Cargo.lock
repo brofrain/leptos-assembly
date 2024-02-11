@@ -347,11 +347,8 @@ dependencies = [
  "cfg-if",
  "client_app",
  "common",
- "insta",
  "leptos",
- "pretty_assertions",
  "wasm-bindgen",
- "wasm-bindgen-test",
 ]
 
 [[package]]
