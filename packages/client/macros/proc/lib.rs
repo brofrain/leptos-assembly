@@ -119,7 +119,7 @@ static FILENAME_REG: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"\/\w+\.rs$").unwrap());
 
 static PIN_TEST_SELECTOR_REG: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"pin_test_selector\!\(\s*(?P<el_id>\w*)\s*\)").unwrap()
+    Regex::new(r"pin_test_selector!\(\s*(?P<el_id>\w*)\s*\)").unwrap()
 });
 
 #[proc_macro]
