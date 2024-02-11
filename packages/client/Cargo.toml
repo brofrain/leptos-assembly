@@ -10,12 +10,11 @@ workspace = true
 
 [lib]
 crate-type = ["cdylib", "rlib"]
-path = "lib.rs"
 
 [dependencies]
 common.workspace = true
 cfg-if.workspace = true
-client_app.path = "app"
+client_app.path = "src/app"
 leptos.workspace = true
 wasm-bindgen.workspace = true
 

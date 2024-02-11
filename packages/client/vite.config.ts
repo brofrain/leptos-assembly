@@ -62,7 +62,7 @@ const pwa = () =>
   VitePWA({
     disable: !pwaEnabled,
     strategies: "injectManifest",
-    srcDir: "js",
+    srcDir: "src/js",
     filename: "sw.ts",
     base: "/",
     outDir: "../../target/client-prebuild",
@@ -122,7 +122,7 @@ export default defineConfig({
     cssMinify: releaseMode && "lightningcss",
     lib: {
       formats: ["es"],
-      entry: "js/bindings/index.ts",
+      entry: "src/js/bindings/index.ts",
       fileName: "bindings",
     },
   },
