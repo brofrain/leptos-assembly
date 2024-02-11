@@ -43,9 +43,10 @@ serve-release:
 # Runs tests
 test:
     # cargo-nextest doesnt't support doctests yet: https://github.com/nextest-rs/nextest/issues/16
-    cargo test --doc
-    # TODO add some example dummy tests
-    cargo nextest run
+    cargo test --doc --workspace
+    cargo nextest run --workspace
+    cargo test -p client --target wasm32-unknown-unknown
+    cargo test -p client_components --target wasm32-unknown-unknown
 
 # Runs tests without optimizations
 test-ci:
@@ -148,10 +149,10 @@ fmt-check:
 # --- Lint ---
 
 _check path message_format *args:
-    (cd {{ path }} && cargo check --message-format={{ message_format }} {{ args }})
+    (cd {{ path }} && cargo check --all-targets --message-format={{ message_format }} {{ args }})
 
 _clippy path message_format *args:
-    (cd {{ path }} && cargo clippy --message-format={{ message_format }} {{ args }})
+    (cd {{ path }} && cargo clippy --all-targets --message-format={{ message_format }} {{ args }})
 
 _check-wasm path message_format:
     just _check {{ path }} {{ message_format }} --target wasm32-unknown-unknown
@@ -163,10 +164,10 @@ _clippy-wasm path message_format *args='--':
         {{ args }} -A clippy::str-to-string
 
 _check-workspace message_format:
-    just _check . {{ message_format }} --workspace --all-targets
+    just _check . {{ message_format }} --workspace
 
 _clippy-workspace message_format *args:
-    just _clippy . {{ message_format }} --workspace --all-targets {{ args }}
+    just _clippy . {{ message_format }} --workspace {{ args }}
 
 WASM_PACKAGES := replace_regex('''
 packages/client
@@ -245,6 +246,7 @@ cargo-outdated@0.14.0
 cargo-audit@0.19.0
 cargo-udeps@0.1.45
 typos-cli@1.18.0
+wasm-bindgen-cli@0.2.91
 ''', '\s+', ' ')
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.79

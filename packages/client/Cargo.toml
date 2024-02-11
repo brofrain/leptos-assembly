@@ -18,6 +18,11 @@ client_app.path = "src/app"
 leptos.workspace = true
 wasm-bindgen.workspace = true
 
+[dev-dependencies]
+insta.workspace = true
+pretty_assertions.workspace = true
+wasm-bindgen-test.workspace = true
+
 [features]
 vite-prebuild = []
 pwa = ["client_app/pwa"]

@@ -10,7 +10,10 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm"
   },
-  "type": "module",
+  "workspaces": [
+    "e2e",
+    "packages/**"
+  ],
   "dependencies": {
     "@unocss/reset": "^0.58.5",
     "nprogress": "^0.2.0",

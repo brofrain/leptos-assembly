@@ -61,6 +61,10 @@ wasm-bindgen = "0.2.91"
 proc-macro2 = "1.0.78"
 quote = "1.0.35"
 syn = { version = "2.0.48", features = ["full"] }
+# dev
+insta = "1.34.0"
+pretty_assertions = "1.4.0"
+wasm-bindgen-test = "0.3.41"
 
 [profile.dev]
 opt-level = 1
