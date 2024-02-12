@@ -248,6 +248,7 @@ wasm-bindgen-cli@0.2.91
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.79
 cargo-edit@0.12.2
+cargo-insta@1.34.0
 ''', '\s+', ' ')
 
 _setup +executables:

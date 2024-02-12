@@ -4,6 +4,7 @@ pub use futures;
 pub use getset;
 pub use hashbrown;
 pub use icondata;
+pub use js_sys;
 pub use leptos;
 pub use leptos_i18n;
 pub use leptos_meta;

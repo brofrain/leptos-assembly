@@ -29,6 +29,7 @@
     "@types/node": "^20.11.16",
     "@types/nprogress": "^0.2.3",
     "@types/uuid": "^9.0.8",
+    "jsdom": "^24.0.0",
     "lightningcss": "^1.23.0",
     "prettier": "^3.2.5",
     "prettier-plugin-toml": "^2.0.1",

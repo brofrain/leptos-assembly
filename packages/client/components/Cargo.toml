@@ -22,6 +22,5 @@ leptos_animated_for = "0.4.1"
 leptos_icons = "0.3.0"
 
 [dev-dependencies]
-insta.workspace = true
-pretty_assertions.workspace = true
-wasm-bindgen-test.workspace = true
+dev.workspace = true
+wasm-bindgen-test.wokspace = true
