@@ -23,4 +23,4 @@ leptos_icons = "0.3.0"
 
 [dev-dependencies]
 dev.workspace = true
-wasm-bindgen-test.wokspace = true
+wasm-bindgen-test.workspace = true

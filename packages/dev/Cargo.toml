@@ -13,6 +13,11 @@ path = "lib.rs"
 
 [dependencies]
 common.workspace = true
-insta = "1.34.0"
-leptos = { workspace = true, features = ["csr"] }
+insta = { version = "1.34.0", features = ["yaml"] }
 wasm-bindgen.workspace = true
+
+[target.'cfg(target_arch = "wasm32")'.dependencies]
+leptos = { workspace = true, features = ["csr"] }
+
+[target.'cfg(not(target_arch = "wasm32"))'.dependencies]
+leptos = { workspace = true, features = ["ssr"] }
