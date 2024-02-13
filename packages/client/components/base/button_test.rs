@@ -5,7 +5,7 @@ use wasm_bindgen_test::wasm_bindgen_test;
 use crate::BaseButton;
 
 #[wasm_bindgen_test]
-async fn render_children() {
+fn render_children() {
     mock_browser();
 
     leptos::mount_to_body(
@@ -16,6 +16,28 @@ async fn render_children() {
 
     let msg = el.text_content().unwrap();
     assert_eq!(&msg, "Hello, World!");
+}
+
+#[wasm_bindgen_test]
+async fn have_reactive_disabled_attribute() {
+    mock_browser();
+
+    let disabled = RwSignal::new(false);
+
+    leptos::mount_to_body(
+        move || view! { <BaseButton disabled=disabled>{"Hello, World!"}</BaseButton> },
+    );
+
+    let el = document().query_selector("button").unwrap().unwrap();
+    let is_disabled = || el.has_attribute("disabled");
+
+    assert!(!is_disabled());
+
+    disabled.set(true);
+    assert!(is_disabled());
+
+    disabled.set(false);
+    assert!(!is_disabled());
 }
 
 #[cfg(not(target_arch = "wasm32"))]
