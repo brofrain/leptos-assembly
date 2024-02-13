@@ -1,5 +1,5 @@
 use common::prelude::*;
-use dev::wasm_test::mock_browser;
+use dev::mock_browser;
 use wasm_bindgen_test::wasm_bindgen_test;
 
 use crate::BaseButton;
@@ -19,14 +19,19 @@ async fn render_children() {
 }
 
 #[cfg(not(target_arch = "wasm32"))]
-#[test]
-fn match_snapshot() {
-    use dev::vendor::insta::assert_yaml_snapshot;
+mod server {
+    use common::prelude::*;
+    use dev::assert_snapshot;
     use leptos::ssr::render_to_string;
 
-    let html = render_to_string(|| {
-        view! { <BaseButton>{"Hello, World!"}</BaseButton> }.into_view()
-    });
+    use crate::BaseButton;
 
-    assert_yaml_snapshot!(html);
+    #[test]
+    fn match_snapshot() {
+        let html = render_to_string(|| {
+            view! { <BaseButton>{"Hello, World!"}</BaseButton> }.into_view()
+        });
+
+        assert_snapshot!(html);
+    }
 }

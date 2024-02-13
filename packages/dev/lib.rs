@@ -1,8 +1,6 @@
-pub mod vendor {
-    pub use insta;
-}
+pub use insta::assert_yaml_snapshot as assert_snapshot;
 
-pub mod wasm_test {
-    mod mock_browser;
-    pub use mock_browser::*;
+mod wasm_test {
+    pub mod mock_browser;
 }
+pub use wasm_test::mock_browser::*;
