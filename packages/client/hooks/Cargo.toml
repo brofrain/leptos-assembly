@@ -19,5 +19,5 @@ common.workspace = true
 wasm-bindgen.workspace = true
 
 [target.'cfg(target_arch = "wasm32")'.dependencies]
-console_log = { version = "1.0.0", features = ["color"] }
+console_log.workspace = true
 fern = "0.6.2"

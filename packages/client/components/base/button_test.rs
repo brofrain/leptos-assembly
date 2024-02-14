@@ -1,5 +1,5 @@
 use common::prelude::*;
-use dev::mock_browser;
+use dev::{mock_browser, mount};
 use wasm_bindgen_test::wasm_bindgen_test;
 
 use crate::BaseButton;
@@ -8,9 +8,7 @@ use crate::BaseButton;
 fn render_children() {
     mock_browser();
 
-    leptos::mount_to_body(
-        || view! { <BaseButton>{"Hello, World!"}</BaseButton> },
-    );
+    mount(|| view! { <BaseButton>{"Hello, World!"}</BaseButton> });
 
     let el = document().query_selector("button").unwrap().unwrap();
 
@@ -24,7 +22,7 @@ async fn have_reactive_disabled_attribute() {
 
     let disabled = RwSignal::new(false);
 
-    leptos::mount_to_body(
+    mount(
         move || view! { <BaseButton disabled=disabled>{"Hello, World!"}</BaseButton> },
     );
 

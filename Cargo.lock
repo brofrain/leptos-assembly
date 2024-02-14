@@ -365,7 +365,9 @@ dependencies = [
  "client_router",
  "client_utils",
  "common",
+ "dev",
  "leptos",
+ "wasm-bindgen-test",
 ]
 
 [[package]]
@@ -811,8 +813,10 @@ name = "dev"
 version = "0.0.0"
 dependencies = [
  "common",
+ "console_log",
  "insta",
  "leptos",
+ "leptos_meta",
  "wasm-bindgen",
 ]
 
