@@ -334,3 +334,13 @@ outdated: outdated-rs outdated-js
 # Checks for unused dependencies
 unused:
     cargo udeps --workspace
+
+# --- Dev tools ---
+
+# Expands macros
+expand package *args:
+    cargo expand -p {{ package }} --lib --profile server-dev {{ args }}
+
+# Expands macros for wasm target
+expand-wasm package *args:
+    cargo expand -p {{ package }} --lib --profile client-dev --target wasm32-unknown-unknown {{ args }}
