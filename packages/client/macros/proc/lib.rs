@@ -1,5 +1,6 @@
 #![feature(lazy_cell)]
 #![feature(proc_macro_expand)]
+#![feature(let_chains)]
 
 use std::{
     fs,
@@ -36,7 +37,9 @@ impl SelectorPath {
         let mut selector_path = macro_invocation_file_path.to_owned();
         selector_path.truncate(selector_path.len() - 3); // remove ".rs" from path
 
-        if let Some(el_id) = el_id {
+        if let Some(el_id) = el_id
+            && !el_id.is_empty()
+        {
             selector_path.push('/');
             selector_path.push_str(el_id);
         }
@@ -157,9 +160,11 @@ static PIN_TEST_SELECTOR_REG: LazyLock<Regex> = LazyLock::new(|| {
 fn get_macro_invocation_dir_path() -> String {
     let macro_invocation_file_path = get_macro_invocation_file_path();
 
-    FILENAME_REG
+    let mut dir_path = FILENAME_REG
         .replace(&macro_invocation_file_path, "")
-        .to_string()
+        .to_string();
+    dir_path.push('/');
+    dir_path
 }
 
 static COMPONENT_FILES_GLOB: LazyLock<Glob> = LazyLock::new(|| {
@@ -182,6 +187,59 @@ fn make_component_files_walk(
     }
 
     walk.map(|v| v.expect("entry should be resolved"))
+}
+
+macro_rules! assert_ambiguous_selector_paths {
+    ($cond:expr, $selector_path:expr, $other_selector_path:expr) => {
+        assert!(
+            $cond,
+            "Ambiguous selector paths: `{}` and `{}`",
+            $selector_path.join("/"),
+            $other_selector_path.join("/")
+        );
+    };
+}
+
+fn check_for_ambiguous_selector_paths(selector_paths: &[Vec<String>]) {
+    let selector_paths_len = selector_paths.len();
+    for (i, selector_path) in selector_paths.iter().enumerate() {
+        for other_selector_path in
+            selector_paths.iter().take(selector_paths_len).skip(i + 1)
+        {
+            let len = selector_path.len();
+            let other_len = other_selector_path.len();
+
+            if len == other_len {
+                assert_ambiguous_selector_paths!(
+                    selector_path != other_selector_path,
+                    selector_path,
+                    other_selector_path
+                );
+
+                continue;
+            }
+
+            if len == other_len + 1 {
+                assert_ambiguous_selector_paths!(
+                    !selector_path.starts_with(other_selector_path),
+                    selector_path,
+                    other_selector_path
+                );
+
+                continue;
+            }
+
+            if len + 1 == other_len {
+                assert_ambiguous_selector_paths!(
+                    !other_selector_path.starts_with(selector_path),
+                    selector_path,
+                    other_selector_path
+                );
+
+                continue;
+            }
+        }
+    }
 }
 
 #[proc_macro]
@@ -208,7 +266,7 @@ pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
                 let id = selector_path.to_hash();
                 selector_ids.push(id);
 
-                let mut selector_path = selector_path
+                let selector_path = selector_path
                     .0
                     .strip_prefix(&dir_path)
                     .unwrap()
@@ -216,12 +274,12 @@ pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
                     .map(str::to_string)
                     .collect::<Vec<_>>();
 
-                selector_path.remove(0);
-
                 selector_paths.push(selector_path);
             }
         }
     }
+
+    check_for_ambiguous_selector_paths(&selector_paths);
 
     let selectors = generate_test_selectors_struct(
         "selectors",
