@@ -344,3 +344,10 @@ expand package *args:
 # Expands macros for wasm target
 expand-wasm package *args:
     cargo expand -p {{ package }} --lib --profile client-dev --target wasm32-unknown-unknown {{ args }}
+
+# FIXME: passing profiles to `cargo expand` makes it unable to find test modules
+# and the recipe below is a workaround for that.
+
+# Expands macros for test modules
+expand-test package *args:
+    cargo expand -p {{ package }} --lib --tests {{ args }}

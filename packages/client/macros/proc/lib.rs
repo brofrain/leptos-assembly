@@ -18,47 +18,55 @@ use regex::Regex;
 use syn::{parse_macro_input, Ident, LitStr};
 use walkdir::WalkDir;
 
-struct SelectorInfo {
-    file_path: LitStr,
-    el_id: Option<LitStr>,
+fn get_macro_invocation_file_path() -> String {
+    let file_path = quote! { std::file!() };
+    let file_path: TokenStream = file_path.into();
+
+    syn::parse::<LitStr>(
+        file_path.expand_expr().expect("file path should expand"),
+    )
+    .expect("file path should be a string literal")
+    .value()
 }
 
-impl syn::parse::Parse for SelectorInfo {
-    fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
-        let file_path = quote! { std::file!() };
-        let file_path: TokenStream = file_path.into();
-        let file_path = syn::parse::<LitStr>(
-            file_path.expand_expr().expect("file path should expand"),
-        )
-        .expect("file path should be a string literal");
+struct SelectorPath(String);
 
-        let el_id = input
-            .parse::<Ident>()
-            .ok()
-            .map(|el_id| LitStr::new(&el_id.to_string(), el_id.span()));
+impl SelectorPath {
+    fn new(macro_invocation_file_path: &str, el_id: Option<&str>) -> Self {
+        let mut selector_path = macro_invocation_file_path.to_owned();
+        selector_path.truncate(selector_path.len() - 3); // remove ".rs" from path
 
-        Ok(Self { file_path, el_id })
+        if let Some(el_id) = el_id {
+            selector_path.push('/');
+            selector_path.push_str(el_id);
+        }
+
+        Self(selector_path)
+    }
+
+    fn to_hash(&self) -> u64 {
+        RandomState::with_seeds(0, 0, 0, 0).hash_one(&self.0)
     }
 }
 
-impl ToTokens for SelectorInfo {
+impl syn::parse::Parse for SelectorPath {
+    fn parse(input: syn::parse::ParseStream) -> syn::Result<Self> {
+        let file_path = get_macro_invocation_file_path();
+        let el_id = input.parse::<Ident>().ok().map(|el_id| el_id.to_string());
+        Ok(Self::new(&file_path, el_id.as_deref()))
+    }
+}
+
+impl ToTokens for SelectorPath {
     fn to_tokens(&self, tokens: &mut proc_macro2::TokenStream) {
-        let mut selector_path = self.file_path.value();
-        selector_path.truncate(selector_path.len() - 3); // remove ".rs" from path
-
-        if let Some(el_id) = &self.el_id {
-            selector_path.push('/');
-            selector_path.push_str(&el_id.value());
-        }
-
-        let id = RandomState::with_seeds(0, 0, 0, 0).hash_one(&selector_path);
-        tokens.extend(quote! { #id });
+        let hash = self.to_hash();
+        tokens.extend(quote! { #hash });
     }
 }
 
 #[proc_macro]
 pub fn pin_test_selector(tokens: TokenStream) -> TokenStream {
-    let selector = parse_macro_input!(tokens as SelectorInfo);
+    let selector = parse_macro_input!(tokens as SelectorPath);
     TokenStream::from(selector.into_token_stream())
 }
 
@@ -151,15 +159,11 @@ pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
     let mut selector_ids = Vec::new();
     let mut selector_paths = Vec::new();
 
-    let file_path = quote! { std::file!() };
-    let file_path: TokenStream = file_path.into();
-    let file_path = syn::parse::<LitStr>(
-        file_path.expand_expr().expect("file path should expand"),
-    )
-    .expect("file path should be a string literal")
-    .value();
+    let macro_invocation_file_path = get_macro_invocation_file_path();
 
-    let dir_path = FILENAME_REG.replace(&file_path, "").to_string();
+    let dir_path = FILENAME_REG
+        .replace(&macro_invocation_file_path, "")
+        .to_string();
 
     for entry in WalkDir::new(&dir_path) {
         let entry = entry.expect("directory entry should be resolved");
@@ -177,25 +181,16 @@ pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
             let line = line.unwrap();
 
             if let Some(captures) = PIN_TEST_SELECTOR_REG.captures(&line) {
-                let mut selector_path = path.to_string_lossy().to_string();
+                let selector_path = SelectorPath::new(
+                    &path.to_string_lossy(),
+                    captures.name("el_id").map(|el_id| el_id.as_str()),
+                );
 
-                selector_path.truncate(selector_path.len() - 3); // remove ".rs" from path
-
-                if let Some(el_id) = captures.name("el_id") {
-                    let el_id = el_id.as_str();
-
-                    if !el_id.is_empty() {
-                        selector_path.push('/');
-                        selector_path.push_str(el_id);
-                    }
-                }
-
-                let id = RandomState::with_seeds(0, 0, 0, 0)
-                    .hash_one(&selector_path);
-
+                let id = selector_path.to_hash();
                 selector_ids.push(id);
 
                 let mut selector_path = selector_path
+                    .0
                     .strip_prefix(&dir_path)
                     .unwrap()
                     .split('/')
