@@ -19,6 +19,11 @@ client_app.path = "app"
 leptos.workspace = true
 wasm-bindgen.workspace = true
 
+[build-dependencies]
+common.workspace = true
+client_macros.workspace = true
+serde.workspace = true
+
 [features]
 vite-prebuild = []
 pwa = ["client_app/pwa"]

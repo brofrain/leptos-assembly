@@ -346,8 +346,10 @@ version = "0.0.0"
 dependencies = [
  "cfg-if",
  "client_app",
+ "client_macros",
  "common",
  "leptos",
+ "serde",
  "wasm-bindgen",
 ]
 

@@ -129,6 +129,7 @@ fn generate_test_selectors_struct(
     quote! {
         #(#child_structs)*
 
+    #   [cfg_attr(not(test), derive(serde::Serialize))]
         #[derive(common::vendor::educe::Educe, Debug, Clone, Copy)]
         #[educe(Default)]
         pub struct #struct_ident {
