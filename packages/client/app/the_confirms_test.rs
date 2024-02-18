@@ -36,7 +36,7 @@ async fn can_be_confirmed() {
     let selectors = generate_test_selectors!();
 
     document()
-        .query_selector(&format!("[test='{}']", selectors.the_confirms.confirm))
+        .query_selector(selectors.the_confirms.confirm)
         .unwrap()
         .unwrap()
         .dyn_into::<web_sys::HtmlButtonElement>()
@@ -73,7 +73,7 @@ async fn can_be_canceled() {
     let selectors = generate_test_selectors!();
 
     document()
-        .query_selector(&format!("[test='{}']", selectors.the_confirms.cancel))
+        .query_selector(selectors.the_confirms.cancel)
         .unwrap()
         .unwrap()
         .dyn_into::<web_sys::HtmlButtonElement>()

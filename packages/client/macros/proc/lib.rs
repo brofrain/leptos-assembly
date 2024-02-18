@@ -74,9 +74,9 @@ pub fn pin_test_selector(tokens: TokenStream) -> TokenStream {
 }
 
 fn generate_test_selectors_struct(
-    prefix: &str,
+    name: &str,
     depth: usize,
-    selector_ids: &[u64],
+    selector_hashes: &[u64],
     selector_paths: &[Vec<String>],
 ) -> TokenStream2 {
     let mut child_structs = Vec::<TokenStream2>::new();
@@ -96,11 +96,12 @@ fn generate_test_selectors_struct(
             let field_name_ident =
                 Ident::new(field_name, proc_macro2::Span::call_site());
 
-            let id = selector_ids[i];
+            let hash = selector_hashes[i];
 
-            fields.push(
-                quote! { #[educe(Default = #id)] pub #field_name_ident: u64 },
-            );
+            fields.push(quote! {
+                #[educe(Default = concat!("[test='", #hash, "']"))]
+                pub #field_name_ident: &'static str
+            });
             continue;
         }
 
@@ -110,13 +111,12 @@ fn generate_test_selectors_struct(
             continue;
         }
 
-        let prefixed_child_struct_name =
-            format!("{prefix}_{child_struct_name}");
+        let prefixed_child_struct_name = format!("{name}_{child_struct_name}");
 
         let child_struct = generate_test_selectors_struct(
             &prefixed_child_struct_name,
             depth + 1,
-            selector_ids,
+            selector_hashes,
             selector_paths,
         );
 
@@ -137,7 +137,7 @@ fn generate_test_selectors_struct(
         field_names.insert(child_struct_name.clone());
     }
 
-    let struct_ident = Ident::new(prefix, proc_macro2::Span::call_site());
+    let struct_ident = Ident::new(name, proc_macro2::Span::call_site());
 
     quote! {
         #(#child_structs)*
@@ -244,7 +244,7 @@ fn check_for_ambiguous_selector_paths(selector_paths: &[Vec<String>]) {
 
 #[proc_macro]
 pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
-    let mut selector_ids = Vec::new();
+    let mut selector_hashes = Vec::new();
     let mut selector_paths = Vec::new();
 
     let dir_path = get_macro_invocation_dir_path();
@@ -263,8 +263,7 @@ pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
                     captures.name("el_id").map(|el_id| el_id.as_str()),
                 );
 
-                let id = selector_path.to_hash();
-                selector_ids.push(id);
+                selector_hashes.push(selector_path.to_hash());
 
                 let selector_path = selector_path
                     .0
@@ -284,7 +283,7 @@ pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
     let selectors = generate_test_selectors_struct(
         "selectors",
         0,
-        &selector_ids,
+        &selector_hashes,
         &selector_paths,
     );
 
