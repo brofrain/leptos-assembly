@@ -5,11 +5,11 @@
 use std::{
     fs,
     io::{self, BufRead},
-    sync::LazyLock,
+    sync::{Arc, LazyLock, RwLock},
 };
 
 use common::vendor::{
-    ahash::{AHashSet, RandomState},
+    ahash::{AHashMap, AHashSet, RandomState},
     serde_json,
 };
 use proc_macro::TokenStream;
@@ -167,19 +167,19 @@ fn get_macro_invocation_dir_path() -> String {
     dir_path
 }
 
-static COMPONENT_FILES_GLOB: LazyLock<Glob> = LazyLock::new(|| {
-    Glob::new("**/{app,components,layouts,pages}/**/*.rs").unwrap()
-});
-
-static RS_FILES_GLOB: LazyLock<Glob> =
-    LazyLock::new(|| Glob::new("**/*.rs").unwrap());
-
 fn make_component_files_walk(
     dir_path: &str,
 ) -> impl Iterator<Item = WalkEntry<'static>> {
     // if macro is not invoked in a directory containing only components and
     // their tests, then we should limit the search to only directories that
     // may contain components
+    static COMPONENT_FILES_GLOB: LazyLock<Glob> = LazyLock::new(|| {
+        Glob::new("**/{app,components,layouts,pages}/**/*.rs").unwrap()
+    });
+
+    static RS_FILES_GLOB: LazyLock<Glob> =
+        LazyLock::new(|| Glob::new("**/*.rs").unwrap());
+
     let mut walk = COMPONENT_FILES_GLOB.walk(dir_path).peekable();
 
     if walk.peek().is_none() {
@@ -243,11 +243,22 @@ fn check_for_ambiguous_selector_paths(selector_paths: &[Vec<String>]) {
 }
 
 #[proc_macro]
+
 pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
+    static CACHE: LazyLock<Arc<RwLock<AHashMap<String, String>>>> =
+        LazyLock::new(|| Arc::new(RwLock::new(AHashMap::new())));
+
     let mut selector_hashes = Vec::new();
     let mut selector_paths = Vec::new();
 
     let dir_path = get_macro_invocation_dir_path();
+
+    {
+        let cache = CACHE.read().unwrap();
+        if let Some(selectors) = cache.get(&dir_path) {
+            return selectors.parse().unwrap();
+        }
+    }
 
     for entry in make_component_files_walk(&dir_path) {
         let path = entry.path();
@@ -287,7 +298,7 @@ pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
         &selector_paths,
     );
 
-    quote! {
+    let selectors = quote! {
         {
             mod __selectors {
                 #selectors
@@ -295,8 +306,12 @@ pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
 
             __selectors::selectors::default()
         }
-    }
-    .into()
+    };
+
+    let selectors_string = selectors.to_string();
+    CACHE.write().unwrap().insert(dir_path, selectors_string);
+
+    selectors.into()
 }
 
 use std::{
