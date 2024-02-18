@@ -16,7 +16,7 @@ use proc_macro2::TokenStream as TokenStream2;
 use quote::{quote, ToTokens};
 use regex::Regex;
 use syn::{parse_macro_input, Ident, LitStr};
-use walkdir::WalkDir;
+use wax::{Glob, WalkEntry};
 
 fn get_macro_invocation_file_path() -> String {
     let file_path = quote! { std::file!() };
@@ -154,26 +154,45 @@ static PIN_TEST_SELECTOR_REG: LazyLock<Regex> = LazyLock::new(|| {
     Regex::new(r"pin_test_selector!\(\s*(?P<el_id>\w*)\s*\)").unwrap()
 });
 
+fn get_macro_invocation_dir_path() -> String {
+    let macro_invocation_file_path = get_macro_invocation_file_path();
+
+    FILENAME_REG
+        .replace(&macro_invocation_file_path, "")
+        .to_string()
+}
+
+static COMPONENT_FILES_GLOB: LazyLock<Glob> = LazyLock::new(|| {
+    Glob::new("**/{app,components,layouts,pages}/**/*.rs").unwrap()
+});
+
+static RS_FILES_GLOB: LazyLock<Glob> =
+    LazyLock::new(|| Glob::new("**/*.rs").unwrap());
+
+fn make_component_files_walk(
+    dir_path: &str,
+) -> impl Iterator<Item = WalkEntry<'static>> {
+    // if macro is not invoked in a directory containing only components and
+    // their tests, then we should limit the search to only directories that
+    // may contain components
+    let mut walk = COMPONENT_FILES_GLOB.walk(dir_path).peekable();
+
+    if walk.peek().is_none() {
+        walk = RS_FILES_GLOB.walk(dir_path).peekable();
+    }
+
+    walk.map(|v| v.expect("entry should be resolved"))
+}
+
 #[proc_macro]
 pub fn generate_test_selectors(_tokens: TokenStream) -> TokenStream {
     let mut selector_ids = Vec::new();
     let mut selector_paths = Vec::new();
 
-    let macro_invocation_file_path = get_macro_invocation_file_path();
+    let dir_path = get_macro_invocation_dir_path();
 
-    let dir_path = FILENAME_REG
-        .replace(&macro_invocation_file_path, "")
-        .to_string();
-
-    for entry in WalkDir::new(&dir_path) {
-        let entry = entry.expect("directory entry should be resolved");
-
-        if !entry.file_type().is_file() {
-            continue;
-        }
-
+    for entry in make_component_files_walk(&dir_path) {
         let path = entry.path();
-
         let file = fs::File::open(path).unwrap();
         let reader = io::BufReader::new(file);
 
