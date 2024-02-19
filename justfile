@@ -42,7 +42,6 @@ SKIP_WASM_CHECKS_PACKAGES := trim(replace_regex('''
     core
     server
 ''', '\s+', ' '))
-
 skip_wasm_checks_workspace_exclude := '--exclude ' + replace_regex(SKIP_WASM_CHECKS_PACKAGES, ' ', ' --exclude ')
 
 # --- Test ---
