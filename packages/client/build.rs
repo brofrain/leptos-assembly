@@ -1,8 +1,7 @@
-#![feature(let_chains)]
-
 use std::{
     fs::File,
     io::{BufWriter, Write},
+    path::PathBuf,
     process::Command,
 };
 
@@ -21,15 +20,28 @@ fn prebuild_vite_assets() {
     );
 }
 
+fn get_target_dir_path() -> PathBuf {
+    let skip_triple_dir =
+        std::env::var("TARGET").unwrap() == std::env::var("HOST").unwrap();
+    let num_dirs_to_skip = if skip_triple_dir { 4 } else { 5 };
+
+    let out_dir = PathBuf::from(std::env::var("OUT_DIR").unwrap());
+    let mut current = out_dir.as_path();
+    for _ in 0..num_dirs_to_skip {
+        current = current.parent().unwrap();
+    }
+
+    PathBuf::from(current)
+}
+
 fn build_test_selectors() {
-    let crate_name = std::env!("CARGO_CRATE_NAME");
+    let crate_name = std::env::var("CARGO_PKG_NAME").unwrap();
     let selectors = generate_test_selectors!();
 
-    let out_dir = std::env::var("OUT_DIR").unwrap();
+    let mut out = get_target_dir_path();
+    out.push(format!("{crate_name}_test_selectors.json"));
 
-    let file =
-        File::create(format!("{out_dir}/{crate_name}_test_selectors.json"))
-            .expect("JSON file should be created");
+    let file = File::create(out).expect("JSON file should be created");
 
     let mut writer = BufWriter::new(file);
     serde_json::to_writer(&mut writer, &selectors).unwrap();
@@ -51,9 +63,7 @@ fn main() {
         prebuild_vite_assets();
     }
 
-    if let Ok(arch) = std::env::var("CARGO_CFG_TARGET_ARCH")
-        && arch == "wasm32"
-    {
+    if cfg!(feature = "e2e-selectors") {
         build_test_selectors();
     }
 }

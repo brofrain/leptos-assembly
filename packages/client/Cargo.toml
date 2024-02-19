@@ -30,6 +30,7 @@ pwa = ["client_app/pwa"]
 csr = ["common/csr"]
 hydrate = ["common/hydrate"]
 ssr = ["common/ssr"]
+e2e-selectors = []
 
 [package.metadata.cargo-all-features]
 skip_feature_sets = [["csr", "ssr"], ["hydrate", "ssr"], ["hydrate", "csr"]]
