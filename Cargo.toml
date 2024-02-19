@@ -55,6 +55,7 @@ leptos_i18n = { version = "0.3.2", features = [
   "cookie",
   "interpolate_display",
   "yaml_files",
+  "track_locale_files"
 ], default-features = false }
 leptos_meta = { version = "0.6.5", features = ["nightly"] }
 leptos_router = { version = "0.6.5", features = ["nightly"] }
