@@ -65,27 +65,34 @@ test *filter:
 review-snaps:
     cargo insta review
 
-_e2e:
-    npx playwright test
+# Generate E2E selectors from `pin_test_selector!` macro invocations
+generate-e2e-selectors:
+    cargo check \
+        -p client \
+        --target wasm32-unknown-unknown \
+        --profile client-dev \
+        --features csr,pwa,e2e-selectors
 
-_e2e-ui:
-    npx playwright test --ui
+_e2e *args:
+    just generate-e2e-selectors
+    npx playwright test {{ args }}
 
 # Serves the app and runs E2E tests with Playwright
-e2e:
-    just _e2e
+e2e *args:
+    just generate-e2e-selectors
+    npx playwright test {{ args }}
 
 # Serves the app in release mode and runs E2E tests with Playwright
 e2e-release:
-    PW_WEBSERVER_RELEASE_MODE=true just _e2e
+    PW_WEBSERVER_RELEASE_MODE=true just e2e
 
 # Serves the app and opens Playwright UI
 e2e-ui:
-    just _e2e-ui
+    just e2e --ui
 
 # Serves the app in release mode and opens Playwright UI
 e2e-ui-release:
-    PW_WEBSERVER_RELEASE_MODE=true just _e2e-ui
+    PW_WEBSERVER_RELEASE_MODE=true just e2e --ui
 
 # --- Formatting ---
 

@@ -62,10 +62,11 @@ impl ToTokens for SelectorPath {
 
 fn generate_test_selectors_struct(
     name: &str,
-    depth: usize,
+    parent: &[String],
     selector_hashes: &[u64],
     selector_paths: &[Vec<String>],
 ) -> TokenStream2 {
+    let depth = parent.len();
     let mut child_structs = Vec::<TokenStream2>::new();
     let mut fields = Vec::<TokenStream2>::new();
 
@@ -75,6 +76,10 @@ fn generate_test_selectors_struct(
         let selector_path_chunks_len = selector_path_chunks.len();
 
         if selector_path_chunks_len - 1 < depth {
+            continue;
+        }
+
+        if !selector_path_chunks.starts_with(parent) {
             continue;
         }
 
@@ -102,7 +107,7 @@ fn generate_test_selectors_struct(
 
         let child_struct = generate_test_selectors_struct(
             &prefixed_child_struct_name,
-            depth + 1,
+            &selector_path_chunks[0..=depth],
             selector_hashes,
             selector_paths,
         );
@@ -279,7 +284,7 @@ pub fn generate() -> TokenStream {
 
     let selectors = generate_test_selectors_struct(
         "selectors",
-        0,
+        &[],
         &selector_hashes,
         &selector_paths,
     );

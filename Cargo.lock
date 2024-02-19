@@ -435,7 +435,6 @@ name = "client_macros"
 version = "0.0.0"
 dependencies = [
  "client_proc_macros",
- "common",
 ]
 
 [[package]]
@@ -446,6 +445,7 @@ dependencies = [
  "client_env",
  "client_hooks",
  "client_i18n",
+ "client_macros",
  "client_router",
  "client_stores",
  "client_utils",

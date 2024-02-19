@@ -1,5 +1,6 @@
 use client_components::{BaseAnimatedFor, BaseIcon, BaseLink};
 use client_i18n::use_i18n;
+use client_macros::pin_test_selector;
 use client_router::{HiParams, Route};
 use client_stores::{use_store, Names};
 use common::{
@@ -34,7 +35,7 @@ pub fn HiName() -> impl IntoView {
             <BaseIcon icon=icon::BsPersonRaisedHand class="text-4xl mb3"/>
 
             <div>
-                <p test="welcome">{t!(i18n, name.welcome, name)}</p>
+                <p test=pin_test_selector!(welcome)>{t!(i18n, name.welcome, name)}</p>
             </div>
 
             <p>
