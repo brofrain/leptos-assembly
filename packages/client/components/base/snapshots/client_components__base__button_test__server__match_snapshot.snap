@@ -1,0 +1,6 @@
+---
+source: packages/client/components/base/button_test.rs
+expression: html
+---
+"<!--hk=0-0-0-1o|leptos-base-button-start--><!--leptos-view|packages-client-components-base-button.rs-11|open--><button   data-hk=\"0-0-0-2\" class=\" inline-block rounded p-x4 p-t1 p-b.5 fw-bold text-accent-interactive-contrast bg-accent-interactive transition-colors cursor-pointer select-none disabled:pointer-events-none\"><!--leptos-view|<BaseButton/>-children|open--><!--hk=0-0-0-3o|leptos-<>-start-->Hello, World!<!--hk=0-0-0-3c|leptos-<>-end--><!--leptos-view|<BaseButton/>-children|close--></button><!--leptos-view|packages-client-components-base-button.rs-11|close--><!--hk=0-0-0-1c|leptos-base-button-end-->"
+

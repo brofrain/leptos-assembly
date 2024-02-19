@@ -19,5 +19,6 @@
     "target": "ESNext",
     "types": ["vite/client", "vite-plugin-pwa/client"]
   },
-  "include": ["*.config.ts", "apps/**/*.ts", "packages/**/*.ts", "e2e/**/*.ts"]
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules"]
 }

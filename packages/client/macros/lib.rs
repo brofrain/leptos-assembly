@@ -1,5 +1,3 @@
-pub mod js;
+pub use client_proc_macros::*;
 
-pub mod __exports {
-    pub use common::vendor::wasm_bindgen;
-}
+pub mod js;

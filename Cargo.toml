@@ -21,6 +21,7 @@ members = [
   "packages/common/macros",
   "packages/common/macros/proc",
   "packages/common/utils",
+  "packages/dev",
   "packages/server",
 ]
 
@@ -43,16 +44,20 @@ common.path = "packages/common"
 common_macros.path = "packages/common/macros"
 common_utils.path = "packages/common/utils"
 common_vendor.path = "packages/common/vendor"
+dev.path = "packages/dev"
 server.path = "packages/server"
 cfg-if = "1.0.0"
+console_log = { version = "1.0.0", features = ["color"] }
 leptos = { version = "0.6.5", features = ["nightly"] }
-leptos_i18n = { version = "0.3.0-rc", features = [
+leptos_i18n = { version = "0.3.2", features = [
   "nightly",
   "serde",
   "cookie",
   "interpolate_display",
   "yaml_files",
+  "track_locale_files"
 ], default-features = false }
+leptos_meta = { version = "0.6.5", features = ["nightly"] }
 leptos_router = { version = "0.6.5", features = ["nightly"] }
 serde = { version = "1.0.196", features = ["derive"] }
 tokio = { version = "1.36.0", features = ["full"] }
@@ -60,20 +65,15 @@ wasm-bindgen = "0.2.91"
 # proc macros
 proc-macro2 = "1.0.78"
 quote = "1.0.35"
-syn = { version = "2.0.48", features = ["full"] }
+syn = { version = "2.0.49", features = ["full"] }
+# dev
+wasm-bindgen-test = "0.3.41"
 
 [profile.dev]
 opt-level = 1
 
 [profile.dev.package."*"]
 opt-level = 3
-
-[profile.dev-ci]
-inherits = "dev"
-opt-level = 0
-
-[profile.dev-ci.package."*"]
-opt-level = 0
 
 [profile.client-dev]
 inherits = "dev"

@@ -19,12 +19,18 @@ client_app.path = "app"
 leptos.workspace = true
 wasm-bindgen.workspace = true
 
+[build-dependencies]
+common.workspace = true
+client_macros.workspace = true
+serde.workspace = true
+
 [features]
 vite-prebuild = []
 pwa = ["client_app/pwa"]
 csr = ["common/csr"]
 hydrate = ["common/hydrate"]
 ssr = ["common/ssr"]
+e2e-selectors = []
 
 [package.metadata.cargo-all-features]
 skip_feature_sets = [["csr", "ssr"], ["hydrate", "ssr"], ["hydrate", "csr"]]

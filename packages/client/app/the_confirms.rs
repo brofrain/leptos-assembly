@@ -1,5 +1,6 @@
 use client_components::{BaseAnimatedFor, BaseButton, BaseModal};
 use client_hooks::confirm;
+use client_macros::pin_test_selector;
 use common::prelude::*;
 
 #[component]
@@ -29,7 +30,10 @@ pub fn TheConfirms() -> impl IntoView {
                         v.cancel()
                             .map(move |cancel_msg| {
                                 view! {
-                                    <BaseButton on:click=cancel attr:test="confirm-cancel-btn">
+                                    <BaseButton
+                                        on:click=cancel
+                                        attr:test=pin_test_selector!(cancel)
+                                    >
                                         {cancel_msg}
                                     </BaseButton>
                                 }
@@ -37,7 +41,7 @@ pub fn TheConfirms() -> impl IntoView {
                     });
                 view! {
                     <BaseModal on_overlay_click=cancel>
-                        <div class=uno!["text-center"] test="confirm-body">
+                        <div class=uno!["text-center"] test=pin_test_selector!(body)>
                             {confirm.with_value(|v| *v.body())}
                         </div>
 
@@ -45,7 +49,7 @@ pub fn TheConfirms() -> impl IntoView {
                             "mt4", "flex justify-center gap4"
                         ]>
                             {cancel_btn_view}
-                            <BaseButton on:click=accept attr:test="confirm-accept-btn">
+                            <BaseButton on:click=accept attr:test=pin_test_selector!(confirm)>
                                 {confirm.with_value(|v| *v.accept())}
                             </BaseButton>
                         </div>

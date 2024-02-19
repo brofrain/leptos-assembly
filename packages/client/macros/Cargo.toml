@@ -13,4 +13,3 @@ path = "lib.rs"
 
 [dependencies]
 client_proc_macros.path = "proc"
-common.workspace = true

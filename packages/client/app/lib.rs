@@ -13,6 +13,9 @@ use common::{
 
 flatten_mod!(the_confirms, the_overlay, the_toasts, the_update_banner);
 
+#[cfg(test)]
+mod the_confirms_test;
+
 #[component]
 pub fn App() -> impl IntoView {
     let i18n = provide_i18n_context();

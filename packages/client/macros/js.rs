@@ -14,7 +14,7 @@
 #[macro_export]
 macro_rules! bind_js_fn {
     (@wrap $js_namespace:ident => $($fn_definition:tt)*) => {
-        #[$crate::__exports::wasm_bindgen::prelude::wasm_bindgen(
+        #[wasm_bindgen::prelude::wasm_bindgen(
             raw_module = "/assets/bindings.js"
         )]
         extern "C" {
@@ -25,7 +25,7 @@ macro_rules! bind_js_fn {
     };
 
     (@wrap $($fn_definition:tt)*) => {
-        #[$crate::__exports::wasm_bindgen::prelude::wasm_bindgen(
+        #[wasm_bindgen::prelude::wasm_bindgen(
             raw_module = "/assets/bindings.js"
         )]
         extern "C" {
