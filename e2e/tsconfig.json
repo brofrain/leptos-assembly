@@ -1,0 +1,10 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "~/": ["./"],
+      "~client-selectors": ["../target/client_test_selectors.json"]
+    }
+  }
+}

@@ -73,14 +73,10 @@ generate-e2e-selectors:
         --profile client-dev \
         --features csr,pwa,e2e-selectors
 
-_e2e *args:
-    just generate-e2e-selectors
-    npx playwright test {{ args }}
-
 # Serves the app and runs E2E tests with Playwright
 e2e *args:
     just generate-e2e-selectors
-    npx playwright test {{ args }}
+    npx playwright test --config e2e/playwright.config.ts {{ args }}
 
 # Serves the app in release mode and runs E2E tests with Playwright
 e2e-release:

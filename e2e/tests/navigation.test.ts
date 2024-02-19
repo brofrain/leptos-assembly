@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import selectors from "~client-selectors";
 
 test.describe("navigation", () => {
   test.beforeEach(async ({ page }) => {
@@ -23,7 +24,7 @@ test.describe("navigation", () => {
       await expect(button).toBeEnabled();
       await button.click();
 
-      await page.locator("[test='confirm-accept-btn']").click();
+      await page.locator(selectors.app.the_confirms.confirm).click();
 
       await expect(page).toHaveURL(new RegExp(`/hi/${HI_NAME}$`));
     });
@@ -35,7 +36,7 @@ test.describe("navigation", () => {
       await input.fill(HI_NAME);
       await input.press("Enter");
 
-      await page.locator("[test='confirm-accept-btn']").click();
+      await page.locator(selectors.app.the_confirms.confirm).click();
 
       await expect(page).toHaveURL(new RegExp(`/hi/${HI_NAME}$`));
     });

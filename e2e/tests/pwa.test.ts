@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import selectors from "~client-selectors";
 
 test.describe("pwa", () => {
   test.beforeEach(async ({ page }) => {
@@ -17,7 +18,7 @@ test.describe("pwa", () => {
         ),
     );
 
-    const logoLocator = page.locator("[test='logo']");
+    const logoLocator = page.locator(selectors.components.the_logo);
 
     await logoLocator.waitFor();
     expect(await logoLocator.isVisible()).toBe(true);
@@ -32,7 +33,7 @@ test.describe("pwa", () => {
 
     await page.goto("/hi/abc");
 
-    const welcomeLocator = page.locator("[test='welcome']");
+    const welcomeLocator = page.locator(selectors.pages.hi_name.welcome);
     await welcomeLocator.waitFor();
     expect(await welcomeLocator.isVisible()).toBe(true);
     expect(await welcomeLocator.textContent()).toBe("Hi, abc!");
