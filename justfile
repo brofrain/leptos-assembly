@@ -211,7 +211,8 @@ _rust-analyzer-check:
 
 # Checks for TypeScript errors
 lint-ts:
-    npx tsc
+    npx tsc -p packages/client
+    npx tsc -p e2e
 
 # Checks for typos
 lint-typos:

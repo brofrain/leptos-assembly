@@ -1,3 +1,6 @@
+/// <reference types="vite/client" />
+/// <reference types="vite-plugin-pwa/client" />
+
 import Unocss from "unocss/vite";
 import { v4 as uuid } from "uuid";
 import { defineConfig } from "vite";

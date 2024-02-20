@@ -2,6 +2,7 @@
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": ["packages/client/i18n/locales"],
   "rust-analyzer.check.overrideCommand": ["just", "_rust-analyzer-check"],
+  "rust-analyzer.diagnostics.enable": false,
   "rust-analyzer.procMacro.ignored": {
     "leptos_macro": ["component", "server"]
   },

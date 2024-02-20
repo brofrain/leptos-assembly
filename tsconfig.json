@@ -16,9 +16,7 @@
     "skipLibCheck": true,
     "sourceMap": false,
     "strict": true,
-    "target": "ESNext",
-    "types": ["vite/client", "vite-plugin-pwa/client"]
+    "target": "ESNext"
   },
-  "include": ["./**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "target"]
 }
