@@ -211,6 +211,7 @@ _rust-analyzer-check:
 
 # Checks for TypeScript errors
 lint-ts:
+    just generate-e2e-selectors
     npx tsc -p packages/client
     npx tsc -p e2e
 
