@@ -243,20 +243,20 @@ audit: audit-rs audit-js
 # --- Dependency management ---
 
 CARGO_EXECUTABLES := replace_regex('''
-just@1.23.0
+just@1.24.0
 cargo-leptos@0.2.7
 leptosfmt@0.1.18
 cargo-nextest@0.9.67
 cargo-outdated@0.14.0
-cargo-audit@0.19.0
-cargo-udeps@0.1.45
-typos-cli@1.18.0
+cargo-audit@0.20.0
+cargo-udeps@0.1.46
+typos-cli@1.18.2
 wasm-bindgen-cli@0.2.91
 ''', '\s+', ' ')
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.79
 cargo-edit@0.12.2
-cargo-insta@1.34.0
+cargo-insta@1.35.1
 ''', '\s+', ' ')
 
 _setup +executables:
