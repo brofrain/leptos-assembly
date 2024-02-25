@@ -1,7 +1,7 @@
 use std::fmt;
 
 use common::{
-    // prelude::*,
+    prelude::*,
     vendor::leptos_router::{NavigateOptions, Params},
 };
 use leptos::Params;
@@ -35,10 +35,18 @@ impl fmt::Display for Route {
     }
 }
 
-pub fn use_navigate() -> impl Fn(&Route, NavigateOptions) {
+pub fn use_navigate() -> Callback<Route> {
     #[allow(clippy::disallowed_methods)]
     let navigate = leptos_router::use_navigate();
-    move |route, options| {
-        navigate(&route.to_string(), options);
-    }
+    Callback::new(move |route: Route| {
+        navigate(&route.to_string(), NavigateOptions::default());
+    })
+}
+
+pub fn use_navigate_with_options(options: NavigateOptions) -> Callback<Route> {
+    #[allow(clippy::disallowed_methods)]
+    let navigate = leptos_router::use_navigate();
+    Callback::new(move |route: Route| {
+        navigate(&route.to_string(), options.clone());
+    })
 }

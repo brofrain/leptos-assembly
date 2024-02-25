@@ -59,6 +59,9 @@ fn main() {
     println!("cargo:rerun-if-changed=uno.config.ts");
     println!("cargo:rerun-if-changed=vite.config.ts");
 
+    // Force rebuilding after each app build
+    println!("cargo:rerun-if-changed=../../target/client");
+
     if cfg!(feature = "vite-prebuild") {
         prebuild_vite_assets();
     }

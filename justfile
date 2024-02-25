@@ -307,7 +307,7 @@ update-rs:
 
 # Updates Node packages to the latest versions in their specified ranges
 update-js:
-    pnpm update
+    pnpm update --recursive
 
 # Updates packages to the latest versions in their specified ranges
 update: update-rs update-js
@@ -319,7 +319,7 @@ update-rs-latest:
 
 # Updates Node packages to their latest versions ignoring ranges in package.json
 update-js-latest:
-    pnpm update --latest
+    pnpm update --latest --recursive
 
 # Updates packages to the latest versions ignoring their ranges
 update-latest: update-rs-latest update-js-latest

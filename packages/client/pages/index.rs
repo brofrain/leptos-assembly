@@ -4,15 +4,13 @@ use client_hooks::confirm;
 use client_i18n::use_i18n;
 use client_router::{use_navigate, HiParams, Route};
 use client_stores::{use_store, Names};
-use common::{
-    prelude::*,
-    vendor::{leptos_router::NavigateOptions, web_sys},
-};
+use common::{prelude::*, vendor::web_sys};
 
 #[component]
 pub fn Index() -> impl IntoView {
     let i18n = use_i18n();
     let show_confirm = confirm::use_show();
+    let navigate = use_navigate();
 
     let names_store = use_store::<Names>();
 
@@ -26,10 +24,13 @@ pub fn Index() -> impl IntoView {
         }
     });
 
-    let navigate_name_hi = move || {
-        let name = name();
+    let name_is_empty = Signal::derive(move || with!(|name| name.is_empty()));
 
-        let navigate = use_navigate();
+    let navigate_name_hi = move || {
+        if name_is_empty() {
+            return;
+        }
+
         spawn_local(async move {
             if show_confirm(
                 confirm::Options::default()
@@ -38,10 +39,9 @@ pub fn Index() -> impl IntoView {
             .await
             .is_accepted()
             {
-                navigate(
-                    &Route::Hi(Some(HiParams { name })),
-                    NavigateOptions::default(),
-                );
+                navigate(Route::Hi(Some(HiParams {
+                    name: name.get_untracked(),
+                })));
             }
         });
     };
@@ -51,8 +51,6 @@ pub fn Index() -> impl IntoView {
             navigate_name_hi();
         }
     };
-
-    let name_is_empty = Signal::derive(move || with!(|name| name.is_empty()));
 
     view! {
         <div class="text-center">

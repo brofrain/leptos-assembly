@@ -1,10 +1,7 @@
 use client_components::{BaseButton, BaseIcon};
 use client_i18n::use_i18n;
 use client_router::{use_navigate, NotFoundParams, Route};
-use common::{
-    prelude::*,
-    vendor::leptos_router::{use_params, NavigateOptions},
-};
+use common::{prelude::*, vendor::leptos_router::use_params};
 
 #[component]
 pub fn NotFound() -> impl IntoView {
@@ -16,7 +13,7 @@ pub fn NotFound() -> impl IntoView {
     let navigate = use_navigate();
 
     let go_home = move |_| {
-        navigate(&Route::Home, NavigateOptions::default());
+        navigate(Route::Home);
     };
 
     view! {

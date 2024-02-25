@@ -3,7 +3,17 @@ import selectors from "~client-selectors";
 
 test.describe("navigation", () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto("/");
+    await Promise.all([
+      page.goto("/"),
+      page.waitForFunction(() =>
+        document.querySelector("html")!.classList.contains("nprogress-busy"),
+      ),
+    ]);
+
+    await page.waitForFunction(
+      () =>
+        !document.querySelector("html")!.classList.contains("nprogress-busy"),
+    );
   });
 
   const HOME_REG = /^https?:\/\/localhost:\d{4}\/?$/;
@@ -21,7 +31,7 @@ test.describe("navigation", () => {
       await page.locator("input").fill(HI_NAME);
 
       const button = page.locator("button");
-      await expect(button).toBeEnabled();
+      await button.isEnabled();
       await button.click();
 
       await page.locator(selectors.app.the_confirms.confirm).click();
