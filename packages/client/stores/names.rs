@@ -1,8 +1,9 @@
-use std::collections::HashSet;
-
 use common::{
     prelude::*,
-    vendor::leptos_use::{storage::use_local_storage, utils::JsonCodec},
+    vendor::{
+        ahash::AHashSet,
+        leptos_use::{storage::use_local_storage, utils::JsonCodec},
+    },
 };
 
 use super::Store;
@@ -10,7 +11,7 @@ use super::Store;
 #[derive(Clone, Copy)]
 pub struct Names {
     last_name: (Signal<Option<String>>, WriteSignal<Option<String>>),
-    all: (Signal<HashSet<String>>, WriteSignal<HashSet<String>>),
+    all: (Signal<AHashSet<String>>, WriteSignal<AHashSet<String>>),
     other_names_sorted: Memo<Vec<String>>,
 }
 
@@ -19,7 +20,7 @@ impl Store for Names {
         let (last_name, set_last_name, ..) =
             use_local_storage::<Option<String>, JsonCodec>("last-name");
         let (names, set_names, ..) =
-            use_local_storage::<HashSet<String>, JsonCodec>("names");
+            use_local_storage::<AHashSet<String>, JsonCodec>("names");
 
         let other_names_sorted = Memo::new(move |_| {
             let mut names = names();

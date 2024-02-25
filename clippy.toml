@@ -24,4 +24,6 @@ disallowed-methods = [
 ]
 disallowed-types = [
   { path = "wasm_bindgen::UnwrapThrowExt", reason = "Use classic panicking methods, so they can trigger a global panic hook." },
+  { path = "std::collections::HashMap", reason = "Use `common::vendor::ahash::AHashMap` instead for better performance." },
+  { path = "std::collections::HashSet", reason = "Use `common::vendor::ahash::AHashSet` instead for better performance." },
 ]
