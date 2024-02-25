@@ -48,8 +48,8 @@ dev.path = "packages/dev"
 server.path = "packages/server"
 cfg-if = "1.0.0"
 console_log = { version = "1.0.0", features = ["color"] }
-leptos = { version = "0.6.5", features = ["nightly"] }
-leptos_i18n = { version = "0.3.2", features = [
+leptos = { version = "0.6.6", features = ["nightly"] }
+leptos_i18n = { version = "0.3.3", features = [
   "nightly",
   "serde",
   "cookie",
@@ -57,15 +57,15 @@ leptos_i18n = { version = "0.3.2", features = [
   "yaml_files",
   "track_locale_files",
 ], default-features = false }
-leptos_meta = { version = "0.6.5", features = ["nightly"] }
-leptos_router = { version = "0.6.5", features = ["nightly"] }
-serde = { version = "1.0.196", features = ["derive"] }
+leptos_meta = { version = "0.6.6", features = ["nightly"] }
+leptos_router = { version = "0.6.6", features = ["nightly"] }
+serde = { version = "1.0.197", features = ["derive"] }
 tokio = { version = "1.36.0", features = ["full"] }
 wasm-bindgen = "0.2.91"
 # proc macros
 proc-macro2 = "1.0.78"
 quote = "1.0.35"
-syn = { version = "2.0.49", features = ["full"] }
+syn = { version = "2.0.50", features = ["full"] }
 # dev
 wasm-bindgen-test = "0.3.41"
 
