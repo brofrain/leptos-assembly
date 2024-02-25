@@ -1726,9 +1726,9 @@ dependencies = [
 
 [[package]]
 name = "leptos_animated_for"
-version = "0.4.1"
+version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "934664346a02e5351c9d62c23722f21c4dc28923f5ba77f0214cd63e53d520f7"
+checksum = "5780f78443bdedb768f8dbaaa56cafb361895e063ad7238acc45e354afd542cb"
 dependencies = [
  "cfg-if",
  "futures",
