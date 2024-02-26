@@ -31,9 +31,19 @@ jobs:
       - name: Formatting
         run: just fmt-check
 
+  check:
+    name: Check
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - name: Check
+        run: just check
+
   lint:
     name: Lint
-    needs: setup
+    needs: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -43,7 +53,7 @@ jobs:
 
   test:
     name: Tests
-    needs: setup
+    needs: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -51,15 +61,23 @@ jobs:
       - name: Tests
         run: just test
 
-  e2e:
-    name: E2E
-    needs: setup
+  build:
+    name: Build
+    needs: check
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: ./.github/actions/setup
       - name: Build
         run: just build
+
+  e2e:
+    name: E2E
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
       - name: E2E
         run: just e2e-release
 

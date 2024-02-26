@@ -326,18 +326,21 @@ update-latest: update-rs-latest update-js-latest
 
 # Checks for outdated Cargo dependencies
 outdated-rs:
-    cargo outdated --root-deps-only --exit-code 1
+    cargo outdated --workspace --root-deps-only --exit-code 1
 
 # Checks for outdated Node dependencies
 outdated-js:
-    pnpm outdated
+    pnpm outdated --recursive
 
 # Checks for outdated dependencies
 outdated: outdated-rs outdated-js
 
 # Checks for unused dependencies
 unused:
-    cargo udeps --workspace
+    cargo udeps --workspace --all-targets
+    cargo udeps --workspace --all-targets \
+        --target wasm32-unknown-unknown \
+        {{ skip_wasm_checks_workspace_exclude }}
 
 # --- Dev tools ---
 

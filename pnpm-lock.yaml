@@ -12,8 +12,8 @@ importers:
         specifier: 1.5.3
         version: 1.5.3
       '@happy-dom/global-registrator':
-        specifier: ^13.5.0
-        version: 13.5.0
+        specifier: ^13.6.2
+        version: 13.6.2
       '@playwright/test':
         specifier: ^1.41.2
         version: 1.41.2
@@ -21,8 +21,8 @@ importers:
         specifier: ^20.11.20
         version: 20.11.20
       happy-dom:
-        specifier: ^13.5.0
-        version: 13.5.0
+        specifier: ^13.6.2
+        version: 13.6.2
       prettier:
         specifier: ^3.2.5
         version: 3.2.5
@@ -1630,11 +1630,11 @@ packages:
     dev: false
     optional: true
 
-  /@happy-dom/global-registrator@13.5.0:
-    resolution: {integrity: sha512-YMMRZXro2BhNw9cMDk9e9WkR6DaB0kSytpAiAOc3rHYoVGElI8yOqsO/ySZQIV1QMdmUrtczmEQZPwB9SVppeQ==}
+  /@happy-dom/global-registrator@13.6.2:
+    resolution: {integrity: sha512-kP6XjwQtYhffyapFAwTTysqc67JWSlUfK0807S84ryUxugtBxpLkDyb0tqXcAatjQFdb3Oum+xdorBR0UpT70w==}
     engines: {node: '>=16.0.0'}
     dependencies:
-      happy-dom: 13.5.0
+      happy-dom: 13.6.2
     dev: true
 
   /@iconify/types@2.0.0:
@@ -2911,8 +2911,8 @@ packages:
       duplexer: 0.1.2
     dev: false
 
-  /happy-dom@13.5.0:
-    resolution: {integrity: sha512-0XWOSvyc03Z2Ye+VGP5pN6fpwgKMy3a2d09RuGRqAR4TEaW0SCtw3upt7dLoKaYBFUO+JeuDJh366aDBat3OVQ==}
+  /happy-dom@13.6.2:
+    resolution: {integrity: sha512-Ku+wDqcF/KwFA0dI+xIMZd9Jn020RXjuSil/Vz7gu2yhDC3FsDYZ55qqV9k+SGC4opwb4acisXqVSRxUJMlPbQ==}
     engines: {node: '>=16.0.0'}
     dependencies:
       entities: 4.5.0
