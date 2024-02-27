@@ -44,7 +44,7 @@ impl UsePushReturn {
     {
         self.queue.0.update(|queue| {
             queue.push_back(Toast {
-                id: id::usize(),
+                id: id::runtime_usize(),
                 body: ViewCallback::new(body),
                 severity,
             });

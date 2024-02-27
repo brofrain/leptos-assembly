@@ -12,7 +12,7 @@ where
 {
     let document = document();
     let target = document.create_element("div").unwrap();
-    target.set_id(&id::usize().to_string());
+    target.set_id(&id::runtime_usize().to_string());
     document.body().unwrap().append_child(&target).unwrap();
     leptos::mount_to(target.dyn_into().unwrap(), f);
 }

@@ -79,7 +79,7 @@ struct FeatureBrick {
 impl FeatureBrick {
     pub fn new(feature: &'static Feature) -> Self {
         Self {
-            id: id::usize(),
+            id: id::runtime_usize(),
             feature,
             active: RwSignal::new(false),
         }
