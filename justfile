@@ -34,9 +34,14 @@ serve-pwa:
     just _build-core-pwa
     cargo leptos serve {{ CORE_BUILD_PWA_ARGS }}
 
-# Serves the application in release mode
+# Builds the application in release mode and serves it
 serve-release:
-    cargo leptos serve {{ CORE_BUILD_PWA_ARGS }} --release
+    #!/usr/bin/env sh
+    [ ! -f "target/server-release/core" ] && just build
+    export LEPTOS_SITE_ADDR="127.0.0.1:3333"
+    export LEPTOS_SITE_ROOT="target/client"
+    export LEPTOS_SITE_PKG_DIR="hydrate"
+    ./target/server-release/core
 
 SKIP_WASM_CHECKS_PACKAGES := trim(replace_regex('''
     core
@@ -84,22 +89,14 @@ generate-e2e-selectors:
         --profile client-dev \
         --features csr,pwa,e2e-selectors
 
-# Serves the app and runs E2E tests with Playwright
+# Serves the app in release mode and runs E2E tests with Playwright
 e2e *args:
     just generate-e2e-selectors
     npx playwright test --config e2e/playwright.config.ts {{ args }}
 
-# Serves the app in release mode and runs E2E tests with Playwright
-e2e-release:
-    PW_WEBSERVER_RELEASE_MODE=true just e2e
-
-# Serves the app and opens Playwright UI
+# Serves the app in release mode and opens Playwright UI
 e2e-ui:
     just e2e --ui
-
-# Serves the app in release mode and opens Playwright UI
-e2e-ui-release:
-    PW_WEBSERVER_RELEASE_MODE=true just e2e --ui
 
 # --- Formatting ---
 

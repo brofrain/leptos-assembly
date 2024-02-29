@@ -1,8 +1,6 @@
 import type { PlaywrightTestConfig } from "@playwright/test";
 import { devices } from "@playwright/test";
 
-const releaseMode = process.env.PW_WEBSERVER_RELEASE_MODE === "true";
-
 const config: PlaywrightTestConfig = {
   testDir: "tests",
   timeout: 30 * 1000,
@@ -19,7 +17,7 @@ const config: PlaywrightTestConfig = {
     { name: "webkit", use: { ...devices["Desktop Safari"] } },
   ],
   webServer: {
-    command: releaseMode ? "just serve-release" : "just serve-pwa",
+    command: "just serve-release",
     port: 3333,
     timeout: 1000 * 60 * 10,
   },
