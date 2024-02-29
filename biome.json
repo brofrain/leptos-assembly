@@ -2,6 +2,12 @@
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": { "ignore": ["node_modules", "target"] },
   "formatter": { "enabled": true, "indentStyle": "space" },
-  "linter": { "enabled": true, "rules": { "recommended": true } },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true,
+      "style": { "noNonNullAssertion": "off" }
+    }
+  },
   "organizeImports": { "enabled": true }
 }
