@@ -51,9 +51,19 @@ jobs:
       - name: Lint
         run: just lint-ci
 
+  build_tests:
+    name: Build tests
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/setup
+      - name: Build tests
+        run: just build-tests
+
   test:
     name: Tests
-    needs: check
+    needs: build_tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
