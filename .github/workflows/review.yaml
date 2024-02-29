@@ -51,7 +51,7 @@ jobs:
       - name: Lint
         run: just lint-ci
 
-  build_tests:
+  build-tests:
     name: Build tests
     needs: check
     runs-on: ubuntu-latest
@@ -63,7 +63,7 @@ jobs:
 
   test:
     name: Tests
-    needs: build_tests
+    needs: build-tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
