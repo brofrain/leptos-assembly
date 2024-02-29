@@ -3,10 +3,10 @@ name: Cache
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
 
     - name: Cargo cache setup
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           ~/.cargo/
@@ -17,10 +17,10 @@ runs:
         restore-keys: ${{ runner.os }}-cargo-
 
     - name: pnpm setup
-      uses: pnpm/action-setup@v2
+      uses: pnpm/action-setup@v3
 
     - name: Node setup
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version-file: ".nvmrc"
         cache: pnpm

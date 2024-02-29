@@ -3,12 +3,12 @@ name: Setup
 runs:
   using: composite
   steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     - uses: ./.github/actions/cache
 
     - name: Just setup
       shell: bash
-      run: cargo install just@1.15.0
+      run: sudo snap install --edge --classic just
 
     - name: Project CI setup
       shell: bash

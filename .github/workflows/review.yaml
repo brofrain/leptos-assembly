@@ -18,7 +18,7 @@ jobs:
     name: Setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
 
   fmt:
@@ -26,7 +26,7 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
       - name: Formatting
         run: just fmt-check
@@ -36,7 +36,7 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
       - name: Check
         run: just check
@@ -46,7 +46,7 @@ jobs:
     needs: check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
       - name: Lint
         run: just lint-ci
@@ -56,7 +56,7 @@ jobs:
     needs: check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
       - name: Build tests
         run: just build-tests
@@ -66,7 +66,7 @@ jobs:
     needs: build-tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
       - name: Tests
         run: just test
@@ -76,7 +76,7 @@ jobs:
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
       - name: Build
         run: just build
@@ -86,17 +86,17 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
       - name: E2E
-        run: just e2e-release
+        run: just e2e
 
   audit:
     name: Dependency audit
     needs: setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
       - name: Outdated Cargo dependencies check (emit warning only)
         run: just outdated-rs || echo "::warning ::Some Cargo dependencies are autdated"
