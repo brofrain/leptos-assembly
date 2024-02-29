@@ -5,10 +5,7 @@ runs:
   steps:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/cache
-
-    - name: Just setup
-      shell: bash
-      run: sudo snap install --edge --classic just
+    - uses: extractions/setup-just@v1
 
     - name: Project CI setup
       shell: bash
