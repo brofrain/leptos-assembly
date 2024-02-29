@@ -421,6 +421,7 @@ dependencies = [
  "client_env",
  "client_hooks",
  "client_i18n",
+ "client_macros",
  "client_router",
  "client_utils",
  "common",

@@ -1,5 +1,6 @@
 use client_hooks::nprogress;
 use client_i18n::use_i18n;
+use client_macros::pin_test_selector;
 use common::prelude::*;
 use server::leptos_tag;
 
@@ -30,7 +31,7 @@ pub fn TheLeptosTagInfo() -> impl IntoView {
     };
 
     view! {
-        <div class=uno!["text-(sm center) italic", "op70", "mb2"]>
+        <div class=uno!["text-(sm center) italic", "op70", "mb2"] test=pin_test_selector!()>
             <Suspense fallback=t!(i18n, home.leptos_tag_loading)>{msg}</Suspense>
         </div>
     }

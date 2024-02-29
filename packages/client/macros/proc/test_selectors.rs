@@ -23,6 +23,7 @@ fn get_macro_invocation_file_path() -> String {
     .value()
 }
 
+#[derive(Debug)]
 pub struct SelectorPath(String);
 
 impl SelectorPath {
