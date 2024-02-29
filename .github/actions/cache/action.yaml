@@ -11,6 +11,7 @@ runs:
         path: |
           ~/.cargo/
           ~/.rustup/toolchains/
+          .cargo/
           target/
         key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
         restore-keys: ${{ runner.os }}-cargo-
