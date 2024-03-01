@@ -5,7 +5,7 @@ runs:
   steps:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/cache
-    - uses: extractions/setup-just@v1
+    - uses: extractions/setup-just@v2
 
     - name: Project CI setup
       shell: bash
