@@ -88,6 +88,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
+      - name: Setup Playwright
+        run: npx playwright install --with-deps
       - name: E2E
         run: just e2e
 
