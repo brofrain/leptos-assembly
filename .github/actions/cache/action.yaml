@@ -14,8 +14,9 @@ runs:
           ~/.rustup/toolchains
           .cargo/config.toml
           target
-        key: cargo-${{ runner.os }}-${{ hashFiles('Cargo.lock') }}-${{ github.run_id }}
+        key: cargo-${{ runner.os }}-${{ hashFiles('Cargo.lock') }}-${{ github.run_id }}-{{ github.job }}
         restore-keys: |
+          cargo-${{ runner.os }}-${{ hashFiles('Cargo.lock') }}-${{ github.run_id }}-
           cargo-${{ runner.os }}-${{ hashFiles('Cargo.lock') }}-
           cargo-${{ runner.os }}-
 
