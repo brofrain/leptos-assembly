@@ -253,7 +253,7 @@ audit: audit-rs audit-js
 
 CARGO_EXECUTABLES := replace_regex('''
 just@1.24.0
-cargo-leptos@0.2.7
+cargo-leptos@0.2.10
 leptosfmt@0.1.18
 cargo-nextest@0.9.67
 cargo-outdated@0.14.0

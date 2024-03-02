@@ -7,7 +7,7 @@ import { defineConfig } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
 import WebfontDownload from "vite-plugin-webfont-dl";
 
-const unocssWithFonts = (
+function unocssWithFonts(
   fonts: Record<
     string,
     {
@@ -16,7 +16,7 @@ const unocssWithFonts = (
       italic?: boolean;
     }
   >,
-) => {
+) {
   const urls: string[] = [];
   const fontFamily: Record<string, string> = {};
 
@@ -47,22 +47,28 @@ const unocssWithFonts = (
   }
 
   return [Unocss({ theme: { fontFamily } }), WebfontDownload(urls)];
-};
+}
 
 const buildPipelineId = uuid();
 const pwaEnabled = typeof process.env.CARGO_FEATURE_PWA === "string";
 
 const ALREADY_HASHED_FILENAME_REGEXES = [
+  // cargo-leptos output
+  /^pwa\/.*\.js$/,
+  /^pwa\/.*\.wasm$/,
+  // fonts downloaded by vite-plugin-webfont-dl
   /\.woff2$/,
+  // SW stuff from vite-plugin-pwa
   /^assets\/workbox-window\.prod\..*\.js$/,
   /^assets\/virtual_pwa-register-.*\.js$/,
 ];
 
-const isAlreadyHashed = (url: string) =>
-  ALREADY_HASHED_FILENAME_REGEXES.some((r) => r.test(url));
+function isAlreadyHashed(url: string) {
+  return ALREADY_HASHED_FILENAME_REGEXES.some((r) => r.test(url));
+}
 
-const pwa = () =>
-  VitePWA({
+function pwa() {
+  return VitePWA({
     disable: !pwaEnabled,
     strategies: "injectManifest",
     srcDir: "js",
@@ -110,6 +116,7 @@ const pwa = () =>
       ],
     },
   });
+}
 
 const releaseMode = process.env.PROFILE !== "debug";
 
@@ -126,6 +133,9 @@ export default defineConfig({
     lib: {
       formats: ["es"],
       entry: "js/bindings/index.ts",
+
+      // The file is being imported by wasm-bindgen using absolute path `/assets/bindings.js`.
+      // Therefore its filename should not be hashed.
       fileName: "bindings",
     },
   },

@@ -18,7 +18,7 @@ client_router.workspace = true
 client_utils.workspace = true
 common.workspace = true
 leptos.workspace = true
-leptos_animated_for = "0.4.2"
+leptos_animated_for = "0.4.3"
 leptos_icons = "0.3.0"
 
 [dev-dependencies]
