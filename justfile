@@ -41,6 +41,7 @@ serve-release:
     export LEPTOS_SITE_ADDR="127.0.0.1:3333"
     export LEPTOS_SITE_ROOT="target/client"
     export LEPTOS_SITE_PKG_DIR="hydrate"
+    export LEPTOS_HASH_FILES=true
     ./target/server-release/core
 
 SKIP_WASM_CHECKS_PACKAGES := trim(replace_regex('''
@@ -253,7 +254,7 @@ audit: audit-rs audit-js
 
 CARGO_EXECUTABLES := replace_regex('''
 just@1.24.0
-cargo-leptos@0.2.10
+cargo-leptos@0.2.12
 leptosfmt@0.1.18
 cargo-nextest@0.9.67
 cargo-outdated@0.14.0
@@ -311,7 +312,7 @@ setup-ci:
 
 # Updates Cargo packages to the latest versions in their specified ranges
 update-rs:
-    cargo upgrade
+    cargo upgrade --recursive
     cargo update
 
 # Updates Node packages to the latest versions in their specified ranges
@@ -323,7 +324,7 @@ update: update-rs update-js
 
 # Updates Cargo packages to their latest versions ignoring ranges in Cargo.toml
 update-rs-latest:
-    cargo upgrade --incompatible allow
+    cargo upgrade --recursive --incompatible allow
     cargo update
 
 # Updates Node packages to their latest versions ignoring ranges in package.json

@@ -19,8 +19,8 @@ serde.workspace = true
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
 tokio.workspace = true
 axum = "0.7.4"
-leptos_axum = "0.6.7"
-leptos_integration_utils = "0.6.7"
+leptos_axum = "0.6.8"
+leptos_integration_utils = "0.6.8"
 reqwest = { version = "0.11.24", features = ["json"] }
 tower = "0.4.13"
 tower-http = { version = "0.5.2", features = ["fs", "trace"] }
