@@ -1,6 +1,7 @@
 {
   "recommendations": [
     "antfu.unocss",
+    "biomejs.biome",
     "esbenp.prettier-vscode",
     "lokalise.i18n-ally",
     "ms-playwright.playwright",
