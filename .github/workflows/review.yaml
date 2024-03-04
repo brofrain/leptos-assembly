@@ -48,6 +48,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
+        with:
+          preceding-job-id: check
       - name: Lint
         run: just lint-ci
 
@@ -58,6 +60,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
+        with:
+          preceding-job-id: check
       - name: Build tests
         run: just build-tests
 
@@ -68,6 +72,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
+        with:
+          preceding-job-id: build-tests
       - name: Tests
         run: just test
 
@@ -88,6 +94,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/cache
+        with:
+          preceding-job-id: build
       - name: Setup Playwright
         run: npx playwright install --with-deps
       - name: E2E
