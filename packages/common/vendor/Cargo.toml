@@ -18,7 +18,7 @@ leptos_i18n.workspace = true
 leptos_meta.workspace = true
 serde.workspace = true
 wasm-bindgen.workspace = true
-ahash = { version = "0.8.10", features = ["serde"] }
+ahash = { version = "0.8.11", features = ["serde"] }
 anyhow = "1.0.80"
 derive_more = "0.99.17"
 educe = "0.5.11"
@@ -26,7 +26,7 @@ futures = "0.3.30"
 getrandom = { version = "0.2.12", features = ["js"], optional = true }
 getset = "0.1.2"
 icondata = "0.3.0"
-js-sys = "0.3.68"
+js-sys = "0.3.69"
 leptos-use = { version = "0.10.3", features = ["serde"] }
 log = "0.4.21"
 num = "0.4.1"
@@ -37,7 +37,7 @@ serde_json = "1.0.114"
 thiserror = "1.0.57"
 time = { version = "0.3.34", features = ["macros", "formatting", "parsing"] }
 unocss-classes = "2.0.0"
-web-sys = { version = "0.3.68", features = [
+web-sys = { version = "0.3.69", features = [
   "CssStyleDeclaration",
   "DomRect",
   "DomTokenList",

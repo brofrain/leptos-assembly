@@ -254,7 +254,7 @@ audit: audit-rs audit-js
 
 CARGO_EXECUTABLES := replace_regex('''
 just@1.24.0
-cargo-leptos@0.2.12
+cargo-leptos@0.2.13
 leptosfmt@0.1.18
 cargo-nextest@0.9.67
 cargo-outdated@0.14.0
@@ -313,7 +313,7 @@ setup-ci:
 # Updates Cargo packages to the latest versions in their specified ranges
 update-rs:
     cargo upgrade --recursive
-    cargo update
+    cargo update --recursive
 
 # Updates Node packages to the latest versions in their specified ranges
 update-js:
@@ -325,7 +325,7 @@ update: update-rs update-js
 # Updates Cargo packages to their latest versions ignoring ranges in Cargo.toml
 update-rs-latest:
     cargo upgrade --recursive --incompatible allow
-    cargo update
+    cargo update --recursive
 
 # Updates Node packages to their latest versions ignoring ranges in package.json
 update-js-latest:

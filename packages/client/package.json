@@ -10,7 +10,7 @@
     "unocss": "^0.58.5",
     "unocss-preset-better-nested-colors": "^1.0.0",
     "uuid": "^9.0.1",
-    "vite": "^5.1.4",
+    "vite": "^5.1.5",
     "vite-plugin-pwa": "^0.19.2",
     "vite-plugin-webfont-dl": "^3.9.1",
     "workbox-core": "^7.0.0",
