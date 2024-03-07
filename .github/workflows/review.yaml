@@ -19,7 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
+      - uses: ./.github/actions/cache
+        with:
+          preceding-job-id: build
+      - uses: extractions/setup-just@v2
+      - name: Setup
+        shell: bash
+        run: just setup-ci
 
   fmt:
     name: Formatting
@@ -53,8 +59,8 @@ jobs:
       - name: Lint
         run: just lint-ci
 
-  build-tests:
-    name: Build tests
+  build:
+    name: Build
     needs: check
     runs-on: ubuntu-latest
     steps:
@@ -62,12 +68,14 @@ jobs:
       - uses: ./.github/actions/cache
         with:
           preceding-job-id: check
+      - name: Build application
+        run: just build
       - name: Build tests
         run: just build-tests
 
   test:
     name: Tests
-    needs: build-tests
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -76,16 +84,6 @@ jobs:
           preceding-job-id: build-tests
       - name: Tests
         run: just test
-
-  build:
-    name: Build
-    needs: setup
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/cache
-      - name: Build
-        run: just build
 
   e2e:
     name: E2E
