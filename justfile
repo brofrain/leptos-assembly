@@ -254,14 +254,14 @@ audit: audit-rs audit-js
 
 CARGO_EXECUTABLES := replace_regex('''
 just@1.24.0
-cargo-leptos@0.2.13
+cargo-leptos@0.2.15
 leptosfmt@0.1.18
 cargo-nextest@0.9.67
 cargo-outdated@0.14.0
 cargo-audit@0.20.0
 cargo-udeps@0.1.46
 typos-cli@1.18.2
-wasm-bindgen-cli@0.2.91
+wasm-bindgen-cli@0.2.92
 ''', '\s+', ' ')
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.79
