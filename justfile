@@ -37,7 +37,7 @@ serve-pwa:
 # Builds the application in release mode and serves it
 serve-release:
     #!/usr/bin/env sh
-    [ ! -f "target/server-release/core" ] && just build
+    just build
     export LEPTOS_SITE_ADDR="127.0.0.1:3333"
     export LEPTOS_SITE_ROOT="target/client"
     export LEPTOS_SITE_PKG_DIR="hydrate"
@@ -253,20 +253,20 @@ audit: audit-rs audit-js
 # --- Dependency management ---
 
 CARGO_EXECUTABLES := replace_regex('''
-just@1.24.0
-cargo-leptos@0.2.15
+just@1.25.1
+cargo-leptos@0.2.16
 leptosfmt@0.1.18
 cargo-nextest@0.9.67
-cargo-outdated@0.14.0
+cargo-outdated@0.15.0
 cargo-audit@0.20.0
 cargo-udeps@0.1.46
-typos-cli@1.18.2
+typos-cli@1.19.0
 wasm-bindgen-cli@0.2.92
 ''', '\s+', ' ')
 CARGO_DEV_EXECUTABLES := replace_regex('''
 cargo-expand@1.0.79
 cargo-edit@0.12.2
-cargo-insta@1.35.1
+cargo-insta@1.36.1
 ''', '\s+', ' ')
 
 _setup +executables:
