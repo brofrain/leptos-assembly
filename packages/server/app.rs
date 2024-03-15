@@ -58,18 +58,13 @@ where
     let conf = get_configuration(None).await.unwrap();
     let leptos_options = conf.leptos_options;
     let addr = leptos_options.site_addr;
-    let routes = generate_route_list_with_exclusions(
-        app,
-        Some(vec!["/*path".to_owned()]),
-    );
+    let routes =
+        generate_route_list_with_exclusions(app, Some(vec!["/*path".to_owned()]));
 
-    let app_handler =
-        leptos_axum::render_app_to_stream(leptos_options.clone(), app);
+    let app_handler = leptos_axum::render_app_to_stream(leptos_options.clone(), app);
 
     let file_and_error_handler =
-        move |uri: Uri,
-              State(options): State<LeptosOptions>,
-              req: Request<Body>| async move {
+        move |uri: Uri, State(options): State<LeptosOptions>, req: Request<Body>| async move {
             let root = &options.site_root;
             let res = get_static_file(root, &uri).await;
 

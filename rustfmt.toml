@@ -1,7 +1,7 @@
 edition = "2021"
 condense_wildcard_suffixes = true
 error_on_line_overflow = false
-error_on_unformatted = true
+error_on_unformatted = false
 format_code_in_doc_comments = true
 format_macro_bodies = true
 format_macro_matchers = true
@@ -10,7 +10,7 @@ group_imports = "StdExternalCrate"
 hex_literal_case = "Lower"
 imports_granularity = "Crate"
 imports_layout = "HorizontalVertical"
-max_width = 80
+max_width = 90
 newline_style = "Unix"
 normalize_comments = true
 normalize_doc_attributes = true
