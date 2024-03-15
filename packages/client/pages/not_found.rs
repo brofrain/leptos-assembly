@@ -8,7 +8,8 @@ pub fn NotFound() -> impl IntoView {
     let params = use_params::<NotFoundParams>();
     let i18n = use_i18n();
 
-    let path = move || with!(|params| params.as_ref().unwrap().path.clone());
+    let path =
+        move || with!(|params| params.as_ref().map(|params| params.path().clone()).ok());
 
     let navigate = use_navigate();
 
@@ -22,7 +23,7 @@ pub fn NotFound() -> impl IntoView {
 
             <div class=uno!["text-lg"]>
                 <span class=uno!["op75"]>{t!(i18n, page_not_found)}</span>
-                " "
+                " /"
                 {path}
             </div>
 

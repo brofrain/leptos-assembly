@@ -33,15 +33,12 @@ pub fn Index() -> impl IntoView {
 
         spawn_local(async move {
             if show_confirm(
-                confirm::Options::default()
-                    .set_cancel(t!(i18n, home.confirm.cancel)),
+                confirm::Options::default().set_cancel(t!(i18n, home.confirm.cancel)),
             )
             .await
             .is_accepted()
             {
-                navigate(Route::Hi(Some(HiParams {
-                    name: name.get_untracked(),
-                })));
+                navigate(Route::Hi(HiParams::new(Some(name.get_untracked()))));
             }
         });
     };

@@ -18,7 +18,7 @@ pub fn HiName() -> impl IntoView {
 
     let name = Memo::new(move |_| {
         with!(|params| {
-            PctStr::new(&params.as_ref().unwrap().name)
+            PctStr::new(&params.as_ref().unwrap().name().as_ref().unwrap())
                 .unwrap()
                 .decode()
         })
@@ -54,7 +54,7 @@ pub fn HiName() -> impl IntoView {
                                 view! {
                                     <BaseLink
                                         class="text-sm"
-                                        to=Route::Hi(Some(HiParams { name: name.clone() }))
+                                        to=Route::Hi(HiParams::new(Some(name.clone())))
                                     >
                                         {name}
                                     </BaseLink>

@@ -6,20 +6,28 @@ use common::{
 };
 use leptos::Params;
 
-#[derive(Params, PartialEq)]
+#[derive(Params, PartialEq, Getters)]
+#[getset(get = "pub")]
 pub struct HiParams {
-    pub name: String,
+    name: Option<String>,
 }
 
-#[derive(Params, PartialEq)]
+impl HiParams {
+    pub const fn new(name: Option<String>) -> Self {
+        Self { name }
+    }
+}
+
+#[derive(Params, PartialEq, Getters)]
+#[getset(get = "pub")]
 pub struct NotFoundParams {
-    pub path: String,
+    path: String,
 }
 
 pub enum Route {
     Home,
     About,
-    Hi(Option<HiParams>),
+    Hi(HiParams),
     NotFound(NotFoundParams),
 }
 
@@ -28,12 +36,21 @@ impl fmt::Display for Route {
         match self {
             Self::Home => write!(f, "/"),
             Self::About => write!(f, "/about"),
-            Self::Hi(None) => write!(f, "/hi"),
-            Self::Hi(Some(HiParams { name })) => write!(f, "/hi/{name}"),
+            Self::Hi(HiParams { name }) => {
+                if let Some(name) = name {
+                    write!(f, "/hi/{name}")
+                } else {
+                    write!(f, "/hi")
+                }
+            }
             Self::NotFound(NotFoundParams { path }) => write!(f, "/{path}"),
         }
     }
 }
+
+pub const HI_ORIGINAL_PATH: &str = "/hi";
+pub const HI_NAME_ORIGINAL_PATH: &str = "/hi/:name";
+pub const NOT_FOUND_ORIGINAL_PATH: &str = "/*path";
 
 pub fn use_navigate() -> Callback<Route> {
     #[allow(clippy::disallowed_methods)]
