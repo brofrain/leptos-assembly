@@ -1,11 +1,6 @@
 use client_hooks::{logger, panic_handler};
 use client_i18n::provide_i18n_context;
-use client_router::{
-    Route,
-    HI_NAME_ORIGINAL_PATH,
-    HI_ORIGINAL_PATH,
-    NOT_FOUND_ORIGINAL_PATH,
-};
+use client_router::Route;
 use client_utils::reactivity::provide_global_context;
 use common::{
     prelude::*,
@@ -64,13 +59,13 @@ pub fn App() -> impl IntoView {
                     </RouteView>
 
                     <RouteView path="" view=client_layouts::Default>
-                        <RouteView path=HI_ORIGINAL_PATH view=client_pages::Hi/>
-                        <RouteView path=HI_NAME_ORIGINAL_PATH view=client_pages::HiName/>
+                        <RouteView path=Route::HI_ORIGINAL_PATH view=client_pages::Hi/>
+                        <RouteView path=Route::HI_NAME_ORIGINAL_PATH view=client_pages::HiName/>
                         <RouteView path=Route::About view=client_pages::About/>
                     </RouteView>
 
                     <RouteView path="" view=client_layouts::Blank>
-                        <RouteView path=NOT_FOUND_ORIGINAL_PATH view=client_pages::NotFound/>
+                        <RouteView path=Route::NOT_FOUND_ORIGINAL_PATH view=client_pages::NotFound/>
                     </RouteView>
 
                 </Routes>

@@ -48,9 +48,11 @@ impl fmt::Display for Route {
     }
 }
 
-pub const HI_ORIGINAL_PATH: &str = "/hi";
-pub const HI_NAME_ORIGINAL_PATH: &str = "/hi/:name";
-pub const NOT_FOUND_ORIGINAL_PATH: &str = "/*path";
+impl Route {
+    pub const HI_NAME_ORIGINAL_PATH: &'static str = "/hi/:name";
+    pub const HI_ORIGINAL_PATH: &'static str = "/hi";
+    pub const NOT_FOUND_ORIGINAL_PATH: &'static str = "/*path";
+}
 
 pub fn use_navigate() -> Callback<Route> {
     #[allow(clippy::disallowed_methods)]
