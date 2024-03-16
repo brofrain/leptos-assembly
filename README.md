@@ -54,7 +54,7 @@ Additionally, the project aspires to implement a strict, predictable and scalabl
 
 - [UnoCSS](https://github.com/unocss/unocss) - TailwindCSS, but better
 
-- [Iconify](https://icones.js.org/) - works well with UnoCSS
+- [Leptos-Icons](https://github.com/Carlosted/leptos-icons) - typed icons
 
 ### Coding style:
 
