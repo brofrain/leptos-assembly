@@ -16,11 +16,9 @@ fn get_macro_invocation_file_path() -> String {
     let file_path = quote! { std::file!() };
     let file_path: TokenStream = file_path.into();
 
-    syn::parse::<LitStr>(
-        file_path.expand_expr().expect("file path should expand"),
-    )
-    .expect("file path should be a string literal")
-    .value()
+    syn::parse::<LitStr>(file_path.expand_expr().expect("file path should expand"))
+        .expect("file path should be a string literal")
+        .value()
 }
 
 #[derive(Debug)]
@@ -86,8 +84,7 @@ fn generate_test_selectors_struct(
 
         if selector_path_chunks_len - 1 == depth {
             let field_name = selector_path_chunks.last().unwrap();
-            let field_name_ident =
-                Ident::new(field_name, proc_macro2::Span::call_site());
+            let field_name_ident = Ident::new(field_name, proc_macro2::Span::call_site());
 
             let hash = selector_hashes[i];
 
@@ -118,10 +115,8 @@ fn generate_test_selectors_struct(
         let child_struct_name_ident =
             Ident::new(child_struct_name, proc_macro2::Span::call_site());
 
-        let prefixed_child_struct_name_ident = Ident::new(
-            &prefixed_child_struct_name,
-            proc_macro2::Span::call_site(),
-        );
+        let prefixed_child_struct_name_ident =
+            Ident::new(&prefixed_child_struct_name, proc_macro2::Span::call_site());
 
         fields.push(
             quote! { pub #child_struct_name_ident: #prefixed_child_struct_name_ident },
@@ -147,9 +142,8 @@ fn generate_test_selectors_struct(
 static FILENAME_REG: LazyLock<Regex> =
     LazyLock::new(|| Regex::new(r"\/\w+\.rs$").unwrap());
 
-static PIN_TEST_SELECTOR_REG: LazyLock<Regex> = LazyLock::new(|| {
-    Regex::new(r"pin_test_selector!\(\s*(?P<el_id>\w*)\s*\)").unwrap()
-});
+static PIN_TEST_SELECTOR_REG: LazyLock<Regex> =
+    LazyLock::new(|| Regex::new(r"pin_test_selector!\(\s*(?P<el_id>\w*)\s*\)").unwrap());
 
 fn get_macro_invocation_dir_path() -> String {
     let macro_invocation_file_path = get_macro_invocation_file_path();
@@ -161,15 +155,12 @@ fn get_macro_invocation_dir_path() -> String {
     dir_path
 }
 
-fn make_component_files_walk(
-    dir_path: &str,
-) -> impl Iterator<Item = WalkEntry<'static>> {
+fn make_component_files_walk(dir_path: &str) -> impl Iterator<Item = WalkEntry<'static>> {
     // if macro is not invoked in a directory containing only components and
     // their tests, then we should limit the search to only directories that
     // may contain components
-    static COMPONENT_FILES_GLOB: LazyLock<Glob> = LazyLock::new(|| {
-        Glob::new("**/{app,components,layouts,pages}/**/*.rs").unwrap()
-    });
+    static COMPONENT_FILES_GLOB: LazyLock<Glob> =
+        LazyLock::new(|| Glob::new("**/{app,components,layouts,pages}/**/*.rs").unwrap());
 
     static RS_FILES_GLOB: LazyLock<Glob> =
         LazyLock::new(|| Glob::new("**/*.rs").unwrap());

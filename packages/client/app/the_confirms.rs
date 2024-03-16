@@ -7,9 +7,8 @@ use common::prelude::*;
 pub fn TheConfirms() -> impl IntoView {
     let queue = confirm::use_queue();
 
-    let reversed_queue = Memo::new(move |_| {
-        queue.get().iter().rev().copied().collect::<Vec<_>>()
-    });
+    let reversed_queue =
+        Memo::new(move |_| queue.get().iter().rev().copied().collect::<Vec<_>>());
 
     view! {
         <BaseAnimatedFor

@@ -103,11 +103,15 @@ e2e-ui:
 
 # Formats Rust files using rustfmt
 _fmt-rustfmt *args:
+    #!/usr/bin/env bash
+    shopt -s globstar
     rustfmt apps/**/*.rs packages/**/*.rs {{ args }}
 
 # Formats Leptos components using leptosfmt
 _fmt-leptosfmt *args:
-    leptosfmt packages/**/components/**/*.rs {{ args }}
+    #!/usr/bin/env bash
+    shopt -s globstar
+    leptosfmt packages/**/{app,components,layouts,pages}/**/*.rs {{ args }}
 
 # Formats Rust files including Leptos component syntax
 fmt-rs:

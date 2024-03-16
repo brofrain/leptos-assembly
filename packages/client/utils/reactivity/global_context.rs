@@ -24,8 +24,7 @@ where
     }
 
     with_owner(
-        GLOBAL_CTX_OWNER
-            .with(|owner| owner.borrow().expect("Owner should be provided")),
+        GLOBAL_CTX_OWNER.with(|owner| owner.borrow().expect("Owner should be provided")),
         move || {
             provide_context(initializer());
         },

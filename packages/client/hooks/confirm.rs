@@ -117,12 +117,12 @@ impl From<Options> for Confirm {
         let i18n = use_i18n();
         Self {
             id: id::runtime_usize(),
-            body: options.custom_body.unwrap_or_else(|| {
-                ViewCallback::new(t!(i18n, common.confirm.body))
-            }),
-            accept: options.custom_accept.unwrap_or_else(|| {
-                ViewCallback::new(t!(i18n, common.confirm.accept))
-            }),
+            body: options
+                .custom_body
+                .unwrap_or_else(|| ViewCallback::new(t!(i18n, common.confirm.body))),
+            accept: options
+                .custom_accept
+                .unwrap_or_else(|| ViewCallback::new(t!(i18n, common.confirm.accept))),
             cancel: if options.disable_cancel {
                 None
             } else {

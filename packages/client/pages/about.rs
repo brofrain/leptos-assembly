@@ -93,8 +93,7 @@ pub fn About() -> impl IntoView {
     let rng = StoredValue::new(thread_rng());
 
     let feature_bricks = RwSignal::new({
-        let mut bricks =
-            FEATURES.iter().map(FeatureBrick::new).collect::<Vec<_>>();
+        let mut bricks = FEATURES.iter().map(FeatureBrick::new).collect::<Vec<_>>();
 
         // BUG: randomized bricks don't match during hydration and SVGs are
         // broken as the result
@@ -110,9 +109,7 @@ pub fn About() -> impl IntoView {
 
         let mut i = None;
         update!(|rng| {
-            i = Some(
-                rng.gen_range(0..with!(|feature_bricks| feature_bricks.len())),
-            );
+            i = Some(rng.gen_range(0..with!(|feature_bricks| feature_bricks.len())));
         });
         i.unwrap()
     });
@@ -138,10 +135,7 @@ pub fn About() -> impl IntoView {
 
     let remove_random_feature_brick = move |_| {
         if with!(|feature_bricks| feature_bricks.is_empty()) {
-            push_toast(
-                Severity::Error,
-                t!(i18n, about.features.nothing_to_remove),
-            );
+            push_toast(Severity::Error, t!(i18n, about.features.nothing_to_remove));
             return;
         }
 

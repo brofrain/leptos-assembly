@@ -37,8 +37,7 @@ pub fn register() {
     let init_cb = Closure::<dyn Fn()>::wrap(Box::new({
         let sw_container = sw_container.clone();
         move || {
-            sw_container
-                .set_oncontrollerchange(Some(update_cb.unchecked_ref()));
+            sw_container.set_oncontrollerchange(Some(update_cb.unchecked_ref()));
         }
     }))
     .into_js_value();

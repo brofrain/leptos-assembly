@@ -22,9 +22,7 @@ async fn have_reactive_disabled_attribute() {
 
     let disabled = RwSignal::new(false);
 
-    mount(
-        move || view! { <BaseButton disabled=disabled>{"Hello, World!"}</BaseButton> },
-    );
+    mount(move || view! { <BaseButton disabled=disabled>{"Hello, World!"}</BaseButton> });
 
     let el = document().query_selector("button").unwrap().unwrap();
     let is_disabled = || el.has_attribute("disabled");

@@ -1,8 +1,8 @@
 use common::vendor::{
+    futures::{channel, select, Future, FutureExt},
     leptos::{on_cleanup, request_animation_frame, set_timeout, spawn_local},
     time::Duration,
 };
-use common::vendor::futures::{channel, select, Future, FutureExt};
 
 pub async fn sleep(time: Duration) {
     let (tx, rx) = channel::oneshot::channel();

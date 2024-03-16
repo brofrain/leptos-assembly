@@ -26,10 +26,7 @@ pub fn use_toggle_locale_and_push_toast() -> impl Fn() {
                 Locale::la => "en",
             };
 
-            push_toast(
-                toast::Severity::Info,
-                t!(i18n, locale.changed, new_locale),
-            );
+            push_toast(toast::Severity::Info, t!(i18n, locale.changed, new_locale));
         });
     }
 }

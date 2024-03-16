@@ -82,10 +82,7 @@ where
     V: IntoView,
     F: Fn() -> V + 'static,
 {
-    extern "rust-call" fn call_mut(
-        &mut self,
-        args: (Severity, F),
-    ) -> Self::Output {
+    extern "rust-call" fn call_mut(&mut self, args: (Severity, F)) -> Self::Output {
         self.push(args.0, args.1);
     }
 }
