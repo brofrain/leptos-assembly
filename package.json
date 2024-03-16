@@ -15,14 +15,14 @@
     "packages/**"
   ],
   "devDependencies": {
-    "@biomejs/biome": "1.5.3",
-    "@happy-dom/global-registrator": "^13.6.2",
+    "@biomejs/biome": "1.6.1",
+    "@happy-dom/global-registrator": "^13.8.6",
     "@playwright/test": "^1.42.1",
-    "@types/node": "^20.11.24",
-    "happy-dom": "^13.6.2",
+    "@types/node": "^20.11.28",
+    "happy-dom": "^13.8.6",
     "prettier": "^3.2.5",
     "prettier-plugin-toml": "^2.0.1",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   },
   "prettier": {
     "plugins": [
