@@ -279,12 +279,6 @@ _setup +executables:
         # Create local .cargo/config.toml file
         [ ! -f .cargo/config.toml ] && cp .cargo/config.example.toml .cargo/config.toml
 
-        # Rust toolchain
-        rustup toolchain install nightly \
-            --profile minimal \
-            -c rustfmt clippy rustc-codegen-cranelift-preview
-        rustup target add wasm32-unknown-unknown
-
         # cargo-binstall
         curl -L --proto '=https' --tlsv1.2 \
             -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh \
@@ -305,10 +299,9 @@ _setup +executables:
         wait
     )
 
-# Performs complete project setup and clears previous build artifacts
+# Performs complete project setup
 setup:
     just _setup {{ CARGO_EXECUTABLES }} {{ CARGO_DEV_EXECUTABLES }}
-    just clean
 
 # Performs project setup, but skips dependencies unused in CI
 setup-ci:
