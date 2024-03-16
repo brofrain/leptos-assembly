@@ -5,9 +5,7 @@ test.describe("navigation", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
 
-    const leptosTagInfo = page.locator(
-      selectors.layouts.home.the_leptos_tag_info,
-    );
+    const leptosTagInfo = page.locator(selectors.layouts.home.leptos_tag_info);
     await expect(leptosTagInfo).toBeVisible();
     await expect(leptosTagInfo).not.toContainText(
       "Fetching the latest Leptos release tag...",
@@ -30,7 +28,7 @@ test.describe("navigation", () => {
       await page.locator("input").fill(HI_NAME);
       await page.locator("button").click();
 
-      await page.locator(selectors.app.the_confirms.confirm).click();
+      await page.locator(selectors.app.confirms.confirm).click();
 
       await expect(page).toHaveURL(new RegExp(`/hi/${HI_NAME}$`));
     });
@@ -42,7 +40,7 @@ test.describe("navigation", () => {
       await input.fill(HI_NAME);
       await input.press("Enter");
 
-      await page.locator(selectors.app.the_confirms.confirm).click();
+      await page.locator(selectors.app.confirms.confirm).click();
 
       await expect(page).toHaveURL(new RegExp(`/hi/${HI_NAME}$`));
     });

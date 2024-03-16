@@ -5,7 +5,7 @@ use common::prelude::*;
 flatten_mod!(toast);
 
 #[component]
-pub fn TheToasts() -> impl IntoView {
+pub fn Toasts() -> impl IntoView {
     let toast_queue = use_queue();
 
     view! {

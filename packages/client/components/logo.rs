@@ -5,7 +5,7 @@ use common::prelude::*;
 use crate::BaseIcon;
 
 #[component]
-pub fn TheLogo(#[prop(optional, into)] class: MaybeTextProp) -> impl IntoView {
+pub fn Logo(#[prop(optional, into)] class: MaybeTextProp) -> impl IntoView {
     view! {
         <BaseIcon
             icon=icon::SiLeptos

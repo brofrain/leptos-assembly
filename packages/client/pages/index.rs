@@ -1,4 +1,4 @@
-use client_components::{BaseButton, BaseInput, BaseLink, TheLogo};
+use client_components::{BaseButton, BaseInput, BaseLink, Logo};
 use client_env::PROJECT_REPOSITORY_URL;
 use client_hooks::confirm;
 use client_i18n::use_i18n;
@@ -51,7 +51,7 @@ pub fn Index() -> impl IntoView {
 
     view! {
         <div class="text-center">
-            <TheLogo class="text-5xl mb1"/>
+            <Logo class="text-5xl mb1"/>
 
             <div>
                 <BaseLink to=PROJECT_REPOSITORY_URL>{t!(i18n, home.title)}</BaseLink>

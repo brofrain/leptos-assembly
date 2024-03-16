@@ -2,7 +2,7 @@ use client_hooks::overlay;
 use common::prelude::*;
 
 #[component]
-pub fn TheOverlay() -> impl IntoView {
+pub fn Overlay() -> impl IntoView {
     let show = overlay::use_show();
 
     view! {

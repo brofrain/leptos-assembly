@@ -4,7 +4,7 @@ use client_macros::pin_test_selector;
 use common::prelude::*;
 
 #[component]
-pub fn TheConfirms() -> impl IntoView {
+pub fn Confirms() -> impl IntoView {
     let queue = confirm::use_queue();
 
     let reversed_queue =

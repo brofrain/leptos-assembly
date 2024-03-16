@@ -9,7 +9,7 @@ use common::{
 };
 
 #[component]
-pub fn TheFooter() -> impl IntoView {
+pub fn Footer() -> impl IntoView {
     let i18n = use_i18n();
 
     let UseColorModeReturn { mode, set_mode, .. } = use_color_mode();

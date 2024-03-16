@@ -1,6 +1,6 @@
 use common::{prelude::*, vendor::leptos_router::Outlet};
 
-use crate::shared::TheFooter;
+use crate::shared::Footer;
 
 #[component]
 pub fn Default() -> impl IntoView {
@@ -8,7 +8,7 @@ pub fn Default() -> impl IntoView {
         <main class=uno!["p-(x4 y10)"]>
             <Outlet/>
 
-            <TheFooter/>
+            <Footer/>
             <div class=uno!["text-(center sm)", "op50"]>"[Default Layout]"</div>
         </main>
     }

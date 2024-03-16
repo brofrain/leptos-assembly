@@ -4,7 +4,7 @@ use client_i18n::use_i18n;
 use common::prelude::*;
 
 #[component]
-pub fn TheUpdateBanner() -> impl IntoView {
+pub fn UpdateBanner() -> impl IntoView {
     let i18n = use_i18n();
     let show = sw::use_update_available();
 

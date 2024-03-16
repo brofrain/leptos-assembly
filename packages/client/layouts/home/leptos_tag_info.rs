@@ -5,7 +5,7 @@ use common::prelude::*;
 use server::leptos_tag;
 
 #[component]
-pub fn TheLeptosTagInfo() -> impl IntoView {
+pub fn LeptosTagInfo() -> impl IntoView {
     let i18n = use_i18n();
     let nprogress = nprogress::use_switch();
 

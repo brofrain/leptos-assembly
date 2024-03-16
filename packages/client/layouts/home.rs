@@ -1,8 +1,8 @@
 use common::{prelude::*, vendor::leptos_router::Outlet};
 
-use crate::shared::TheFooter;
+use crate::shared::Footer;
 
-flatten_mod!(the_leptos_tag_info);
+flatten_mod!(leptos_tag_info);
 
 #[component]
 pub fn Home() -> impl IntoView {
@@ -10,8 +10,8 @@ pub fn Home() -> impl IntoView {
         <main class=uno!["p-(x6 y10)"]>
             <Outlet/>
 
-            <TheFooter/>
-            <TheLeptosTagInfo/>
+            <Footer/>
+            <LeptosTagInfo/>
             <div class=uno!["text-(center sm)", "op50"]>"[Home Layout]"</div>
         </main>
     }

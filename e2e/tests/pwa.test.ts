@@ -18,7 +18,7 @@ test.describe("pwa", () => {
         ),
     );
 
-    const logoLocator = page.locator(selectors.components.the_logo);
+    const logoLocator = page.locator(selectors.components.logo);
 
     await logoLocator.waitFor();
     expect(await logoLocator.isVisible()).toBe(true);

@@ -11,10 +11,10 @@ use common::{
     },
 };
 
-flatten_mod!(the_confirms, the_overlay, the_toasts, the_update_banner);
+flatten_mod!(confirms, overlay, toasts, update_banner);
 
 #[cfg(test)]
-mod the_confirms_test;
+mod confirms_test;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -71,10 +71,10 @@ pub fn App() -> impl IntoView {
                 </Routes>
             </Router>
 
-            <TheUpdateBanner/>
-            <TheOverlay/>
-            <TheConfirms/>
-            <TheToasts/>
+            <UpdateBanner/>
+            <Overlay/>
+            <Confirms/>
+            <Toasts/>
         </div>
     }
 }

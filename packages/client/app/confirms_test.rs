@@ -9,7 +9,7 @@ use common::{
 use dev::{mock_browser, mount};
 use wasm_bindgen_test::wasm_bindgen_test;
 
-use crate::TheConfirms;
+use crate::Confirms;
 
 #[wasm_bindgen_test]
 async fn can_be_confirmed() {
@@ -20,7 +20,7 @@ async fn can_be_confirmed() {
     let show_confirm = confirm::use_show();
     let confirmed = StoredValue::new(false);
 
-    mount(TheConfirms);
+    mount(Confirms);
 
     spawn_local(async move {
         if show_confirm(confirm::Options::default())
@@ -36,7 +36,7 @@ async fn can_be_confirmed() {
     let selectors = generate_test_selectors!();
 
     document()
-        .query_selector(selectors.the_confirms.confirm)
+        .query_selector(selectors.confirms.confirm)
         .unwrap()
         .unwrap()
         .dyn_into::<web_sys::HtmlButtonElement>()
@@ -57,7 +57,7 @@ async fn can_be_canceled() {
     let show_confirm = confirm::use_show();
     let accepted = StoredValue::new(false);
 
-    mount(TheConfirms);
+    mount(Confirms);
 
     spawn_local(async move {
         if show_confirm(confirm::Options::default())
@@ -73,7 +73,7 @@ async fn can_be_canceled() {
     let selectors = generate_test_selectors!();
 
     document()
-        .query_selector(selectors.the_confirms.cancel)
+        .query_selector(selectors.confirms.cancel)
         .unwrap()
         .unwrap()
         .dyn_into::<web_sys::HtmlButtonElement>()
