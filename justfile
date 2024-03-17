@@ -284,24 +284,25 @@ _setup +executables:
             -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh \
             | bash > /dev/null
 
-        # Node dependencies
-        # (should not run in parallel with other stuff,
-        # because `playwright install --with-deps` may ask for permissions)
-        npm i -g pnpm
-        pnpm i --frozen-lockfile
-        npx playwright install --with-deps
-
         # Cargo executables
         for dep in {{ executables }}; do
             cargo binstall $dep -y --only-signed --no-discover-github-token --log-level error &
         done
 
+        npm i -g pnpm
+        pnpm i --frozen-lockfile
+
         wait
     )
+
+# Installs Playwright with necessary dependencies
+setup-e2e:
+    npx playwright install --with-deps
 
 # Performs complete project setup
 setup:
     just _setup {{ CARGO_EXECUTABLES }} {{ CARGO_DEV_EXECUTABLES }}
+    just setup-e2e
 
 # Performs project setup, but skips dependencies unused in CI
 setup-ci:
