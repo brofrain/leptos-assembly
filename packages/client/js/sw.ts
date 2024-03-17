@@ -1,7 +1,7 @@
 /// <reference lib="WebWorker" />
 
 import {
-  RouteHandlerCallbackOptions,
+  type RouteHandlerCallbackOptions,
   cacheNames,
   clientsClaim,
 } from "workbox-core";

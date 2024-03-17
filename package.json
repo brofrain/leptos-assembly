@@ -10,10 +10,7 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm"
   },
-  "workspaces": [
-    "e2e",
-    "packages/**"
-  ],
+  "workspaces": ["e2e", "packages/**"],
   "devDependencies": {
     "@biomejs/biome": "1.6.1",
     "@happy-dom/global-registrator": "^13.8.6",
@@ -25,8 +22,6 @@
     "typescript": "^5.4.2"
   },
   "prettier": {
-    "plugins": [
-      "prettier-plugin-toml"
-    ]
+    "plugins": ["prettier-plugin-toml"]
   }
 }

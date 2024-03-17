@@ -9,5 +9,8 @@
       "style": { "noNonNullAssertion": "off" }
     }
   },
-  "organizeImports": { "enabled": true }
+  "organizeImports": {
+    "enabled": true,
+    "ignore": ["packages/client/js/bindings/index.ts"]
+  }
 }
