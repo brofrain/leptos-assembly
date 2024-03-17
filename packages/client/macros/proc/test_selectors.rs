@@ -248,6 +248,10 @@ pub fn generate() -> TokenStream {
         let file = fs::File::open(path).unwrap();
         let reader = io::BufReader::new(file);
 
+        if let Some(path) = path.as_os_str().to_str() {
+            proc_macro::tracked_path::path(path);
+        }
+
         for line in reader.lines() {
             let line = line.unwrap();
 

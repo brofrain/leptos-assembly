@@ -1,6 +1,7 @@
 #![feature(lazy_cell)]
 #![feature(proc_macro_expand)]
 #![feature(let_chains)]
+#![feature(track_path)]
 
 use proc_macro::TokenStream;
 use quote::ToTokens;
