@@ -1,18 +1,18 @@
-use std::panic;
-
-use client_i18n::use_i18n;
-use common::prelude::*;
-
-use super::confirm;
-
+#[cfg(target_arch = "wasm32")]
 pub fn use_init() {
+    use std::panic;
+
+    use client_i18n::use_i18n;
+    use common::prelude::*;
+
+    use super::confirm;
+
     let i18n = use_i18n();
 
-    panic::set_hook(Box::new(move |panic_info| {
+    panic::set_hook(Box::new(move |info| {
         let show_confirm = confirm::use_show();
 
-        let msg = panic_info.to_string();
-        log::error!("{msg}");
+        log::error!("{info}");
 
         spawn_local(async move {
             show_confirm(
@@ -27,3 +27,6 @@ pub fn use_init() {
         });
     }));
 }
+
+#[cfg(not(target_arch = "wasm32"))]
+pub const fn use_init() {}
