@@ -123,7 +123,7 @@ _prettier +args:
 
 # Formats supported files with Biome
 _fmt-biome:
-    npx biome check . --apply
+    npx biome check . --apply --linter-enabled=false
 
 # Formats files not supported by Biome with Prettier
 _fmt-prettier: (_prettier "-w")
@@ -158,7 +158,7 @@ _fmt-check-leptosfmt:
     just _fmt-leptosfmt --check
 
 _fmt-check-biome:
-    npx biome check .
+    npx biome check . --linter-enabled=false --error-on-warnings
 
 _fmt-check-prettier:
     just _prettier --check
@@ -223,23 +223,24 @@ _rust-analyzer-check:
         wait
     )
 
-# Checks for TypeScript errors
-lint-ts:
+# Checks for TypeScript and Biome errors
+lint-js:
     just generate-e2e-selectors
     npx tsc -p packages/client
     npx tsc -p e2e
+    npx biome lint . --error-on-warnings
 
 # Checks for typos
 lint-typos:
     typos
 
 # Lints the project
-lint: lint-rs lint-ts lint-typos
+lint: lint-rs lint-js lint-typos
 
 # Lints the project without optimizations and disallows warnings
 lint-ci:
     just _lint-rs -D warnings
-    just lint-ts lint-typos
+    just lint-js lint-typos
 
 # --- Security ---
 
