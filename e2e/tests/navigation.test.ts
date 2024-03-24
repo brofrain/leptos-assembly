@@ -4,6 +4,7 @@ import selectors from "~client-selectors";
 test.describe("navigation", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
+    await page.waitForLoadState("domcontentloaded");
 
     const leptosTagInfo = page.locator(selectors.layouts.home.leptos_tag_info);
     await expect(leptosTagInfo).toBeVisible();
