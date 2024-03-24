@@ -19,6 +19,7 @@ pub mod prelude {
         icondata as icon,
         leptos,
         leptos::{
+            batch,
             component,
             create_action,
             event_target_value,
